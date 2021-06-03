@@ -1,0 +1,97 @@
+graph {
+	FAMILIAS -- correderas
+	FAMILIAS -- practicables
+	FAMILIAS -- puertas
+	FAMILIAS -- "puertas apertura exterior"
+	FAMILIAS -- elevadoras
+	FAMILIAS -- persianas
+	FAMILIAS -- barandillas
+	FAMILIAS -- "puerta bandera"
+	ANCHO -- "números"
+	ANCHO -- voz
+	ALTO -- "números."
+	ALTO -- "voz."
+	MATERIAL -- pvc
+	MATERIAL -- aluminio
+	COLOR -- ral
+	COLOR -- anonizados
+	COLOR -- madera
+	COLOR -- blanco
+	COLOR -- embero
+	COLOR -- nogal
+	COLOR -- "pino envejecido"
+	COLOR -- plata
+	COLOR -- bronce
+	COLOR -- inox
+	COLOR -- "verde 6009"
+	COLOR -- "verde 6002"
+	COLOR -- "marrón 8014"
+	COLOR -- "crema 1015"
+	COLOR -- "ral.7022"
+	COLOR -- "ral.7016"
+	COLOR -- "plata ext/blanco int"
+	COLOR -- "embero ext/blanco int"
+	COLOR -- "bronce exte/blanco int"
+	COLOR -- "blanco ext/embero int"
+	ral -- "carta ral"
+	anonizados -- "plata."
+	anonizados -- "inox."
+	madera -- "embero."
+	madera -- "nogal."
+	madera -- "pino envejecido."
+	madera -- "pino pollo"
+	madera -- otro
+	APERTURA -- vista
+	APERTURA -- abre
+	APERTURA -- mano
+	APERTURA -- oscilobatiente
+	APERTURA -- piven
+	vista -- dentro
+	vista -- fuera
+	abre -- interior
+	abre -- exterior
+	mano -- izquierda
+	mano -- derecha
+	MALLORQUINA -- "lama móvil"
+	MALLORQUINA -- "lama fija"
+	MALLORQUINA -- "travesaño horizontal"
+	MALLORQUINA -- "travesaño vertical"
+	MALLORQUINA -- cruceta
+	MALLORQUINA -- "otro.."
+	CIERRES -- cremona
+	CIERRES -- "cerradura."
+	CIERRES -- "cerradura 3 puntos"
+	CIERRES -- pasadores
+	CIERRES -- "maneta presión"
+	CIERRES -- "maneta interior/exterior"
+	CIERRES -- "solo maneta interior"
+	CIERRES -- "solo maneta exterior"
+	CIERRES -- "otro..."
+	TAPAJUNTAS -- 30
+	TAPAJUNTAS -- 40
+	TAPAJUNTAS -- 60
+	TAPAJUNTAS -- 80
+	TAPAJUNTAS -- 100
+	"FORRO EXTERIOR" -- pletina
+	"FORRO EXTERIOR" -- 40.
+	"FORRO EXTERIOR" -- 60.
+	"FORRO EXTERIOR" -- "otro....."
+	CRISTAL -- "Cámara"
+	CRISTAL -- "4/cámara/6"
+	CRISTAL -- "4/camara/4+4"
+	CRISTAL -- "6/?/4+4 silenc"
+	CRISTAL -- "4+4"
+	CRISTAL -- "5+5"
+	CRISTAL -- "6+6"
+	CRISTAL -- "otro......"
+	MARCO -- abierto
+	MARCO -- solera
+	MARCO -- cerrado
+	HERRAJE -- "mismo color"
+	HERRAJE -- "bisagras seguridad"
+	HERRAJE -- "cierre clío + uñero ext"
+	HERRAJE -- muelle
+	HERRAJE -- "cerradura electrónica"
+	HERRAJE -- "tirador ext"
+	HERRAJE -- "tirador ext/int"
+}
