@@ -16,6 +16,7 @@
 		251CFA4D26F8F2A600B8C6D7 /* configurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251CFA4A26F8F2A600B8C6D7 /* configurationView.swift */; };
 		2537753A26FA207B00DB9541 /* Stash.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2537753826FA207B00DB9541 /* Stash.xcdatamodeld */; };
 		2537753D26FA237300DB9541 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2537753C26FA237300DB9541 /* PersistenceController.swift */; };
+		2537753F26FA489800DB9541 /* debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2537753E26FA489800DB9541 /* debug.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		251CFA4A26F8F2A600B8C6D7 /* configurationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = configurationView.swift; path = Home/Nuevo/configurationView.swift; sourceTree = "<group>"; };
 		2537753926FA207B00DB9541 /* Stash.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Stash.xcdatamodel; sourceTree = "<group>"; };
 		2537753C26FA237300DB9541 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+		2537753E26FA489800DB9541 /* debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = debug.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				2537753C26FA237300DB9541 /* PersistenceController.swift */,
+				2537753E26FA489800DB9541 /* debug.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -183,6 +186,7 @@
 				25076F5A2669956F00126F25 /* feivanApp.swift in Sources */,
 				2537753A26FA207B00DB9541 /* Stash.xcdatamodeld in Sources */,
 				251CFA4B26F8F2A600B8C6D7 /* familyView.swift in Sources */,
+				2537753F26FA489800DB9541 /* debug.swift in Sources */,
 				251CFA4C26F8F2A600B8C6D7 /* clientView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

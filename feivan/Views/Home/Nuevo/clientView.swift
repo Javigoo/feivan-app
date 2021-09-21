@@ -8,16 +8,18 @@
 import SwiftUI
 
 struct clientView: View {
-    @State public var nombreCliente: String = ""
+    @Environment(\.managedObjectContext) var managedObjectContext
+
+    @State private var nombreCliente: String = ""
     @State private var direccionCliente: String = ""
     @State private var telefonoCliente: String = ""
     @State private var emailCliente: String = ""
     @State private var referenciaCliente: String = ""
     @State private var comentarioCliente: String = ""
-    
-    @Environment(\.managedObjectContext) var managedObjectContext
-
+        
     var body: some View {
+        let client = Client(context: managedObjectContext)
+        
         VStack {
             Text("").navigationTitle("Cliente")
             
@@ -34,23 +36,26 @@ struct clientView: View {
                     TextEditor(text: $comentarioCliente)
                 }
                 
-                Button(action: {
-                    let client = Client(context: managedObjectContext)
-                    client.name = nombreCliente
-                    
-                    PersistenceController.shared.save()
-                }, label: {
-                    Text("Add client")
-                })
-                
             }
             
-            NavigationLink(destination: familyView(), label: {
-                Text("Siguiente")
-            })
-                                  
+            
+            NavigationLink(destination: familyView()) {
+                                    Text("Siguiente")
+                                }
+            // Guarda la información del cliente al pasar a la siguiente vista
+            
+            .simultaneousGesture(TapGesture().onEnded{
+                                    client.adress = direccionCliente
+                                    client.comment = comentarioCliente
+                                    client.email = emailCliente
+                                    client.name = nombreCliente
+                                    client.phone = telefonoCliente
+                                    client.reference = referenciaCliente
+                                    PersistenceController.shared.save()
+                                })
         }
     }
+    
 }
 
 struct clientView_Previews: PreviewProvider {

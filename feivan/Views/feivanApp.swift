@@ -19,7 +19,9 @@ struct feivanApp: App {
             homeView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
+        
         // Guarda la información si la aplicación está en segundo plano
+        
         .onChange(of: scenePhase) { (newScenePhase) in
             switch newScenePhase {
             case .background:

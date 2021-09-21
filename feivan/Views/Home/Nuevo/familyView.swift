@@ -18,6 +18,12 @@ struct familyView: View {
         VStack {
             
             Text("").navigationTitle("Familia")
+                                
+            if debug() {
+                Text("DEBUG ACTIVADO")
+            } else {
+                Text("DEBUG DESACTIVADO")
+            }
             
             List(clients, id: \.self) { client in
                 Text(client.name ?? "unknown")
