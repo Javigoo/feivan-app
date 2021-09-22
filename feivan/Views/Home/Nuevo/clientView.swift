@@ -5,20 +5,23 @@
 //  Created by javigo on 22/7/21.
 //
 
+// todo: Separar controlador (func) de vista (struct: View)
+
 import SwiftUI
 
 struct clientView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
 
-    @State private var nombreCliente: String = ""
-    @State private var direccionCliente: String = ""
-    @State private var telefonoCliente: String = ""
-    @State private var emailCliente: String = ""
-    @State private var referenciaCliente: String = ""
     @State private var comentarioCliente: String = ""
+    @State private var direccionCliente: String = ""
+    @State private var emailCliente: String = ""
+    @State private var nombreCliente: String = ""
+    @State private var referenciaCliente: String = ""
+    @State private var telefonoCliente: String = ""
+
         
     var body: some View {
-        let client = Client(context: managedObjectContext)
+        let cliente = Cliente(context: managedObjectContext)
         
         VStack {
             Text("").navigationTitle("Cliente")
@@ -38,21 +41,29 @@ struct clientView: View {
                 
             }
             
+            #if false
+                Text("Nombre: \(nombreCliente)")
+                Text("Teléfono: \(telefonoCliente)")
+                Text("Email: \(emailCliente)")
+                Text("Dirección: \(direccionCliente)")
+                Text("Referencia: \(referenciaCliente)")
+                Text("Comentario: \(comentarioCliente)")
+                Divider()
+            #endif
             
             NavigationLink(destination: familyView()) {
                                     Text("Siguiente")
                                 }
             // Guarda la información del cliente al pasar a la siguiente vista
-            
             .simultaneousGesture(TapGesture().onEnded{
-                                    client.adress = direccionCliente
-                                    client.comment = comentarioCliente
-                                    client.email = emailCliente
-                                    client.name = nombreCliente
-                                    client.phone = telefonoCliente
-                                    client.reference = referenciaCliente
-                                    PersistenceController.shared.save()
-                                })
+                cliente.comentario = comentarioCliente
+                cliente.direccion = direccionCliente
+                cliente.email = emailCliente
+                cliente.nombre = nombreCliente
+                cliente.referencia = referenciaCliente
+                cliente.telefono = telefonoCliente
+                PersistenceController.shared.save()
+            })
         }
     }
     

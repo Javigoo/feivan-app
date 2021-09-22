@@ -1,20 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Client" representedClassName="Client" syncable="YES" codeGenerationType="class">
-        <attribute name="adress" optional="YES" attributeType="String"/>
-        <attribute name="comment" optional="YES" attributeType="String"/>
+    <entity name="Cliente" representedClassName="Cliente" syncable="YES" codeGenerationType="class">
+        <attribute name="comentario" optional="YES" attributeType="String"/>
+        <attribute name="direccion" optional="YES" attributeType="String"/>
         <attribute name="email" optional="YES" attributeType="String"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="phone" optional="YES" attributeType="String"/>
-        <attribute name="reference" optional="YES" attributeType="String"/>
-        <relationship name="toProject" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="toClient" inverseEntity="Project"/>
+        <attribute name="nombre" attributeType="String"/>
+        <attribute name="referencia" optional="YES" attributeType="String"/>
+        <attribute name="telefono" optional="YES" attributeType="String"/>
+        <relationship name="proyectos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Proyecto" inverseName="cliente" inverseEntity="Proyecto"/>
     </entity>
-    <entity name="Project" representedClassName="Project" syncable="YES" codeGenerationType="class">
-        <attribute name="products" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="toClient" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Client" inverseName="toProject" inverseEntity="Client"/>
+    <entity name="Producto" representedClassName="Producto" syncable="YES" codeGenerationType="class">
+        <attribute name="apertura" optional="YES" attributeType="String"/>
+        <attribute name="cierres" optional="YES" attributeType="String"/>
+        <attribute name="color" optional="YES" attributeType="String"/>
+        <attribute name="cristal" optional="YES" attributeType="String"/>
+        <attribute name="dimensiones" optional="YES" attributeType="String"/>
+        <attribute name="familia" optional="YES" attributeType="String"/>
+        <attribute name="forroExterior" optional="YES" attributeType="String"/>
+        <attribute name="foto" optional="YES" attributeType="String"/>
+        <attribute name="herraje" optional="YES" attributeType="String"/>
+        <attribute name="huella" optional="YES" attributeType="String"/>
+        <attribute name="instalacion" optional="YES" attributeType="String"/>
+        <attribute name="mallorquina" optional="YES" attributeType="String"/>
+        <attribute name="marco" optional="YES" attributeType="String"/>
+        <attribute name="marcoInferior" optional="YES" attributeType="String"/>
+        <attribute name="material" optional="YES" attributeType="String"/>
+        <attribute name="nombre" optional="YES" attributeType="String"/>
+        <attribute name="posicion" optional="YES" attributeType="String"/>
+        <attribute name="rematesAlbanileria" optional="YES" attributeType="String"/>
+        <attribute name="tapajuntas" optional="YES" attributeType="String"/>
+        <attribute name="ubicacion" optional="YES" attributeType="String"/>
+        <relationship name="proyecto" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Proyecto" inverseName="productos" inverseEntity="Proyecto"/>
+    </entity>
+    <entity name="Proyecto" representedClassName="Proyecto" syncable="YES" codeGenerationType="class">
+        <attribute name="ascensor" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="grua" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="subirFachada" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <relationship name="cliente" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Cliente" inverseName="proyectos" inverseEntity="Cliente"/>
+        <relationship name="productos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Producto" inverseName="proyecto" inverseEntity="Producto"/>
     </entity>
     <elements>
-        <element name="Client" positionX="-63" positionY="-18" width="128" height="134"/>
-        <element name="Project" positionX="-54" positionY="36" width="128" height="59"/>
+        <element name="Cliente" positionX="-201.1354370117188" positionY="-319.6880798339844" width="94.776611328125" height="148"/>
+        <element name="Producto" positionX="240.7369384765625" positionY="-87.03280639648438" width="128" height="358"/>
+        <element name="Proyecto" positionX="16.32373046875" positionY="-159.4458923339844" width="128" height="118"/>
     </elements>
 </model>

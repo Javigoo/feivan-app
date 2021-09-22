@@ -10,10 +10,9 @@ import SwiftUI
 @main
 struct feivanApp: App {
     
-    let persistenceController = PersistenceController.shared
-    
     @Environment(\.scenePhase) var scenePhase
-    
+    let persistenceController = PersistenceController.shared
+        
     var body: some Scene {
         WindowGroup {
             homeView()
@@ -21,7 +20,6 @@ struct feivanApp: App {
         }
         
         // Guarda la información si la aplicación está en segundo plano
-        
         .onChange(of: scenePhase) { (newScenePhase) in
             switch newScenePhase {
             case .background:
@@ -35,5 +33,6 @@ struct feivanApp: App {
                 print("Apple must have changed something")
             }
         }
+        
     }
 }
