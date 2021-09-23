@@ -10,6 +10,7 @@ import SwiftUI
 struct homeView: View {
     var body: some View {
         NavigationView {
+        
             VStack(spacing: 15){
                 
                 Image("logo")

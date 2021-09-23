@@ -11,6 +11,7 @@ struct configurationView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
 
     let producto = ["Material", "Dimensiones", "Color", "Tapajuntas", "Apertura", "Cristal", "Forro exterior", "Instalación", "Mallorquina", "Cierres", "Marco inferior", "Huella", "Marco", "Herraje", "Posición", "Ubicación", "Remates albañilería", "Añadir foto"]
+    
     let materiales = ["PVC", "Aluminio"]
     
     @State private var material = ""
@@ -84,7 +85,7 @@ struct configurationView: View {
                 }
             }
             
-            NavigationLink(destination: Text("Falta añadir el siguiente apartado"), label: {
+            NavigationLink(destination: summaryView(), label: {
                 Text("Siguiente")
             })
         }
