@@ -16,15 +16,15 @@ struct productView: View {
                      "Corredera de 4 hojas"]
         
     var body: some View {
-        Text("").navigationTitle("Productos")
-        
         ScrollView {
+            Text("").navigationTitle("Productos")
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 160))], spacing: 20) {
                 ForEach(productos, id: \.self) { producto in
                     VStack {
                         Image(producto)
                             .resizable()
                             .scaledToFit()
+                            .shadow(radius: 5)
                         NavigationLink(destination: configurationView(), label: {
                             Text(producto)
                         })

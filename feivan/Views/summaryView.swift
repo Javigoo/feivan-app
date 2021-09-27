@@ -7,60 +7,55 @@
 
 import SwiftUI
 
+let atributosCliente = ["Nombre", "Teléfono", "Email", "Dirección", "Referencia", "Comentario"]
+let atributosProyecto = ["Ascensor", "Grúa", "Subir fachada"]
+let atributosProducto = ["Producto", "Familia", "Posición", "Material", "Dimensiones", "Color", "Tapajuntas", "Apertura", "Cristal", "Forro exterior", "Instalación", "Mallorquina", "Cierres", "Marco inferior", "Huella", "Marco", "Herraje", "Ubicación", "Remates albañilería", "Fotos"]
+
 struct summaryView: View {
-    
-    var body: some View {
-        Text("").navigationTitle("Resumen")
         
-        ScrollView {
-            VStack(alignment: .leading, spacing: 25) {
-                
-                VStack(alignment: .leading) {
-                    Section(header: Text("Cliente").bold()) {
-                        Text("Nombre: ")
-                        Text("Teléfono: ")
-                        Text("Email: ")
-                        Text("Dirección: ")
-                        Text("Referencia: ")
-                        Text("Comentario: ")
-                    }
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text("").navigationTitle("Resumen")
+            
+            Text("Cliente")
+                .font(.title)
+            ForEach(atributosCliente, id: \.self) { atributo in
+                HStack {
+                    Text(atributo)
+                    Spacer()
+                    Text("...")
                 }
-                
-                VStack(alignment: .leading) {
-                    Section(header: Text("Proyecto").bold()) {
-                        Text("Ascensor: ")
-                        Text("Grua: ")
-                        Text("Subir fachada: ")
-                    }
-                }
-                
-                VStack(alignment: .leading) {
-                    Section(header: Text("Producto").bold()) {
-                        Group {
-                            Text("Dimensiones: ")
-                            Text("Color: ")
-                            Text("Tapajuntas: ")
-                            Text("Apertura: ")
-                            Text("Cristal: ")
-                            Text("Forro exterior: ")
-                            Text("Instalacion: ")
-                            Text("Mallorquina: ")
-                            Text("Cierres: ")
-                            Text("Marco Inferior: ")
-                        }
-                        Group {
-                            Text("Huella: ")
-                            Text("Marco: ")
-                            Text("Herraje: ")
-                            Text("Posición: ")
-                            Text("Ubicación: ")
-                            Text("Remates Albañilería: ")
-                            Text("Foto: ")
-                        }
-                    }
-                }
+                .font(.subheadline)
             }
+            
+            Spacer()
+
+            Text("Proyecto")
+                .font(.title)
+            ForEach(atributosProyecto, id: \.self) { atributo in
+                HStack {
+                    Text(atributo)
+                    Spacer()
+                    Text("...")
+                }
+                .font(.subheadline)
+            }
+            
+            Spacer()
+            
+            Text("Producto")
+                .font(.title)
+            ForEach(atributosProducto, id: \.self) { atributo in
+                HStack {
+                    Text(atributo)
+                    Spacer()
+                    Text("...")
+                }
+                .font(.subheadline)
+            }
+            
         }
+        .padding()
     }
 }
 
