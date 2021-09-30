@@ -17,23 +17,26 @@ struct productView: View {
         
     var body: some View {
         ScrollView {
-            Text("").navigationTitle("Productos")
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 160))], spacing: 20) {
                 ForEach(productos, id: \.self) { producto in
-                    VStack {
-                        Image(producto)
-                            .resizable()
-                            .scaledToFit()
-                            .shadow(radius: 5)
-                        NavigationLink(destination: configurationView(), label: {
+                    NavigationLink(destination: configurationView(), label: {
+                        VStack {
+                            Image(producto)
+                                .resizable()
+                                .scaledToFit()
+                                .shadow(radius: 5)
                             Text(producto)
-                        })
-                    }
-                        
+                                .font(.subheadline)
+                        }
+                    })
+                    .padding()
+                    .accentColor(.black)
+
                 }
             }
-            .padding(.horizontal)
+            .padding()
         }
+        .navigationTitle("Productos")
     }
 }
 

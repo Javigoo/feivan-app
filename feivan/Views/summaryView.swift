@@ -14,48 +14,50 @@ let atributosProducto = ["Producto", "Familia", "Posición", "Material", "Dimens
 struct summaryView: View {
         
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("").navigationTitle("Resumen")
-            
-            Text("Cliente")
-                .font(.title)
-            ForEach(atributosCliente, id: \.self) { atributo in
-                HStack {
-                    Text(atributo)
-                    Spacer()
-                    Text("...")
+        ScrollView {
+            VStack(alignment: .leading) {
+                
+                Text("Cliente")
+                    .font(.title)
+                ForEach(atributosCliente, id: \.self) { atributo in
+                    HStack {
+                        Text(atributo)
+                        Spacer()
+                        Text("...")
+                    }
+                    .font(.subheadline)
                 }
-                .font(.subheadline)
-            }
-            
-            Spacer()
+                
+                Spacer()
 
-            Text("Proyecto")
-                .font(.title)
-            ForEach(atributosProyecto, id: \.self) { atributo in
-                HStack {
-                    Text(atributo)
-                    Spacer()
-                    Text("...")
+                Text("Proyecto")
+                    .font(.title)
+                ForEach(atributosProyecto, id: \.self) { atributo in
+                    HStack {
+                        Text(atributo)
+                        Spacer()
+                        Text("...")
+                    }
+                    .font(.subheadline)
                 }
-                .font(.subheadline)
-            }
-            
-            Spacer()
-            
-            Text("Producto")
-                .font(.title)
-            ForEach(atributosProducto, id: \.self) { atributo in
-                HStack {
-                    Text(atributo)
-                    Spacer()
-                    Text("...")
+                
+                Spacer()
+                
+                Text("Producto")
+                    .font(.title)
+                ForEach(atributosProducto, id: \.self) { atributo in
+                    HStack {
+                        Text(atributo)
+                        Spacer()
+                        Text("...")
+                    }
+                    .font(.subheadline)
                 }
-                .font(.subheadline)
+                
             }
-            
+            .padding()
         }
-        .padding()
+        .navigationTitle("Resumen")
     }
 }
 

@@ -1,0 +1,10 @@
+{
+  "cliente": [
+    "nombre",
+    "dirección",
+    "teléfono",
+    "email",
+    "referencia",
+    "comentario"
+    ]
+}

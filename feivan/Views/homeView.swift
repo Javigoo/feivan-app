@@ -10,28 +10,41 @@ import SwiftUI
 struct homeView: View {
     var body: some View {
         NavigationView {
-        
             VStack(spacing: 15){
                 
                 Image("logo")
                     .resizable()
                     .scaledToFit()
                 
-                NavigationLink(destination: clientView(), label: {
-                    Text("Nuevo")
-                        .frame(width: 250, height: 20, alignment: .center)
-                        .foregroundColor(.black)
-                        .padding()
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 5)
-                                .stroke(Color.black, lineWidth: 1)
-                        )
-                })
+                NavigationLink(
+                    destination: addNewClientView(),
+                    label: {
+                        Text("Nuevo")
+                            .textStyle(NavigationLinkStyle())
+                    }
+                )
+                
+                NavigationLink(
+                    destination: clientSummaryView(),
+                    label: {
+                        Text("Clientes")
+                            .textStyle(NavigationLinkStyle())
+                    }
+                )
+                
+                NavigationLink(
+                    destination: configurationView(),
+                    label: {
+                        Text("configurationView")
+                            .textStyle(NavigationLinkStyle())
+                    }
+                )
                 
                 Spacer()
-                            
+            
             }
         }
+        .navigationTitle("Home")
     }
 }
 
