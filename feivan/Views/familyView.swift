@@ -40,6 +40,8 @@ struct familyView: View {
                             .textStyle(NavigationLinkStyle())
                     })
                     .simultaneousGesture(TapGesture().onEnded{
+                        producto.id = UUID()
+                        producto.timestamp = Date()
                         producto.familia = selectedFamilia
                         do {
                             try viewContext.save()
