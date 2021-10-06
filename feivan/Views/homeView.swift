@@ -17,7 +17,7 @@ struct homeView: View {
                     .scaledToFit()
                 
                 NavigationLink(
-                    destination: addNewClientView(),
+                    destination: newClientView(),
                     label: {
                         Text("Nuevo")
                             .textStyle(NavigationLinkStyle())
@@ -25,7 +25,7 @@ struct homeView: View {
                 )
                 
                 NavigationLink(
-                    destination: clientSummaryView(),
+                    destination: clientsView(),
                     label: {
                         Text("Clientes")
                             .textStyle(NavigationLinkStyle())

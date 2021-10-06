@@ -9,25 +9,10 @@ import SwiftUI
 import CoreData
 
 struct familyView: View {
+    
+    //var cliente: Cliente
         
     @Environment(\.managedObjectContext) var viewContext
-
-    var idCliente: UUID
-
-    
-    @FetchRequest var clienteee: FetchedResults<Cliente>
-
-    init() {
-        let request: NSFetchRequest<Cliente> = Cliente.fetchRequest()
-        request.predicate = NSPredicate(format: "nombre = A")
-
-        request.sortDescriptors = [
-            NSSortDescriptor(keyPath: \Cliente.timestamp, ascending: false)
-        ]
-
-        request.fetchLimit = 1
-        _clienteee = FetchRequest(fetchRequest: request)
-    }
     
     /*
     @FetchRequest(
@@ -47,7 +32,7 @@ struct familyView: View {
         
         // Form here ? - para unificar la estetica
         VStack(spacing: 25) {
-            Text(clienteee.nombre)
+            //Text(cliente.nombre ?? "no encontrado")
             ForEach(familias, id: \.self) { familia in
                 VStack {
                     NavigationLink(destination: productView(), label: {
@@ -74,6 +59,6 @@ struct familyView: View {
 
 struct familyView_Previews: PreviewProvider {
     static var previews: some View {
-        familyView(idCliente: UUID())
+        familyView()
     }
 }

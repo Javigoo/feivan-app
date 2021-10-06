@@ -14,14 +14,14 @@ struct configurationView: View {
     
     let materialOpciones = ["PVC", "Aluminio", "Otro"]
     let tapajuntasOpciones = ["30", "40", "60", "80", "100"]
-    let mallorquinaOpciones = ["Lama móvil", "Lama fija", "Travesaño horizontal", "Travesaño vertical", "Cruceta", "Persiana planta baja 4 hojas", "Persiana planta baja hoja sobre hoja", "Persiana planta baja apertura libro"]
-    let cierresOpciones = ["Cremona", "Cerradura", "Cerradura 3 puntos", "Pasadores", "Maneta presión", "Maneta interior/exterior", "Solo maneta interior", "Solo maneta exterior"]
+    let mallorquinaOpciones = ["Lama móvil", "Lama fija", "Travesaño horizontal", "Travesaño vertical", "Cruceta", "Persiana planta baja 4 hojas", "Persiana planta baja hoja sobre hoja", "Persiana planta baja apertura libro", "Otro"]
+    let cierresOpciones = ["Cremona", "Cerradura", "Cerradura 3 puntos", "Pasadores", "Maneta presión", "Maneta interior/exterior", "Solo maneta interior", "Solo maneta exterior", "Otro"]
     let marcoInferiorOpciones = ["Abierto", "Cerrado", "Solera"]
     let marcoOpciones = ["Abierto", "Cerrado", "Solera"]
     let herrajeOpciones = ["Mismo color", "Bisagras seguridad","Cierre clip + Uñero", "Muelle", "Cerradura electrónica", "Tirador exterior", "Tirador exterior/interior", "Bisagra oculta", "Herraje minimalista"]
-    let cristalOpciones = ["Cámara", "4/Cámara/6", "4/Cámara/4+4", "6/?/4+4 silence", "4+4", "5+5", "6+6"]
+    let cristalOpciones = ["Cámara", "4/Cámara/6", "4/Cámara/4+4", "6/?/4+4 silence", "4+4", "5+5", "6+6", "Otro"]
     let instalacionOpciones = ["Huella obra", "Premarco", "Desmontando madera", "Desmontando hierro", "Desmontando aluminio"]
-    let forroExteriorOpciones = ["Pletina", "40", "60"]
+    let forroExteriorOpciones = ["Pletina", "40", "60", "Otro"]
     
     @State private var material = ""
     @State private var dimensiones = ""
@@ -50,11 +50,19 @@ struct configurationView: View {
     @State private var mano = ""
 
     @State private var materialOtro = ""
+    @State private var mallorquinaOtro = ""
+    @State private var cierresOtro = ""
+    @State private var forroExteriorOtro = ""
+    @State private var cristalOtro = ""
+
+
+
+
 
     
     var body: some View {
         VStack {
-            /*
+            
             HStack(alignment: .top) {
                 VStack(alignment: .leading) {
                     Image("Corredera de 2 hojas con fijo inferior")
@@ -93,7 +101,7 @@ struct configurationView: View {
                 }
             }
             .padding()
-            */
+        
             
             Form {
                 Group {
@@ -152,6 +160,10 @@ struct configurationView: View {
                         Picker("Cristal", selection: $cristal) {
                             List(cristalOpciones, id: \.self) { item in Text(item) }
                         }
+                        if cristal == "Otro" {
+                            TextField("Introduce otra opción", text: $cristalOtro)
+                        }
+
                     }
                     
                     Section(header: Text("Forro exterior")) {
@@ -159,8 +171,9 @@ struct configurationView: View {
                             List(forroExteriorOpciones, id: \.self) { item in Text(item) }
                         }
                         .pickerStyle(.segmented)
-                        
-                        TextField("Otro", text: $forroExterior)
+                        if forroExterior == "Otro" {
+                            TextField("Introduce otra opción", text: $forroExteriorOtro)
+                        }
                     }
                     
                     Section(header: Text("Instalación")) {
@@ -173,11 +186,17 @@ struct configurationView: View {
                         Picker("Mallorquina", selection: $mallorquina) {
                             List(mallorquinaOpciones, id: \.self) { item in Text(item) }
                         }
+                        if mallorquina == "Otro" {
+                            TextField("Introduce otra opción", text: $mallorquinaOtro)
+                        }
                     }
                    
                     Section(header: Text("Cierres")) {
                         Picker("Cierres", selection: $cierres) {
                             List(cierresOpciones, id: \.self) { item in Text(item) }
+                        }
+                        if cierres == "Otro" {
+                            TextField("Introduce otra opción", text: $cierresOtro)
                         }
                     }
                 }

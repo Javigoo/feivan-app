@@ -15,9 +15,6 @@
 		251C26652704BDF200828BB4 /* familyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C26642704BDF200828BB4 /* familyView.swift */; };
 		2537753A26FA207B00DB9541 /* db.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2537753826FA207B00DB9541 /* db.xcdatamodeld */; };
 		2537753D26FA237300DB9541 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2537753C26FA237300DB9541 /* PersistenceController.swift */; };
-		259B248E2704C0F70032BA8D /* Producto.json in Resources */ = {isa = PBXBuildFile; fileRef = 259B248B2704C0F70032BA8D /* Producto.json */; };
-		259B248F2704C0F70032BA8D /* Proyecto.json in Resources */ = {isa = PBXBuildFile; fileRef = 259B248C2704C0F70032BA8D /* Proyecto.json */; };
-		259B24902704C0F70032BA8D /* Cliente.json in Resources */ = {isa = PBXBuildFile; fileRef = 259B248D2704C0F70032BA8D /* Cliente.json */; };
 		25C416A427032BA30032802B /* textStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C416A327032BA30032802B /* textStyles.swift */; };
 		25C416A727033F6C0032802B /* materialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C416A627033F6C0032802B /* materialView.swift */; };
 		25FBABB126FCC76100EF2987 /* productView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FBABB026FCC76100EF2987 /* productView.swift */; };
@@ -36,9 +33,6 @@
 		251C26642704BDF200828BB4 /* familyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = familyView.swift; sourceTree = "<group>"; };
 		2537753926FA207B00DB9541 /* Stash.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Stash.xcdatamodel; sourceTree = "<group>"; };
 		2537753C26FA237300DB9541 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
-		259B248B2704C0F70032BA8D /* Producto.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Producto.json; sourceTree = "<group>"; };
-		259B248C2704C0F70032BA8D /* Proyecto.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Proyecto.json; sourceTree = "<group>"; };
-		259B248D2704C0F70032BA8D /* Cliente.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Cliente.json; sourceTree = "<group>"; };
 		25C416A327032BA30032802B /* textStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = textStyles.swift; sourceTree = "<group>"; };
 		25C416A627033F6C0032802B /* materialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = materialView.swift; sourceTree = "<group>"; };
 		25FBABB026FCC76100EF2987 /* productView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = productView.swift; sourceTree = "<group>"; };
@@ -97,9 +91,6 @@
 		251CFA4E26F8F38100B8C6D7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				259B248D2704C0F70032BA8D /* Cliente.json */,
-				259B248B2704C0F70032BA8D /* Producto.json */,
-				259B248C2704C0F70032BA8D /* Proyecto.json */,
 				2537753826FA207B00DB9541 /* db.xcdatamodeld */,
 				25C416A327032BA30032802B /* textStyles.swift */,
 			);
@@ -188,9 +179,6 @@
 			files = (
 				25076F612669957000126F25 /* Preview Assets.xcassets in Resources */,
 				25076F5E2669957000126F25 /* Assets.xcassets in Resources */,
-				259B248F2704C0F70032BA8D /* Proyecto.json in Resources */,
-				259B248E2704C0F70032BA8D /* Producto.json in Resources */,
-				259B24902704C0F70032BA8D /* Cliente.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,7 +257,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -324,7 +312,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
