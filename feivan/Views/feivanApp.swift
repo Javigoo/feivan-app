@@ -12,12 +12,12 @@ struct feivanApp: App {
     
     //@Environment(\.scenePhase) var scenePhase
     
-    let persistenceController = PersistenceController.shared
+    let persistence = persistenceController.shared
         
     var body: some Scene {
         WindowGroup {
             homeView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environment(\.managedObjectContext, persistence.container.viewContext)
         }
         
         /*

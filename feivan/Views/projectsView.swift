@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct projectsView: View {
+struct clientsView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(
@@ -17,28 +17,83 @@ struct projectsView: View {
     
     var body: some View {
         List {
+            
+            // para añadir proyecto de prueba
+            Button("Añadir proyecto de prueba", action: {
+                let cliente = Cliente(context: viewContext)
+                let proyecto = Proyecto(context: viewContext)
+                let producto = Producto(context: viewContext)
+
+                cliente.id = UUID()
+                cliente.timestamp = Date()
+                cliente.nombre = "Javier Roig Gregorio"
+                cliente.telefono = "608342503"
+                cliente.email = "javierroiggregorio@gmail.com"
+                cliente.direccion = "Carrer de les Hortènsies, 8"
+                cliente.comentario = "El que ha hecho esta app"
+                
+                cliente.proyectos = [proyecto]
+
+                proyecto.id = UUID()
+                proyecto.timestamp = Date()
+                proyecto.ascensor = true
+                proyecto.grua = false
+                proyecto.subirFachada = false
+                
+                proyecto.cliente = cliente
+                proyecto.productos = [producto]
+                
+                producto.id = UUID()
+                producto.timestamp = Date()
+                producto.familia = "Correderas"
+                producto.producto = "Corredera de 2 hojas"
+                producto.material = "PVC"
+                producto.rematesAlbanileria = true
+                producto.color = "Blanco"
+                producto.dimensiones = "600mm x 300mm"
+                producto.apertura = "DDI"
+                producto.marcoInferior = "Abierto"
+                producto.huella = "100mm"
+                producto.tapajuntas = "60"
+                producto.forroExterior = "40"
+                producto.cristal = "Cámara"
+                producto.mallorquina = "Lama fija"
+                producto.cerraduras = "Cerradura"
+                producto.manetas = "Solo maneta interior"
+                producto.herraje = "Mismo color"
+                producto.posicion = "Cocina (V1)"
+                producto.instalacion = "Huella obra"
+                
+                producto.proyecto = proyecto
+
+                saveDB()
+                
+            })
+            
             ForEach(clientsFetch, id: \.self) { cliente in
-                NavigationLink(destination: projectDetailView(cliente: cliente), label: {
+                NavigationLink(destination: projectsView(cliente: cliente), label: {
                     VStack(alignment: .leading) {
                         Text(cliente.nombre ?? "Cliente")
                             .font(.title)
                         Text(cliente.direccion ?? "Dirección")
                             .font(.subheadline)
                         Spacer()
-                        Text("Tiene x productos")
+                        Text("X proyectos")
                             .font(.body)
                     }
                 })
             }
             .onDelete(perform: deleteClient)
         }
-        .navigationTitle("Proyectos")
+        .navigationTitle("Clientes")
     }
     
     private func deleteClient(offsets: IndexSet) {
         withAnimation {
             guard let index = offsets.first else { return }
             let clientEntity = clientsFetch[index]
+            // eliminar productos de cada proyecto
+            // eliminar proyectos del cliente
             viewContext.delete(clientEntity)
             saveDB()
         }
@@ -54,7 +109,7 @@ struct projectsView: View {
     }
 }
 
-struct projectDetailView: View {
+struct projectsView: View {
     var cliente: Cliente
     
     @Environment(\.managedObjectContext) private var viewContext
@@ -63,27 +118,9 @@ struct projectDetailView: View {
         entity: Proyecto.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \Proyecto.timestamp, ascending: false)])
     var proyectos: FetchedResults<Proyecto>
-        
-    @FetchRequest(
-        entity: Producto.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \Producto.timestamp, ascending: false)])
-    var productos: FetchedResults<Producto>
     
     var body: some View {
         VStack {
-            Text("Proyecto")
-                .font(.title)
-            List {
-                ForEach(proyectos, id: \.self) { proyecto in
-                    NavigationLink(destination: Text("pyoyecto destination"), label: {
-                        ProjectDetailView(proyecto: proyecto)
-                    })
-                    Spacer()
-                }
-                .onDelete(perform: deleteProject)
-            }
-            Spacer()
-            
             Text("Cliente")
                 .font(.title)
             NavigationLink(destination: updateClientView(cliente: cliente), label: {
@@ -92,29 +129,19 @@ struct projectDetailView: View {
                 
             Spacer()
             
-            Text("Producto")
+            Text("Proyectos")
                 .font(.title)
             List {
-                ForEach(productos, id: \.self) { producto in
-                    NavigationLink(destination: configurationView(), label: {
-                        ProductDetailView(producto: producto)
+                ForEach(proyectos, id: \.self) { proyecto in
+                    NavigationLink(destination: productsView(proyecto: proyecto), label: {
+                        ProjectDetailView(proyecto: proyecto)
                     })
-                    Spacer()
                 }
-                .onDelete(perform: deleteProduct)
+                .onDelete(perform: deleteProject)
             }
         }
-        .navigationTitle("Proyecto")
+        .navigationTitle("Proyectos")
         .padding()
-    }
-
-    private func deleteProduct(offsets: IndexSet) {
-        withAnimation {
-            guard let index = offsets.first else { return }
-            let clientEntity = productos[index]
-            viewContext.delete(clientEntity)
-            saveDB()
-        }
     }
     
     private func deleteProject(offsets: IndexSet) {
@@ -135,6 +162,60 @@ struct projectDetailView: View {
         }
     }
 
+}
+
+struct productsView: View {
+    var proyecto: Proyecto
+    
+    @Environment(\.managedObjectContext) private var viewContext
+
+    @FetchRequest(
+        entity: Producto.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \Producto.timestamp, ascending: false)])
+    var productos: FetchedResults<Producto>
+    
+    var body: some View {
+        VStack {
+            Text("Proyecto")
+                .font(.title)
+            NavigationLink(destination: projectView(), label: {
+                ProjectDetailView(proyecto: proyecto)
+            })
+                
+            Spacer()
+            
+            Text("Productos")
+                .font(.title)
+            List {
+                ForEach(productos, id: \.self) { producto in
+                    NavigationLink(destination: Text("DetailView producto"), label: {
+                        ProductDetailView(producto: producto)
+                    })
+                }
+                .onDelete(perform: deleteProduct)
+            }
+        }
+        .navigationTitle("Proyectos")
+        .padding()
+    }
+    
+    private func deleteProduct(offsets: IndexSet) {
+        withAnimation {
+            guard let index = offsets.first else { return }
+            let clientEntity = productos[index]
+            viewContext.delete(clientEntity)
+            saveDB()
+        }
+    }
+    
+    private func saveDB() {
+        do {
+            try viewContext.save()
+        } catch {
+            let nsError = error as NSError
+            fatalError("(clientView) Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+    }
 }
 
 struct ClientDetailView: View {
@@ -361,8 +442,8 @@ struct ProductDetailView: View {
     }
 }
 
-struct projectsView_Previews: PreviewProvider {
+struct clientsView_Previews: PreviewProvider {
     static var previews: some View {
-        projectsView()
+        clientsView()
     }
 }

@@ -11,16 +11,13 @@
 		25076F5E2669957000126F25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25076F5D2669957000126F25 /* Assets.xcassets */; };
 		25076F612669957000126F25 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25076F602669957000126F25 /* Preview Assets.xcassets */; };
 		251C26612704BDE300828BB4 /* clientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C26602704BDE300828BB4 /* clientView.swift */; };
-		251C26632704BDEA00828BB4 /* configurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C26622704BDEA00828BB4 /* configurationView.swift */; };
-		251C26652704BDF200828BB4 /* familyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C26642704BDF200828BB4 /* familyView.swift */; };
 		2537753A26FA207B00DB9541 /* db.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2537753826FA207B00DB9541 /* db.xcdatamodeld */; };
-		2537753D26FA237300DB9541 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2537753C26FA237300DB9541 /* PersistenceController.swift */; };
+		2537753D26FA237300DB9541 /* persistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2537753C26FA237300DB9541 /* persistenceController.swift */; };
 		2548874D270DEDFE00D40AE2 /* projectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2548874C270DEDFE00D40AE2 /* projectsView.swift */; };
 		25C416A427032BA30032802B /* textStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C416A327032BA30032802B /* textStyles.swift */; };
-		25C416A727033F6C0032802B /* materialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C416A627033F6C0032802B /* materialView.swift */; };
 		25FBABB126FCC76100EF2987 /* productView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FBABB026FCC76100EF2987 /* productView.swift */; };
-		25FBABB326FCD9AC00EF2987 /* summaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FBABB226FCD9AC00EF2987 /* summaryView.swift */; };
 		25FBABBD26FCF70E00EF2987 /* homeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FBABBC26FCF70E00EF2987 /* homeView.swift */; };
+		25FE660D2716D978003EF33A /* projectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FE660C2716D978003EF33A /* projectView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,16 +27,13 @@
 		25076F602669957000126F25 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		25076F622669957000126F25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		251C26602704BDE300828BB4 /* clientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = clientView.swift; sourceTree = "<group>"; };
-		251C26622704BDEA00828BB4 /* configurationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = configurationView.swift; sourceTree = "<group>"; };
-		251C26642704BDF200828BB4 /* familyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = familyView.swift; sourceTree = "<group>"; };
 		2537753926FA207B00DB9541 /* Stash.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Stash.xcdatamodel; sourceTree = "<group>"; };
-		2537753C26FA237300DB9541 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+		2537753C26FA237300DB9541 /* persistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = persistenceController.swift; sourceTree = "<group>"; };
 		2548874C270DEDFE00D40AE2 /* projectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = projectsView.swift; sourceTree = "<group>"; };
 		25C416A327032BA30032802B /* textStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = textStyles.swift; sourceTree = "<group>"; };
-		25C416A627033F6C0032802B /* materialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = materialView.swift; sourceTree = "<group>"; };
 		25FBABB026FCC76100EF2987 /* productView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = productView.swift; sourceTree = "<group>"; };
-		25FBABB226FCD9AC00EF2987 /* summaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = summaryView.swift; sourceTree = "<group>"; };
 		25FBABBC26FCF70E00EF2987 /* homeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homeView.swift; sourceTree = "<group>"; };
+		25FE660C2716D978003EF33A /* projectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = projectView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,7 +96,7 @@
 		2537753B26FA234800DB9541 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				2537753C26FA237300DB9541 /* PersistenceController.swift */,
+				2537753C26FA237300DB9541 /* persistenceController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -112,13 +106,10 @@
 			children = (
 				25076F592669956F00126F25 /* feivanApp.swift */,
 				251C26602704BDE300828BB4 /* clientView.swift */,
-				251C26622704BDEA00828BB4 /* configurationView.swift */,
-				25C416A627033F6C0032802B /* materialView.swift */,
 				25FBABB026FCC76100EF2987 /* productView.swift */,
-				25FBABB226FCD9AC00EF2987 /* summaryView.swift */,
 				25FBABBC26FCF70E00EF2987 /* homeView.swift */,
-				251C26642704BDF200828BB4 /* familyView.swift */,
 				2548874C270DEDFE00D40AE2 /* projectsView.swift */,
+				25FE660C2716D978003EF33A /* projectView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -192,17 +183,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				251C26652704BDF200828BB4 /* familyView.swift in Sources */,
 				25FBABB126FCC76100EF2987 /* productView.swift in Sources */,
 				25C416A427032BA30032802B /* textStyles.swift in Sources */,
-				2537753D26FA237300DB9541 /* PersistenceController.swift in Sources */,
+				2537753D26FA237300DB9541 /* persistenceController.swift in Sources */,
 				25FBABBD26FCF70E00EF2987 /* homeView.swift in Sources */,
-				25C416A727033F6C0032802B /* materialView.swift in Sources */,
+				25FE660D2716D978003EF33A /* projectView.swift in Sources */,
 				2548874D270DEDFE00D40AE2 /* projectsView.swift in Sources */,
 				25076F5A2669956F00126F25 /* feivanApp.swift in Sources */,
 				2537753A26FA207B00DB9541 /* db.xcdatamodeld in Sources */,
-				25FBABB326FCD9AC00EF2987 /* summaryView.swift in Sources */,
-				251C26632704BDEA00828BB4 /* configurationView.swift in Sources */,
 				251C26612704BDE300828BB4 /* clientView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

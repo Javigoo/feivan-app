@@ -9,6 +9,37 @@
 
 import SwiftUI
 
+struct clientView: View {
+    var body: some View {
+        TabView {
+            addClientView()
+                .tabItem {
+                    Label("Nuevo Cliente", systemImage: "person.badge.plus")
+                }
+
+            clientsView()
+                .tabItem {
+                    Label("Clientes", systemImage: "person.3")
+                }
+        }
+        .toolbar {
+            ToolbarItemGroup {
+                NavigationLink(destination: familyView()) {
+                    Text("Siguiente")
+                }
+            }
+        }
+        .navigationTitle("Cliente")
+
+    }
+}
+
+struct clientView_Previews: PreviewProvider {
+    static var previews: some View {
+        clientView()
+    }
+}
+
 struct newClientView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
@@ -64,7 +95,7 @@ struct newClientView: View {
     }
 }
 
-struct clientsView: View {
+struct clientssView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(
@@ -261,12 +292,6 @@ func ??<T>(lhs: Binding<Optional<T>>, rhs: T) -> Binding<T> {
     )
 }
 
-struct clientView_Previews: PreviewProvider {
-    static var previews: some View {
-        newClientView()
-    }
-}
-
 /*
  .toolbar {
      ToolbarItemGroup {
@@ -298,31 +323,3 @@ struct clientView_Previews: PreviewProvider {
      }
  }
  */
- 
-/*
- struct clientView: View {
-     var body: some View {
-         TabView {
-             addClientView()
-                 .tabItem {
-                     Label("Nuevo Cliente", systemImage: "person.badge.plus")
-                 }
-
-             clientsView()
-                 .tabItem {
-                     Label("Clientes", systemImage: "person.3")
-                 }
-         }
-         .toolbar {
-             ToolbarItemGroup {
-                 NavigationLink(destination: familyView()) {
-                     Text("Siguiente")
-                 }
-             }
-         }
-         .navigationTitle("Cliente")
-
-     }
- }
- 
-*/
