@@ -16,6 +16,7 @@ struct DataView: View {
     
     var body: some View {
         DataListView(clientVM: clientVM, productVM: productVM, projectVM: projectVM)
+            .navigationTitle(Text("Proyectos"))
     }
 }
 
@@ -54,28 +55,42 @@ struct DataPreviewView: View {
         VStack(alignment: .leading) {
             
             NavigationLink(destination: ProjectUpdateView(proyecto: proyecto, projectVM: projectVM), label: {
-                ProjectDetailView(proyecto: proyecto)
-            })
+                ProjectDetailAllView(proyecto: proyecto)
+            }).buttonStyle(.plain)
             
             Divider()
             
-            NavigationLink(destination: ClientUpdateView(cliente: proyecto.cliente!, clientVM: clientVM), label: {
-                ClientDetailView(cliente: proyecto.cliente!)
-            })
-            
-            Spacer()
-            
-            List {
-                ForEach(projectVM.getProducts(proyecto: proyecto) , id: \.self) { producto in
-                    NavigationLink(destination: ProductUpdateView(producto: producto, productVM: productVM), label: {
-                        ProductDetailView(producto: producto)
-                    })
+            Section(header: Text("Cliente")) {
+                NavigationLink(destination: ClientUpdateView(cliente: proyecto.cliente!, clientVM: clientVM), label: {
+                    ClientDetailView(cliente: proyecto.cliente!)
+                }).buttonStyle(.plain)
+            }.font(.title)
 
+            Spacer()
+            Divider()
+            
+            Section(header: Text("Productos")) {
+                List {
+                    ForEach(projectVM.getProducts(proyecto: proyecto) , id: \.self) { producto in
+                        NavigationLink(destination: ProductUpdateView(producto: producto, productVM: productVM), label: {
+                            ProductDetailView(producto: producto)
+                        })
+                    }
+                    .onDelete(perform: deleteProduct)
+                    /*
+                    HStack {
+                        Spacer()
+                        NavigationLink(destination: ProductCreateView(productVM: productVM), label: {
+                            Image(systemName: "plus.circle")
+                        })
+                        Spacer()
+                    }
+                     */
                 }
-                .onDelete(perform: deleteProduct)
-            }
+            }.font(.title)
         }
         .padding()
+        .navigationTitle(Text("Proyecto"))
     }
     
     private func deleteProduct(offsets: IndexSet) {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="20G165" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Cliente" representedClassName="Cliente" syncable="YES" codeGenerationType="class">
         <attribute name="comentario" optional="YES" attributeType="String"/>
         <attribute name="email" optional="YES" attributeType="String"/>
@@ -13,6 +13,8 @@
         <attribute name="apertura" optional="YES" attributeType="String"/>
         <attribute name="cerraduras" optional="YES" attributeType="String"/>
         <attribute name="color" optional="YES" attributeType="String"/>
+        <attribute name="compacto" optional="YES" attributeType="String"/>
+        <attribute name="copias" optional="YES" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES"/>
         <attribute name="cristal" optional="YES" attributeType="String"/>
         <attribute name="curvas" optional="YES" attributeType="String"/>
         <attribute name="dimensiones" optional="YES" attributeType="String"/>
@@ -20,7 +22,6 @@
         <attribute name="forroExterior" optional="YES" attributeType="String"/>
         <attribute name="foto" optional="YES" attributeType="Binary"/>
         <attribute name="herraje" optional="YES" attributeType="String"/>
-        <attribute name="hojaPrincipal" optional="YES" attributeType="String"/>
         <attribute name="huella" optional="YES" attributeType="String"/>
         <attribute name="instalacion" optional="YES" attributeType="String"/>
         <attribute name="mallorquina" optional="YES" attributeType="String"/>
@@ -41,12 +42,12 @@
         <attribute name="grua" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="subirFachada" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="cliente" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Cliente" inverseName="proyectos" inverseEntity="Cliente"/>
+        <relationship name="cliente" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Cliente" inverseName="proyectos" inverseEntity="Cliente"/>
         <relationship name="productos" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Producto" inverseName="proyecto" inverseEntity="Producto"/>
     </entity>
     <elements>
         <element name="Cliente" positionX="-1071.723449707031" positionY="-8.44244384765625" width="128" height="148"/>
-        <element name="Producto" positionX="-694.5770263671875" positionY="-65.42901611328125" width="128" height="403"/>
-        <element name="Proyecto" positionX="-889.3516845703125" positionY="-55.27922058105469" width="128" height="134"/>
+        <element name="Producto" positionX="-604.4053955078125" positionY="-90.64987182617188" width="128" height="403"/>
+        <element name="Proyecto" positionX="-889.3516845703125" positionY="-55.27922058105469" width="128" height="148"/>
     </elements>
 </model>

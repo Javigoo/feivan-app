@@ -21,7 +21,7 @@ struct DebugView: View {
                 Text("Ver Clientes")
             })
             
-            NavigationLink(destination: ProductNewView(), label: {
+            NavigationLink(destination: ProductListView(), label: {
                 Text("Ver Productos")
             })
             
@@ -130,7 +130,7 @@ struct DebugView: View {
         producto.material = "PVC"
         producto.rematesAlbanileria = true
         producto.color = "Blanco"
-        producto.dimensiones = "600mm x 300mm"
+        producto.dimensiones = "600x300 mm"
         producto.apertura = "DDI"
         producto.marcoInferior = "Abierto"
         producto.huella = "100mm"
@@ -143,7 +143,6 @@ struct DebugView: View {
         producto.herraje = "Mismo color"
         producto.posicion = "Cocina (V1)"
         producto.instalacion = "Huella obra"
-        producto.hojaPrincipal = "Izquierda"
         producto.curvas = "Arco"
         return producto
     }

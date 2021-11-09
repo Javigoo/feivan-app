@@ -1,256 +1,261 @@
 {
-  "Leyenda": {
-    "?": "Opcional",
-    "*": "Selección múltiple",
-    "$": "Verdadero o falso"
-  },
-  "Cliente": ["Nombre", "Teléfono", "Email", "Referencia", "?Comentario"],
-  "Proyecto": ["Dirección", "$Ascensor", "$Grúa", "$Subir fachada"],
-  "Producto": {
-    "Fotos": {},
-    "Familia": {
-      "Correderas": {
-        "Elevables": {}
-      },
-      "Practicables": {},
-      "Puertas": {
-        "Puerta más fijo": {}
-      },
-      "Fijos": {},
-      "Mallorquinas": {},
-      "Barandillas": {}
-    },
-    "Nombre": {},
-    "Curvas": {
-      "Medio punto": {},
-      "Carpanel": {},
-      "Arco": {},
-      "Segmento": {}
-    },
-    "Material": {
-      "PVC": {},
-      "Aluminio": {
-        "800": {},
-        "CT": {},
-        "Cor 4200": {},
-        "Cor Vision": {},
-        "Cor Vision Plus": {},
-        "Lumeal": {},
-        "Soleal": {},
-        "Arteal": {},
-        "APG": {},
-        "ATI 55": {},
-        "ATI 70": {},
-        "COR 60": {},
-        "COR 70": {},
-        "COR.OC 60": {},
-        "COR.OC 70": {}
-      }
-    },
-    "Color": {
-      "Ral": ["Valor carta ral"],
-      "Anonizados": ["Oro", "Plata", "Bronce", "Inox"],
-      "Madera": ["Embero", "Nogal", "Pino envejecido", "Pino pollo"],
-      "Más utilizados": ["Blanco", "Embero", "Nogal", "Pino envejecido", "Plata", "Bronce", "Inox", "Verde 6009", "Verde 6002", "Marrón 8014", "Crema 1015", "Ral.7022", "Ral.7016", "Plata ext/blanco int", "Embero ext/blanco int", "Bronce ext/blanco int", "Blanco ext/embero int"],
-      "$Bicolor": ["Exterior", "Interior"],
-      "Extras": ["$Texturado", "$Mate"]
-    },
-    "Tapajuntas": {
-      "Opciones": ["30", "40", "60", "80", "100"],
-      "Específicos": ["Superior", "Inferior", "Izquierda", "Derecha"]
-    },
-    "Dimensiones": ["Ancho", "Alto"],
-    "Apertura": {
-      "Tipos": ["$Piven", "$Oscilobatiente"],
-      "Vista": ["Dentro", "Fuera"],
-      "Abre": ["Dentro", "Fuera"],
-      "Mano": ["Izquierda", "Derecha"],
-      "Corredera": {
-        "Primera hoja izquierda": {},
-        "Primera hoja derecha": {}
-      }
-    },
-    "Compacto": ["1 paño", "2 paños", "Tirador izquierda", "Tirador motorizado", "Tirador derecho", "Tipo concencional", "Tipo beca"],
-    "Marco inferior": {
-      "Abierto": {},
-      "Cerrado": {},
-      "Solera": {},
-      "Empotrado": {
-        "Canal recoge agua": {}
-      }
-    },
-    "Huella?": {},
-    "Forro exterior": {
-      "Lama": ["40", "60"],
-      "Ángulo": ["30x30", "40x20", "40x40", "60x40", "80x40"],
-      "Pletina": []
-    },
-    "Cristal": {
-      "Cámara": {},
-      "4/cámara/6": {},
-      "4/cámara/4+4": {},
-      "6/?/4+4 silence": {},
-      "4+4": {},
-      "5+5": {},
-      "6+6": {}
-    },
-    "Cerraduras?": {
-      "Cerradura": {},
-      "Cerradura multipunto": {},
-      "Cerradura 3 puntos": {},
-      "Cerradura gesa": {}
-    },
-    "Manetas": {
-      "Cremona": {},
-      "Maneta presión": {},
-      "Arch invisible": {},
-      "Cremona minimalista": {},
-      "Maneta interior/exterior": {},
-      "Solo maneta interior": {},
-      "Solo maneta exterior": {}
-    },
-    "?*Herraje": {
-      "Mismo color": {},
-      "Bisagras seguridad": {},
-      "Bisagras ocultas": {},
-      "Cierre clip + uñero": {},
-      "Muelle": {},
-      "Cerradura electrónica": {},
-      "Tirador exterior": {},
-      "Tirador exterior/interior": {},
-      "Pasadores resaltados": {}
-    },
-    "Posición": {
-      "Zonas": ["Cocina", "Habitación", "Sala de estar", "Trastero", "Recibidor", "Patio", "Lavadero"],
-      "Ubicación": ["Vn", "Pn"]
-    },
-    "Instalación": {
-      "Huella obra": {},
-      "Premarco": {},
-      "Desmontando madera": {},
-      "Desmontando hierro": {},
-      "Desmontando aluminio": {}
-    },
-    "Remates albañilería?": {},
-    "Medidas no buenas?": {},
-    "Mallorquina": {
-      "*Opciones" : ["Lama móvil", "Persiana planta baja apertura libro", "Persiana planta baja hoja sobre hoja", "Marco cerrado"],
-      "$Tubo": {}
-    }
-  },
-  "Restricciones": {
-    "Producto": {
-      "Apertura": {
-        "VAM": {
-          "no mostrar si familia=correderas,elevador,fijos": {}
+    "elementos": [
+        {
+            "nombre": "Atributos",
+            "opciones": [
+                "Familia",
+                "Nombre",
+                "Curva",
+                "Material",
+                "Color",
+                "Tapajuntas",
+                "Dimensiones",
+                "Apertura",
+                "Compacto",
+                "Marco inferior",
+                "Huella",
+                "Forro exterior",
+                "Cristal",
+                "Cerradura",
+                "Maneta",
+                "Herraje",
+                "Posición",
+                "Instalación",
+                "Remates albañilería",
+                "Medidas no buenas",
+                "Mallorquina"
+            ]
         },
-        "Piven": {
-          "No tiene VAM": {}
+        {
+            "nombre": "Material",
+            "opciones": [
+                "PVC",
+                "Aluminio"
+            ]
         },
-        "Oscilobatiente": {
-          "mostrar solo si familia=practicables, puertas": {}
+        {
+            "nombre": "Material Aluminio Correderas",
+            "opciones": [
+                "800",
+                "CT",
+                "Cor 4200",
+                "Cor Vision",
+                "Cor Vision Plus",
+                "Lumeal",
+                "Soleal",
+                "Arteal"
+            ]
         },
-        "Corredera": {
-          "mostrar si familia=correderas": {}
+        {
+            "nombre": "Material Aluminio Ventanas",
+            "opciones": [
+                "APG",
+                "ATI 55",
+                "ATI 70",
+                "COR 60",
+                "COR 70",
+                "COR.OC 60",
+                "COR.OC 70"
+            ]
+        },
+        {
+            "nombre": "Aluminio",
+            "opciones": [
+                "800",
+                "CT",
+                "Cor 4200",
+                "Cor Vision",
+                "Cor Vision Plus",
+                "Lumeal",
+                "Soleal",
+                "Arteal",
+                "APG",
+                "ATI 55",
+                "ATI 70",
+                "COR 60",
+                "COR 70",
+                "COR.OC 60",
+                "COR.OC 70"
+            ]
+        },
+        {
+            "nombre": "Curvas",
+            "opciones": [
+                "Medio punto",
+                "Carpanel",
+                "Arco",
+                "Segmento"
+            ]
+        },
+        {
+            "nombre": "Color",
+            "opciones": [
+                "Ral",
+                "Anonizados",
+                "Madera",
+                "Más utilizados"
+            ]
+        },
+        {
+            "nombre": "Anonizados",
+            "opciones": [
+                "Oro",
+                "Plata",
+                "Bronce",
+                "Inox"
+            ]
+        },
+        {
+            "nombre": "Madera",
+            "opciones": [
+                "Embero",
+                "Nogal",
+                "Pino envejecido",
+                "Pino pollo"
+            ]
+        },
+        {
+            "nombre": "Más utilizados",
+            "opciones": [
+                "Blanco",
+                "Embero",
+                "Nogal",
+                "Pino envejecido",
+                "Plata",
+                "Bronce",
+                "Inox",
+                "Verde 6009",
+                "Verde 6002",
+                "Marrón 8014",
+                "Crema 1015",
+                "Ral.7022",
+                "Ral.7016",
+                "Plata ext/blanco int",
+                "Embero ext/blanco int",
+                "Bronce ext/blanco int",
+                "Blanco ext/embero int"
+            ]
+        },
+        {
+            "nombre": "Tapajuntas",
+            "opciones": [
+                "30",
+                "40",
+                "60",
+                "80",
+                "100"
+            ]
+        },
+        {
+            "nombre": "Lama",
+            "opciones": [
+                "40",
+                "60"
+            ]
+        },
+        {
+            "nombre": "Ángulo",
+            "opciones": [
+                "30x30",
+                "40x20",
+                "40x40",
+                "60x40",
+                "80x40"
+            ]
+        },
+        {
+            "nombre": "Cristal",
+            "opciones": [
+                "Cámara",
+                "4/cámara/6",
+                "4/cámara/4+4",
+                "6/?/4+4 silence",
+                "4+4",
+                "5+5",
+                "6+6"
+            ]
+        },
+        {
+            "nombre": "Cerraduras",
+            "opciones": [
+                "Cerradura",
+                "Cerradura multipunto",
+                "Cerradura 3 puntos",
+                "Cerradura gesa"
+            ]
+        },
+        {
+            "nombre": "Manetas",
+            "opciones": [
+                "Cremona",
+                "Maneta presión",
+                "Arch invisible",
+                "Cremona minimalista",
+                "Maneta interior/exterior",
+                "Solo maneta interior",
+                "Solo maneta exterior"
+            ]
+        },
+        {
+            "nombre": "Herraje",
+            "opciones": [
+                "Mismo color",
+                "Bisagras seguridad",
+                "Bisagras ocultas",
+                "Cierre clip + uñero",
+                "Muelle",
+                "Cerradura electrónica",
+                "Tirador exterior",
+                "Tirador exterior/interior",
+                "Pasadores resaltados"
+            ]
+        },
+        {
+            "nombre": "Posición",
+            "opciones": [
+                "Cocina",
+                "Habitación",
+                "Sala de estar",
+                "Trastero",
+                "Recibidor",
+                "Patio",
+                "Lavadero"
+            ]
+        },
+        {
+            "nombre": "Instalación",
+            "opciones": [
+                "Huella obra",
+                "Premarco",
+                "Desmontando madera",
+                "Desmontando hierro",
+                "Desmontando aluminio"
+            ]
+        },
+        {
+            "nombre": "Mallorquina",
+            "opciones": [
+                "Lama móvil",
+                "Persiana planta baja apertura libro",
+                "Persiana planta baja hoja sobre hoja",
+                "Marco cerrado"
+            ]
+        },
+        {
+            "nombre": "Marco inferior",
+            "opciones": [
+                "Abierto",
+                "Cerrado",
+                "Solera",
+                "Empotrado"
+            ]
+        },
+        {
+            "nombre": "Compacto",
+            "opciones": [
+                "Convencional",
+                "Veka"
+            ]
         }
-      },
-      "Forro exterior": {
-        "familia=mallorquina no mostrar": {}
-      },
-      "Marco inferior": {
-        "no mostrar si familia=fijos,correderas,elevables": {},
-        "Solera": {
-          "mostrar si familia=correderas,elevables,plegables": {}
-        },
-        "Empotrado": {
-          "mostrar si familia=correderas,elevables,plegables": {}
-        }
-      },
-      "Cristal": {
-        "familia=mallorquina no mostrar": {}
-      },
-      "Mallorquina": {
-        "solo mostrar familia=mallorquina": {}
-      },
-      "Manetas": {
-        "Cremona": {
-          "no cerradura": {}
-        },
-        "Maneta presión": {
-          "no cerradura": {},
-          "solo si es mallorquina": {}
-        },
-        "Arch invisible": {
-          "no cerradura": {}
-        },
-        "Cremona minimalista": {
-          "no cerradura": {}
-        },
-        "Maneta interior/exterior": {
-          "si cerradura": {}
-        },
-        "Solo maneta interior": {
-          "si cerradura": {}
-        },
-        "Solo maneta exterior": {
-          "si cerradura": {}
-        }
-      },
-      "Curvas": {
-        "solo mostrar familia=curva": {}
-      },
-      "Material": {
-        "Aluminio": {
-          "800": {
-            "solo mostrar familia=correderas": {}
-          },
-          "CT": {
-            "solo mostrar familia=correderas": {}
-          },
-          "Cor 4200": {
-            "solo mostrar familia=correderas": {}
-          },
-          "Cor Vision": {
-            "solo mostrar familia=correderas": {}
-          },
-          "Cor Vision Plus": {
-            "solo mostrar familia=correderas": {}
-          },
-          "Lumeal": {
-            "solo mostrar familia=correderas": {}
-          },
-          "Soleal": {
-            "solo mostrar familia=correderas": {}
-          },
-          "Arteal": {
-            "solo mostrar familia=correderas": {}
-          },
-          "APG": {
-            "solo mostrar familia=ventanas": {}
-          },
-          "ATI 55": {
-            "solo mostrar familia=ventanas": {}
-          },
-          "ATI 70": {
-            "solo mostrar familia=ventanas": {}
-          },
-          "COR 60": {
-            "solo mostrar familia=ventanas": {}
-          },
-          "COR 70": {
-            "solo mostrar familia=ventanas": {}
-          },
-          "COR.OC 60": {
-            "solo mostrar familia=ventanas": {}
-          },
-          "COR.OC 70": {
-            "solo mostrar familia=ventanas": {}
-          }
-        }
-      },
-      "Hoja principal": {
-        "no mostrar si familia=fijos": {}
-      }
-    }
-  }
+    ]
 }

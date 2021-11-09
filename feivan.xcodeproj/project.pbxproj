@@ -8,9 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		252577862732BC0700252690 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252577852732BC0700252690 /* Styles.swift */; };
-		25257788273441AA00252690 /* popToRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25257787273441AA00252690 /* popToRoot.swift */; };
 		252DC7B127248635005F3489 /* ProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252DC7B027248635005F3489 /* ProductView.swift */; };
 		252DC7B32724AB94005F3489 /* Hierarchy.json in Resources */ = {isa = PBXBuildFile; fileRef = 252DC7B22724AB94005F3489 /* Hierarchy.json */; };
+		254093352735A23A00AA07D5 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254093342735A23A00AA07D5 /* String.swift */; };
+		2544199727395B11005290C9 /* NewProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2544199627395B11005290C9 /* NewProject.swift */; };
 		257CC826271FE561009C65D1 /* FeivanApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257CC825271FE561009C65D1 /* FeivanApp.swift */; };
 		257CC828271FE561009C65D1 /* ClientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257CC827271FE561009C65D1 /* ClientView.swift */; };
 		257CC82A271FE564009C65D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 257CC829271FE564009C65D1 /* Assets.xcassets */; };
@@ -29,9 +30,10 @@
 
 /* Begin PBXFileReference section */
 		252577852732BC0700252690 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
-		25257787273441AA00252690 /* popToRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = popToRoot.swift; sourceTree = "<group>"; };
 		252DC7B027248635005F3489 /* ProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductView.swift; sourceTree = "<group>"; };
 		252DC7B22724AB94005F3489 /* Hierarchy.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Hierarchy.json; sourceTree = "<group>"; };
+		254093342735A23A00AA07D5 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		2544199627395B11005290C9 /* NewProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProject.swift; sourceTree = "<group>"; };
 		257CC822271FE561009C65D1 /* Feivan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Feivan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		257CC825271FE561009C65D1 /* FeivanApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeivanApp.swift; sourceTree = "<group>"; };
 		257CC827271FE561009C65D1 /* ClientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientView.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 		257CC838271FE834009C65D1 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2544199627395B11005290C9 /* NewProject.swift */,
 				25E8F23E272197590009CEB7 /* DebugFile.swift */,
 				25E8F23A27218D510009CEB7 /* DataView.swift */,
 				257CC825271FE561009C65D1 /* FeivanApp.swift */,
@@ -116,7 +119,6 @@
 				257CC83B271FE937009C65D1 /* ClientViewModel.swift */,
 				25E8F23C27218E120009CEB7 /* ProjectViewModel.swift */,
 				25E9089F2721AE9C008A490B /* ProductViewModel.swift */,
-				25257787273441AA00252690 /* popToRoot.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -129,6 +131,7 @@
 				257CC82E271FE564009C65D1 /* Persistence.swift */,
 				252DC7B22724AB94005F3489 /* Hierarchy.json */,
 				252577852732BC0700252690 /* Styles.swift */,
+				254093342735A23A00AA07D5 /* String.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -216,8 +219,9 @@
 				25E8F23D27218E120009CEB7 /* ProjectViewModel.swift in Sources */,
 				257CC828271FE561009C65D1 /* ClientView.swift in Sources */,
 				25E8F23B27218D510009CEB7 /* DataView.swift in Sources */,
+				2544199727395B11005290C9 /* NewProject.swift in Sources */,
+				254093352735A23A00AA07D5 /* String.swift in Sources */,
 				257CC826271FE561009C65D1 /* FeivanApp.swift in Sources */,
-				25257788273441AA00252690 /* popToRoot.swift in Sources */,
 				25E8F23F272197590009CEB7 /* DebugFile.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

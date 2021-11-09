@@ -19,6 +19,7 @@ class ProductViewModel: ObservableObject {
     @Published var tapajuntas = ""
     @Published var dimensiones = ""
     @Published var apertura = ""
+    @Published var compacto = ""
     @Published var marcoInferior = ""
     @Published var huella = ""
     @Published var forroExterior = ""
@@ -31,7 +32,7 @@ class ProductViewModel: ObservableObject {
     @Published var rematesAlbanileria = false
     @Published var medidasNoBuenas = false
     @Published var mallorquina = ""
-    @Published var hojaPrincipal = ""
+    @Published var copias: Int16 = 1
 
     @Published var otro = ""
     @Published var especifico = ""
@@ -49,6 +50,7 @@ class ProductViewModel: ObservableObject {
         let request = Producto.fetchRequest()
         do {
             productos = try context.viewContext.fetch(request)
+            print("Productos: \(productos.count)")
         } catch {
             print("ERROR in ProductViewModel at getAllProducts()\n")
         }
@@ -64,6 +66,7 @@ class ProductViewModel: ObservableObject {
         tapajuntas = producto.tapajuntas ?? tapajuntas
         dimensiones = producto.dimensiones ?? dimensiones
         apertura = producto.apertura ?? apertura
+        compacto = producto.compacto ?? compacto
         marcoInferior = producto.marcoInferior ?? marcoInferior
         huella = producto.huella ?? huella
         forroExterior = producto.forroExterior ?? forroExterior
@@ -76,7 +79,8 @@ class ProductViewModel: ObservableObject {
         rematesAlbanileria = producto.rematesAlbanileria
         medidasNoBuenas = producto.medidasNoBuenas
         mallorquina = producto.mallorquina ?? mallorquina
-        hojaPrincipal = producto.hojaPrincipal ?? hojaPrincipal
+        copias = producto.copias
+
     }
     
     func setProduct(producto: Producto) {
@@ -89,6 +93,7 @@ class ProductViewModel: ObservableObject {
         producto.tapajuntas = tapajuntas
         producto.dimensiones = dimensiones
         producto.apertura = apertura
+        producto.compacto = compacto
         producto.marcoInferior = marcoInferior
         producto.huella = huella
         producto.forroExterior = forroExterior
@@ -101,10 +106,13 @@ class ProductViewModel: ObservableObject {
         producto.rematesAlbanileria = rematesAlbanileria
         producto.medidasNoBuenas = medidasNoBuenas
         producto.mallorquina = mallorquina
-        producto.hojaPrincipal = hojaPrincipal
+        producto.copias = copias
+
     }
     
     func save() {
+        print("ProductVM - save()")
+        
         let producto = Producto(context: context.viewContext)
         
         setProduct(producto: producto)
@@ -115,6 +123,8 @@ class ProductViewModel: ObservableObject {
     }
     
     func update(producto: Producto) {
+        print("ProductVM - update()")
+
         setProduct(producto: producto)
         
         context.save()
@@ -122,8 +132,12 @@ class ProductViewModel: ObservableObject {
     }
     
     func delete(at offset: IndexSet, for productos: [Producto]) {
-        if let first = productos.first, case PersistenceController.shared.viewContext = first.managedObjectContext {
-            offset.map { productos[$0] }.forEach(PersistenceController.shared.viewContext.delete)
+        print("ProductVM - delete()")
+
+        if let first = productos.first, case context.viewContext = first.managedObjectContext {
+            offset.map { productos[$0] }.forEach(context.viewContext.delete)
+        } else {
+            print("No eliminado")
         }
         
         context.save()
@@ -131,94 +145,55 @@ class ProductViewModel: ObservableObject {
         
     }
     // Others
+    
+    func anadirMas(producto: Producto, proyecto: Proyecto) {
+        producto.proyecto = proyecto
+        producto.familia = familia
+        producto.tapajuntas = tapajuntas
+        producto.color = color
+        producto.cristal = cristal
+        producto.instalacion = instalacion
+    }
+    
     func getFormattedName(name: String) -> String {
         if name.range(of:"-") != nil {
-            return name.components(separatedBy: "-")[1]
+            let nameWithOutNumber = name.components(separatedBy: "-")[1]
+            return nameWithOutNumber.lowercased().firstUppercased
         }
         return name
     }
     
-    // Getters
-
-    /*
-    func getAttribute(option: String) -> Binding<String> {
-        switch option {
-            case "Material":
-            return Binding(projectedValue: self.material)
-            default:
-                return ""
+    func getSingularFamilia(name: String) -> String {
+        if name != "" {
+            var nombre = getFormattedName(name: name)
+            nombre.removeLast()
+            return nombre
         }
+        return name
     }
-    */
-    func listOf(option: String) -> [String] {
-        
-//        if let localData = readLocalFile(forName: "Hierarchy") {
-//            parse(jsonData: localData)
-//        }
-        
-        let materialOpciones = ["PVC", "Aluminio"]
-        let materialAluminioOpciones = ["800", "CT", "Cor 4200", "Cor Vision", "Cor Vision Plus", "Lumeal", "Soleal", "Arteal", "APG", "ATI 55", "ATI 70", "COR 60", "COR 70", "COR.OC 60", "COR.OC 70"]
-        let tapajuntasOpciones = ["30", "40", "60", "80", "100"]
-        let colorOpciones =  [
-            "Ral",
-            "Anonizados",
-            "Madera",
-            "Más utilizados"
-          ]
-        
-        let opcionesAnonizados = [
-                  "Oro",
-                  "Plata",
-                  "Bronce",
-                  "Inox"
-                ]
-        let opcionesMadera = [
-                  "Embero",
-                  "Nogal",
-                  "Pino envejecido",
-                  "Pino pollo"
-                ]
-        let opcionesMasUtilizados = [
-                  "Blanco",
-                  "Embero",
-                  "Nogal",
-                  "Pino envejecido",
-                  "Plata",
-                  "Bronce",
-                  "Inox",
-                  "Verde 6009",
-                  "Verde 6002",
-                  "Marrón 8014",
-                  "Crema 1015",
-                  "Ral.7022",
-                  "Ral.7016",
-                  "Plata ext/blanco int",
-                  "Embero ext/blanco int",
-                  "Bronce ext/blanco int",
-                  "Blanco ext/embero int"
-                ]
-        
-        let posicionOpciones = [
-            "Cocina",
-            "Habitación",
-            "Sala de estar",
-            "Trastero",
-            "Recibidor",
-            "Patio",
-            "Lavadero"
-          ]
+    
+    func getFormattedDimension(dimension: String) -> String {
+        if dimension != "" {
+            let dimensiones = dimension.components(separatedBy: "\n")
+            if dimensiones.count >= 2 {
+                let ancho = dimensiones[0].components(separatedBy: " ")[1]
+                let alto = dimensiones[1].components(separatedBy: " ")[1]
+                return ancho+" x "+alto+" mm"
+            } 
+        }
+        return dimension
+    }
 
-        let marcoInferiorOpciones = ["Abierto", "Cerrado", "Solera", "Empotrado"]
-        let forroExteriorOpciones = ["Pletina", "40", "60", "Otro"]
-        let cristalOpciones = ["Cámara", "4/Cámara/6", "4/Cámara/4+4", "6/?/4+4 silence", "4+4", "5+5", "6+6"]
-        let mallorquinaOpciones = ["Lama móvil", "Lama fija", "Travesaño horizontal", "Travesaño vertical", "Cruceta", "Persiana planta baja 4 hojas", "Persiana planta baja hoja sobre hoja", "Persiana planta baja apertura libro"]
-        let cerradurasOpciones = ["Cerradura", "Cerradura multipunto", "Cerradura 3 puntos", "Cerradura gesa"]
-        let manetasOpciones = ["Cremona", "Maneta presión", "Arch invisible", "Cremona minimalista", "Maneta interior/exterior", "Solo maneta interior", "Solo maneta exterior"]
-        let herrajeOpciones = ["Mismo color", "Bisagras seguridad", "Bisagras oculta", "Cierre clip + Uñero", "Muelle", "Cerradura electrónica", "Tirador exterior", "Tirador exterior/interior", "Pasadores resaltados"]
-        let instalacionOpciones = ["Huella obra", "Premarco", "Desmontando madera", "Desmontando hierro", "Desmontando aluminio"]
-        let curvasOpciones = ["Medio punto", "Carpanel", "Arco", "Segmento"]
-        let hojaPrincipalOpciones = ["Izquierda", "Derecha"]
+    
+    func optionsFor(attribute: String) -> [String] {
         
+        for elemento in hierarchy().elementos {
+            if attribute == elemento.nombre {
+                return elemento.opciones
+            }
+        }
+
+        //return ["Falta \(option)"]
 
         // Autogenerado
         let directorios_Estructuras_ordenadas = ["1-CORREDERAS", "2-PRACTICABLES", "3-PUERTAS", "4-PERSIANA", "5-FIJOS", "6-PLEGABLE", "7-CURVAS", "8-PERSIANAS ENROLLABLES", "9-MOSQUITERA", "10-CANCELAS", "11-BARANDILLA"]
@@ -248,7 +223,7 @@ class ProductViewModel: ObservableObject {
         let archivos_PERSIANA_PLEGABLE = ["1-PLMF303I", "1-PLMF303", "2-PLMF404", "3-PLMF404T", "4-PLMF505I", "4-PLMF505", "5-PLMF505T", "5-PLMF505TI", "6-PLMF606", "7-PLMF707IZ", "7-PLMF707"]
         let archivos_PERSIANAS_SOBRE_MURO = ["1-PCM1MDF", "2-PCM1MDFE", "3-PCM2MF"]
         let archivos_PÈRSIANAS_CON_ZOCALO = ["1-1MFAZD", "2-1MFAZI", "5-1MFAZTVD", "5-1PMFAZTXD", "6-1MFAZTVI", "6-1PMFAZTXI", "7-2MZ", "8-2PMTHZD", "10-2PMTVZD"]
-        let archivos_5_FIJOS = ["1-0", "2-02H", "3-02V", "4-03H", "5-03V", "6-04", "7-06", "8-0IND", "9-0INI", "12-CF", "13-CFT"]
+        let archivos_5_FIJOS = ["1-0", "2-02H", "3-02V", "4-03H", "5-03V", "6-4", "7-6", "8-0IND", "9-0INI", "12-CF", "13-CFT"]
         let archivos_6_PLEGABLE = ["1-PL10010", "2-PL1055", "3-PL11011", "4-PL12012", "5-PL13013", "6-PL14014", "7-PL15015", "8-PL202", "9-PL303", "10-PL321", "11-PL330", "12-PL404", "13-PL505", "14-PL505T", "15-PL550", "16-PL606", "17-PL633", "18-PL651", "19-PL707", "20-PL808", "21-PL909"]
         let archivos_7_CURVAS = ["1-F+1+FC", "1-F+1+FCD", "1-F+1+FPC", "1-F+1+FPCD", "1-FS+1C", "1-FS+1CI", "3-1C", "3-1CI", "5-2C", "5-2CI", "6-C2015DE", "6-C2015", "9-F+2+FC", "9-F+2+FCI", "10-F+2+FPC", "10-F+2+FPCI", "12-OB+1VS", "13-OB"]
         let directorios_7_CURVAS = ["CURVAS CON ZOCALO"]
@@ -261,44 +236,7 @@ class ProductViewModel: ObservableObject {
         let archivos_Barana = ["SERIE BARANA BARROTE1", "SERIE BARANA BARROTE", "SERIE BARANA CRISTAL"]
         let archivos_Q_railing = ["Q RAILING EMPOTRADA", "Q RAILING SUJETCION FRONTAL", "Q RAILING"]
         
-        switch option {
-            case "Material":
-                return materialOpciones
-            case "Material Aluminio":
-                return materialAluminioOpciones
-            case "Tapajuntas":
-                return tapajuntasOpciones
-            case "Color":
-                return colorOpciones
-            case "Anonizados":
-                return opcionesAnonizados
-            case "Madera":
-                return opcionesMadera
-            case "Más utilizados":
-                return opcionesMasUtilizados
-            case "MarcoInferior":
-                return marcoInferiorOpciones
-            case "Forro exterior":
-                return forroExteriorOpciones
-            case "Cristal":
-                return cristalOpciones
-            case "Mallorquina":
-                return mallorquinaOpciones
-            case "Cerraduras":
-                return cerradurasOpciones
-            case "Manetas":
-                return manetasOpciones
-            case "Herraje":
-                return herrajeOpciones
-            case "Instalación":
-                return instalacionOpciones
-            case "Curvas":
-                return curvasOpciones
-            case "Hoja principal":
-                return hojaPrincipalOpciones
-            case "Posición":
-                return posicionOpciones
-                    
+        switch attribute {
             // Autogenerado
             case "directorios Estructuras ordenadas":
                 return directorios_Estructuras_ordenadas
@@ -410,7 +348,6 @@ class ProductViewModel: ObservableObject {
 
             case "archivos 9-MOSQUITERA":
                 return archivos_9_MOSQUITERA
-                
                 
             default:
                 return []

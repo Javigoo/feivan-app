@@ -23,16 +23,18 @@ struct HomeView: View {
                 )
                      
                 NavigationLink(
-                    destination: ClientNewView(),
+                    destination: DataView(),
                     label: {
-                        Text("Nuevo proyecto")
+                        Text("Ver proyectos")
+                            .textStyle(NavigationLinkStyle())
                     }
                 )
                 
                 NavigationLink(
-                    destination: DataView(),
+                    destination: NewProject(),
                     label: {
-                        Text("Ver proyectos")
+                        Text("Nuevo proyecto")
+                            .textStyle(NavigationLinkStyle())
                     }
                 )
                 

@@ -14,6 +14,7 @@ class ProjectViewModel: ObservableObject {
     @Published var subirFachada = false
     @Published var timestamp = Date()
     @Published var proyectos: [Proyecto] = []
+    
     private let context = PersistenceController.shared
     
     init() {
@@ -25,6 +26,8 @@ class ProjectViewModel: ObservableObject {
         let request = Proyecto.fetchRequest()
         do {
             proyectos = try context.fetch(request)
+            print("Proyectos: \(proyectos.count)")
+
         } catch {
             print("ERROR in ProjectViewModel at getAllProjects()\n")
         }
@@ -96,5 +99,9 @@ class ProjectViewModel: ObservableObject {
             }
         }
         return numProducts
+    }
+    
+    func addClient(clientVM: ClientViewModel) {
+        //
     }
 }

@@ -56,7 +56,7 @@ struct ProjectUpdateView: View {
         .onAppear {
             projectVM.getProject(proyecto: proyecto)
         }.toolbar {
-            Button("Actualizar") {
+            Button("Guardar") {
                 projectVM.update(proyecto: proyecto)
                 presentationMode.wrappedValue.dismiss()
             }
@@ -126,13 +126,40 @@ struct ProjectDetailView: View {
                 Spacer()
                 Text(proyecto.direccion ?? "...")
             }
+            .font(.title)
+            
+            if proyecto.ascensor {
+                Text("Ascensor").font(.subheadline)
+            }
+            
+            if proyecto.grua {
+                Text("Grúa").font(.subheadline)
+            }
+
+            if proyecto.subirFachada {
+                Text("Subir fachada").font(.subheadline)
+            }
+            
+        }.padding()
+    }
+}
+
+struct ProjectDetailAllView: View {
+    @ObservedObject var proyecto: Proyecto
+    var body: some View {
+        VStack(alignment: .leading) {
+            HStack {
+                Text("Dirección")
+                Spacer()
+                Text(proyecto.direccion ?? "...")
+            }
             .font(.subheadline)
 
             HStack {
                 Text("Ascensor")
                 Spacer()
                 if proyecto.ascensor {
-                    Text("Si")
+                    Text("Sí")
                 } else {
                     Text("No")
                 }
@@ -143,7 +170,7 @@ struct ProjectDetailView: View {
                 Text("Grúa")
                 Spacer()
                 if proyecto.grua {
-                    Text("Si")
+                    Text("Sí")
                 } else {
                     Text("No")
                 }
@@ -154,7 +181,7 @@ struct ProjectDetailView: View {
                 Text("Subir fachada")
                 Spacer()
                 if proyecto.subirFachada {
-                    Text("Si")
+                    Text("Sí")
                 } else {
                     Text("No")
                 }

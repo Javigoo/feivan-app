@@ -14,49 +14,19 @@ struct ClientView: View {
     }
 }
 
-struct ClientNewView: View {
-    
-    @StateObject var clientVM = ClientViewModel()
-    
-    var body: some View {
-        ClientCreateView(clientVM: clientVM)
-            .navigationTitle(Text("Nuevo cliente"))
-    }
-}
-
-struct ClientCreateView: View {
-
-    @ObservedObject var clientVM: ClientViewModel
-
-    var body: some View {
-        VStack {
-            Form {
-                ClientFormView(clientVM: clientVM)
-
-                Button("Guardar") {
-                    clientVM.save()
-                }
-            }
-        }
-    }
-}
-
 struct ClientUpdateView: View {
-
     var cliente: Cliente
     @ObservedObject var clientVM: ClientViewModel
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
     var body: some View {
         VStack {
-            Form {
-                ClientFormView(clientVM: clientVM)
-            }
+            ClientFormView(clientVM: clientVM)
         }
         .onAppear {
             clientVM.getClient(cliente: cliente)
         }.toolbar {
-            Button("Actualizar") {
+            Button("Guardar") {
                 clientVM.update(cliente: cliente)
                 presentationMode.wrappedValue.dismiss()
             }
@@ -65,29 +35,28 @@ struct ClientUpdateView: View {
 }
 
 struct ClientFormView: View {
-    
     @ObservedObject var clientVM: ClientViewModel
 
     var body: some View {
-        Section(header: Text("Información de contacto")) {
-            TextField("Nombre", text: $clientVM.nombre)
-            TextField("Teléfono", text: $clientVM.telefono)
-                .keyboardType(.phonePad)
-            TextField("Email", text: $clientVM.email)
-                .keyboardType(.emailAddress)
-        }
-        
-        TextField("Referencia", text: $clientVM.referencia)
-        
-        Section(header: Text("Comentarios opcionales")) {
-            TextEditor(text: $clientVM.comentario)
+        Form {
+            Section(header: Text("Información de contacto")) {
+                TextField("Nombre", text: $clientVM.nombre)
+                TextField("Teléfono", text: $clientVM.telefono)
+                    .keyboardType(.phonePad)
+                TextField("Email", text: $clientVM.email)
+                    .keyboardType(.emailAddress)
+            }
+            
+            TextField("Referencia", text: $clientVM.referencia)
+            
+            Section(header: Text("Comentarios opcionales")) {
+                TextEditor(text: $clientVM.comentario)
+            }
         }
     }
 }
 
-
 // To refact
-
 
 struct ClientListView: View {
     
@@ -127,9 +96,10 @@ struct ClientPreviewView: View {
             }
             Text(cliente.comentario ?? "...")
                 .font(.subheadline)
-        }
+        }.padding()
     }
 }
+
 
 struct ClientDetailView: View {
     

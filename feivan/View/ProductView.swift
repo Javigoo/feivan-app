@@ -26,16 +26,15 @@ struct ProductNewView: View {
 
 struct ProductCreateView: View {
 
+    @StateObject var producto: Producto = Producto(context: PersistenceController.shared.viewContext)
     @ObservedObject var productVM: ProductViewModel
 
     var body: some View {
         VStack {
-            Form {
-                //ProductFormView(productVM: productVM)
-
-                Button("Guardar") {
-                    productVM.save()
-                }
+            ProductFormView(producto: producto, productVM: productVM)
+        }.toolbar {
+            Button("Guardar") {
+                productVM.save()
             }
         }
     }
@@ -53,7 +52,7 @@ struct ProductUpdateView: View {
         }.onAppear {
             productVM.getProduct(producto: producto)
         }.toolbar {
-            Button("Actualizar") {
+            Button("Guardar") {
                 productVM.update(producto: producto)
                 presentationMode.wrappedValue.dismiss()
             }
@@ -64,53 +63,28 @@ struct ProductUpdateView: View {
 struct ProductFormView: View {
     @ObservedObject var producto: Producto
     @ObservedObject var productVM: ProductViewModel
-    
+      
+    //@State private var anadirMas = false
+
     var body: some View {
-    
-        VStack {
-                
-            NavigationLink(
-                destination: ProductFamiliaFormView(producto: producto, productVM: productVM),
-                label: {
-                    if productVM.familia == "" {
-                        Text("Familia")
-                            .font(.title)
-                    } else {
-                        Text(productVM.getFormattedName(name: productVM.familia))
-                            .font(.title)
-                    }
-                }
-            )
-                
-            NavigationLink(
-                destination: ProductNombreFormView(producto: producto, productVM: productVM),
-                label: {
-                    if productVM.nombre == "" {
-                        Image(systemName: "photo")
-                            .resizable()
-                            .scaledToFit()
-                    } else {
-                        Image(productVM.nombre)
-                            .resizable()
-                            .scaledToFit()
-                    }
-                }
-            )
-        }
-        
+        //NavigationLink(destination: ProductUpdateView(producto: productoAnadirMas, productVM: productVM), isActive: $anadirMas) { EmptyView() }
+
+        ProductDetailPreviewView(producto: producto, productVM: productVM)
         
         Form {
             Group {
-                NavigationLink(
-                    destination: ProductCurvasFormView(producto: producto, productVM: productVM),
-                    label: {
-                        HStack {
-                            Text("Curvas")
-                            Spacer()
-                            Text(productVM.curvas)
+                if productVM.getFormattedName(name: productVM.familia) == "Curvas" {
+                    NavigationLink(
+                        destination: ProductCurvasFormView(producto: producto, productVM: productVM),
+                        label: {
+                            HStack {
+                                Text("Curvas")
+                                Spacer()
+                                Text(productVM.curvas)
+                            }
                         }
-                    }
-                )
+                    )
+                }
                 
                 NavigationLink(
                     destination: ProductMaterialFormView(producto: producto, productVM: productVM),
@@ -168,15 +142,29 @@ struct ProductFormView: View {
                 )
                 
                 NavigationLink(
-                    destination: ProductMarcoInferiorFormView(producto: producto, productVM: productVM),
+                    destination: ProductCompactoFormView(producto: producto, productVM: productVM),
                     label: {
                         HStack {
-                            Text("Marco inferior")
+                            Text("Compacto")
                             Spacer()
-                            Text(productVM.marcoInferior)
+                            Text(productVM.compacto)
                         }
                     }
                 )
+                
+                if productVM.getFormattedName(name: productVM.familia) != "Fijos" &&
+                    productVM.getFormattedName(name: productVM.familia) != "Correderas" {
+                    NavigationLink(
+                        destination: ProductMarcoInferiorFormView(producto: producto, productVM: productVM),
+                        label: {
+                            HStack {
+                                Text("Marco inferior")
+                                Spacer()
+                                Text(productVM.marcoInferior)
+                            }
+                        }
+                    )
+                }
                 
                 NavigationLink(
                     destination: ProductHuellaFormView(producto: producto, productVM: productVM),
@@ -189,30 +177,34 @@ struct ProductFormView: View {
                     }
                 )
                 
-                NavigationLink(
-                    destination: ProductForroExteriorFormView(producto: producto, productVM: productVM),
-                    label: {
-                        HStack {
-                            Text("Forro exterior")
-                            Spacer()
-                            Text(productVM.forroExterior)
+                if productVM.getFormattedName(name: productVM.familia) != "Persiana" {
+                    NavigationLink(
+                        destination: ProductForroExteriorFormView(producto: producto, productVM: productVM),
+                        label: {
+                            HStack {
+                                Text("Forro exterior")
+                                Spacer()
+                                Text(productVM.forroExterior)
+                            }
                         }
-                    }
-                )
-                
-                NavigationLink(
-                    destination: ProductCristalFormView(producto: producto, productVM: productVM),
-                    label: {
-                        HStack {
-                            Text("Cristal")
-                            Spacer()
-                            Text(productVM.cristal)
-                        }
-                    }
-                )
+                    )
+                }
             }
             
             Group {
+                if productVM.getFormattedName(name: productVM.familia) != "Persiana" {
+                    NavigationLink(
+                        destination: ProductCristalFormView(producto: producto, productVM: productVM),
+                        label: {
+                            HStack {
+                                Text("Cristal")
+                                Spacer()
+                                Text(productVM.cristal)
+                            }
+                        }
+                    )
+                }
+                
                 NavigationLink(
                     destination: ProductCerradurasFormView(producto: producto, productVM: productVM),
                     label: {
@@ -268,16 +260,18 @@ struct ProductFormView: View {
                     }
                 )
                 
-                NavigationLink(
-                    destination: ProductMallorquinaFormView(producto: producto, productVM: productVM),
-                    label: {
-                        HStack {
-                            Text("Mallorquina")
-                            Spacer()
-                            Text(productVM.mallorquina)
+                if productVM.getFormattedName(name: productVM.familia) == "Persiana" {
+                    NavigationLink(
+                        destination: ProductMallorquinaFormView(producto: producto, productVM: productVM),
+                        label: {
+                            HStack {
+                                Text("Mallorquina")
+                                Spacer()
+                                Text(productVM.mallorquina)
+                            }
                         }
-                    }
-                )
+                    )
+                }
                 
                 Section(header: Text("Extras")) {
                     Toggle(isOn: $productVM.rematesAlbanileria) {
@@ -286,12 +280,45 @@ struct ProductFormView: View {
                     Toggle(isOn: $productVM.medidasNoBuenas) {
                         Text("Medidas no buenas")
                     }
+                    Stepper("Copias:  \(productVM.copias)", value: $productVM.copias, in: 1...99)
+                }
+            }
+            
+            Group {
+                HStack {
+                    NavigationLink(
+                        destination: ProductCreateView(productVM: productVM),
+                        label: {
+                            Text("Añadir más")
+                        }
+                    )
+                    Button(
+                        action: {
+                            print("Añadiendo más")
+                            // Crear un nuevo producto añadiendole los atributos que no deben cambiar
+                            // Pasarselo a la siguiente vista
+                            
+
+                        },
+                        label: {
+                            Text("Añadir más")
+                        }
+                    )
+                    Spacer()
+                    Button(
+                        action: {
+                            print("Añadiendo otro")
+                            // NavLink to ProductCreateView
+                        },
+                        label: {
+                            Text("Añadir otro")
+                        }
+                    )
                 }
             }
         }
     }
 }
-
 
 
 // Product form views
@@ -307,7 +334,7 @@ struct ProductFamiliaFormView: View {
         VStack {
             NavigationLink(destination: ProductNombreFormView(producto: producto, productVM: productVM), isActive: $isShowingNextView) { EmptyView() }
             
-            ForEach(productVM.listOf(option: "directorios Estructuras ordenadas"), id: \.self) { familia in
+            ForEach(productVM.optionsFor(attribute: "directorios Estructuras ordenadas"), id: \.self) { familia in
                 Button(
                     action: {
                         productVM.familia = familia
@@ -317,11 +344,12 @@ struct ProductFamiliaFormView: View {
                     },
                     label: {
                         Text(productVM.getFormattedName(name: familia))
-                            .font(.title)
+                            .textStyle(NavigationLinkStyle())
                     }
                 )
             }
         }
+        .navigationTitle(Text("Familias"))
     }
 }
 
@@ -347,15 +375,24 @@ struct ProductMaterialFormView: View {
                 
                 Section(header: Text("Opciones")) {
                     Picker(atributo, selection: $productVM.material) {
-                        List(productVM.listOf(option: atributo), id: \.self) { item in Text(item) }
+                        List(productVM.optionsFor(attribute: atributo), id: \.self) { item in Text(item) }
                     }
                     .pickerStyle(.segmented)
                 }
                 
                 if productVM.material == "Aluminio" {
-                    Section(header: Text("Aluminio")) {
-                        Picker("Aluminio", selection: $productVM.especifico) {
-                            List(productVM.listOf(option: "Material Aluminio"), id: \.self) { item in Text(item) }
+                    if productVM.getFormattedName(name: productVM.familia) == "Correderas" {
+                        Section(header: Text("Aluminio")) {
+                            Picker("Aluminio", selection: $productVM.especifico) {
+                                List(productVM.optionsFor(attribute: "Material Aluminio Correderas"), id: \.self) { item in Text(item) }
+                            }
+                        }
+                    }
+                    if productVM.getFormattedName(name: productVM.familia) == "Practicables" {
+                        Section(header: Text("Aluminio")) {
+                            Picker("Aluminio", selection: $productVM.especifico) {
+                                List(productVM.optionsFor(attribute: "Material Aluminio Ventanas"), id: \.self) { item in Text(item) }
+                            }
                         }
                     }
                 }
@@ -371,7 +408,7 @@ struct ProductMaterialFormView: View {
         }
         .navigationTitle(atributo)
         .toolbar {
-            Button("Aceptar") {
+            Button("Guardar") {
                 if productVM.especifico != "" {
                     productVM.material = productVM.especifico
                     productVM.especifico = ""
@@ -407,7 +444,7 @@ struct ProductCurvasFormView: View {
                 
                 Section(header: Text("Opciones")) {
                     Picker(atributo, selection: $productVM.curvas) {
-                        List(productVM.listOf(option: atributo), id: \.self) { item in Text(item) }
+                        List(productVM.optionsFor(attribute: atributo), id: \.self) { item in Text(item) }
                     }
                 }
                                 
@@ -422,7 +459,7 @@ struct ProductCurvasFormView: View {
         }
         .navigationTitle(atributo)
         .toolbar {
-            Button("Aceptar") {
+            Button("Guardar") {
                 if productVM.especifico != "" {
                     productVM.curvas = productVM.especifico
                     productVM.especifico = ""
@@ -466,7 +503,7 @@ struct ProductColorFormView: View {
                 
                 Section(header: Text("Opciones")) {
                     Picker(atributo, selection: $productVM.color) {
-                        List(productVM.listOf(option: atributo), id: \.self) { item in Text(item) }
+                        List(productVM.optionsFor(attribute: atributo), id: \.self) { item in Text(item) }
                     }
                 }
                 
@@ -478,21 +515,21 @@ struct ProductColorFormView: View {
                 if productVM.color == "Anonizados" {
                     Section(header: Text("Anonizados")) {
                         Picker(atributo, selection: $color) {
-                            List(productVM.listOf(option: "Anonizados"), id: \.self) { item in Text(item) }
+                            List(productVM.optionsFor(attribute: "Anonizados"), id: \.self) { item in Text(item) }
                         }
                     }
                 }
                 if productVM.color == "Madera" {
                     Section(header: Text("Madera")) {
                         Picker(atributo, selection: $color) {
-                            List(productVM.listOf(option: "Madera"), id: \.self) { item in Text(item) }
+                            List(productVM.optionsFor(attribute: "Madera"), id: \.self) { item in Text(item) }
                         }
                     }
                 }
                 if productVM.color == "Más utilizados" {
                     Section(header: Text("Más utilizados")) {
                         Picker(atributo, selection: $color) {
-                            List(productVM.listOf(option: "Más utilizados"), id: \.self) { item in Text(item) }
+                            List(productVM.optionsFor(attribute: "Más utilizados"), id: \.self) { item in Text(item) }
                         }
                     }
                 }
@@ -519,7 +556,7 @@ struct ProductColorFormView: View {
         }
         .navigationTitle(atributo)
         .toolbar {
-            Button("Aceptar") {
+            Button("Guardar") {
                 
                 productVM.color = color
                 
@@ -573,7 +610,7 @@ struct ProductTapajuntasFormView: View {
                 
                 Section(header: Text("Opciones")) {
                     Picker(atributo, selection: $productVM.tapajuntas) {
-                        List(productVM.listOf(option: atributo), id: \.self) { item in Text(item) }
+                        List(productVM.optionsFor(attribute: atributo), id: \.self) { item in Text(item) }
                     }.onChange(of: productVM.tapajuntas) { newValue in
                         setTapajuntasEspecificos()
                     }
@@ -619,22 +656,24 @@ struct ProductTapajuntasFormView: View {
         }
         .navigationTitle(atributo)
         .toolbar {
-            Button("Aceptar") {
+            Button("Guardar") {
+
+                var resultado: [String] = []
+
                 if especificos {
-                    var valoresEspecificos: [String] = []
                     if (superior != 0){
-                        valoresEspecificos.append("Superior: \(String(format: "%.0f", superior))")
+                        resultado.append("Superior: \(String(format: "%.0f", superior)) mm")
                     }
                     if (inferior != 0){
-                        valoresEspecificos.append("Inferior: \(String(format: "%.0f", inferior))")
+                        resultado.append("Inferior: \(String(format: "%.0f", inferior)) mm")
                     }
                     if (izquierdo != 0){
-                        valoresEspecificos.append("Izquierdo: \(String(format: "%.0f", izquierdo))")
+                        resultado.append("Izquierdo: \(String(format: "%.0f", izquierdo)) mm")
                     }
                     if (derecho != 0){
-                        valoresEspecificos.append("Derecho: \(String(format: "%.0f", derecho))")
+                        resultado.append("Derecho: \(String(format: "%.0f", derecho)) mm")
                     }
-                    productVM.tapajuntas = valoresEspecificos.joined(separator: ", ")
+                    productVM.tapajuntas = resultado.joined(separator: "\n")
                 }
                 
                 if productVM.otro != "" {
@@ -669,6 +708,11 @@ struct ProductDimensionesFormView: View {
     
     @State var ancho: String = ""
     @State var alto: String = ""
+    @State var fijos: Bool = false
+    @State var superior: String = ""
+    @State var inferior: String = ""
+    @State var izquierdo: String = ""
+    @State var derecho: String = ""
     
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
@@ -686,6 +730,17 @@ struct ProductDimensionesFormView: View {
                     .keyboardType(.numberPad)
                 }
                 
+                Toggle("Fijos", isOn: $fijos)
+                
+                if fijos {
+                    Section(header: Text("Dimensiones fijo"), footer: Text("Unidad de medida: mm")) {
+                        TextField("Superior", text: $superior)
+                        TextField("Inferior", text: $inferior)
+                        TextField("Izquierdo", text: $izquierdo)
+                        TextField("Derecho", text: $derecho)
+                    }.keyboardType(.numberPad)
+                }
+                
                 Section(header: Text("Anotación")) {
                     TextField("Añade una anotación", text: $productVM.anotacion)
                 }
@@ -693,9 +748,35 @@ struct ProductDimensionesFormView: View {
         }
         .navigationTitle(atributo)
         .toolbar {
-            Button("Aceptar") {
+            Button("Guardar") {
                 
-                productVM.dimensiones = "\(ancho)x\(alto) mm"
+                var resultado: [String] = []
+                
+                if ancho != "" {
+                    resultado.append("Ancho: \(ancho) mm")
+                }
+                
+                if alto != "" {
+                    resultado.append("Alto: \(alto) mm")
+                }
+                
+                if fijos {
+                    resultado.append("Con fijos")
+                    if superior != "" {
+                        resultado.append("Superior: \(superior) mm")
+                    }
+                    if inferior != "" {
+                        resultado.append("Inferior: \(inferior) mm")
+                    }
+                    if izquierdo != "" {
+                        resultado.append("Izquierdo: \(izquierdo) mm")
+                    }
+                    if derecho != "" {
+                        resultado.append("Derecho: \(derecho) mm")
+                    }
+                }
+                
+                productVM.dimensiones = resultado.joined(separator: "\n")
                 
                 if productVM.anotacion != "" {
                     productVM.dimensiones = productVM.dimensiones + " (\(productVM.anotacion))"
@@ -728,38 +809,46 @@ struct ProductAperturaFormView: View {
         VStack {
             Form{
                 Section(header: Text("Tipo de apertura")) {
-                    Toggle("Oscilobatiente", isOn: $oscilobatiente)
+                    if productVM.getFormattedName(name: productVM.familia) == "Practicables" ||
+                        productVM.getFormattedName(name: productVM.familia) == "Puertas" {
+                        Toggle("Oscilobatiente", isOn: $oscilobatiente)
+                    }
                     Toggle("Piven", isOn: $piven)
                 }
                 
-                if !oscilobatiente && !piven {
-                    Section(header: Text("Vista")) {
-                        Picker("Vista", selection: $vista) {
-                            List(["Dentro", "Fuera"], id: \.self) { item in Text(item) }
+                if productVM.getFormattedName(name: productVM.familia) != "Correderas" &&
+                    productVM.getFormattedName(name: productVM.familia) != "Fijos" {
+                    if !piven {
+                        Section(header: Text("Vista")) {
+                            Picker("Vista", selection: $vista) {
+                                List(["Dentro", "Fuera"], id: \.self) { item in Text(item) }
+                            }
+                            .pickerStyle(.segmented)
                         }
-                        .pickerStyle(.segmented)
-                    }
-                
-                    Section(header: Text("Abre")) {
-                        Picker("Abre", selection: $abre) {
-                            List(["Interior", "Exterior"], id: \.self) { item in Text(item) }
+                    
+                        Section(header: Text("Abre")) {
+                            Picker("Abre", selection: $abre) {
+                                List(["Interior", "Exterior"], id: \.self) { item in Text(item) }
+                            }
+                            .pickerStyle(.segmented)
                         }
-                        .pickerStyle(.segmented)
-                    }
-                
-                    Section(header: Text("Mano")) {
-                        Picker("Mano", selection: $mano) {
-                            List(["Izquierda", "Derecha"], id: \.self) { item in Text(item) }
+                    
+                        Section(header: Text("Mano")) {
+                            Picker("Mano", selection: $mano) {
+                                List(["Izquierda", "Derecha"], id: \.self) { item in Text(item) }
+                            }
+                            .pickerStyle(.segmented)
                         }
-                        .pickerStyle(.segmented)
                     }
                 }
                 
-                Section(header: Text("Corredera")) {
-                    Picker("Corredera", selection: $corredera) {
-                        List(["Primera hoja izquierda", "Primera hoja derecha"], id: \.self) { item in Text(item) }
+                if productVM.getFormattedName(name: productVM.familia) == "Correderas" {
+                    Section(header: Text("Corredera")) {
+                        Picker("Corredera", selection: $corredera) {
+                            List(["Primera hoja izquierda", "Primera hoja derecha"], id: \.self) { item in Text(item) }
+                        }
+                        .pickerStyle(.segmented)
                     }
-                    .pickerStyle(.segmented)
                 }
                                             
                 Section(header: Text("Otro")) {
@@ -773,9 +862,9 @@ struct ProductAperturaFormView: View {
         }
         .navigationTitle(atributo)
         .toolbar {
-            Button("Aceptar") {
+            Button("Guardar") {
                 
-                productVM.apertura = "Vista: \(vista), Abre: \(abre), Mano: \(mano)"
+                productVM.apertura = "Vista: \(vista)\nAbre: \(abre)\nMano: \(mano)"
                 
                 if oscilobatiente {
                     productVM.apertura = "Oscilobatiente"
@@ -795,7 +884,163 @@ struct ProductAperturaFormView: View {
                 }
                 
                 if productVM.anotacion != "" {
-                    productVM.apertura = productVM.apertura + " (\(productVM.anotacion))"
+                    productVM.apertura = productVM.apertura + "\n(\(productVM.anotacion))"
+                    productVM.anotacion = ""
+                }
+                
+                productVM.update(producto: producto)
+                presentationMode.wrappedValue.dismiss()
+            }
+        }
+    }
+}
+
+struct ProductCompactoFormView: View {
+    
+    var atributo = "Compacto"
+    @ObservedObject var producto: Producto
+    @ObservedObject var productVM: ProductViewModel
+    
+    @State var compacto: String = ""
+    @State var huella: String = ""
+    @State var numeroPanos: Int = 0
+    @State var motor: Bool = false
+    @State var cable: String = ""
+    @State var control: String = ""
+    @State var recogedor: String = ""
+    @State var exterior: Bool = false
+    @State var colorExterior: String = ""
+    @State var colorLama: String = ""
+    @State var tamanoCajon: Bool = false
+    @State var detallaObra: String = ""
+
+    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
+
+    var body: some View {
+        VStack {
+            Form{
+                Section(header: Text("Tipo")) {
+                    Picker(atributo, selection: $compacto) {
+                        List(productVM.optionsFor(attribute: atributo), id: \.self) { item in Text(item) }
+                    }
+                    .pickerStyle(.segmented)
+                }
+                
+                Section(header: Text("Huella")) {
+                    TextField("0 mm", text: $huella)
+                }
+
+                Section(header: Text("Paños")) {
+                    Stepper("Número de paños:  \(numeroPanos)", value: $numeroPanos, in: 0...99)
+                }
+                
+                Section(header: Text("Motor")) {
+                    Toggle("Motor", isOn: $motor)
+                }
+                
+                if motor {
+                    Section(header: Text("Cables")) {
+                        Picker("Cables", selection: $cable) {
+                            List(["Izquierda", "Derecha"], id: \.self) { item in Text(item) }
+                        }
+                        .pickerStyle(.segmented)
+                    }
+
+                    Section(header: Text("Cables control")) {
+                        Picker("Control", selection: $control) {
+                            List(["Izquierda", "Derecha"], id: \.self) { item in Text(item) }
+                        }
+                        .pickerStyle(.segmented)
+                    }
+                }
+                
+                Section(header: Text("Recogedor")) {
+                    Picker("Recogedor", selection: $recogedor) {
+                        List(["Izquierdo", "Derecho"], id: \.self) { item in Text(item) }
+                    }
+                    .pickerStyle(.segmented)
+                    Toggle("Exterior", isOn: $exterior)
+                }
+                
+                Section(header: Text("Color")) {
+                    TextField("Exterior", text: $colorExterior)
+                    TextField("Lama", text: $colorLama)
+                }
+                
+                Section(header: Text("Cajón")) {
+                    Toggle("Tamaño cajón", isOn: $tamanoCajon)
+                }
+                
+                Picker("Detalles obra", selection: $detallaObra) {
+                    if productVM.getFormattedName(name: productVM.familia) == "Mini" {
+                        List(["Sobre muro", "Tipo compacto", "Mini"], id: \.self) { item in Text(item) }
+                    } else {
+                        List(["Sobre muro", "Tipo compacto"], id: \.self) { item in Text(item) }
+                    }
+                }
+                .pickerStyle(.segmented)
+                
+                Section(header: Text("Anotación")) {
+                    TextField("Introduce una anotación", text: $productVM.anotacion)
+                }
+            }
+        }
+        .navigationTitle(atributo)
+        .toolbar {
+            Button("Guardar") {
+                
+                var resultado: [String] = []
+                
+                if compacto != "" {
+                    resultado.append(compacto)
+                }
+                
+                if huella != "" {
+                    resultado.append("Huella: \(huella) mm")
+                }
+                
+                if numeroPanos != 0 {
+                    resultado.append("Paños: \(numeroPanos)")
+                }
+                
+                if recogedor != "" {
+                    if exterior {
+                        resultado.append("Recogedor: \(recogedor) exterior")
+                    } else {
+                        resultado.append("Recogedor: \(recogedor)")
+                    }
+                }
+                
+                if motor {
+                    resultado.append("Con motor")
+                    if cable != "" {
+                        resultado.append("Cables motor: \(cable)")
+                    }
+                    if control != "" {
+                        resultado.append("Cables control: \(control)")
+                    }
+                }
+                
+                if colorLama != "" {
+                    resultado.append("Color lama: \(colorLama)")
+                }
+                
+                if colorExterior != "" {
+                    resultado.append("Color exterior: \(colorExterior)")
+                }
+                
+                if tamanoCajon {
+                    resultado.append("Con tamaño cajón")
+                }
+                
+                if detallaObra != "" {
+                    resultado.append("Detalles de obra: \(detallaObra)")
+                }
+                
+                productVM.compacto = resultado.joined(separator: "\n")
+                
+                if productVM.anotacion != "" {
+                    productVM.compacto = productVM.compacto + "\n(\(productVM.anotacion))"
                     productVM.anotacion = ""
                 }
                 
@@ -822,7 +1067,7 @@ struct ProductMarcoInferiorFormView: View {
             Form{
                 Section(header: Text("Opciones")) {
                     Picker("Marco Inferior", selection: $productVM.marcoInferior) {
-                        List(productVM.listOf(option: "MarcoInferior"), id: \.self) { item in Text(item) }
+                        List(productVM.optionsFor(attribute: atributo), id: \.self) { item in Text(item) }
                     }
                     .pickerStyle(.segmented)
                 }
@@ -844,7 +1089,7 @@ struct ProductMarcoInferiorFormView: View {
         }
         .navigationTitle(atributo)
         .toolbar {
-            Button("Aceptar") {
+            Button("Guardar") {
                 
                 if canalRecogeAgua {
                     productVM.marcoInferior = productVM.marcoInferior + " con canal recoge agua"
@@ -893,7 +1138,7 @@ struct ProductHuellaFormView: View {
         }
         .navigationTitle(atributo)
         .toolbar {
-            Button("Aceptar") {
+            Button("Guardar") {
                 
                 productVM.huella = huella + " mm"
                 
@@ -953,7 +1198,7 @@ struct ProductForroExteriorFormView: View {
         }
         .navigationTitle(atributo)
         .toolbar {
-            Button("Aceptar") {
+            Button("Guardar") {
                 
                 
                 if productVM.otro != "" {
@@ -985,7 +1230,7 @@ struct ProductCristalFormView: View {
             Form{
                 Section(header: Text("Opciones")) {
                     Picker(atributo, selection: $productVM.cristal) {
-                        List(productVM.listOf(option: atributo), id: \.self) { item in Text(item) }
+                        List(productVM.optionsFor(attribute: atributo), id: \.self) { item in Text(item) }
                     }
                 }
                 
@@ -1000,7 +1245,7 @@ struct ProductCristalFormView: View {
         }
         .navigationTitle(atributo)
         .toolbar {
-            Button("Aceptar") {
+            Button("Guardar") {
                 
                 if productVM.otro != "" {
                     productVM.cristal = productVM.otro
@@ -1031,7 +1276,7 @@ struct ProductCerradurasFormView: View {
             Form{
                 Section(header: Text("Opciones")) {
                     Picker(atributo, selection: $productVM.cerraduras) {
-                        List(productVM.listOf(option: atributo), id: \.self) { item in Text(item) }
+                        List(productVM.optionsFor(attribute: atributo), id: \.self) { item in Text(item) }
                     }
                 }
                 
@@ -1046,7 +1291,7 @@ struct ProductCerradurasFormView: View {
         }
         .navigationTitle(atributo)
         .toolbar {
-            Button("Aceptar") {
+            Button("Guardar") {
                 
                 if productVM.otro != "" {
                     productVM.cerraduras = productVM.otro
@@ -1077,7 +1322,7 @@ struct ProductManetasFormView: View {
             Form{
                 Section(header: Text("Opciones")) {
                     Picker(atributo, selection: $productVM.manetas) {
-                        List(productVM.listOf(option: atributo), id: \.self) { item in Text(item) }
+                        List(productVM.optionsFor(attribute: atributo), id: \.self) { item in Text(item) }
                     }
                 }
                 
@@ -1092,7 +1337,7 @@ struct ProductManetasFormView: View {
         }
         .navigationTitle(atributo)
         .toolbar {
-            Button("Aceptar") {
+            Button("Guardar") {
                 
                 if productVM.otro != "" {
                     productVM.manetas = productVM.otro
@@ -1123,7 +1368,7 @@ struct ProductHerrajeFormView: View {
             Form{
                 Section(header: Text("Opciones")) {
                     Picker(atributo, selection: $productVM.herraje) {
-                        List(productVM.listOf(option: atributo), id: \.self) { item in Text(item) }
+                        List(productVM.optionsFor(attribute: atributo), id: \.self) { item in Text(item) }
                     }
                 }
                 
@@ -1138,7 +1383,7 @@ struct ProductHerrajeFormView: View {
         }
         .navigationTitle(atributo)
         .toolbar {
-            Button("Aceptar") {
+            Button("Guardar") {
                 
                 if productVM.otro != "" {
                     productVM.herraje = productVM.otro
@@ -1173,7 +1418,7 @@ struct ProductPosicionFormView: View {
             Form{
                 Section(header: Text("Zonas")) {
                     Picker(atributo, selection: $productVM.posicion) {
-                        List(productVM.listOf(option: atributo), id: \.self) { item in Text(item) }
+                        List(productVM.optionsFor(attribute: atributo), id: \.self) { item in Text(item) }
                     }
                 }
                 
@@ -1193,7 +1438,7 @@ struct ProductPosicionFormView: View {
         }
         .navigationTitle(atributo)
         .toolbar {
-            Button("Aceptar") {
+            Button("Guardar") {
                 
                 if productVM.otro != "" {
                     productVM.posicion = productVM.otro
@@ -1224,7 +1469,7 @@ struct ProductInstalacionFormView: View {
             Form{
                 Section(header: Text("Opciones")) {
                     Picker(atributo, selection: $productVM.instalacion) {
-                        List(productVM.listOf(option: atributo), id: \.self) { item in Text(item) }
+                        List(productVM.optionsFor(attribute: atributo), id: \.self) { item in Text(item) }
                     }
                 }
                 
@@ -1239,7 +1484,7 @@ struct ProductInstalacionFormView: View {
         }
         .navigationTitle(atributo)
         .toolbar {
-            Button("Aceptar") {
+            Button("Guardar") {
                 
                 if productVM.otro != "" {
                     productVM.instalacion = productVM.otro
@@ -1273,7 +1518,7 @@ struct ProductMallorquinaFormView: View {
             Form{
                 Section(header: Text("Opciones")) {
                     Picker(atributo, selection: $productVM.mallorquina) {
-                        List(productVM.listOf(option: atributo), id: \.self) { item in Text(item) }
+                        List(productVM.optionsFor(attribute: atributo), id: \.self) { item in Text(item) }
                     }
                 }
                 
@@ -1290,7 +1535,7 @@ struct ProductMallorquinaFormView: View {
         }
         .navigationTitle(atributo)
         .toolbar {
-            Button("Aceptar") {
+            Button("Guardar") {
                 
                 if tubo {
                     productVM.mallorquina = productVM.mallorquina + " con tubo"
@@ -1314,9 +1559,48 @@ struct ProductMallorquinaFormView: View {
 }
 
 
-
 // Detail Views
 struct ProductDetailView: View {
+    var productVM = ProductViewModel()
+    @ObservedObject var producto: Producto
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading){
+                if producto.copias == 1 {
+                    Text(productVM.getSingularFamilia(name: producto.familia ?? ""))
+                        .font(.title)
+                        .lineLimit(1)
+                } else {
+                    Text(String(producto.copias)+" "+productVM.getFormattedName(name: producto.familia ?? ""))
+                        .font(.title)
+                        .lineLimit(1)
+                }
+                Text(producto.material ?? "")
+                    .font(.subheadline)
+                Text(producto.color ?? "")
+                    .font(.subheadline)
+                Text(productVM.getFormattedDimension(dimension: producto.dimensiones ?? ""))
+                    .font(.subheadline)
+            }
+            Spacer()
+            
+            if productVM.nombre == "" {
+                Image(systemName: "photo")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 100)
+            } else {
+                Image(productVM.nombre)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 100)
+            }
+                
+        }
+    }
+}
+
+struct ProductDetailAllView: View {
     @ObservedObject var producto: Producto
     var body: some View {
         VStack(alignment: .leading) {
@@ -1467,30 +1751,51 @@ struct ProductDetailView: View {
                 .font(.subheadline)
                 
             }
-            Group {
-                
-                HStack {
-                    Text("Hoja principal")
-                    Spacer()
-                    Text(producto.hojaPrincipal ?? "...")
-                }
-                .font(.subheadline)
-                
-            }
         }
     }
 }
 
 struct ProductDetailPreviewView: View {
 
-    @ObservedObject var productoVM: ProductViewModel
+    @ObservedObject var producto: Producto
+    @ObservedObject var productVM: ProductViewModel
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
     var body: some View {
-        Text("ProductDetailPreviewView")
+        VStack {
+                
+            NavigationLink(
+                destination: ProductFamiliaFormView(producto: producto, productVM: productVM),
+                label: {
+                    if productVM.familia == "" {
+                        Text("Familia")
+                            .font(.title)
+                    } else {
+                        Text(productVM.getSingularFamilia(name: productVM.familia))
+                            .font(.title)
+                    }
+                }
+            )
+                
+            NavigationLink(
+                destination: ProductNombreFormView(producto: producto, productVM: productVM),
+                label: {
+                    if productVM.nombre == "" {
+                        Image(systemName: "photo")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 200, height: 200)
+                    } else {
+                        Image(productVM.nombre)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 200, height: 200)
+                    }
+                }
+            )
+        }
     }
 }
-
 
 
 // Otros
@@ -1503,7 +1808,7 @@ struct treeView: View {
         ScrollView {
             ProductSelectDirectoryListView(optionSelect: optionSelect, producto: producto, productVM: productVM)
             ProductSelectListView(optionSelect: optionSelect, producto: producto, productVM: productVM)
-        }
+        }.navigationTitle(Text(productVM.getFormattedName(name: optionSelect)))
     }
 }
 
@@ -1518,17 +1823,17 @@ struct ProductSelectDirectoryListView: View {
     var body: some View {
         NavigationLink(destination: treeView(optionSelect: seleccion, producto: producto, productVM: productVM), isActive: $isShowingNextView) { EmptyView() }
 
-        ForEach(productVM.listOf(option: "directorios \(optionSelect)"), id: \.self) { producto in
+        ForEach(productVM.optionsFor(attribute: "directorios \(optionSelect)"), id: \.self) { nombre in
 
             Button(
                 action: {
-                    seleccion = producto
+                    seleccion = nombre
                     isShowingNextView = true
                 },
                 label: {
                     VStack {
-                        Text(productVM.getFormattedName(name: producto))
-                            .font(.title)
+                        Text(productVM.getFormattedName(name: nombre))
+                            .textStyle(NavigationLinkStyle())
                     }
                 }
             )
@@ -1542,7 +1847,7 @@ struct ProductSelectListView: View {
     @ObservedObject var productVM: ProductViewModel
     var body: some View {
         LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 30)), count: 2), spacing: 10){
-            ForEach(productVM.listOf(option: "archivos \(optionSelect)"), id: \.self) { nombre in
+            ForEach(productVM.optionsFor(attribute: "archivos \(optionSelect)"), id: \.self) { nombre in
                 Button(
                     action: {
                         productVM.nombre = nombre
@@ -1560,5 +1865,27 @@ struct ProductSelectListView: View {
             }
         }
         .padding()
+    }
+}
+
+struct ProductListView: View {
+    
+    @StateObject var productVM = ProductViewModel()
+    
+    var body: some View {
+        List {
+            ForEach(productVM.productos){ producto in
+                NavigationLink(destination: ProductUpdateView(producto: producto, productVM: productVM), label: {
+                    ProductDetailView(producto: producto)
+                })
+            }
+            .onDelete(perform: deleteProduct)
+        }
+    }
+    
+    private func deleteProduct(offsets: IndexSet) {
+        withAnimation {
+            productVM.delete(at: offsets, for: productVM.productos)
+        }
     }
 }

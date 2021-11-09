@@ -27,6 +27,7 @@ class ClientViewModel: ObservableObject {
         let request = Cliente.fetchRequest()
         do {
             clientes = try context.viewContext.fetch(request)
+            print("Clientes: \(clientes.count)")
         } catch {
             print("ERROR in ClientViewModel at getAllClients()\n")
         }
