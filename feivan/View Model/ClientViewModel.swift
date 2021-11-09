@@ -8,22 +8,68 @@
 import CoreData
 
 class ClientViewModel: ObservableObject {
-
-    @Published var nombre = ""
-    @Published var telefono = ""
-    @Published var email = ""
-    @Published var referencia = ""
-    @Published var comentario = ""
-    
-    @Published var timestamp = Date()
-    @Published var clientes: [Cliente] = []
     private let context = PersistenceController.shared
+    
+    @Published var nombre: String = ""
+    @Published var telefono: String = ""
+    @Published var email: String = ""
+    @Published var referencia: String = ""
+    @Published var comentario: String = ""
+    
+    @Published var id: NSManagedObjectID = NSManagedObjectID()
+    @Published var timestamp: Date = Date()
+
+    @Published var clientes: [Cliente] = []
         
+    // Constructores
+    
+    /** Actualiza la lista con los Clientes (Entidades en Core Data) **/
     init() {
         getAllClients()
     }
     
-    func getAllClients() {
+    /** Copia los datos de la entidad Cliente pasada como parámetro a la clase ClientViewModel y actualiza la lista de clientes **/
+    init(client: Cliente) {
+        getClient(client: client)
+        getAllClients()
+    }
+    
+    // Funciones públicas
+    
+    /** Crea un Cliente, copia los datos del ClientViewModel al Cliente (añadiendo el timestamp de creación), lo guarda en la DB y actualiza la lista de clientes **/
+    func save() {
+        let cliente = Cliente(context: context.viewContext)
+        
+        setClient(client: cliente)
+        cliente.timestamp = timestamp
+    
+        context.save()
+        getAllClients()
+    }
+    
+    /** Obtiene el Cliente a partir de la ID del ClientViewModel , copia los datos del ClientViewModel al Cliente, lo guarda en la DB y actualiza la lista de clientes **/
+    func update(clientVM: ClientViewModel) {
+        guard let client = getClientById(id: clientVM.id) else { return }
+        setClient(client: client)
+        
+        context.save()
+        getAllClients()
+    }
+    
+    /** Elimina al Cliente de la DB desde una lista de clientes **/
+    func delete(at offset: IndexSet, for clients: [Cliente]) {
+        if let first = clients.first, case context.viewContext = first.managedObjectContext {
+            offset.map { clients[$0] }.forEach(context.viewContext.delete)
+        }
+        
+        context.save()
+        getAllClients()
+    }
+    
+    // Funciones privadas
+    
+    /** Obtiene todos los Clientes de la DB **/
+    private func getAllClients() {
         let request = Cliente.fetchRequest()
         do {
             clientes = try context.viewContext.fetch(request)
@@ -33,46 +79,34 @@ class ClientViewModel: ObservableObject {
         }
     }
     
-    func getClient(cliente: Cliente) {
-        nombre = cliente.nombre ?? nombre
-        telefono = cliente.telefono ?? telefono
-        email = cliente.email ?? email
-        referencia = cliente.referencia ?? referencia
-        comentario = cliente.comentario ?? comentario
-    }
-    
-    func setClient(cliente: Cliente) {
-        cliente.nombre = nombre
-        cliente.telefono = telefono
-        cliente.email = email
-        cliente.referencia = referencia
-        cliente.comentario = comentario
-    }
-    
-    func save() {
-        let cliente = Cliente(context: context.viewContext)
+    /** Copia los datos del Cliente al ClientViewModel **/
+    private func getClient(client: Cliente) {
+        nombre = client.nombre ?? nombre
+        telefono = client.telefono ?? telefono
+        email = client.email ?? email
+        referencia = client.referencia ?? referencia
+        comentario = client.comentario ?? comentario
         
-        setClient(cliente: cliente)
-        cliente.timestamp = timestamp
-    
-        context.save()
-        getAllClients()
+        id = client.objectID
+        timestamp = client.timestamp ?? timestamp
     }
     
-    func update(cliente: Cliente) {
-        setClient(cliente: cliente)
-        
-        context.save()
-        getAllClients()
+    /** Copia los datos del ClientViewModel al Cliente**/
+    private func setClient(client: Cliente) {
+        client.nombre = nombre
+        client.telefono = telefono
+        client.email = email
+        client.referencia = referencia
+        client.comentario = comentario
     }
     
-    func delete(at offset: IndexSet, for clients: [Cliente]) {
-        if let first = clients.first, case PersistenceController.shared.viewContext = first.managedObjectContext {
-            offset.map { clients[$0] }.forEach(PersistenceController.shared.viewContext.delete)
+    /** Devuelve el Cliente que coincide con la id en la DB**/
+    private func getClientById(id: NSManagedObjectID) -> Cliente? {
+        do {
+            return try PersistenceController.shared.container.viewContext.existingObject(with: id) as? Cliente
+        } catch {
+            return nil
         }
-        
-        context.save()
-        getAllClients()
     }
 
     // Getters

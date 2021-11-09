@@ -61,7 +61,7 @@ struct DataPreviewView: View {
             Divider()
             
             Section(header: Text("Cliente")) {
-                NavigationLink(destination: ClientUpdateView(cliente: proyecto.cliente!, clientVM: clientVM), label: {
+                NavigationLink(destination: ClientUpdateView(clientVM: ClientViewModel(client: proyecto.cliente!)), label: {
                     ClientDetailView(cliente: proyecto.cliente!)
                 }).buttonStyle(.plain)
             }.font(.title)

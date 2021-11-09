@@ -15,7 +15,6 @@ struct ClientView: View {
 }
 
 struct ClientUpdateView: View {
-    var cliente: Cliente
     @ObservedObject var clientVM: ClientViewModel
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
@@ -24,10 +23,10 @@ struct ClientUpdateView: View {
             ClientFormView(clientVM: clientVM)
         }
         .onAppear {
-            clientVM.getClient(cliente: cliente)
+            //clientVM.getClient(cliente: cliente)
         }.toolbar {
             Button("Guardar") {
-                clientVM.update(cliente: cliente)
+                clientVM.update(clientVM: clientVM)
                 presentationMode.wrappedValue.dismiss()
             }
         }
@@ -56,7 +55,6 @@ struct ClientFormView: View {
     }
 }
 
-// To refact
 
 struct ClientListView: View {
     
@@ -66,7 +64,7 @@ struct ClientListView: View {
     var body: some View {
         List {
             ForEach(clientVM.clientes){ cliente in
-                NavigationLink(destination: ClientUpdateView(cliente: cliente, clientVM: clientVM), label: {
+                NavigationLink(destination: ClientUpdateView(clientVM: ClientViewModel(client: cliente)), label: {
                     ClientPreviewView(cliente: cliente)
                 })
             }
