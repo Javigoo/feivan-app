@@ -127,93 +127,99 @@ struct DebugView: View {
 
     private func createTestClient() -> Cliente {
         let cliente = Cliente(context: viewContext)
-        cliente.timestamp = Date()
+        cliente.id_cliente = UUID()
         cliente.nombre = "Javi Roig"
         cliente.telefono = "686164345"
         cliente.email = "javierroiggregorio@gmail.com"
         cliente.referencia = "42"
         cliente.comentario = "El que ha hecho esta aplicación"
+        cliente.timestamp = Date()
         return cliente
     }
     
     private func createTestClient2() -> Cliente {
         let cliente = Cliente(context: viewContext)
-        cliente.timestamp = Date()
+        cliente.id_cliente = UUID()
         cliente.nombre = "Prats La Fuente"
         cliente.telefono = "608346677"
         cliente.email = "prados@gmail.com"
         cliente.referencia = "13"
         cliente.comentario = "Mi colega"
+        cliente.timestamp = Date()
         return cliente
     }
 
     private func createTestProject() -> Proyecto {
         let proyecto = Proyecto(context: viewContext)
-        proyecto.timestamp = Date()
+        proyecto.id_proyecto = UUID()
         proyecto.ascensor = false
         proyecto.grua = false
-        proyecto.subirFachada = false
+        proyecto.subir_fachada = false
         proyecto.direccion = "Hortensias 8"
+        proyecto.timestamp = Date()
         return proyecto
     }
     
     private func createTestProject2() -> Proyecto {
         let proyecto = Proyecto(context: viewContext)
-        proyecto.timestamp = Date()
+        proyecto.id_proyecto = UUID()
         proyecto.ascensor = true
         proyecto.grua = false
-        proyecto.subirFachada = false
+        proyecto.subir_fachada = false
         proyecto.direccion = "Pedro Heredia 22"
+        proyecto.timestamp = Date()
         return proyecto
     }
 
     private func createTestProduct() -> Producto {
         let producto = Producto(context: viewContext)
-        producto.timestamp = Date()
+        producto.id_producto = UUID()
         producto.familia = "1-CORREDERAS"
         producto.nombre = "1-C2"
         producto.material = "PVC"
-        producto.rematesAlbanileria = true
+        producto.remates_albanileria = true
         producto.color = "Blanco"
         producto.dimensiones = "600x300 mm"
         producto.apertura = "DDI"
-        producto.marcoInferior = "Abierto"
+        producto.marco_inferior = "Abierto"
         producto.huella = "100mm"
         producto.tapajuntas = "60"
-        producto.forroExterior = "40"
+        producto.forro_exterior = "40"
         producto.cristal = "Cámara"
-        producto.mallorquina = "Lama fija"
+        producto.persiana = "Lama fija"
         producto.cerraduras = "Cerradura"
         producto.manetas = "Solo maneta interior"
         producto.herraje = "Mismo color"
         producto.posicion = "Cocina (V1)"
         producto.instalacion = "Huella obra"
         producto.curvas = "Arco"
+        producto.timestamp = Date()
         return producto
     }
     
     private func createTestProduct2() -> Producto {
         let producto = Producto(context: viewContext)
-        producto.timestamp = Date()
+        producto.id_producto = UUID()
         producto.familia = "2-PRACTICABLES"
         producto.nombre = "1-1"
         producto.material = "Aluminio"
-        producto.rematesAlbanileria = false
+        producto.remates_albanileria = false
         producto.color = "Negro"
         producto.dimensiones = "1000 x 2000 mm"
         producto.apertura = "DDI"
-        producto.marcoInferior = "Abierto"
+        producto.marco_inferior = "Abierto"
         producto.huella = "100 mm"
         producto.tapajuntas = "60"
-        producto.forroExterior = "40"
+        producto.forro_exterior = "40"
         producto.cristal = "Cámara"
-        producto.mallorquina = "Lama fija"
+        producto.persiana = "Lama fija"
         producto.cerraduras = "Cerradura"
         producto.manetas = "Solo maneta interior"
         producto.herraje = "Mismo color"
         producto.posicion = "Cocina (V1)"
         producto.instalacion = "Huella obra"
         producto.curvas = "Arco"
+        producto.timestamp = Date()
         return producto
     }
 }

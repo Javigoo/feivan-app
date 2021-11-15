@@ -6,44 +6,108 @@
 //
 
 import CoreData
-import UIKit
 import SwiftUI
 
 class ProductViewModel: ObservableObject {
-    @Published var foto = Data()
-    @Published var familia = ""
-    @Published var nombre = ""
-    @Published var curvas = ""
-    @Published var material = ""
-    @Published var color = ""
-    @Published var tapajuntas = ""
-    @Published var dimensiones = ""
-    @Published var apertura = ""
-    @Published var compacto = ""
-    @Published var marcoInferior = ""
-    @Published var huella = ""
-    @Published var forroExterior = ""
-    @Published var cristal = ""
-    @Published var cerraduras = ""
-    @Published var manetas = ""
-    @Published var herraje = ""
-    @Published var posicion = ""
-    @Published var instalacion = ""
-    @Published var rematesAlbanileria = false
-    @Published var medidasNoBuenas = false
-    @Published var mallorquina = ""
-    @Published var copias: Int16 = 1
+    private let context = PersistenceController.shared
 
+    @Published var id_producto: UUID = UUID()
+    @Published var foto: Data = Data()
+    @Published var familia: String = ""
+    @Published var nombre: String = ""
+    @Published var curvas: String = ""
+    @Published var material: String = ""
+    @Published var color: String = ""
+    @Published var tapajuntas: String = ""
+    @Published var dimensiones: String = ""
+    @Published var apertura: String = ""
+    @Published var compacto: String = ""
+    @Published var marco_inferior: String = ""
+    @Published var huella: String = ""
+    @Published var forro_exterior: String = ""
+    @Published var cristal: String = ""
+    @Published var cerraduras: String = ""
+    @Published var manetas: String = ""
+    @Published var herraje: String = ""
+    @Published var posicion: String = ""
+    @Published var instalacion: String = ""
+    @Published var remates_albanileria: Bool = false
+    @Published var medidas_no_buenas: Bool = false
+    @Published var persiana: String = ""
+    @Published var copias: Int16 = 1
+    @Published var timestamp: Date = Date()
+    
+    @Published var proyecto: Proyecto
+    
+    @Published var productos: [Producto] = []
+            
+    // Refact
     @Published var otro = ""
     @Published var especifico = ""
     @Published var anotacion = ""
-
-    @Published var timestamp = Date()
-    @Published var productos: [Producto] = []
-    private let context = PersistenceController.shared
     
+    // Constructores
+
     init() {
+        print("New ProductViewModel")
+        proyecto = Proyecto()
+    }
+    
+    init(product: Producto) {
+        proyecto = product.proyecto
+        setProductVM(product: product)
+    }
+    
+    
+    // Funciones públicas
+
+    func setAnotherProductVM(productVM: ProductViewModel) {
+        print("Copiando valores del producto original")
+        familia = productVM.familia
+        tapajuntas = productVM.tapajuntas
+        color = productVM.color
+        cristal = productVM.cristal
+        instalacion = productVM.instalacion
+    }
+    
+    func addProject(projectVM: ProjectViewModel) {
+        let product = getProduct()
+        let project = projectVM.getProject()
+        product?.proyecto = project
+        context.save()
+    }
+    
+    func save() {
+        let product: Producto
+        if exist() {
+            product = getProduct()!
+        } else {
+            product = Producto(context: context.viewContext)
+        }
+        setProduct(product: product)
+        context.save()
         getAllProducts()
+    }
+    
+    func delete(at offset: IndexSet, for productos: [Producto]) {
+        if let first = productos.first, case context.viewContext = first.managedObjectContext {
+            offset.map { productos[$0] }.forEach(context.viewContext.delete)
+        }
+        
+        context.save()
+        getAllProducts()
+        
+    }
+    
+    func exist() -> Bool {
+        if getProduct() == nil {
+            return false
+        }
+        return true
+    }
+    
+    func getProduct() -> Producto? {
+        return getProduct(id: id_producto)
     }
     
     func getAllProducts() {
@@ -56,134 +120,134 @@ class ProductViewModel: ObservableObject {
         }
     }
     
-    func getProduct(producto: Producto) {
-        foto = producto.foto ?? foto
-        familia = producto.familia ?? familia
-        nombre = producto.nombre ?? nombre
-        curvas = producto.curvas ?? curvas
-        material = producto.material ?? material
-        color = producto.color ?? color
-        tapajuntas = producto.tapajuntas ?? tapajuntas
-        dimensiones = producto.dimensiones ?? dimensiones
-        apertura = producto.apertura ?? apertura
-        compacto = producto.compacto ?? compacto
-        marcoInferior = producto.marcoInferior ?? marcoInferior
-        huella = producto.huella ?? huella
-        forroExterior = producto.forroExterior ?? forroExterior
-        cristal = producto.cristal ?? cristal
-        cerraduras = producto.cerraduras ?? cerraduras
-        manetas = producto.manetas ?? manetas
-        herraje = producto.herraje ?? herraje
-        posicion = producto.posicion ?? posicion
-        instalacion = producto.instalacion ?? instalacion
-        rematesAlbanileria = producto.rematesAlbanileria
-        medidasNoBuenas = producto.medidasNoBuenas
-        mallorquina = producto.mallorquina ?? mallorquina
-        copias = producto.copias
-
+    // Funciones privadas
+    
+    private func setProductVM(product: Producto) {
+        id_producto = product.id_producto ?? id_producto
+        foto = product.foto ?? foto
+        familia = product.familia ?? familia
+        nombre = product.nombre ?? nombre
+        curvas = product.curvas ?? curvas
+        material = product.material ?? material
+        color = product.color ?? color
+        tapajuntas = product.tapajuntas ?? tapajuntas
+        dimensiones = product.dimensiones ?? dimensiones
+        apertura = product.apertura ?? apertura
+        compacto = product.compacto ?? compacto
+        marco_inferior = product.marco_inferior ?? marco_inferior
+        huella = product.huella ?? huella
+        forro_exterior = product.forro_exterior ?? forro_exterior
+        cristal = product.cristal ?? cristal
+        cerraduras = product.cerraduras ?? cerraduras
+        manetas = product.manetas ?? manetas
+        herraje = product.herraje ?? herraje
+        posicion = product.posicion ?? posicion
+        instalacion = product.instalacion ?? instalacion
+        remates_albanileria = product.remates_albanileria
+        medidas_no_buenas = product.medidas_no_buenas
+        persiana = product.persiana ?? persiana
+        copias = product.copias
+        timestamp = product.timestamp ?? timestamp
+        proyecto = product.proyecto ?? proyecto
     }
     
-    func setProduct(producto: Producto) {
-        producto.foto = foto
-        producto.familia = familia
-        producto.nombre = nombre
-        producto.curvas = curvas
-        producto.material = material
-        producto.color = color
-        producto.tapajuntas = tapajuntas
-        producto.dimensiones = dimensiones
-        producto.apertura = apertura
-        producto.compacto = compacto
-        producto.marcoInferior = marcoInferior
-        producto.huella = huella
-        producto.forroExterior = forroExterior
-        producto.cristal = cristal
-        producto.cerraduras = cerraduras
-        producto.manetas = manetas
-        producto.herraje = herraje
-        producto.posicion = posicion
-        producto.instalacion = instalacion
-        producto.rematesAlbanileria = rematesAlbanileria
-        producto.medidasNoBuenas = medidasNoBuenas
-        producto.mallorquina = mallorquina
-        producto.copias = copias
-
+    private func setProduct(product: Producto) {
+        product.id_producto = id_producto
+        product.foto = foto
+        product.familia = familia
+        product.nombre = nombre
+        product.curvas = curvas
+        product.material = material
+        product.color = color
+        product.tapajuntas = tapajuntas
+        product.dimensiones = dimensiones
+        product.apertura = apertura
+        product.compacto = compacto
+        product.marco_inferior = marco_inferior
+        product.huella = huella
+        product.forro_exterior = forro_exterior
+        product.cristal = cristal
+        product.cerraduras = cerraduras
+        product.manetas = manetas
+        product.herraje = herraje
+        product.posicion = posicion
+        product.instalacion = instalacion
+        product.remates_albanileria = remates_albanileria
+        product.medidas_no_buenas = medidas_no_buenas
+        product.persiana = persiana
+        product.copias = copias
+        product.timestamp = timestamp
     }
     
-    func save() {
-        print("ProductVM - save()")
-        
-        let producto = Producto(context: context.viewContext)
-        
-        setProduct(producto: producto)
-        producto.timestamp = timestamp
-    
-        context.save()
-        getAllProducts()
+    private func getProduct(id: UUID) -> Producto? {
+        let request: NSFetchRequest<Producto> = Producto.fetchRequest()
+        let query = NSPredicate(format: "%K == %@", "id_producto", id as CVarArg)
+        // todo: limitar a una entidad
+        request.predicate = query
+        do {
+            let foundEntities: [Producto] = try context.viewContext.fetch(request)
+            return foundEntities.first
+        } catch {
+            let fetchError = error as NSError
+            debugPrint(fetchError)
+        }
+
+        return nil
     }
     
-    func update(producto: Producto) {
-        print("ProductVM - update()")
-
-        setProduct(producto: producto)
-        
-        context.save()
-        getAllProducts()
+    // Otras
+    
+    /** Devuelve falso si la familia del producto es igual a alguna de las familias pasadas como parámetro, verdadero de lo contrario **/
+    func notShowIf(familias: [String]) -> Bool {
+        let familiaSeleccionada = getFamilia()
+        for familia in familias {
+            if familiaSeleccionada == familia {
+                return false
+            }
+        }
+        return true
     }
     
-    func delete(at offset: IndexSet, for productos: [Producto]) {
-        print("ProductVM - delete()")
-
-        if let first = productos.first, case context.viewContext = first.managedObjectContext {
-            offset.map { productos[$0] }.forEach(context.viewContext.delete)
-        } else {
-            print("No eliminado")
+    /** Devuelve verdadero si la familia del producto es igual a alguna de las familias pasadas como parámetro, falso de lo contrario **/
+    func showIf(familias: [String]) -> Bool {
+        let familiaSeleccionada = getFamilia()
+        for familia in familias {
+            if familiaSeleccionada == familia {
+                return true
+            }
+        }
+        return false
+    }
+    
+    // Getters
+    
+    func getDimensiones(option: String?) -> String {
+        if dimensiones != "" {
+            if option == "ancho x alto" {
+                return getDimensionesAnchoAlto()
+            }
         }
         
-        context.save()
-        getAllProducts()
-        
-    }
-    // Others
-    
-    func anadirMas(producto: Producto, proyecto: Proyecto) {
-        producto.proyecto = proyecto
-        producto.familia = familia
-        producto.tapajuntas = tapajuntas
-        producto.color = color
-        producto.cristal = cristal
-        producto.instalacion = instalacion
+        return dimensiones
     }
     
-    func getFormattedName(name: String) -> String {
-        if name.range(of:"-") != nil {
-            let nameWithOutNumber = name.components(separatedBy: "-")[1]
-            return nameWithOutNumber.lowercased().firstUppercased
-        }
-        return name
-    }
-    
-    func getSingularFamilia(name: String) -> String {
-        if name != "" {
-            var nombre = getFormattedName(name: name)
-            nombre.removeLast()
-            return nombre
-        }
-        return name
-    }
-    
-    func getFormattedDimension(dimension: String) -> String {
-        if dimension != "" {
-            let dimensiones = dimension.components(separatedBy: "\n")
-            if dimensiones.count >= 2 {
-                let ancho = dimensiones[0].components(separatedBy: " ")[1]
-                let alto = dimensiones[1].components(separatedBy: " ")[1]
-                return ancho+" x "+alto+" mm"
-            } 
-        }
-        return dimension
+    func getFamilia() -> String {
+        return getFormattedName(name: familia)
     }
 
+    // Formatters
+    private func getDimensionesAnchoAlto() -> String {
+        let currentDimensiones = dimensiones.components(separatedBy: "\n")
+        if currentDimensiones.count >= 2 {
+            let ancho = currentDimensiones[0].components(separatedBy: " ")[1]
+            let alto = currentDimensiones[1].components(separatedBy: " ")[1]
+            return ancho+" x "+alto+" mm"
+        } else if currentDimensiones.count == 1 {
+            return currentDimensiones[0].components(separatedBy: " ")[1] + " mm"
+        }
+        
+        return dimensiones
+    }
     
     func optionsFor(attribute: String) -> [String] {
         
@@ -354,5 +418,22 @@ class ProductViewModel: ObservableObject {
         }
     }
     
+    // Otros
+    func getFormattedName(name: String) -> String {
+        if name.range(of:"-") != nil {
+            let nameWithOutNumber = name.components(separatedBy: "-")[1]
+            return nameWithOutNumber.lowercased().firstUppercased
+        }
+        return name
+    }
+    
+    func getSingularFamilia(name: String) -> String {
+        if name != "" {
+            var nombre = getFormattedName(name: name)
+            nombre.removeLast()
+            return nombre
+        }
+        return name
+    }
 }
 

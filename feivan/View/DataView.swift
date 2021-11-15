@@ -9,32 +9,27 @@ import SwiftUI
 import CoreData
 
 struct DataView: View {
-    
-    @StateObject var clientVM = ClientViewModel()
-    @StateObject var productVM = ProductViewModel()
     @StateObject var projectVM = ProjectViewModel()
-    
-    var body: some View {
-        DataListView(clientVM: clientVM, productVM: productVM, projectVM: projectVM)
-            .navigationTitle(Text("Proyectos"))
-    }
-}
-
-struct DataListView: View {
-    
-    @ObservedObject var clientVM: ClientViewModel
-    @ObservedObject var productVM: ProductViewModel
-    @ObservedObject var projectVM: ProjectViewModel
 
     var body: some View {
         List {
             ForEach(projectVM.proyectos, id: \.self) { proyecto in
-                NavigationLink(destination: DataPreviewView(proyecto: proyecto, clientVM: clientVM, productVM: productVM, projectVM: projectVM), label: {
-                    ProjectPreviewView(proyecto: proyecto)
-                })
+                NavigationLink(
+                    destination:
+                        DataSummaryView(
+                            projectVM: ProjectViewModel(project: proyecto)
+                        ),
+                    label: {
+                        DataPreviewView(
+                            projectVM: ProjectViewModel(project: proyecto)
+                        )
+                    }
+                )
             }
             .onDelete(perform: deleteProject)
         }
+        .onAppear(perform: projectVM.getAllProjects)
+        .navigationTitle(Text("Proyectos"))
     }
     
     private func deleteProject(offsets: IndexSet) {
@@ -44,50 +39,68 @@ struct DataListView: View {
     }
 }
 
-struct DataPreviewView: View {
-    
-    @ObservedObject var proyecto: Proyecto
-    @ObservedObject var clientVM: ClientViewModel
-    @ObservedObject var productVM: ProductViewModel
+struct DataSummaryView: View {
     @ObservedObject var projectVM: ProjectViewModel
+    @StateObject var productVM = ProductViewModel()
 
     var body: some View {
+
         VStack(alignment: .leading) {
             
-            NavigationLink(destination: ProjectUpdateView(proyecto: proyecto, projectVM: projectVM), label: {
-                ProjectDetailAllView(proyecto: proyecto)
-            }).buttonStyle(.plain)
+            NavigationLink(
+                destination:
+                    ProjectCreateView(projectVM: projectVM).navigationTitle(Text("Información proyecto")),
+                label: {
+                    ProjectDetailView(projectVM: projectVM)
+                }
+            )
+            .buttonStyle(.plain)
             
             Divider()
             
-            Section(header: Text("Cliente")) {
-                NavigationLink(destination: ClientUpdateView(clientVM: ClientViewModel(client: proyecto.cliente!)), label: {
-                    ClientDetailView(cliente: proyecto.cliente!)
-                }).buttonStyle(.plain)
-            }.font(.title)
-
-            Spacer()
-            Divider()
+            if projectVM.haveClient() {
+                Section(header: Text("Cliente")) {
+                    NavigationLink(
+                        destination:
+                            ClientCreateView(clientVM: ClientViewModel(client: projectVM.getClient())).navigationTitle(Text("Información cliente")),
+                        label: {
+                            ClientDetailView(clientVM: ClientViewModel(client: projectVM.getClient()))
+                        }
+                    )
+                    .buttonStyle(.plain)
+                }
+                .font(.title)
+            
+                Divider()
+            }
             
             Section(header: Text("Productos")) {
                 List {
-                    ForEach(projectVM.getProducts(proyecto: proyecto) , id: \.self) { producto in
-                        NavigationLink(destination: ProductUpdateView(producto: producto, productVM: productVM), label: {
-                            ProductDetailView(producto: producto)
-                        })
+                    ForEach(projectVM.getProducts() , id: \.self) { producto in
+                        NavigationLink(
+                            destination:
+                                ProductCreateView(productVM: ProductViewModel(product: producto)).navigationTitle(Text("Información producto")),
+                            label: {
+                                ProductDetailView(productVM: ProductViewModel(product: producto))
+                            }
+                        )
                     }
                     .onDelete(perform: deleteProduct)
-                    /*
-                    HStack {
-                        Spacer()
-                        NavigationLink(destination: ProductCreateView(productVM: productVM), label: {
-                            Image(systemName: "plus.circle")
-                        })
-                        Spacer()
-                    }
-                     */
+                    
+                    NavigationLink(
+                        destination:
+                            ProductAddView(projectVM: projectVM)
+                                .navigationTitle(Text("Información proyecto")),
+                        label: {
+                            Text("Añadir producto")
+                                .font(.body)
+                        }
+                    )
                 }
-            }.font(.title)
+                .onAppear(perform: projectVM.getAllProjects)
+            }
+            .font(.title)
+            
         }
         .padding()
         .navigationTitle(Text("Proyecto"))
@@ -95,7 +108,24 @@ struct DataPreviewView: View {
     
     private func deleteProduct(offsets: IndexSet) {
         withAnimation {
-            productVM.delete(at: offsets, for: productVM.productos)
+            productVM.delete(at: offsets, for: projectVM.getProducts())
+        }
+    }
+
+}
+
+struct DataPreviewView: View {
+    @ObservedObject var projectVM: ProjectViewModel
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text(projectVM.direccion)
+                .font(.title)
+            Text(projectVM.getClientName())
+                .font(.subheadline)
+            Spacer()
+            Text(projectVM.textCountProducts())
+                .font(.body)
         }
     }
 }

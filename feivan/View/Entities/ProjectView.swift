@@ -14,36 +14,7 @@ struct ProjectView: View {
     }
 }
 
-struct ProjectNewView: View {
-    
-    @StateObject var projectVM = ProjectViewModel()
-    
-    var body: some View {
-        ProjectCreateView(projectVM: projectVM)
-            .navigationTitle(Text("Nuevo proyecto"))
-    }
-}
-
 struct ProjectCreateView: View {
-
-    @ObservedObject var projectVM: ProjectViewModel
-
-    var body: some View {
-        VStack {
-            Form {
-                ProjectFormView(projectVM: projectVM)
-
-                Button("Guardar") {
-                    projectVM.save()
-                }
-            }
-        }
-    }
-}
-
-struct ProjectUpdateView: View {
-
-    var proyecto: Proyecto
     @ObservedObject var projectVM: ProjectViewModel
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
@@ -52,12 +23,9 @@ struct ProjectUpdateView: View {
             Form {
                 ProjectFormView(projectVM: projectVM)
             }
-        }
-        .onAppear {
-            projectVM.getProject(proyecto: proyecto)
         }.toolbar {
             Button("Guardar") {
-                projectVM.update(proyecto: proyecto)
+                projectVM.save()
                 presentationMode.wrappedValue.dismiss()
             }
         }
@@ -65,7 +33,6 @@ struct ProjectUpdateView: View {
 }
 
 struct ProjectFormView: View {
-    
     @ObservedObject var projectVM: ProjectViewModel
 
     var body: some View {
@@ -78,7 +45,7 @@ struct ProjectFormView: View {
             Toggle(isOn: $projectVM.grua) {
                 Text("Grúa")
             }
-            Toggle(isOn: $projectVM.subirFachada) {
+            Toggle(isOn: $projectVM.subir_fachada) {
                 Text("Subir fachada")
             }
         }
@@ -86,7 +53,6 @@ struct ProjectFormView: View {
 }
 
 struct ProjectFormAddressView: View {
-    
     @ObservedObject var projectVM: ProjectViewModel
 
     var body: some View {
@@ -96,69 +62,51 @@ struct ProjectFormAddressView: View {
     }
 }
 
-
-// To refact
-
 struct ProjectPreviewView: View {
-    @StateObject var proyecto: Proyecto
-    @StateObject var projectVM = ProjectViewModel()
+    @ObservedObject var projectVM: ProjectViewModel
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(proyecto.direccion ?? "...")
-                .font(.title)
-            Text(proyecto.cliente?.nombre ?? "...")
-                .font(.subheadline)
-            Spacer()
-            Text(projectVM.textCountProducts(project: proyecto))
-                .font(.body)
+            HStack {
+                Text("Dirección")
+                Spacer()
+                Text(projectVM.direccion)
+            }
+            .font(.title)
+            
+            if projectVM.ascensor {
+                Text("Ascensor").font(.subheadline)
+            }
+            
+            if projectVM.grua {
+                Text("Grúa").font(.subheadline)
+            }
+
+            if projectVM.subir_fachada {
+                Text("Subir fachada").font(.subheadline)
+            }
+            
         }
-        .onAppear(perform: projectVM.getAllProjects)
+        .padding()
     }
 }
 
 struct ProjectDetailView: View {
-    @ObservedObject var proyecto: Proyecto
+    @ObservedObject var projectVM: ProjectViewModel
+    
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
                 Text("Dirección")
                 Spacer()
-                Text(proyecto.direccion ?? "...")
-            }
-            .font(.title)
-            
-            if proyecto.ascensor {
-                Text("Ascensor").font(.subheadline)
-            }
-            
-            if proyecto.grua {
-                Text("Grúa").font(.subheadline)
-            }
-
-            if proyecto.subirFachada {
-                Text("Subir fachada").font(.subheadline)
-            }
-            
-        }.padding()
-    }
-}
-
-struct ProjectDetailAllView: View {
-    @ObservedObject var proyecto: Proyecto
-    var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Text("Dirección")
-                Spacer()
-                Text(proyecto.direccion ?? "...")
+                Text(projectVM.direccion)
             }
             .font(.subheadline)
 
             HStack {
                 Text("Ascensor")
                 Spacer()
-                if proyecto.ascensor {
+                if projectVM.ascensor {
                     Text("Sí")
                 } else {
                     Text("No")
@@ -169,7 +117,7 @@ struct ProjectDetailAllView: View {
             HStack {
                 Text("Grúa")
                 Spacer()
-                if proyecto.grua {
+                if projectVM.grua {
                     Text("Sí")
                 } else {
                     Text("No")
@@ -180,7 +128,7 @@ struct ProjectDetailAllView: View {
             HStack {
                 Text("Subir fachada")
                 Spacer()
-                if proyecto.subirFachada {
+                if projectVM.subir_fachada {
                     Text("Sí")
                 } else {
                     Text("No")

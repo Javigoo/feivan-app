@@ -13,96 +13,102 @@ struct ProductView: View {
     }
 }
 
-struct ProductNewView: View {
-    
-    @StateObject var productVM = ProductViewModel()
-    
-    var body: some View {
-        Text("ProductNewView")
-        //ProductFamiliaFormView(productVM: productVM)
-            //.navigationTitle(Text("Nuevo producto"))
-    }
-}
-
 struct ProductCreateView: View {
-
-    @ObservedObject var productVM: ProductViewModel
-
-    var body: some View {
-        VStack {
-            Form {
-                //ProductFormView(productVM: productVM)
-
-                Button("Guardar") {
-                    productVM.save()
-                }
-            }
-        }
-    }
-}
-
-struct ProductUpdateView: View {
-    
-    @ObservedObject var producto: Producto
     @ObservedObject var productVM: ProductViewModel
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     
     var body: some View {
         VStack {
-            ProductFormView(producto: producto, productVM: productVM)
-        }.onAppear {
-            productVM.getProduct(producto: producto)
+            ProductFormView(productVM: productVM)
         }.toolbar {
             Button("Guardar") {
-                productVM.update(producto: producto)
+                productVM.save()
                 presentationMode.wrappedValue.dismiss()
             }
         }
     }
 }
 
-struct ProductFormView: View {
-    @ObservedObject var producto: Producto
-    @ObservedObject var productVM: ProductViewModel
-    var body: some View {
+struct ProductAddView: View {
+    @StateObject var productVM = ProductViewModel()
+    @ObservedObject var projectVM: ProjectViewModel
+    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     
+    var body: some View {
         VStack {
-                
-            NavigationLink(
-                destination: ProductFamiliaFormView(producto: producto, productVM: productVM),
-                label: {
-                    if productVM.familia == "" {
-                        Text("Familia")
-                            .font(.title)
-                    } else {
-                        Text(productVM.getSingularFamilia(name: productVM.familia))
-                            .font(.title)
-                    }
-                }
-            )
-                
-            NavigationLink(
-                destination: ProductNombreFormView(producto: producto, productVM: productVM),
-                label: {
-                    if productVM.nombre == "" {
-                        Image(systemName: "photo")
-                            .resizable()
-                            .scaledToFit()
-                    } else {
-                        Image(productVM.nombre)
-                            .resizable()
-                            .scaledToFit()
-                    }
-                }
-            )
+            ProductFormView(productVM: productVM)
+        }.toolbar {
+            Button("Guardar") {
+                productVM.addProject(projectVM: projectVM)
+                productVM.save()
+                presentationMode.wrappedValue.dismiss()
+            }
         }
+        .navigationTitle(Text("Información proyecto"))
+    }
+}
+
+struct ProductAddAnotherView: View {
+    @StateObject var productVM = ProductViewModel()
+    @ObservedObject var originalProductVM: ProductViewModel
+    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
+    
+    var body: some View {
+        VStack {
+            ProductFormView(productVM: productVM)
+        }.toolbar {
+            Button("Guardar") {
+                productVM.save()
+                presentationMode.wrappedValue.dismiss()
+            }
+        }.onAppear(perform: {
+            productVM.setAnotherProductVM(productVM: originalProductVM)
+        })
+        .navigationTitle(Text("Información proyecto"))
+    }
+}
+
+
+struct ProductFormView: View {
+    @ObservedObject var productVM: ProductViewModel
+
+    var body: some View {
         
+        NavigationLink(
+            destination: ProductFamiliaFormView(productVM: productVM),
+            label: {
+                if productVM.familia == "" {
+                    Text("Familia")
+                        .font(.title)
+                } else {
+                    Text(productVM.getSingularFamilia(name: productVM.familia))
+                        .font(.title)
+                }
+            }
+        )
+            
+        NavigationLink(
+            destination: ProductNombreFormView(productVM: productVM),
+            label: {
+                if productVM.nombre == "" {
+                    Image(systemName: "photo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 150, height: 150)
+                } else {
+                    Image(productVM.nombre)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 150, height: 150)
+                }
+            }
+        )
         
         Form {
             Group {
-                if productVM.getFormattedName(name: productVM.familia) == "Curvas" {
+                if productVM.showIf(familias: ["Curvas"]) {
                     NavigationLink(
-                        destination: ProductCurvasFormView(producto: producto, productVM: productVM),
+                        destination: ProductCurvasFormView(productVM: productVM),
                         label: {
                             HStack {
                                 Text("Curvas")
@@ -114,7 +120,7 @@ struct ProductFormView: View {
                 }
                 
                 NavigationLink(
-                    destination: ProductMaterialFormView(producto: producto, productVM: productVM),
+                    destination: ProductMaterialFormView(productVM: productVM),
                     label: {
                         HStack {
                             Text("Material")
@@ -125,7 +131,7 @@ struct ProductFormView: View {
                 )
                 
                 NavigationLink(
-                    destination: ProductColorFormView(producto: producto, productVM: productVM),
+                    destination: ProductColorFormView(productVM: productVM),
                     label: {
                         HStack {
                             Text("Color")
@@ -136,7 +142,7 @@ struct ProductFormView: View {
                 )
                 
                 NavigationLink(
-                    destination: ProductTapajuntasFormView(producto: producto, productVM: productVM),
+                    destination: ProductTapajuntasFormView(productVM: productVM),
                     label: {
                         HStack {
                             Text("Tapajuntas")
@@ -147,7 +153,7 @@ struct ProductFormView: View {
                 )
                 
                 NavigationLink(
-                    destination: ProductDimensionesFormView(producto: producto, productVM: productVM),
+                    destination: ProductDimensionesFormView(productVM: productVM),
                     label: {
                         HStack {
                             Text("Dimensiones")
@@ -158,7 +164,7 @@ struct ProductFormView: View {
                 )
                 
                 NavigationLink(
-                    destination: ProductAperturaFormView(producto: producto, productVM: productVM),
+                    destination: ProductAperturaFormView(productVM: productVM),
                     label: {
                         HStack {
                             Text("Apertura")
@@ -169,7 +175,7 @@ struct ProductFormView: View {
                 )
                 
                 NavigationLink(
-                    destination: ProductCompactoFormView(producto: producto, productVM: productVM),
+                    destination: ProductCompactoFormView(productVM: productVM),
                     label: {
                         HStack {
                             Text("Compacto")
@@ -178,23 +184,24 @@ struct ProductFormView: View {
                         }
                     }
                 )
-                
-                if productVM.getFormattedName(name: productVM.familia) != "Fijos" &&
-                    productVM.getFormattedName(name: productVM.familia) != "Correderas" {
+            }
+            
+            Group {
+                if productVM.notShowIf(familias: ["Fijos", "Correderas"]) {
                     NavigationLink(
-                        destination: ProductMarcoInferiorFormView(producto: producto, productVM: productVM),
+                        destination: ProductMarcoInferiorFormView(productVM: productVM),
                         label: {
                             HStack {
                                 Text("Marco inferior")
                                 Spacer()
-                                Text(productVM.marcoInferior)
+                                Text(productVM.marco_inferior)
                             }
                         }
                     )
                 }
                 
                 NavigationLink(
-                    destination: ProductHuellaFormView(producto: producto, productVM: productVM),
+                    destination: ProductHuellaFormView(productVM: productVM),
                     label: {
                         HStack {
                             Text("Huella")
@@ -204,24 +211,22 @@ struct ProductFormView: View {
                     }
                 )
                 
-                if productVM.getFormattedName(name: productVM.familia) != "Persiana" {
+                if productVM.notShowIf(familias: ["Persiana"]) {
                     NavigationLink(
-                        destination: ProductForroExteriorFormView(producto: producto, productVM: productVM),
+                        destination: ProductForroExteriorFormView(productVM: productVM),
                         label: {
                             HStack {
                                 Text("Forro exterior")
                                 Spacer()
-                                Text(productVM.forroExterior)
+                                Text(productVM.forro_exterior)
                             }
                         }
                     )
                 }
-            }
-            
-            Group {
-                if productVM.getFormattedName(name: productVM.familia) != "Persiana" {
+                
+                if productVM.notShowIf(familias: ["Persiana"]) {
                     NavigationLink(
-                        destination: ProductCristalFormView(producto: producto, productVM: productVM),
+                        destination: ProductCristalFormView(productVM: productVM),
                         label: {
                             HStack {
                                 Text("Cristal")
@@ -233,7 +238,7 @@ struct ProductFormView: View {
                 }
                 
                 NavigationLink(
-                    destination: ProductCerradurasFormView(producto: producto, productVM: productVM),
+                    destination: ProductCerradurasFormView(productVM: productVM),
                     label: {
                         HStack {
                             Text("Cerraduras")
@@ -244,7 +249,7 @@ struct ProductFormView: View {
                 )
                 
                 NavigationLink(
-                    destination: ProductManetasFormView(producto: producto, productVM: productVM),
+                    destination: ProductManetasFormView(productVM: productVM),
                     label: {
                         HStack {
                             Text("Manetas")
@@ -255,7 +260,7 @@ struct ProductFormView: View {
                 )
                 
                 NavigationLink(
-                    destination: ProductHerrajeFormView(producto: producto, productVM: productVM),
+                    destination: ProductHerrajeFormView(productVM: productVM),
                     label: {
                         HStack {
                             Text("Herraje")
@@ -266,7 +271,7 @@ struct ProductFormView: View {
                 )
                 
                 NavigationLink(
-                    destination: ProductPosicionFormView(producto: producto, productVM: productVM),
+                    destination: ProductPosicionFormView(productVM: productVM),
                     label: {
                         HStack {
                             Text("Posición")
@@ -277,7 +282,7 @@ struct ProductFormView: View {
                 )
                 
                 NavigationLink(
-                    destination: ProductInstalacionFormView(producto: producto, productVM: productVM),
+                    destination: ProductInstalacionFormView(productVM: productVM),
                     label: {
                         HStack {
                             Text("Instalación")
@@ -287,52 +292,62 @@ struct ProductFormView: View {
                     }
                 )
                 
-                if productVM.getFormattedName(name: productVM.familia) == "Persiana" {
+                if productVM.showIf(familias: ["Persiana"]) {
                     NavigationLink(
-                        destination: ProductMallorquinaFormView(producto: producto, productVM: productVM),
+                        destination: ProductMallorquinaFormView(productVM: productVM),
                         label: {
                             HStack {
                                 Text("Mallorquina")
                                 Spacer()
-                                Text(productVM.mallorquina)
+                                Text(productVM.persiana)
                             }
                         }
                     )
                 }
-                
+            }
+            
+            Group {
                 Section(header: Text("Extras")) {
-                    Toggle(isOn: $productVM.rematesAlbanileria) {
+                    Toggle(isOn: $productVM.remates_albanileria) {
                         Text("Remates Albañilería")
                     }
-                    Toggle(isOn: $productVM.medidasNoBuenas) {
+                    Toggle(isOn: $productVM.medidas_no_buenas) {
                         Text("Medidas no buenas")
                     }
+                    Stepper("Copias:  \(productVM.copias)", value: $productVM.copias, in: 1...99)
                 }
+                
+                NavigationLink(
+                    destination:
+                        ProductAddAnotherView(originalProductVM: productVM),
+                    label: {
+                        Text("Añadir otro")
+                            .font(.body)
+                    }
+                )
             }
         }
     }
 }
 
 
-
 // Product form views
 struct ProductFamiliaFormView: View {
     
     var atributo = "Familia"
-    @ObservedObject var producto: Producto
     @ObservedObject var productVM: ProductViewModel
     @State private var isShowingNextView = false
     //@Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
     var body: some View {
         VStack {
-            NavigationLink(destination: ProductNombreFormView(producto: producto, productVM: productVM), isActive: $isShowingNextView) { EmptyView() }
+            NavigationLink(destination: ProductNombreFormView(productVM: productVM), isActive: $isShowingNextView) { EmptyView() }
             
             ForEach(productVM.optionsFor(attribute: "directorios Estructuras ordenadas"), id: \.self) { familia in
                 Button(
                     action: {
                         productVM.familia = familia
-                        productVM.update(producto: producto)
+                        productVM.save()
                         isShowingNextView = true
                         //presentationMode.wrappedValue.dismiss()
                     },
@@ -348,43 +363,45 @@ struct ProductFamiliaFormView: View {
 }
 
 struct ProductNombreFormView: View {
-    @ObservedObject var producto: Producto
     @ObservedObject var productVM: ProductViewModel
     
     var body: some View {
-        treeView(optionSelect: productVM.familia, producto: producto, productVM: productVM)
+        treeView(optionSelect: productVM.familia, productVM: productVM)
     }
 }
 
 struct ProductMaterialFormView: View {
     
     var atributo = "Material"
-    @ObservedObject var producto: Producto
     @ObservedObject var productVM: ProductViewModel
+    
+    @State var opcion: String = ""
+    @State var aluminio: String = ""
+    @State var otro: String = ""
+    @State var anotacion: String = ""
+    
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
-
     var body: some View {
         VStack {
             Form{
-                
                 Section(header: Text("Opciones")) {
-                    Picker(atributo, selection: $productVM.material) {
+                    Picker(atributo, selection: $opcion) {
                         List(productVM.optionsFor(attribute: atributo), id: \.self) { item in Text(item) }
                     }
                     .pickerStyle(.segmented)
                 }
                 
-                if productVM.material == "Aluminio" {
-                    if productVM.getFormattedName(name: productVM.familia) == "Correderas" {
+                if opcion == "Aluminio" {
+                    if productVM.showIf(familias: ["Correderas"]) {
                         Section(header: Text("Aluminio")) {
-                            Picker("Aluminio", selection: $productVM.especifico) {
+                            Picker("Aluminio", selection: $aluminio) {
                                 List(productVM.optionsFor(attribute: "Material Aluminio Correderas"), id: \.self) { item in Text(item) }
                             }
                         }
                     }
-                    if productVM.getFormattedName(name: productVM.familia) == "Practicables" {
+                    if productVM.showIf(familias: ["Practicables"]) {
                         Section(header: Text("Aluminio")) {
-                            Picker("Aluminio", selection: $productVM.especifico) {
+                            Picker("Aluminio", selection: $aluminio) {
                                 List(productVM.optionsFor(attribute: "Material Aluminio Ventanas"), id: \.self) { item in Text(item) }
                             }
                         }
@@ -392,33 +409,77 @@ struct ProductMaterialFormView: View {
                 }
                                 
                 Section(header: Text("Otro")) {
-                    TextField("Introduce otra opción", text: $productVM.otro)
+                    TextField("Introduce otra opción", text: $otro)
                 }
                 
                 Section(header: Text("Anotación")) {
-                    TextField("Introduce una anotación", text: $productVM.anotacion)
+                    TextField("Introduce una anotación", text: $anotacion)
                 }
             }
         }
         .navigationTitle(atributo)
+        .onAppear {
+            //productVM.getMaterial(aluminio: $aluminio)
+            let resultado: [String] = productVM.material.components(separatedBy: "\n")
+            
+            for linea in resultado {
+                if linea.contains(":") {
+                    let atributo: String = linea.components(separatedBy: ":")[0]
+                    let valor: String = linea.components(separatedBy: ":")[1]
+                    
+                    if atributo == "Tipo" {
+                        if aluminio == "" {
+                            aluminio = valor.trimmingCharacters(in: .whitespaces)
+                            print("Aluminio: \(aluminio)")
+                        }
+                    }
+                    
+                } else if linea.contains("\"") {
+                    if otro == "" {
+                        otro = linea.replacingOccurrences(of: "\"", with: "")
+                        print("Otro: \(otro)")
+                    }
+                } else if linea.contains("(") && linea.contains(")") {
+                    let first = linea.dropFirst()
+                    let second = first.dropLast()
+                    if anotacion == "" {
+                        anotacion = String(second)
+                        print("Anotación: \(anotacion)")
+                    }
+                } else {
+                    if opcion == "" {
+                        opcion = linea
+                        print("Opción: \(opcion)")
+                    }
+                }
+            }
+        }
         .toolbar {
             Button("Guardar") {
-                if productVM.especifico != "" {
-                    productVM.material = productVM.especifico
-                    productVM.especifico = ""
+                // Específico
+                var resultado: [String] = []
+                
+                if opcion != "" {
+                    resultado.append(opcion)
                 }
                 
-                if productVM.otro != "" {
-                    productVM.material = productVM.otro
-                    productVM.otro = ""
+                if opcion == "Aluminio" && aluminio != "" {
+                    resultado.append("Tipo: \(aluminio)")
                 }
                 
-                if productVM.anotacion != "" {
-                    productVM.material = productVM.material + " (\(productVM.anotacion))"
-                    productVM.anotacion = ""
+                productVM.material = resultado.joined(separator: "\n")
+                
+                // Otro
+                if otro != "" {
+                    productVM.material = "\""+otro+"\""
                 }
                 
-                productVM.update(producto: producto)
+                // Anotación
+                if anotacion != "" {
+                    productVM.material += "\n(\(anotacion))"
+                }
+
+                productVM.save()
                 presentationMode.wrappedValue.dismiss()
             }
         }
@@ -428,7 +489,6 @@ struct ProductMaterialFormView: View {
 struct ProductCurvasFormView: View {
     
     var atributo = "Curvas"
-    @ObservedObject var producto: Producto
     @ObservedObject var productVM: ProductViewModel
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
@@ -469,7 +529,7 @@ struct ProductCurvasFormView: View {
                     productVM.anotacion = ""
                 }
                 
-                productVM.update(producto: producto)
+                productVM.save()
                 presentationMode.wrappedValue.dismiss()
             }
         }
@@ -479,7 +539,6 @@ struct ProductCurvasFormView: View {
 struct ProductColorFormView: View {
     
     var atributo = "Color"
-    @ObservedObject var producto: Producto
     @ObservedObject var productVM: ProductViewModel
     
     @State var color: String = ""
@@ -571,7 +630,7 @@ struct ProductColorFormView: View {
                     productVM.anotacion = ""
                 }
                 
-                productVM.update(producto: producto)
+                productVM.save()
                 presentationMode.wrappedValue.dismiss()
             }
         }
@@ -587,7 +646,6 @@ struct ProductColorFormView: View {
 struct ProductTapajuntasFormView: View {
     
     var atributo = "Tapajuntas"
-    @ObservedObject var producto: Producto
     @ObservedObject var productVM: ProductViewModel
     
     @State var especificos: Bool = false
@@ -680,7 +738,7 @@ struct ProductTapajuntasFormView: View {
                     productVM.anotacion = ""
                 }
                 
-                productVM.update(producto: producto)
+                productVM.save()
                 presentationMode.wrappedValue.dismiss()
             }
         }
@@ -697,11 +755,15 @@ struct ProductTapajuntasFormView: View {
 struct ProductDimensionesFormView: View {
     
     var atributo = "Dimensiones"
-    @ObservedObject var producto: Producto
     @ObservedObject var productVM: ProductViewModel
     
     @State var ancho: String = ""
     @State var alto: String = ""
+    @State var fijos: Bool = false
+    @State var superior: String = ""
+    @State var inferior: String = ""
+    @State var izquierdo: String = ""
+    @State var derecho: String = ""
     
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
@@ -717,6 +779,17 @@ struct ProductDimensionesFormView: View {
                     }
                     .multilineTextAlignment(.center)
                     .keyboardType(.numberPad)
+                }
+                
+                Toggle("Fijos", isOn: $fijos)
+                
+                if fijos {
+                    Section(header: Text("Dimensiones fijo"), footer: Text("Unidad de medida: mm")) {
+                        TextField("Superior", text: $superior)
+                        TextField("Inferior", text: $inferior)
+                        TextField("Izquierdo", text: $izquierdo)
+                        TextField("Derecho", text: $derecho)
+                    }.keyboardType(.numberPad)
                 }
                 
                 Section(header: Text("Anotación")) {
@@ -738,6 +811,22 @@ struct ProductDimensionesFormView: View {
                     resultado.append("Alto: \(alto) mm")
                 }
                 
+                if fijos {
+                    resultado.append("Con fijos")
+                    if superior != "" {
+                        resultado.append("Superior: \(superior) mm")
+                    }
+                    if inferior != "" {
+                        resultado.append("Inferior: \(inferior) mm")
+                    }
+                    if izquierdo != "" {
+                        resultado.append("Izquierdo: \(izquierdo) mm")
+                    }
+                    if derecho != "" {
+                        resultado.append("Derecho: \(derecho) mm")
+                    }
+                }
+                
                 productVM.dimensiones = resultado.joined(separator: "\n")
                 
                 if productVM.anotacion != "" {
@@ -745,7 +834,7 @@ struct ProductDimensionesFormView: View {
                     productVM.anotacion = ""
                 }
                 
-                productVM.update(producto: producto)
+                productVM.save()
                 presentationMode.wrappedValue.dismiss()
             }
         }
@@ -755,7 +844,6 @@ struct ProductDimensionesFormView: View {
 struct ProductAperturaFormView: View {
     
     var atributo = "Apertura"
-    @ObservedObject var producto: Producto
     @ObservedObject var productVM: ProductViewModel
     
     @State var vista: String = ""
@@ -771,15 +859,14 @@ struct ProductAperturaFormView: View {
         VStack {
             Form{
                 Section(header: Text("Tipo de apertura")) {
-                    if productVM.getFormattedName(name: productVM.familia) == "Practicables" ||
-                        productVM.getFormattedName(name: productVM.familia) == "Puertas" {
+                    
+                    if productVM.showIf(familias: ["Practicables", "Puertas"]) {
                         Toggle("Oscilobatiente", isOn: $oscilobatiente)
                     }
                     Toggle("Piven", isOn: $piven)
                 }
                 
-                if productVM.getFormattedName(name: productVM.familia) != "Correderas" &&
-                    productVM.getFormattedName(name: productVM.familia) != "Fijos" {
+                if productVM.notShowIf(familias: ["Correderas", "Fijos"]) {
                     if !piven {
                         Section(header: Text("Vista")) {
                             Picker("Vista", selection: $vista) {
@@ -804,7 +891,7 @@ struct ProductAperturaFormView: View {
                     }
                 }
                 
-                if productVM.getFormattedName(name: productVM.familia) == "Correderas" {
+                if productVM.showIf(familias: ["Correderas"]) {
                     Section(header: Text("Corredera")) {
                         Picker("Corredera", selection: $corredera) {
                             List(["Primera hoja izquierda", "Primera hoja derecha"], id: \.self) { item in Text(item) }
@@ -850,7 +937,7 @@ struct ProductAperturaFormView: View {
                     productVM.anotacion = ""
                 }
                 
-                productVM.update(producto: producto)
+                productVM.save()
                 presentationMode.wrappedValue.dismiss()
             }
         }
@@ -860,7 +947,6 @@ struct ProductAperturaFormView: View {
 struct ProductCompactoFormView: View {
     
     var atributo = "Compacto"
-    @ObservedObject var producto: Producto
     @ObservedObject var productVM: ProductViewModel
     
     @State var compacto: String = ""
@@ -934,7 +1020,7 @@ struct ProductCompactoFormView: View {
                 }
                 
                 Picker("Detalles obra", selection: $detallaObra) {
-                    if productVM.getFormattedName(name: productVM.familia) == "Mini" {
+                    if productVM.showIf(familias: ["Mini"]) {
                         List(["Sobre muro", "Tipo compacto", "Mini"], id: \.self) { item in Text(item) }
                     } else {
                         List(["Sobre muro", "Tipo compacto"], id: \.self) { item in Text(item) }
@@ -1006,7 +1092,7 @@ struct ProductCompactoFormView: View {
                     productVM.anotacion = ""
                 }
                 
-                productVM.update(producto: producto)
+                productVM.save()
                 presentationMode.wrappedValue.dismiss()
             }
         }
@@ -1016,7 +1102,6 @@ struct ProductCompactoFormView: View {
 struct ProductMarcoInferiorFormView: View {
     
     var atributo = "Marco inferior"
-    @ObservedObject var producto: Producto
     @ObservedObject var productVM: ProductViewModel
     
     @State var empotrado: String = ""
@@ -1028,13 +1113,13 @@ struct ProductMarcoInferiorFormView: View {
         VStack {
             Form{
                 Section(header: Text("Opciones")) {
-                    Picker("Marco Inferior", selection: $productVM.marcoInferior) {
+                    Picker("Marco Inferior", selection: $productVM.marco_inferior) {
                         List(productVM.optionsFor(attribute: atributo), id: \.self) { item in Text(item) }
                     }
                     .pickerStyle(.segmented)
                 }
                 
-                if productVM.marcoInferior == "Empotrado" {
+                if productVM.marco_inferior == "Empotrado" {
                     Section(header: Text("Empotrado")) {
                         Toggle("Canal recoge agua", isOn: $canalRecogeAgua)
                     }
@@ -1054,20 +1139,20 @@ struct ProductMarcoInferiorFormView: View {
             Button("Guardar") {
                 
                 if canalRecogeAgua {
-                    productVM.marcoInferior = productVM.marcoInferior + " con canal recoge agua"
+                    productVM.marco_inferior = productVM.marco_inferior + " con canal recoge agua"
                 }
                 
                 if productVM.otro != "" {
-                    productVM.marcoInferior = productVM.otro
+                    productVM.marco_inferior = productVM.otro
                     productVM.otro = ""
                 }
                 
                 if productVM.anotacion != "" {
-                    productVM.marcoInferior = productVM.marcoInferior + " (\(productVM.anotacion))"
+                    productVM.marco_inferior = productVM.marco_inferior + " (\(productVM.anotacion))"
                     productVM.anotacion = ""
                 }
                 
-                productVM.update(producto: producto)
+                productVM.save()
                 presentationMode.wrappedValue.dismiss()
             }
         }
@@ -1077,7 +1162,6 @@ struct ProductMarcoInferiorFormView: View {
 struct ProductHuellaFormView: View {
     
     var atributo = "Huella"
-    @ObservedObject var producto: Producto
     @ObservedObject var productVM: ProductViewModel
     
     @State var huella: String = ""
@@ -1109,7 +1193,7 @@ struct ProductHuellaFormView: View {
                     productVM.anotacion = ""
                 }
                 
-                productVM.update(producto: producto)
+                productVM.save()
                 presentationMode.wrappedValue.dismiss()
             }
         }
@@ -1119,7 +1203,6 @@ struct ProductHuellaFormView: View {
 struct ProductForroExteriorFormView: View {
     
     var atributo = "Forro exterior"
-    @ObservedObject var producto: Producto
     @ObservedObject var productVM: ProductViewModel
     
     @State var lama: String = ""
@@ -1164,16 +1247,16 @@ struct ProductForroExteriorFormView: View {
                 
                 
                 if productVM.otro != "" {
-                    productVM.forroExterior = productVM.otro
+                    productVM.forro_exterior = productVM.otro
                     productVM.otro = ""
                 }
                 
                 if productVM.anotacion != "" {
-                    productVM.forroExterior = productVM.forroExterior + " (\(productVM.anotacion))"
+                    productVM.forro_exterior = productVM.forro_exterior + " (\(productVM.anotacion))"
                     productVM.anotacion = ""
                 }
                 
-                productVM.update(producto: producto)
+                productVM.save()
                 presentationMode.wrappedValue.dismiss()
             }
         }
@@ -1183,7 +1266,6 @@ struct ProductForroExteriorFormView: View {
 struct ProductCristalFormView: View {
     
     var atributo = "Cristal"
-    @ObservedObject var producto: Producto
     @ObservedObject var productVM: ProductViewModel
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
@@ -1219,7 +1301,7 @@ struct ProductCristalFormView: View {
                     productVM.anotacion = ""
                 }
                 
-                productVM.update(producto: producto)
+                productVM.save()
                 presentationMode.wrappedValue.dismiss()
             }
         }
@@ -1229,7 +1311,6 @@ struct ProductCristalFormView: View {
 struct ProductCerradurasFormView: View {
     
     var atributo = "Cerraduras"
-    @ObservedObject var producto: Producto
     @ObservedObject var productVM: ProductViewModel
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
@@ -1265,7 +1346,7 @@ struct ProductCerradurasFormView: View {
                     productVM.anotacion = ""
                 }
                 
-                productVM.update(producto: producto)
+                productVM.save()
                 presentationMode.wrappedValue.dismiss()
             }
         }
@@ -1275,7 +1356,6 @@ struct ProductCerradurasFormView: View {
 struct ProductManetasFormView: View {
     
     var atributo = "Manetas"
-    @ObservedObject var producto: Producto
     @ObservedObject var productVM: ProductViewModel
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
@@ -1311,7 +1391,7 @@ struct ProductManetasFormView: View {
                     productVM.anotacion = ""
                 }
                 
-                productVM.update(producto: producto)
+                productVM.save()
                 presentationMode.wrappedValue.dismiss()
             }
         }
@@ -1321,7 +1401,6 @@ struct ProductManetasFormView: View {
 struct ProductHerrajeFormView: View {
     
     var atributo = "Herraje"
-    @ObservedObject var producto: Producto
     @ObservedObject var productVM: ProductViewModel
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
@@ -1357,7 +1436,7 @@ struct ProductHerrajeFormView: View {
                     productVM.anotacion = ""
                 }
                 
-                productVM.update(producto: producto)
+                productVM.save()
                 presentationMode.wrappedValue.dismiss()
             }
         }
@@ -1367,7 +1446,6 @@ struct ProductHerrajeFormView: View {
 struct ProductPosicionFormView: View {
     
     var atributo = "Posición"
-    @ObservedObject var producto: Producto
     @ObservedObject var productVM: ProductViewModel
     
     @State var ventana: Int = 0
@@ -1412,7 +1490,7 @@ struct ProductPosicionFormView: View {
                     productVM.anotacion = ""
                 }
                 
-                productVM.update(producto: producto)
+                productVM.save()
                 presentationMode.wrappedValue.dismiss()
             }
         }
@@ -1422,7 +1500,6 @@ struct ProductPosicionFormView: View {
 struct ProductInstalacionFormView: View {
     
     var atributo = "Instalación"
-    @ObservedObject var producto: Producto
     @ObservedObject var productVM: ProductViewModel
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
@@ -1458,7 +1535,7 @@ struct ProductInstalacionFormView: View {
                     productVM.anotacion = ""
                 }
                 
-                productVM.update(producto: producto)
+                productVM.save()
                 presentationMode.wrappedValue.dismiss()
             }
         }
@@ -1468,7 +1545,6 @@ struct ProductInstalacionFormView: View {
 struct ProductMallorquinaFormView: View {
     
     var atributo = "Mallorquina"
-    @ObservedObject var producto: Producto
     @ObservedObject var productVM: ProductViewModel
     
     @State var tubo: Bool = false
@@ -1479,7 +1555,7 @@ struct ProductMallorquinaFormView: View {
         VStack {
             Form{
                 Section(header: Text("Opciones")) {
-                    Picker(atributo, selection: $productVM.mallorquina) {
+                    Picker(atributo, selection: $productVM.persiana) {
                         List(productVM.optionsFor(attribute: atributo), id: \.self) { item in Text(item) }
                     }
                 }
@@ -1500,20 +1576,20 @@ struct ProductMallorquinaFormView: View {
             Button("Guardar") {
                 
                 if tubo {
-                    productVM.mallorquina = productVM.mallorquina + " con tubo"
+                    productVM.persiana = productVM.persiana + " con tubo"
                 }
                 
                 if productVM.otro != "" {
-                    productVM.mallorquina = productVM.otro
+                    productVM.persiana = productVM.otro
                     productVM.otro = ""
                 }
                 
                 if productVM.anotacion != "" {
-                    productVM.mallorquina = productVM.mallorquina + " (\(productVM.anotacion))"
+                    productVM.persiana = productVM.persiana + " (\(productVM.anotacion))"
                     productVM.anotacion = ""
                 }
                 
-                productVM.update(producto: producto)
+                productVM.save()
                 presentationMode.wrappedValue.dismiss()
             }
         }
@@ -1523,33 +1599,46 @@ struct ProductMallorquinaFormView: View {
 
 // Detail Views
 struct ProductDetailView: View {
-    var productVM = ProductViewModel()
-    @ObservedObject var producto: Producto
+    @ObservedObject var productVM: ProductViewModel
     var body: some View {
         HStack {
             VStack(alignment: .leading){
-                Text(productVM.getSingularFamilia(name: producto.familia ?? ""))
-                    .font(.title)
-                    .lineLimit(1)
-                Text(producto.material ?? "")
+                if productVM.copias == 1 {
+                    Text(productVM.getSingularFamilia(name: productVM.familia))
+                        .font(.title)
+                        .lineLimit(1)
+                } else {
+                    Text(String(productVM.copias)+" "+productVM.getFormattedName(name: productVM.familia))
+                        .font(.title)
+                        .lineLimit(1)
+                }
+                Text(productVM.material)
                     .font(.subheadline)
-                Text(producto.color ?? "")
+                Text(productVM.color)
                     .font(.subheadline)
-                Text(productVM.getFormattedDimension(dimension: producto.dimensiones ?? ""))
+                Text(productVM.getDimensiones(option: "ancho x alto"))
                     .font(.subheadline)
             }
             Spacer()
-            Image(producto.nombre ?? "")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 100, height: 100)
+            
+            if productVM.nombre == "" {
+                Image(systemName: "photo")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 100)
+            } else {
+                Image(productVM.nombre)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 100)
+            }
                 
         }
     }
 }
 
 struct ProductDetailAllView: View {
-    @ObservedObject var producto: Producto
+    @ObservedObject var productVM: ProductViewModel
     var body: some View {
         VStack(alignment: .leading) {
             Group {
@@ -1557,63 +1646,63 @@ struct ProductDetailAllView: View {
                 HStack {
                     Text("Familia")
                     Spacer()
-                    Text(producto.familia ?? "...")
+                    Text(productVM.familia)
                 }
                 .font(.subheadline)
                 
                 HStack {
                     Text("Nombre")
                     Spacer()
-                    Text(producto.nombre ?? "...")
+                    Text(productVM.nombre)
                 }
                 .font(.subheadline)
 
                 HStack {
                     Text("Material")
                     Spacer()
-                    Text(producto.material ?? "...")
+                    Text(productVM.material)
                 }
                 .font(.subheadline)
 
                 HStack {
                     Text("Color")
                     Spacer()
-                    Text(producto.color ?? "...")
+                    Text(productVM.color)
                 }
                 .font(.subheadline)
                 
                 HStack {
                     Text("Tapajuntas")
                     Spacer()
-                    Text(producto.tapajuntas ?? "...")
+                    Text(productVM.tapajuntas)
                 }
                 .font(.subheadline)
 
                 HStack {
                     Text("Dimensiones")
                     Spacer()
-                    Text(producto.dimensiones ?? "...")
+                    Text(productVM.dimensiones)
                 }
                 .font(.subheadline)
 
                 HStack {
                     Text("Apertura")
                     Spacer()
-                    Text(producto.apertura ?? "...")
+                    Text(productVM.apertura)
                 }
                 .font(.subheadline)
 
                 HStack {
                     Text("Marco inferior")
                     Spacer()
-                    Text(producto.marcoInferior ?? "...")
+                    Text(productVM.marco_inferior)
                 }
                 .font(.subheadline)
 
                 HStack {
                     Text("Huella")
                     Spacer()
-                    Text(producto.huella ?? "...")
+                    Text(productVM.huella)
                 }
                 .font(.subheadline)
 
@@ -1623,63 +1712,63 @@ struct ProductDetailAllView: View {
                 HStack {
                     Text("Forro exterior")
                     Spacer()
-                    Text(producto.forroExterior ?? "...")
+                    Text(productVM.forro_exterior)
                 }
                 .font(.subheadline)
 
                 HStack {
                     Text("Cristal")
                     Spacer()
-                    Text(producto.cristal ?? "...")
+                    Text(productVM.cristal)
                 }
                 .font(.subheadline)
 
                 HStack {
                     Text("Mallorquina")
                     Spacer()
-                    Text(producto.mallorquina ?? "...")
+                    Text(productVM.persiana)
                 }
                 .font(.subheadline)
 
                 HStack {
                     Text("Cerraduras")
                     Spacer()
-                    Text(producto.cerraduras ?? "...")
+                    Text(productVM.cerraduras)
                 }
                 .font(.subheadline)
 
                 HStack {
                     Text("Manetas")
                     Spacer()
-                    Text(producto.manetas ?? "...")
+                    Text(productVM.manetas)
                 }
                 .font(.subheadline)
 
                 HStack {
                     Text("Herraje")
                     Spacer()
-                    Text(producto.herraje ?? "...")
+                    Text(productVM.herraje)
                 }
                 .font(.subheadline)
 
                 HStack {
                     Text("Posición")
                     Spacer()
-                    Text(producto.posicion ?? "...")
+                    Text(productVM.posicion)
                 }
                 .font(.subheadline)
 
                 HStack {
                     Text("Instalación")
                     Spacer()
-                    Text(producto.instalacion ?? "...")
+                    Text(productVM.instalacion)
                 }
                 .font(.subheadline)
                 
                 HStack {
                     Text("Remates albañilería")
                     Spacer()
-                    if producto.rematesAlbanileria {
+                    if productVM.remates_albanileria {
                         Text("Si")
                     } else {
                         Text("No")
@@ -1690,7 +1779,7 @@ struct ProductDetailAllView: View {
                 HStack {
                     Text("Medidas No Buenas")
                     Spacer()
-                    if producto.medidasNoBuenas {
+                    if productVM.medidas_no_buenas {
                         Text("Si")
                     } else {
                         Text("No")
@@ -1703,41 +1792,29 @@ struct ProductDetailAllView: View {
     }
 }
 
-struct ProductDetailPreviewView: View {
-
-    @ObservedObject var productoVM: ProductViewModel
-    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
-
-    var body: some View {
-        Text("ProductDetailPreviewView")
-    }
-}
-
 
 // Otros
 struct treeView: View {
     var optionSelect: String
-    @ObservedObject var producto: Producto
     @ObservedObject var productVM: ProductViewModel
 
     var body: some View {
         ScrollView {
-            ProductSelectDirectoryListView(optionSelect: optionSelect, producto: producto, productVM: productVM)
-            ProductSelectListView(optionSelect: optionSelect, producto: producto, productVM: productVM)
+            ProductSelectDirectoryListView(optionSelect: optionSelect, productVM: productVM)
+            ProductSelectListView(optionSelect: optionSelect, productVM: productVM)
         }.navigationTitle(Text(productVM.getFormattedName(name: optionSelect)))
     }
 }
 
 struct ProductSelectDirectoryListView: View {
     var optionSelect: String
-    @ObservedObject var producto: Producto
     @ObservedObject var productVM: ProductViewModel
     
     @State private var seleccion = ""
     @State private var isShowingNextView = false
     
     var body: some View {
-        NavigationLink(destination: treeView(optionSelect: seleccion, producto: producto, productVM: productVM), isActive: $isShowingNextView) { EmptyView() }
+        NavigationLink(destination: treeView(optionSelect: seleccion, productVM: productVM), isActive: $isShowingNextView) { EmptyView() }
 
         ForEach(productVM.optionsFor(attribute: "directorios \(optionSelect)"), id: \.self) { nombre in
 
@@ -1759,7 +1836,6 @@ struct ProductSelectDirectoryListView: View {
 
 struct ProductSelectListView: View {
     var optionSelect: String
-    @ObservedObject var producto: Producto
     @ObservedObject var productVM: ProductViewModel
     var body: some View {
         LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 30)), count: 2), spacing: 10){
@@ -1767,7 +1843,7 @@ struct ProductSelectListView: View {
                 Button(
                     action: {
                         productVM.nombre = nombre
-                        productVM.update(producto: producto)
+                        productVM.save()
                     },
                     label: {
                         VStack {
@@ -1781,5 +1857,27 @@ struct ProductSelectListView: View {
             }
         }
         .padding()
+    }
+}
+
+struct ProductListView: View {
+    @StateObject var productVM = ProductViewModel()
+    
+    var body: some View {
+        List {
+            ForEach(productVM.productos){ producto in
+                NavigationLink(destination: ProductCreateView(productVM: ProductViewModel(product: producto)), label: {
+                    ProductDetailView(productVM: ProductViewModel(product: producto))
+                })
+            }
+            .onDelete(perform: deleteProduct)
+        }
+        .onAppear(perform: productVM.getAllProducts)
+    }
+    
+    private func deleteProduct(offsets: IndexSet) {
+        withAnimation {
+            productVM.delete(at: offsets, for: productVM.productos)
+        }
     }
 }

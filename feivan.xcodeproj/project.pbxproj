@@ -100,14 +100,12 @@
 		257CC838271FE834009C65D1 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2585FDD3273ACD360093136A /* Entities */,
 				2544199627395B11005290C9 /* NewProject.swift */,
 				25E8F23E272197590009CEB7 /* DebugFile.swift */,
 				25E8F23A27218D510009CEB7 /* DataView.swift */,
 				257CC825271FE561009C65D1 /* FeivanApp.swift */,
 				257CC84227218926009C65D1 /* HomeView.swift */,
-				257CC827271FE561009C65D1 /* ClientView.swift */,
-				25B790F52722D43000A2F6CD /* ProjectView.swift */,
-				252DC7B027248635005F3489 /* ProductView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -115,10 +113,8 @@
 		257CC839271FE840009C65D1 /* View Model */ = {
 			isa = PBXGroup;
 			children = (
+				2585FDD4273ACD4C0093136A /* Entities */,
 				259BC28C272862BD00AE3305 /* Hierarchy.swift */,
-				257CC83B271FE937009C65D1 /* ClientViewModel.swift */,
-				25E8F23C27218E120009CEB7 /* ProjectViewModel.swift */,
-				25E9089F2721AE9C008A490B /* ProductViewModel.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -134,6 +130,26 @@
 				254093342735A23A00AA07D5 /* String.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		2585FDD3273ACD360093136A /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				257CC827271FE561009C65D1 /* ClientView.swift */,
+				25B790F52722D43000A2F6CD /* ProjectView.swift */,
+				252DC7B027248635005F3489 /* ProductView.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		2585FDD4273ACD4C0093136A /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				257CC83B271FE937009C65D1 /* ClientViewModel.swift */,
+				25E8F23C27218E120009CEB7 /* ProjectViewModel.swift */,
+				25E9089F2721AE9C008A490B /* ProductViewModel.swift */,
+			);
+			path = Entities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

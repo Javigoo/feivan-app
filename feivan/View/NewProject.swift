@@ -8,20 +8,18 @@
 import SwiftUI
 
 struct NewProject: View {
-    @StateObject var projectVM = ProjectViewModel()
     
     var body: some View {
-        NewClient(projectVM: projectVM)
+        NewClient()
     }
 }
 
 struct NewClient: View {
-    @ObservedObject var projectVM: ProjectViewModel
     @StateObject var clientVM = ClientViewModel()
     
     @State private var isShowingNextView = false
     var body: some View {
-        NavigationLink(destination: NewProduct(projectVM: projectVM, clientVM: clientVM), isActive: $isShowingNextView) { EmptyView() }
+        NavigationLink(destination: NewProduct(clientVM: clientVM), isActive: $isShowingNextView) { EmptyView() }
 
         VStack {
             Form {
@@ -29,26 +27,30 @@ struct NewClient: View {
             }
         }.toolbar {
             Button("Siguiente") {
-                // Si se vuelve a esta vista actualizar el cliente, no crear uno nuevo
                 clientVM.save()
-                projectVM.addClient(clientVM: clientVM)
-                // enlazar cliente al proyecto
-                // enlazar proyecto al producto
                 isShowingNextView = true
-                    
             }
-        }.navigationTitle(Text("Nuevo cliente"))
+        }
+        .navigationTitle(Text("Nuevo cliente"))
     }
 }
 
 struct NewProduct: View {
-    @ObservedObject var projectVM: ProjectViewModel
     @ObservedObject var clientVM: ClientViewModel
     @StateObject var productVM = ProductViewModel()
     
+    @State private var isShowingNextView = false
     var body: some View {
+        NavigationLink(destination: Text("NewProduct(clientVM: clientVM)"), isActive: $isShowingNextView) { EmptyView() }
+
         VStack {
-            Text("ProductFamiliaFormView(producto: <#T##Producto#>, productVM: <#T##ProductViewModel#>)")
+            ProductFormView(productVM: productVM)
+        }.toolbar {
+            Button("Siguiente") {
+                productVM.save()
+                isShowingNextView = true
+            }
         }
+        .navigationTitle(Text("Nuevo producto"))
     }
 }
