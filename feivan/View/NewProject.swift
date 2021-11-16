@@ -8,18 +8,33 @@
 import SwiftUI
 
 struct NewProject: View {
+    @StateObject var projectVM = ProjectViewModel()
     
+    @State private var isShowingNextView = false
     var body: some View {
-        NewClient()
+        NavigationLink(destination: NewClient(projectVM: projectVM), isActive: $isShowingNextView) { EmptyView() }
+
+        VStack {
+            Form {
+                ProjectFormView(projectVM: projectVM)
+            }
+        }.toolbar {
+            Button("Siguiente") {
+                projectVM.save()
+                isShowingNextView = true
+            }
+        }
+        .navigationTitle(Text("Nuevo proyecto"))
     }
 }
 
 struct NewClient: View {
+    @ObservedObject var projectVM: ProjectViewModel
     @StateObject var clientVM = ClientViewModel()
     
     @State private var isShowingNextView = false
     var body: some View {
-        NavigationLink(destination: NewProduct(clientVM: clientVM), isActive: $isShowingNextView) { EmptyView() }
+        NavigationLink(destination: NewProduct(projectVM: projectVM), isActive: $isShowingNextView) { EmptyView() }
 
         VStack {
             Form {
@@ -27,7 +42,9 @@ struct NewClient: View {
             }
         }.toolbar {
             Button("Siguiente") {
+                clientVM.addProject(projectVM: projectVM)
                 clientVM.save()
+                
                 isShowingNextView = true
             }
         }
@@ -36,17 +53,18 @@ struct NewClient: View {
 }
 
 struct NewProduct: View {
-    @ObservedObject var clientVM: ClientViewModel
+    @ObservedObject var projectVM: ProjectViewModel
     @StateObject var productVM = ProductViewModel()
     
     @State private var isShowingNextView = false
     var body: some View {
-        NavigationLink(destination: Text("NewProduct(clientVM: clientVM)"), isActive: $isShowingNextView) { EmptyView() }
+        NavigationLink(destination: DataSummaryView(projectVM: projectVM), isActive: $isShowingNextView) { EmptyView() }
 
         VStack {
             ProductFormView(productVM: productVM)
         }.toolbar {
             Button("Siguiente") {
+                productVM.addProject(projectVM: projectVM)
                 productVM.save()
                 isShowingNextView = true
             }

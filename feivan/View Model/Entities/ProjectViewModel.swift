@@ -17,6 +17,9 @@ class ProjectViewModel: ObservableObject {
     @Published var subir_fachada: Bool = false
     @Published var timestamp: Date = Date()
     
+    @Published var cliente: Cliente?
+    @Published var productos: NSSet?
+
     @Published var proyectos: [Proyecto] = []
         
     // Constructores
@@ -154,6 +157,8 @@ class ProjectViewModel: ObservableObject {
         grua = project.grua
         subir_fachada = project.subir_fachada
         timestamp = project.timestamp ?? timestamp
+        cliente = project.cliente ?? cliente
+        productos = project.productos ?? productos
     }
     
     /** Copia los datos del ProjectViewModel al Proyecto **/
@@ -164,6 +169,8 @@ class ProjectViewModel: ObservableObject {
         project.grua = grua
         project.subir_fachada = subir_fachada
         project.timestamp = timestamp
+        project.cliente = cliente
+        project.productos = productos
     }
     
     /** Devuelve el Proyecto que coincide con la id en la DB**/

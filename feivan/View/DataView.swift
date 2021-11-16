@@ -12,21 +12,27 @@ struct DataView: View {
     @StateObject var projectVM = ProjectViewModel()
 
     var body: some View {
-        List {
-            ForEach(projectVM.proyectos, id: \.self) { proyecto in
-                NavigationLink(
-                    destination:
-                        DataSummaryView(
-                            projectVM: ProjectViewModel(project: proyecto)
-                        ),
-                    label: {
-                        DataPreviewView(
-                            projectVM: ProjectViewModel(project: proyecto)
+        VStack{
+            if projectVM.proyectos.count == 0 {
+                Text("No hay proyectos")
+            } else {
+                List {
+                    ForEach(projectVM.proyectos, id: \.self) { proyecto in
+                        NavigationLink(
+                            destination:
+                                DataSummaryView(
+                                    projectVM: ProjectViewModel(project: proyecto)
+                                ),
+                            label: {
+                                DataPreviewView(
+                                    projectVM: ProjectViewModel(project: proyecto)
+                                )
+                            }
                         )
                     }
-                )
+                    .onDelete(perform: deleteProject)
+                }
             }
-            .onDelete(perform: deleteProject)
         }
         .onAppear(perform: projectVM.getAllProjects)
         .navigationTitle(Text("Proyectos"))

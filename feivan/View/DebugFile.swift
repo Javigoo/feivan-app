@@ -15,48 +15,54 @@ struct DebugView: View {
     @State private var isShowingBackView = false
 
     var body: some View {
-        VStack(spacing: 30) {
-            
-            Section(header: Text("Ver entidades")) {
-                NavigationLink(destination: ClientListView(), label: {
-                    Text("Clientes")
-                })
+        ScrollView {
+            VStack(alignment: .leading) {
                 
-                NavigationLink(destination: ProductListView(), label: {
-                    Text("Productos")
-                })
-            }
-            
-            Divider()
-            
-            Section(header: Text("Añadir proyectos de prueba")) {
-                Button("Añadir 1 proyecto vacio", action: {
-                    createTestProjectEmpty()
-                    presentationMode.wrappedValue.dismiss()
-                })
+                Section(header: Text("Ver entidades")) {
+                    NavigationLink(destination: ProjectListView(), label: {
+                        Text("Proyectos")
+                    })
+                    
+                    NavigationLink(destination: ClientListView(), label: {
+                        Text("Clientes")
+                    })
+                    
+                    NavigationLink(destination: ProductListView(), label: {
+                        Text("Productos")
+                    })
+                }
                 
-                Button("1 cliente con 1 proyecto con 1 producto", action: {
-                    createTestProject111()
-                    presentationMode.wrappedValue.dismiss()
-                })
+                Divider()
+                
+                Section(header: Text("Añadir proyectos de prueba")) {
+                    Button("Añadir 1 proyecto vacio", action: {
+                        createTestProjectEmpty()
+                        presentationMode.wrappedValue.dismiss()
+                    })
+                    
+                    Button("1 cliente con 1 proyecto con 1 producto", action: {
+                        createTestProject111()
+                        presentationMode.wrappedValue.dismiss()
+                    })
 
-                Button("1 cliente con 1 proyecto con 2 productos", action: {
-                    createTestProject112()
-                    presentationMode.wrappedValue.dismiss()
-                })
+                    Button("1 cliente con 1 proyecto con 2 productos", action: {
+                        createTestProject112()
+                        presentationMode.wrappedValue.dismiss()
+                    })
 
-                Button("1 cliente con 2 proyectos con 1 producto", action: {
-                    createTestProject121()
-                    presentationMode.wrappedValue.dismiss()
-                })
-                
-                Button("2 clientes con 1 proyecto con 1 producto", action: {
-                    createTestProject211()
-                    presentationMode.wrappedValue.dismiss()
-                })
+                    Button("1 cliente con 2 proyectos con 1 producto", action: {
+                        createTestProject121()
+                        presentationMode.wrappedValue.dismiss()
+                    })
+                    
+                    Button("2 clientes con 1 proyecto con 1 producto", action: {
+                        createTestProject211()
+                        presentationMode.wrappedValue.dismiss()
+                    })
+                }
             }
+            .padding()
         }
-        .padding()
     }
     
     private func createTestProjectEmpty() {

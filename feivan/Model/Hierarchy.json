@@ -79,7 +79,7 @@
             ]
         },
         {
-            "nombre": "Curvas",
+            "nombre": "Curva",
             "opciones": [
                 "Medio punto",
                 "Carpanel",
@@ -256,6 +256,531 @@
                 "Convencional",
                 "Veka"
             ]
-        }
+        },
+        {
+            "nombre": "Familias",
+            "opciones": [
+                "Correderas",
+                "Practicables",
+                "Puertas",
+                "Persiana",
+                "Fijos",
+                "Plegable",
+                "Curvas",
+                "Persianas enrollables",
+                "Mosquitera",
+                "Cancelas",
+                "Barandillas"
+            ]
+        },
+        {
+            "nombre": "Correderas",
+            "opciones": [
+                "C2",
+                "C3c",
+                "C4",
+                "C6"
+            ]
+        },
+        {
+            "nombre": "Directorio Correderas",
+            "opciones": [
+                "Corredera + fijo",
+                "Coladurias",
+                "Corredera galandas",
+                "Correderas elevadoras",
+                "Corredera fijo+zocalo"
+            ]
+        },
+        {
+            "nombre": "Corredera + fijo",
+            "opciones": [
+                "C2fi",
+                "C2fs",
+                "C2fsfi",
+                "C3fi",
+                "C3fs",
+                "C3fsfi",
+                "C4fi",
+                "C4fs",
+                "C4fsfi",
+                "C6fi",
+                "C6fs",
+                "C6fsfi"
+            ]
+        },
+        {
+            "nombre": "Coladurias",
+            "opciones": [
+                "Pta 1h fd",
+                "Pta 1h fi"
+            ]
+        },
+        {
+            "nombre": "Corredera galandas",
+            "opciones": [
+                "Pcm1d",
+                "Pcm1de",
+                "Pcm2"
+            ]
+        },
+        {
+            "nombre": "Correderas elevadoras",
+            "opciones": [
+                "Pc2e1i",
+                "Pc2e1",
+                "Pc2e2",
+                "Pc3e1f2",
+                "Pc4e2f2"
+            ]
+        },
+        {
+            "nombre": "Corredera fijo+zocalo",
+            "opciones": [
+                "C2pfs",
+                "C3pfs",
+                "C4pfs",
+                "C6pfs"
+            ]
+        },
+        {
+            "nombre": "Practicables",
+            "opciones": [
+                "1d",
+                "1o",
+                "1od",
+                "practicable1",
+                "2",
+                "practicable2i",
+                "2o",
+                "practicable2oi",
+                "1+2",
+                "1+",
+                "1vs",
+                "3o",
+                "4",
+                "P4",
+                "1+1"
+            ]
+        },
+        {
+            "nombre": "Directorio Practicables",
+            "opciones": [
+                "Ventanas + fijo",
+                "Ventana hojas desiguales",
+                "Pivotante",
+                "Ventana + pive",
+                "Ventanas falso vias"
+            ]
+        },
+        {
+            "nombre": "Ventanas + fijo",
+            "opciones": [
+                "1fi",
+                "1fl2fi",
+                "1fl2fiz",
+                "1fl",
+                "1fs",
+                "1fsfi",
+                "1fsfifl",
+                "1o1fl",
+                "1o2fl",
+                "1ofd",
+                "1ofi",
+                "1ofl2fd",
+                "1ofl2fi",
+                "1ofsfd",
+                "1ofsfi",
+                "1ofsfifl",
+                "1ofsfifld",
+                "1op1fl",
+                "1op1fli",
+                "1op2fl",
+                "1op2fld",
+                "1p2fl",
+                "1p2fli",
+                "1o+1f+1o",
+                "1o+1f+1oi",
+                "1o+2f+1o",
+                "1o+2f+1oi",
+                "2fde",
+                "2fiz",
+                "2fl",
+                "2flfde",
+                "2flfi",
+                "2fli",
+                "2fs",
+                "2fsfifl",
+                "2fsfiflde",
+                "2fsi",
+                "2hf",
+                "2o2fde",
+                "2o2fiz",
+                "2o2fs2fd",
+                "2o2fs2fi",
+                "2odesc",
+                "2odesci",
+                "2ofd",
+                "2ofi",
+                "2ofl2fd",
+                "2ofl2fi",
+                "2oflfd",
+                "2oflfi",
+                "2oflfsfd",
+                "2oflfsfi",
+                "2ofsfifl",
+                "2ofsfifld",
+                "1o+1ofi",
+                "2o+1ofd",
+                "2o+1ofi",
+                "2o+1ofifs",
+                "2o+1ofifsi",
+                "2o+2o4fd",
+                "2o+2o4fi",
+                "2o+2ofd",
+                "2o+2ofi",
+                "ventanas+fijo1"
+            ]
+        },
+        {
+            "nombre": "Ventana hojas desiguales",
+            "opciones": [
+                "2d",
+                "2di",
+                "2od",
+                "2oi"
+            ]
+        },
+        {
+            "nombre": "Pivotante",
+            "opciones": [
+                "Pivh",
+                "Pivv"
+            ]
+        },
+        {
+            "nombre": "Ventana + pive",
+            "opciones": [
+                "1+vs",
+                "1+vsd",
+                "1o+vs",
+                "1o+vsde"
+            ]
+        },
+        {
+            "nombre": "Ventanas falso vias",
+            "opciones": [
+                "1ind",
+                "1inde",
+                "1ini",
+                "2i",
+                "2ind",
+                "2ini",
+                "2in",
+                "2inid"
+            ]
+        },
+        {
+            "nombre": "Puertas",
+            "opciones": [
+                "puerta1p",
+                "1pe",
+                "2pe",
+                "2opd",
+                "2opi",
+                "2pd",
+                "2pde",
+                "1v3cue",
+                "1v3cuerpos"
+            ]
+        },
+        {
+            "nombre": "Directorio Puertas",
+            "opciones": [
+                "Puerta + fijo",
+                "Puerta + pive",
+                "Puerta+bandera"
+            ]
+        },
+        {
+            "nombre": "Puerta + fijo",
+            "opciones": [
+                "12f",
+                "12fl",
+                "2op2fl",
+                "2p2fl",
+                "1p",
+                "2opfs",
+                "2pfs",
+                "2opfsfl",
+                "2pcma2flfs",
+                "2pcmafl",
+                "Pfijosup.+lat",
+                "Pfijosup.+lat."
+            ]
+        },
+        {
+            "nombre": "Puerta + pive",
+            "opciones": [
+                "2op+vs",
+                "2p+vs"
+            ]
+        },
+        {
+            "nombre": "Puerta+bandera",
+            "opciones": [
+                "1op+1oban",
+                "1op+1obanizquierda",
+                "Bandera izquierda",
+                "1p+1ban"
+            ]
+        },
+        {
+            "nombre": "Persiana",
+            "opciones": [
+                "1mfad",
+                "1mfai",
+                "1mfathd",
+                "1mfathi",
+                "211mg",
+                "2mfthad",
+                "312m",
+                "321m",
+                "4m",
+                "4mt",
+                "6m",
+                "Mall.2htrav."
+            ]
+        },
+        {
+            "nombre": "Directorio Persiana",
+            "opciones": [
+                "Fijos persiana",
+                "Persiana con cruceta",
+                "Persiana plegable",
+                "Persianas con zocalo",
+                "Persianas sobre muro"
+            ]
+        },
+        {
+            "nombre": "Fijos persiana",
+            "opciones": [
+                "0lm"
+            ]
+        },
+        {
+            "nombre": "Persiana con cruceta",
+            "opciones": [
+                "1mfatvi",
+                "1mfatvd",
+                "1mfatxi",
+                "1mfatxd",
+                "2mftvad",
+                "2mftvai",
+                "2mftxad",
+                "2mftxai",
+                "2pmftvad",
+                "2pmftvai",
+                "2pmftxad",
+                "2pmftxai",
+                "2mftvai_li"
+            ]
+        },
+        {
+            "nombre": "Persiana plegable",
+            "opciones": [
+                "Plmf303i",
+                "Plmf303",
+                "Plmf404",
+                "Plmf404t",
+                "Plmf505i",
+                "Plmf505",
+                "Plmf505t",
+                "Plmf505ti",
+                "Plmf606",
+                "Plmf707iz",
+                "Plmf707"
+            ]
+        },
+        {
+            "nombre": "Persianas con zocalo",
+            "opciones": [
+                "1mfazd",
+                "1mfazi",
+                "1mfaztvd",
+                "1pmfaztxd",
+                "1mfaztvi",
+                "1pmfaztxi",
+                "2mz",
+                "2pmthzd",
+                "2pmtvzd"
+            ]
+        },
+        {
+            "nombre": "Persianas sobre muro",
+            "opciones": [
+                "Pcm1mdf",
+                "Pcm1mdfe",
+                "Pcm2mf"
+            ]
+        },
+        {
+            "nombre": "Fijos",
+            "opciones": [
+                "0",
+                "02h",
+                "02v",
+                "03h",
+                "03v",
+                "04",
+                "06",
+                "0ind",
+                "0ini",
+                "Cf",
+                "Cft"
+            ]
+        },
+        {
+            "nombre": "Plegable",
+            "opciones": [
+                "Pl10010",
+                "Pl1055",
+                "Pl11011",
+                "Pl12012",
+                "Pl13013",
+                "Pl14014",
+                "Pl15015",
+                "Pl202",
+                "Pl303",
+                "Pl321",
+                "Pl330",
+                "Pl404",
+                "Pl505",
+                "Pl505t",
+                "Pl550",
+                "Pl606",
+                "Pl633",
+                "Pl651",
+                "Pl707",
+                "Pl808",
+                "Pl909"
+            ]
+        },
+        {
+            "nombre": "Curvas",
+            "opciones": [
+                "F+1+fc",
+                "F+1+fcd",
+                "F+1+fpc",
+                "F+1+fpcd",
+                "Fs+1c",
+                "Fs+1ci",
+                "1c",
+                "1ci",
+                "2c",
+                "2ci",
+                "C2015de",
+                "C2015",
+                "F+2+fc",
+                "F+2+fci",
+                "F+2+fpc",
+                "F+2+fpci",
+                "Ob+1vs",
+                "Ob"
+            ]
+        },
+        {
+            "nombre": "Directorio Curvas",
+            "opciones": [
+                "Curvas con zocalo"
+            ]
+        },
+        {
+            "nombre": "Curvas con zocalo",
+            "opciones": [
+                "1cz",
+                "1czd",
+                "F+2+fciz",
+                "F+2+fcz",
+                "F+2+fpciz",
+                "F+2+fpcz"
+            ]
+        },
+        {
+            "nombre": "Persianas enrollables",
+            "opciones": [
+                "Enrollable 1 paño",
+                "Enrollable 2 paño"
+            ]
+        },
+        {
+            "nombre": "Mosquitera",
+            "opciones": [
+                "Mosquitera enrollable",
+                "Mosquitera plisada 2 hojas central 25",
+                "Mosquitera plisada 25",
+                "Mosquitera plisada reversible 25",
+                "Mosquitera plisada apertura central",
+                "Mosquitera corredera",
+                "Mosquitera enrollable lateral",
+                "Mosquitera puerta de paso"
+            ]
+        },
+        {
+            "nombre": "Cancelas",
+            "opciones": [
+                "1 hoja machimbrado horizontal",
+                "1 hoja tubo 60x20+zocalo",
+                "2 hojas barrote ok",
+                "2 hojas barrote",
+                "2 hojas machimbrado horizontal",
+                "2 hojas machimbrado vertical",
+                "2 hojas tubo 60x20 curva",
+                "2 hojas tubo 60x20 recto",
+                "2 hojas tubo 60x20",
+                "Cancela corredera",
+                "I hoja tubo 60x20+zocalo"
+            ]
+        },
+        {
+            "nombre": "Barandillas",
+            "opciones": [
+                "Barandilla barrote convencional",
+                "Barrote convencional 2"
+            ]
+        },
+        {
+            "nombre": "Directorio Barandillas",
+            "opciones": [
+                "Barana",
+                "Q railing"
+            ]
+        },
+        {
+            "nombre": "Barana",
+            "opciones": [
+                "Serie barana barrote1",
+                "Serie barana barrote",
+                "Serie barana cristal"
+            ]
+        },
+        {
+            "nombre": "Q railing",
+            "opciones": [
+                "Q railing empotrada",
+                "Q railing sujetcion frontal",
+                "Q railing"
+            ]
+        },
+        {
+            "nombre": "Detalles",
+            "opciones": [
+                "Instalacion mini",
+                "Instalacion sobre muro",
+                "Mini instalacion tipo compacto",
+                "Tirador derecho",
+                "Tirador izquierda"
+            ]
+        },
     ]
 }

@@ -22,6 +22,7 @@
 		257CC84327218926009C65D1 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257CC84227218926009C65D1 /* HomeView.swift */; };
 		259BC28D272862BD00AE3305 /* Hierarchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259BC28C272862BD00AE3305 /* Hierarchy.swift */; };
 		25B790F62722D43000A2F6CD /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B790F52722D43000A2F6CD /* ProjectView.swift */; };
+		25DBF3452743CBDB001D5FE3 /* MultipleSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DBF3442743CBDB001D5FE3 /* MultipleSelection.swift */; };
 		25E8F23B27218D510009CEB7 /* DataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E8F23A27218D510009CEB7 /* DataView.swift */; };
 		25E8F23D27218E120009CEB7 /* ProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E8F23C27218E120009CEB7 /* ProjectViewModel.swift */; };
 		25E8F23F272197590009CEB7 /* DebugFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E8F23E272197590009CEB7 /* DebugFile.swift */; };
@@ -45,6 +46,7 @@
 		257CC84227218926009C65D1 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		259BC28C272862BD00AE3305 /* Hierarchy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hierarchy.swift; sourceTree = "<group>"; };
 		25B790F52722D43000A2F6CD /* ProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectView.swift; sourceTree = "<group>"; };
+		25DBF3442743CBDB001D5FE3 /* MultipleSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleSelection.swift; sourceTree = "<group>"; };
 		25E8F23A27218D510009CEB7 /* DataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataView.swift; sourceTree = "<group>"; };
 		25E8F23C27218E120009CEB7 /* ProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewModel.swift; sourceTree = "<group>"; };
 		25E8F23E272197590009CEB7 /* DebugFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugFile.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 			children = (
 				2585FDD4273ACD4C0093136A /* Entities */,
 				259BC28C272862BD00AE3305 /* Hierarchy.swift */,
+				25DBF3442743CBDB001D5FE3 /* MultipleSelection.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -228,6 +231,7 @@
 				25B790F62722D43000A2F6CD /* ProjectView.swift in Sources */,
 				257CC82F271FE564009C65D1 /* Persistence.swift in Sources */,
 				257CC83C271FE937009C65D1 /* ClientViewModel.swift in Sources */,
+				25DBF3452743CBDB001D5FE3 /* MultipleSelection.swift in Sources */,
 				259BC28D272862BD00AE3305 /* Hierarchy.swift in Sources */,
 				252DC7B127248635005F3489 /* ProductView.swift in Sources */,
 				257CC84327218926009C65D1 /* HomeView.swift in Sources */,

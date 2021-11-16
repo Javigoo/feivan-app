@@ -18,6 +18,8 @@ class ClientViewModel: ObservableObject {
     @Published var comentario: String = ""
     @Published var timestamp: Date = Date()
 
+    @Published var proyectos: NSSet?
+    
     @Published var clientes: [Cliente] = []
         
     // Constructores
@@ -73,9 +75,7 @@ class ClientViewModel: ObservableObject {
     
     func addProject(projectVM: ProjectViewModel) {
         let project = projectVM.getProject()
-        let client = getClient()
-        client!.proyectos = [project!]
-        context.save()
+        proyectos = [project!]
     }
     
     /** Obtiene todos los Clientes de la DB **/
@@ -100,6 +100,7 @@ class ClientViewModel: ObservableObject {
         referencia = client.referencia ?? referencia
         comentario = client.comentario ?? comentario
         timestamp = client.timestamp ?? timestamp
+        proyectos = client.proyectos ?? proyectos
     }
     
     /** Copia los datos del ClientViewModel al Cliente **/
@@ -111,6 +112,7 @@ class ClientViewModel: ObservableObject {
         client.referencia = referencia
         client.comentario = comentario
         client.timestamp = timestamp
+        client.proyectos = proyectos
     }
     
     /** Devuelve el Cliente que coincide con la id en la DB **/
