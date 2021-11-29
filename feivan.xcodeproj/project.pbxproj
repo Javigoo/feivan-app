@@ -23,6 +23,28 @@
 		257CC83C271FE937009C65D1 /* ClientViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257CC83B271FE937009C65D1 /* ClientViewModel.swift */; };
 		257CC83F272188CA009C65D1 /* Feivan.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 257CC83D272188CA009C65D1 /* Feivan.xcdatamodeld */; };
 		257CC84327218926009C65D1 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257CC84227218926009C65D1 /* HomeView.swift */; };
+		259AD0C4274E45EC00B697DD /* NewClientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0C3274E45EC00B697DD /* NewClientView.swift */; };
+		259AD0C6274E460000B697DD /* NewProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0C5274E460000B697DD /* NewProductView.swift */; };
+		259AD0C8274E466A00B697DD /* NewSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0C7274E466A00B697DD /* NewSummaryView.swift */; };
+		259AD0CB274E47C900B697DD /* FamiliaFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0CA274E47C900B697DD /* FamiliaFormView.swift */; };
+		259AD0CD274E480A00B697DD /* NombreFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0CC274E480A00B697DD /* NombreFormView.swift */; };
+		259AD0CF274E482800B697DD /* MaterialFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0CE274E482800B697DD /* MaterialFormView.swift */; };
+		259AD0D1274E48B600B697DD /* CurvasFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0D0274E48B600B697DD /* CurvasFormView.swift */; };
+		259AD0D3274E490000B697DD /* ColorFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0D2274E490000B697DD /* ColorFormView.swift */; };
+		259AD0D5274E491B00B697DD /* TapajuntasFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0D4274E491B00B697DD /* TapajuntasFormView.swift */; };
+		259AD0D7274E493E00B697DD /* DimensionesFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0D6274E493E00B697DD /* DimensionesFormView.swift */; };
+		259AD0D9274E495800B697DD /* AperturaFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0D8274E495800B697DD /* AperturaFormView.swift */; };
+		259AD0DB274E49F400B697DD /* CompactoFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0DA274E49F400B697DD /* CompactoFormView.swift */; };
+		259AD0DD274E4A0E00B697DD /* MarcoInferiorFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0DC274E4A0E00B697DD /* MarcoInferiorFormView.swift */; };
+		259AD0DF274E4A2F00B697DD /* HuellaFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0DE274E4A2F00B697DD /* HuellaFormView.swift */; };
+		259AD0E1274E4A4B00B697DD /* ForroExteriorFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0E0274E4A4A00B697DD /* ForroExteriorFormView.swift */; };
+		259AD0E3274E4A6900B697DD /* CristalFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0E2274E4A6900B697DD /* CristalFormView.swift */; };
+		259AD0E5274E4C4600B697DD /* CerradurasFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0E4274E4C4600B697DD /* CerradurasFormView.swift */; };
+		259AD0E7274E4C6700B697DD /* ManetasFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0E6274E4C6700B697DD /* ManetasFormView.swift */; };
+		259AD0E9274E4CB900B697DD /* HerrajeFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0E8274E4CB900B697DD /* HerrajeFormView.swift */; };
+		259AD0EB274E4CD900B697DD /* PosicionFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0EA274E4CD900B697DD /* PosicionFormView.swift */; };
+		259AD0ED274E4CF200B697DD /* InstalacionFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0EC274E4CF200B697DD /* InstalacionFormView.swift */; };
+		259AD0EF274E4D1100B697DD /* MallorquinaFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0EE274E4D1100B697DD /* MallorquinaFormView.swift */; };
 		259BC28D272862BD00AE3305 /* Hierarchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259BC28C272862BD00AE3305 /* Hierarchy.swift */; };
 		25B790F62722D43000A2F6CD /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B790F52722D43000A2F6CD /* ProjectView.swift */; };
 		25DBF3452743CBDB001D5FE3 /* MultipleSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DBF3442743CBDB001D5FE3 /* MultipleSelection.swift */; };
@@ -50,6 +72,28 @@
 		257CC83B271FE937009C65D1 /* ClientViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientViewModel.swift; sourceTree = "<group>"; };
 		257CC83E272188CA009C65D1 /* Feivan.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Feivan.xcdatamodel; sourceTree = "<group>"; };
 		257CC84227218926009C65D1 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		259AD0C3274E45EC00B697DD /* NewClientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewClientView.swift; sourceTree = "<group>"; };
+		259AD0C5274E460000B697DD /* NewProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProductView.swift; sourceTree = "<group>"; };
+		259AD0C7274E466A00B697DD /* NewSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSummaryView.swift; sourceTree = "<group>"; };
+		259AD0CA274E47C900B697DD /* FamiliaFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamiliaFormView.swift; sourceTree = "<group>"; };
+		259AD0CC274E480A00B697DD /* NombreFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NombreFormView.swift; sourceTree = "<group>"; };
+		259AD0CE274E482800B697DD /* MaterialFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialFormView.swift; sourceTree = "<group>"; };
+		259AD0D0274E48B600B697DD /* CurvasFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurvasFormView.swift; sourceTree = "<group>"; };
+		259AD0D2274E490000B697DD /* ColorFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorFormView.swift; sourceTree = "<group>"; };
+		259AD0D4274E491B00B697DD /* TapajuntasFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapajuntasFormView.swift; sourceTree = "<group>"; };
+		259AD0D6274E493E00B697DD /* DimensionesFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimensionesFormView.swift; sourceTree = "<group>"; };
+		259AD0D8274E495800B697DD /* AperturaFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AperturaFormView.swift; sourceTree = "<group>"; };
+		259AD0DA274E49F400B697DD /* CompactoFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactoFormView.swift; sourceTree = "<group>"; };
+		259AD0DC274E4A0E00B697DD /* MarcoInferiorFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarcoInferiorFormView.swift; sourceTree = "<group>"; };
+		259AD0DE274E4A2F00B697DD /* HuellaFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuellaFormView.swift; sourceTree = "<group>"; };
+		259AD0E0274E4A4A00B697DD /* ForroExteriorFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForroExteriorFormView.swift; sourceTree = "<group>"; };
+		259AD0E2274E4A6900B697DD /* CristalFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CristalFormView.swift; sourceTree = "<group>"; };
+		259AD0E4274E4C4600B697DD /* CerradurasFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CerradurasFormView.swift; sourceTree = "<group>"; };
+		259AD0E6274E4C6700B697DD /* ManetasFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManetasFormView.swift; sourceTree = "<group>"; };
+		259AD0E8274E4CB900B697DD /* HerrajeFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HerrajeFormView.swift; sourceTree = "<group>"; };
+		259AD0EA274E4CD900B697DD /* PosicionFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosicionFormView.swift; sourceTree = "<group>"; };
+		259AD0EC274E4CF200B697DD /* InstalacionFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalacionFormView.swift; sourceTree = "<group>"; };
+		259AD0EE274E4D1100B697DD /* MallorquinaFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MallorquinaFormView.swift; sourceTree = "<group>"; };
 		259BC28C272862BD00AE3305 /* Hierarchy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hierarchy.swift; sourceTree = "<group>"; };
 		25B790F52722D43000A2F6CD /* ProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectView.swift; sourceTree = "<group>"; };
 		25DBF3442743CBDB001D5FE3 /* MultipleSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleSelection.swift; sourceTree = "<group>"; };
@@ -111,6 +155,9 @@
 			isa = PBXGroup;
 			children = (
 				2544199627395B11005290C9 /* NewProjectView.swift */,
+				259AD0C3274E45EC00B697DD /* NewClientView.swift */,
+				259AD0C5274E460000B697DD /* NewProductView.swift */,
+				259AD0C7274E466A00B697DD /* NewSummaryView.swift */,
 			);
 			path = "Nuevo proyecto";
 			sourceTree = "<group>";
@@ -118,8 +165,8 @@
 		254420722746A94100CFDDA4 /* Menú principal */ = {
 			isa = PBXGroup;
 			children = (
-				257CC84227218926009C65D1 /* HomeView.swift */,
 				25E8F23E272197590009CEB7 /* DebugFile.swift */,
+				257CC84227218926009C65D1 /* HomeView.swift */,
 				254420702746A8CD00CFDDA4 /* Ver proyectos */,
 				254420712746A92000CFDDA4 /* Nuevo proyecto */,
 			);
@@ -209,8 +256,35 @@
 				25B790F52722D43000A2F6CD /* ProjectView.swift */,
 				257CC827271FE561009C65D1 /* ClientView.swift */,
 				252DC7B027248635005F3489 /* ProductView.swift */,
+				259AD0C9274E476F00B697DD /* Product forms */,
 			);
 			path = Entities;
+			sourceTree = "<group>";
+		};
+		259AD0C9274E476F00B697DD /* Product forms */ = {
+			isa = PBXGroup;
+			children = (
+				259AD0CA274E47C900B697DD /* FamiliaFormView.swift */,
+				259AD0CC274E480A00B697DD /* NombreFormView.swift */,
+				259AD0CE274E482800B697DD /* MaterialFormView.swift */,
+				259AD0D0274E48B600B697DD /* CurvasFormView.swift */,
+				259AD0D2274E490000B697DD /* ColorFormView.swift */,
+				259AD0D4274E491B00B697DD /* TapajuntasFormView.swift */,
+				259AD0D6274E493E00B697DD /* DimensionesFormView.swift */,
+				259AD0D8274E495800B697DD /* AperturaFormView.swift */,
+				259AD0DA274E49F400B697DD /* CompactoFormView.swift */,
+				259AD0DC274E4A0E00B697DD /* MarcoInferiorFormView.swift */,
+				259AD0DE274E4A2F00B697DD /* HuellaFormView.swift */,
+				259AD0E0274E4A4A00B697DD /* ForroExteriorFormView.swift */,
+				259AD0E2274E4A6900B697DD /* CristalFormView.swift */,
+				259AD0E4274E4C4600B697DD /* CerradurasFormView.swift */,
+				259AD0E6274E4C6700B697DD /* ManetasFormView.swift */,
+				259AD0E8274E4CB900B697DD /* HerrajeFormView.swift */,
+				259AD0EA274E4CD900B697DD /* PosicionFormView.swift */,
+				259AD0EC274E4CF200B697DD /* InstalacionFormView.swift */,
+				259AD0EE274E4D1100B697DD /* MallorquinaFormView.swift */,
+			);
+			path = "Product forms";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -286,22 +360,44 @@
 			buildActionMask = 2147483647;
 			files = (
 				257CC83F272188CA009C65D1 /* Feivan.xcdatamodeld in Sources */,
+				259AD0E3274E4A6900B697DD /* CristalFormView.swift in Sources */,
+				259AD0D1274E48B600B697DD /* CurvasFormView.swift in Sources */,
 				252577862732BC0700252690 /* Styles.swift in Sources */,
 				25B790F62722D43000A2F6CD /* ProjectView.swift in Sources */,
+				259AD0D5274E491B00B697DD /* TapajuntasFormView.swift in Sources */,
+				259AD0CF274E482800B697DD /* MaterialFormView.swift in Sources */,
+				259AD0E1274E4A4B00B697DD /* ForroExteriorFormView.swift in Sources */,
+				259AD0E7274E4C6700B697DD /* ManetasFormView.swift in Sources */,
 				257CC82F271FE564009C65D1 /* Persistence.swift in Sources */,
 				257CC83C271FE937009C65D1 /* ClientViewModel.swift in Sources */,
+				259AD0CD274E480A00B697DD /* NombreFormView.swift in Sources */,
 				25DBF3452743CBDB001D5FE3 /* MultipleSelection.swift in Sources */,
+				259AD0C8274E466A00B697DD /* NewSummaryView.swift in Sources */,
+				259AD0C4274E45EC00B697DD /* NewClientView.swift in Sources */,
 				254420752746AAEC00CFDDA4 /* ProjectsView.swift in Sources */,
 				259BC28D272862BD00AE3305 /* Hierarchy.swift in Sources */,
 				252DC7B127248635005F3489 /* ProductView.swift in Sources */,
+				259AD0EF274E4D1100B697DD /* MallorquinaFormView.swift in Sources */,
+				259AD0E9274E4CB900B697DD /* HerrajeFormView.swift in Sources */,
 				257CC84327218926009C65D1 /* HomeView.swift in Sources */,
+				259AD0EB274E4CD900B697DD /* PosicionFormView.swift in Sources */,
 				25E908A02721AE9C008A490B /* ProductViewModel.swift in Sources */,
+				259AD0D7274E493E00B697DD /* DimensionesFormView.swift in Sources */,
+				259AD0D3274E490000B697DD /* ColorFormView.swift in Sources */,
 				25E8F23D27218E120009CEB7 /* ProjectViewModel.swift in Sources */,
+				259AD0E5274E4C4600B697DD /* CerradurasFormView.swift in Sources */,
 				257CC828271FE561009C65D1 /* ClientView.swift in Sources */,
+				259AD0ED274E4CF200B697DD /* InstalacionFormView.swift in Sources */,
 				25E8F23B27218D510009CEB7 /* ListProjectsView.swift in Sources */,
+				259AD0DB274E49F400B697DD /* CompactoFormView.swift in Sources */,
 				2544199727395B11005290C9 /* NewProjectView.swift in Sources */,
 				254420792746C89200CFDDA4 /* CustomEnvironmentProperties.swift in Sources */,
+				259AD0DF274E4A2F00B697DD /* HuellaFormView.swift in Sources */,
+				259AD0CB274E47C900B697DD /* FamiliaFormView.swift in Sources */,
+				259AD0C6274E460000B697DD /* NewProductView.swift in Sources */,
 				254093352735A23A00AA07D5 /* String.swift in Sources */,
+				259AD0D9274E495800B697DD /* AperturaFormView.swift in Sources */,
+				259AD0DD274E4A0E00B697DD /* MarcoInferiorFormView.swift in Sources */,
 				254420772746AB8E00CFDDA4 /* ProjectsPreview.swift in Sources */,
 				257CC826271FE561009C65D1 /* FeivanApp.swift in Sources */,
 				25E8F23F272197590009CEB7 /* DebugFile.swift in Sources */,

@@ -36,6 +36,7 @@ struct ClientFormView: View {
     @ObservedObject var clientVM: ClientViewModel
 
     var body: some View {
+
         Section(header: Text("Información de contacto")) {
             TextField("Nombre", text: $clientVM.nombre)
             TextField("Teléfono", text: $clientVM.telefono)

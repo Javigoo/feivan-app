@@ -26,7 +26,6 @@ class ProjectViewModel: ObservableObject {
     
     /** Actualiza la lista con los Proyectos (Entidades en Core Data) **/
     init() {
-        print("New ProjectViewModel")
     }
     
     /** Copia los datos de la entidad Proyecto pasada como parámetro a la clase ProjectViewModel y actualiza la lista de proyectos **/
@@ -44,6 +43,12 @@ class ProjectViewModel: ObservableObject {
             let project = getProject()
             project!.productos = [product]
         }
+    }
+    
+    func addProduct(productVM: ProductViewModel) {
+        let product = productVM.getProduct()
+        let products = productos?.addingObjects(from: [product!])
+        productos = products as NSSet?
     }
     
     func addClient(clientVM: ClientViewModel) {
@@ -92,8 +97,6 @@ class ProjectViewModel: ObservableObject {
         let request = Proyecto.fetchRequest()
         do {
             proyectos = try context.viewContext.fetch(request)
-            print("Proyectos: \(proyectos.count)")
-
         } catch {
             print("ERROR in ProjectViewModel at getAllProjects()\n")
         }
@@ -176,6 +179,7 @@ class ProjectViewModel: ObservableObject {
         project.timestamp = timestamp
         project.cliente = cliente
         project.productos = productos
+        print(project)
     }
     
     /** Devuelve el Proyecto que coincide con la id en la DB**/

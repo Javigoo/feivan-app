@@ -26,8 +26,8 @@ class ClientViewModel: ObservableObject {
     
     /** Actualiza la lista con los Clientes (Entidades en Core Data) **/
     init() {
-        print("New ClientViewModel")
     }
+    
         
     /** Copia los datos de la entidad Cliente pasada como parámetro a la clase ClientViewModel y actualiza la lista de clientes **/
     init(client: Cliente) {
@@ -73,9 +73,10 @@ class ClientViewModel: ObservableObject {
         return getClient(id: id_cliente)
     }
     
+    
     func addProject(projectVM: ProjectViewModel) {
         let project = projectVM.getProject()
-        proyectos = [project!]
+        proyectos = [project!] // append, no remplazar
     }
     
     /** Obtiene todos los Clientes de la DB **/
@@ -83,7 +84,6 @@ class ClientViewModel: ObservableObject {
         let request = Cliente.fetchRequest()
         do {
             clientes = try context.viewContext.fetch(request)
-            print("Clientes: \(clientes.count)")
         } catch {
             print("ERROR in ClientViewModel at getAllClients()\n")
         }

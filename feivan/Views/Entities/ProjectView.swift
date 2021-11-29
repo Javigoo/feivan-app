@@ -6,13 +6,6 @@
 //
 
 import SwiftUI
-import CoreData
-
-struct ProjectView: View {
-    var body: some View {
-        Text("ProjectView")
-    }
-}
 
 struct ProjectCreateView: View {
     @ObservedObject var projectVM: ProjectViewModel
@@ -36,6 +29,7 @@ struct ProjectFormView: View {
     @ObservedObject var projectVM: ProjectViewModel
 
     var body: some View {
+        
         ProjectFormAddressView(projectVM: projectVM)
         
         Section(header: Text("Extras"), footer: Text("Selecciona aquellos que se necesitan para llevar a cabo el proyecto")) {
@@ -61,6 +55,7 @@ struct ProjectFormAddressView: View {
         }
     }
 }
+
 
 struct ProjectPreviewView: View {
     @ObservedObject var projectVM: ProjectViewModel

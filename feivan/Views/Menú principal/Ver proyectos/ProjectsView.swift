@@ -13,65 +13,63 @@ struct ProjectsView: View {
 
     var body: some View {
 
-        VStack(alignment: .leading) {
-            
-            NavigationLink(
-                destination:
-                    ProjectCreateView(projectVM: projectVM).navigationTitle(Text("Información proyecto")),
-                label: {
-                    ProjectDetailView(projectVM: projectVM)
-                }
-            )
-            .buttonStyle(.plain)
-            
-            Divider()
-            
-            if projectVM.haveClient() {
-                Section(header: Text("Cliente")) {
+        VStack {
+            Form {
+                
+                if projectVM.haveClient() {
                     NavigationLink(
                         destination:
-                            ClientCreateView(clientVM: ClientViewModel(client: projectVM.getClient())).navigationTitle(Text("Información cliente")),
+                            ClientCreateView(clientVM: ClientViewModel(client: projectVM.getClient())).navigationTitle(Text("Cliente")),
                         label: {
-                            ClientDetailView(clientVM: ClientViewModel(client: projectVM.getClient()))
+                            Image(systemName: "person")
+                            Text("Cliente")
                         }
                     )
-                    .buttonStyle(.plain)
                 }
-                .font(.title)
-            
-                Divider()
-            }
-            
-            Section(header: Text("Productos")) {
-                List {
-                    ForEach(projectVM.getProducts() , id: \.self) { producto in
-                        NavigationLink(
-                            destination: {
-                                ProductCreateView(productVM: ProductViewModel(product: producto)).navigationTitle(Text("Información producto"))
-                            }, label: {
-                                ProductDetailView(productVM: ProductViewModel(product: producto))
-                            }
-                        )
+                
+                NavigationLink(
+                    destination:
+                        ProjectCreateView(projectVM: projectVM).navigationTitle(Text("Dirección y extras")),
+                    label: {
+                        Image(systemName: "gearshape")
+                        Text("Dirección y extras")
                     }
-                    .onDelete(perform: deleteProduct)
-                    
-                    NavigationLink(
-                        destination:
-                            ProductAddView(projectVM: projectVM)
-                                .navigationTitle(Text("Información proyecto")),
-                        label: {
-                            Text("Añadir producto")
-                                .font(.body)
-                        }
-                    )
-                }
-                .onAppear(perform: projectVM.getAllProjects)
-            }
-            .font(.title)
+                )
             
+                Section(header: Text("Productos")) {
+                    List {
+                        ForEach(projectVM.getProducts() , id: \.self) { producto in
+                            NavigationLink(
+                                destination: {
+                                    ProductCreateView(productVM: ProductViewModel(product: producto)).navigationTitle(Text("Información producto"))
+                                }, label: {
+                                    ProductPreviewView(productVM: ProductViewModel(product: producto))
+                                }
+                            )
+                        }
+                        .onDelete(perform: deleteProduct)
+                    }
+                    .onAppear(perform: projectVM.getAllProjects)
+                
+                }
+            }
         }
-        .padding()
         .navigationTitle(Text("Proyecto"))
+        /*
+        .toolbar {
+            ToolbarItem(placement: .bottomBar) {
+                NavigationLink(
+                    destination:
+                        ProductAddView(projectVM: projectVM)
+                            .navigationTitle(Text("Información proyecto")),
+                    label: {
+                        Text("Añadir producto")
+                            .font(.body)
+                    }
+                )
+            }
+        }
+         */
     }
     
     private func deleteProduct(offsets: IndexSet) {

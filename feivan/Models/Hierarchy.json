@@ -1,11 +1,13 @@
 {
     "elementos": [
         {
-            "nombre": "Atributos",
+            "nombre": "Atributos Producto",
             "opciones": [
+                "Id",
+                "Foto",
                 "Familia",
                 "Nombre",
-                "Curva",
+                "Curvas",
                 "Material",
                 "Color",
                 "Tapajuntas",
@@ -16,14 +18,16 @@
                 "Huella",
                 "Forro exterior",
                 "Cristal",
-                "Cerradura",
-                "Maneta",
+                "Cerraduras",
+                "Manetas",
                 "Herraje",
                 "Posición",
                 "Instalación",
                 "Remates albañilería",
                 "Medidas no buenas",
-                "Mallorquina"
+                "Persiana",
+                "Proyecto",
+                "Timestamp"
             ]
         },
         {
