@@ -11,17 +11,18 @@ struct ProductCompactoView: View {
     @ObservedObject var productVM: ProductViewModel
 
     var body: some View {
-    
-        NavigationLink(
-            destination: ProductCompactoFormView(productVM: productVM),
-            label: {
-                HStack {
-                    Text("Compacto")
-                    Spacer()
-                    Text(productVM.compacto)
+        if productVM.showIf(equalTo: ["Correderas", "Practicables"]) {
+            NavigationLink(
+                destination: ProductCompactoFormView(productVM: productVM),
+                label: {
+                    HStack {
+                        Text("Compacto")
+                        Spacer()
+                        Text(productVM.compacto)
+                    }
                 }
-            }
-        )
+            )
+        }
     }
 }
 
@@ -31,16 +32,17 @@ struct ProductCompactoFormView: View {
     @ObservedObject var productVM: ProductViewModel
     
     @State var compacto: String = ""
+    @State var mando: Bool = false
     @State var huella: String = ""
     @State var numeroPanos: Int = 0
     @State var motor: Bool = false
     @State var cable: String = ""
     @State var control: String = ""
     @State var recogedor: String = ""
-    @State var exterior: Bool = false
+    @State var mismoColor: Bool = false
     @State var colorExterior: String = ""
     @State var colorLama: String = ""
-    @State var tamanoCajon: Bool = false
+    @State var cajon18: Bool = false
     @State var detallaObra: String = ""
 
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
@@ -55,6 +57,7 @@ struct ProductCompactoFormView: View {
                     .pickerStyle(.segmented)
                 }
                 
+                
                 Section(header: Text("Huella")) {
                     TextField("0 mm", text: $huella)
                 }
@@ -65,16 +68,15 @@ struct ProductCompactoFormView: View {
                 
                 Section(header: Text("Motor")) {
                     Toggle("Motor", isOn: $motor)
+                        .onChange(of: motor) { _ in
+                            if motor {
+                                recogedor = ""
+                            }
+                        }
+                    Toggle("Mando", isOn: $mando)
                 }
                 
                 if motor {
-                    Section(header: Text("Cables")) {
-                        Picker("Cables", selection: $cable) {
-                            List(["Izquierda", "Derecha"], id: \.self) { item in Text(item) }
-                        }
-                        .pickerStyle(.segmented)
-                    }
-
                     Section(header: Text("Cables control")) {
                         Picker("Control", selection: $control) {
                             List(["Izquierda", "Derecha"], id: \.self) { item in Text(item) }
@@ -83,31 +85,44 @@ struct ProductCompactoFormView: View {
                     }
                 }
                 
-                Section(header: Text("Recogedor")) {
-                    Picker("Recogedor", selection: $recogedor) {
-                        List(["Izquierdo", "Derecho"], id: \.self) { item in Text(item) }
+                if !motor {
+                    Section(header: Text("Recogedor")) {
+                        Picker("Recogedor", selection: $recogedor) {
+                            List(["Izquierdo", "Derecho"], id: \.self) { item in Text(item) }
+                        }
+                        .pickerStyle(.segmented)
                     }
-                    .pickerStyle(.segmented)
-                    Toggle("Exterior", isOn: $exterior)
                 }
                 
                 Section(header: Text("Color")) {
-                    TextField("Exterior", text: $colorExterior)
-                    TextField("Lama", text: $colorLama)
+                    Toggle("Mismo color", isOn: $mismoColor)
+                        .onChange(of: mismoColor) { _ in
+                            if mismoColor {
+                                colorExterior = ""
+                                colorLama = ""
+                            }
+                        }
+                    
+                    if !mismoColor {
+                        TextField("Exterior", text: $colorExterior)
+                        TextField("Lama", text: $colorLama)
+                    }
                 }
                 
                 Section(header: Text("Cajón")) {
-                    Toggle("Tamaño cajón", isOn: $tamanoCajon)
+                    Toggle("Cajón de 18", isOn: $cajon18)
                 }
                 
-                Picker("Detalles obra", selection: $detallaObra) {
-                    if productVM.showIf(equalTo: ["Mini"]) {
-                        List(["Sobre muro", "Tipo compacto", "Mini"], id: \.self) { item in Text(item) }
-                    } else {
-                        List(["Sobre muro", "Tipo compacto"], id: \.self) { item in Text(item) }
+                Section(header: Text("Detalles obra")) {
+                    Picker("Detalles obra", selection: $detallaObra) {
+                        if productVM.showIf(equalTo: ["Persianas enrollables"]) {
+                            List(["Sobre muro", "Tipo compacto", "Persiana enrollable"], id: \.self) { item in Text(item) }
+                        } else {
+                            List(["Sobre muro", "Tipo compacto"], id: \.self) { item in Text(item) }
+                        }
                     }
+                    .pickerStyle(.segmented)
                 }
-                .pickerStyle(.segmented)
                 
                 Section(header: Text("Anotación")) {
                     TextField("Introduce una anotación", text: $productVM.anotacion)
@@ -133,11 +148,7 @@ struct ProductCompactoFormView: View {
                 }
                 
                 if recogedor != "" {
-                    if exterior {
-                        resultado.append("Recogedor: \(recogedor) exterior")
-                    } else {
-                        resultado.append("Recogedor: \(recogedor)")
-                    }
+                    resultado.append("Recogedor: \(recogedor)")
                 }
                 
                 if motor {
@@ -158,8 +169,8 @@ struct ProductCompactoFormView: View {
                     resultado.append("Color exterior: \(colorExterior)")
                 }
                 
-                if tamanoCajon {
-                    resultado.append("Con tamaño cajón")
+                if cajon18 {
+                    resultado.append("Con cajón de 18")
                 }
                 
                 if detallaObra != "" {

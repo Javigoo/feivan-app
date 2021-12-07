@@ -15,6 +15,8 @@ class ProjectViewModel: ObservableObject {
     @Published var ascensor: Bool = false
     @Published var grua: Bool = false
     @Published var subir_fachada: Bool = false
+    @Published var remates_albanileria: Bool = false
+    @Published var medidas_no_buenas: Bool = false
     @Published var timestamp: Date = Date()
     
     @Published var cliente: Cliente?
@@ -46,9 +48,18 @@ class ProjectViewModel: ObservableObject {
     }
     
     func addProduct(productVM: ProductViewModel) {
+        print("Añadiento producto")
         let product = productVM.getProduct()
-        let products = productos?.addingObjects(from: [product!])
-        productos = products as NSSet?
+        print("Añadir producto: \(product!)")
+        if productos == nil {
+            print("Primer producto")
+            productos = [product!]
+        } else {
+            print("Añadiendo a la lista de productos")
+            let products = productos?.addingObjects(from: [product!])   // No añade los productos
+            productos = products as NSSet?
+        }
+        print(productos ?? "No hay productos")
     }
     
     func addClient(clientVM: ClientViewModel) {
@@ -123,7 +134,8 @@ class ProjectViewModel: ObservableObject {
         for producto in project!.productos! {
             productos.append(producto as! Producto)
         }
-        return productos
+        // Sort arrey from NSSet elements
+        return productos.sorted(by: { $0.timestamp! > $1.timestamp! })
     }
     
     func getClient() -> Cliente {
@@ -164,6 +176,8 @@ class ProjectViewModel: ObservableObject {
         ascensor = project.ascensor
         grua = project.grua
         subir_fachada = project.subir_fachada
+        remates_albanileria = project.remates_albanileria
+        medidas_no_buenas = project.medidas_no_buenas
         timestamp = project.timestamp ?? timestamp
         cliente = project.cliente ?? cliente
         productos = project.productos ?? productos
@@ -176,21 +190,25 @@ class ProjectViewModel: ObservableObject {
         project.ascensor = ascensor
         project.grua = grua
         project.subir_fachada = subir_fachada
+        project.remates_albanileria = remates_albanileria
+        project.medidas_no_buenas = medidas_no_buenas
         project.timestamp = timestamp
         project.cliente = cliente
         project.productos = productos
-        print(project)
     }
     
     /** Devuelve el Proyecto que coincide con la id en la DB**/
     private func getProject(id: UUID) -> Proyecto? {
         let request: NSFetchRequest<Proyecto> = Proyecto.fetchRequest()
         let query = NSPredicate(format: "%K == %@", "id_proyecto", id as CVarArg)
-        // todo: limitar a una entidad
+        let sort = [NSSortDescriptor(key: "timestamp", ascending: true)]
+
         request.predicate = query
+        request.sortDescriptors = sort
+
         do {
             let foundEntities: [Proyecto] = try context.viewContext.fetch(request)
-            return foundEntities.first
+            return foundEntities.first  // todo: limitar a una entidad
         } catch {
             let fetchError = error as NSError
             debugPrint(fetchError)

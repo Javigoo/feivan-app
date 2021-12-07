@@ -28,29 +28,34 @@ struct ProductMaterialView: View {
 struct ProductMaterialFormView: View {
     
     @ObservedObject var productVM: ProductViewModel
+    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
     var atributo = "Material"
-    @State var opcion: String = ""
-    @State var aluminio: String = ""
+    @State var valor: String = ""
+    @State var serie: String = ""
     @State var otro: String = ""
     @State var anotacion: String = ""
     
-    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
+    /*
+    init() {
+        _otro = State(initialValue: "")
+    }
+    */
     
     var body: some View {
         VStack {
             Form {
                 Section(header: Text("Opciones")) {
-                    Picker(atributo, selection: $opcion) {
+                    Picker("Opciones", selection: $valor) {
                         List(productVM.optionsFor(attribute: atributo), id: \.self) { item in Text(item) }
                     }
                     .pickerStyle(.segmented)
                 }
                 
-                if opcion == "Aluminio" {
+                if valor == "Aluminio" {
                     if productVM.showIf(equalTo: ["Correderas"]) {
-                        Section(header: Text("Aluminio")) {
-                            Picker("Aluminio", selection: $aluminio) {
+                        Section(header: Text("Series")) {
+                            Picker("Serie", selection: $serie) {
                                 List(productVM.optionsFor(attribute: "Material Aluminio Correderas"), id: \.self) { item in
                                     Text(item)
                                 }
@@ -58,8 +63,8 @@ struct ProductMaterialFormView: View {
                         }
                     }
                     if productVM.showIf(equalTo: ["Practicables"]) {
-                        Section(header: Text("Aluminio")) {
-                            Picker("Aluminio", selection: $aluminio) {
+                        Section(header: Text("Series")) {
+                            Picker("Serie", selection: $serie) {
                                 List(productVM.optionsFor(attribute: "Material Aluminio Ventanas"), id: \.self) { item in
                                     Text(item)
                                 }
@@ -72,6 +77,7 @@ struct ProductMaterialFormView: View {
                     TextField("Introduce otra opción", text: $otro)
                 }
                 
+                
                 Section(header: Text("Anotación")) {
                     TextField("Introduce una anotación", text: $anotacion)
                 }
@@ -79,64 +85,45 @@ struct ProductMaterialFormView: View {
         }
         .navigationTitle(atributo)
         .onAppear {
-            //productVM.getMaterial(aluminio: $aluminio)
-            let resultado: [String] = productVM.material.components(separatedBy: "\n")
-            
-            for linea in resultado {
-                if linea.contains(":") {
-                    let atributo: String = linea.components(separatedBy: ":")[0]
-                    let valor: String = linea.components(separatedBy: ":")[1]
-                    
-                    if atributo == "Tipo" {
-                        if aluminio == "" {
-                            aluminio = valor.trimmingCharacters(in: .whitespaces)
-                            print("Aluminio: \(aluminio)")
-                        }
-                    }
-                    
-                } else if linea.contains("\"") {
-                    if otro == "" {
-                        otro = linea.replacingOccurrences(of: "\"", with: "")
-                        print("Otro: \(otro)")
-                    }
-                } else if linea.contains("(") && linea.contains(")") {
-                    let first = linea.dropFirst()
-                    let second = first.dropLast()
-                    if anotacion == "" {
-                        anotacion = String(second)
-                        print("Anotación: \(anotacion)")
-                    }
-                } else {
-                    if opcion == "" {
-                        opcion = linea
-                        print("Opción: \(opcion)")
-                    }
-                }
+            if valor == "" {
+                valor = productVM.getAttributeValue(attribute_data: productVM.material, select_atributte: "Valor")
             }
-        }
-        .toolbar {
+            if serie == "" {
+                serie = productVM.getAttributeValue(attribute_data: productVM.material, select_atributte: "Serie")
+            }
+            
+            // El textfield no se actualiza y no se ve
+            /*
+            if otro == "" {
+                otro = productVM.getAttributeValue(attribute_data: productVM.material, select_atributte: "Otro")
+            }
+            if anotacion == "" {
+                anotacion = productVM.getAttributeValue(attribute_data: productVM.material, select_atributte: "Anotacion")
+            }
+            */
+        }.toolbar {
             Button("Guardar") {
-                // Específico
                 var resultado: [String] = []
                 
-                if opcion != "" {
-                    resultado.append(opcion)
+                if valor != "" {
+                    resultado.append(valor)
                 }
                 
-                if opcion == "Aluminio" && aluminio != "" {
-                    resultado.append("Tipo: \(aluminio)")
+                if valor == "Aluminio" && serie != "" {
+                    resultado.append("Serie: \(serie)")
+                }
+                
+                if anotacion != "" {
+                    resultado.append("(\(anotacion))")
                 }
                 
                 productVM.material = resultado.joined(separator: "\n")
                 
-                // Otro
                 if otro != "" {
                     productVM.material = "\""+otro+"\""
-                }
-                
-                // Anotación
-                if anotacion != "" {
-                    productVM.material += "\n(\(anotacion))"
+                    if anotacion != "" {
+                        productVM.material += "\n(\(anotacion))"
+                    }
                 }
 
                 productVM.save()
@@ -145,4 +132,3 @@ struct ProductMaterialFormView: View {
         }
     }
 }
-

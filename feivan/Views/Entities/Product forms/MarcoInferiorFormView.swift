@@ -42,7 +42,13 @@ struct ProductMarcoInferiorFormView: View {
             Form{
                 Section(header: Text("Opciones")) {
                     Picker("Marco Inferior", selection: $productVM.marco_inferior) {
-                        List(productVM.optionsFor(attribute: atributo), id: \.self) { item in Text(item) }
+                        if productVM.showIf(equalTo: ["Correderas"]) {
+                            List(["Abierto", "Cerrado", "Solera", "Empotrado"], id: \.self) { item in Text(item) }
+                        } else if productVM.showIf(equalTo: ["Practicables"]) {
+                            List(["Abierto", "Cerrado", "Solera"], id: \.self) { item in Text(item) }
+                        } else {
+                            List(["Abierto", "Cerrado"], id: \.self) { item in Text(item) }
+                        }
                     }
                     .pickerStyle(.segmented)
                 }

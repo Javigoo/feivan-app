@@ -32,20 +32,21 @@ struct ProductForroExteriorFormView: View {
     var atributo = "Forro exterior"
     @ObservedObject var productVM: ProductViewModel
     
-    @State var lama: String = ""
     @State var angulo: String = ""
     @State var pletina: String = ""
+    @State var lama: Bool = false
 
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
     var body: some View {
         VStack {
             Form{
-                            
-                Section(header: Text("Lama")) {
-                    Picker("Lama", selection: $lama) {
+                  
+                Section(header: Text("Pletina")) {
+                    Picker("Pletina", selection: $pletina) {
                         List(["40", "60"], id: \.self) { item in Text(item) }
                     }
+                    .pickerStyle(.segmented)
                 }
                 
                 Section(header: Text("Ángulo")) {
@@ -54,10 +55,7 @@ struct ProductForroExteriorFormView: View {
                     }
                 }
                 
-                Section(header: Text("Pletina")) {
-                    TextField("Pletina", text: $pletina)
-
-                }
+                Toggle("Lama", isOn: $lama)
 
                 Section(header: Text("Otro")) {
                     TextField("Introduce otra opción", text: $productVM.otro)
@@ -72,6 +70,21 @@ struct ProductForroExteriorFormView: View {
         .toolbar {
             Button("Guardar") {
                 
+                var resultado: [String] = []
+                
+                if pletina != "" {
+                    resultado.append("Pletina: \(pletina)")
+                }
+                
+                if angulo != "" {
+                    resultado.append("Ángulo: \(angulo)")
+                }
+                
+                if lama {
+                    resultado.append("Con lama")
+                }
+                
+                productVM.forro_exterior = resultado.joined(separator: "\n")
                 
                 if productVM.otro != "" {
                     productVM.forro_exterior = productVM.otro

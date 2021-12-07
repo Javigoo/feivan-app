@@ -46,6 +46,7 @@ struct HomeView: View {
             }
 
         }
+        .navigationViewStyle(StackNavigationViewStyle())
         .environment(\.rootPresentation, $rootPresenting)
     }
 }

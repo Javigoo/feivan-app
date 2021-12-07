@@ -35,6 +35,7 @@ struct ProductTapajuntasFormView: View {
     @State var inferior: Double = 0
     @State var izquierdo: Double = 0
     @State var derecho: Double = 0
+    @State var tapajuntas_inferior: Bool = false
 
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
@@ -42,40 +43,55 @@ struct ProductTapajuntasFormView: View {
         VStack {
             Form{
                 
-                Section(header: Text("Opciones")) {
+                Section(header: Text("Opciones"), footer: Text("Unidad de medida: mm")) {
                     Picker(atributo, selection: $productVM.tapajuntas) {
-                        List(productVM.optionsFor(attribute: atributo), id: \.self) { item in Text(item) }
+                        List(productVM.optionsFor(attribute: atributo), id: \.self) { item in
+                            Text(item)
+                        }
                     }.onChange(of: productVM.tapajuntas) { newValue in
                         setTapajuntasEspecificos()
                     }
             
                 }
                 
-                Toggle("Tapajuntas específicos", isOn: $especificos)
-                    .onAppear {
-                        setTapajuntasEspecificos()
-                    }
+                Section(header: Text("Tapajuntas")) {
+                    Toggle("Sin tapajuntas inferior", isOn: $tapajuntas_inferior)
+                        .onChange(of: tapajuntas_inferior) { _ in
+                            if tapajuntas_inferior {
+                                inferior = 0
+                            } else {
+                                inferior = Double(productVM.tapajuntas) ?? 0
+                            }
+                        }
+                    
+                    Toggle("Específicos", isOn: $especificos)
+                        .onAppear {
+                            setTapajuntasEspecificos()
+                        }
                 
-                if especificos {
-                    HStack {
-                        Text("Superior\t")
-                        Text(String(format: "%.0f", superior))
-                        Slider(value: $superior, in: 0...100, step: 5)
-                    }
-                    HStack {
-                        Text("Inferior\t\t")
-                        Text(String(format: "%.0f", inferior))
-                        Slider(value: $inferior, in: 0...100, step: 5)
-                    }
-                    HStack {
-                        Text("Izquierdo\t")
-                        Text(String(format: "%.0f", izquierdo))
-                        Slider(value: $izquierdo, in: 0...100, step: 5)
-                    }
-                    HStack {
-                        Text("Derecho\t")
-                        Text(String(format: "%.0f", derecho))
-                        Slider(value: $derecho, in: 0...100, step: 5)
+                    if especificos {
+                        HStack {
+                            Text("Superior\t")
+                            Text(String(format: "%.0f", superior))
+                            Slider(value: $superior, in: 0...100, step: 5)
+                        }
+                        if !tapajuntas_inferior {
+                            HStack {
+                                Text("Inferior\t\t")
+                                Text(String(format: "%.0f", inferior))
+                                Slider(value: $inferior, in: 0...100, step: 5)
+                            }
+                        }
+                        HStack {
+                            Text("Izquierdo\t")
+                            Text(String(format: "%.0f", izquierdo))
+                            Slider(value: $izquierdo, in: 0...100, step: 5)
+                        }
+                        HStack {
+                            Text("Derecho\t")
+                            Text(String(format: "%.0f", derecho))
+                            Slider(value: $derecho, in: 0...100, step: 5)
+                        }
                     }
                 }
 
@@ -108,6 +124,10 @@ struct ProductTapajuntasFormView: View {
                         resultado.append("Derecho: \(String(format: "%.0f", derecho)) mm")
                     }
                     productVM.tapajuntas = resultado.joined(separator: "\n")
+                } else {
+                    if tapajuntas_inferior {
+                        productVM.tapajuntas = productVM.tapajuntas + "\nSin tapajuntas inferior"
+                    }
                 }
                 
                 if productVM.otro != "" {

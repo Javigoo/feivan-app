@@ -15,7 +15,6 @@
         <attribute name="cerraduras" optional="YES" attributeType="String"/>
         <attribute name="color" optional="YES" attributeType="String"/>
         <attribute name="compacto" optional="YES" attributeType="String"/>
-        <attribute name="copias" optional="YES" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES"/>
         <attribute name="cristal" optional="YES" attributeType="String"/>
         <attribute name="curvas" optional="YES" attributeType="String"/>
         <attribute name="dimensiones" optional="YES" attributeType="String"/>
@@ -29,13 +28,12 @@
         <attribute name="manetas" optional="YES" attributeType="String"/>
         <attribute name="marco_inferior" optional="YES" attributeType="String"/>
         <attribute name="material" optional="YES" attributeType="String"/>
-        <attribute name="medidas_no_buenas" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="nombre" optional="YES" attributeType="String"/>
         <attribute name="persiana" optional="YES" attributeType="String"/>
         <attribute name="posicion" optional="YES" attributeType="String"/>
-        <attribute name="remates_albanileria" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="tapajuntas" optional="YES" attributeType="String"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="unidades" optional="YES" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES"/>
         <relationship name="proyecto" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Proyecto" inverseName="productos" inverseEntity="Proyecto"/>
     </entity>
     <entity name="Proyecto" representedClassName="Proyecto" syncable="YES" codeGenerationType="class">
@@ -43,6 +41,8 @@
         <attribute name="direccion" optional="YES" attributeType="String"/>
         <attribute name="grua" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="id_proyecto" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="medidas_no_buenas" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="remates_albanileria" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="subir_fachada" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="cliente" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Cliente" inverseName="proyectos" inverseEntity="Cliente"/>
@@ -50,7 +50,7 @@
     </entity>
     <elements>
         <element name="Cliente" positionX="-1071.723449707031" positionY="-8.44244384765625" width="128" height="149"/>
-        <element name="Producto" positionX="-604.4053955078125" positionY="-90.64987182617188" width="128" height="419"/>
-        <element name="Proyecto" positionX="-889.3516845703125" positionY="-55.27922058105469" width="128" height="149"/>
+        <element name="Producto" positionX="-604.4053955078125" positionY="-90.64987182617188" width="128" height="389"/>
+        <element name="Proyecto" positionX="-889.3516845703125" positionY="-55.27922058105469" width="128" height="179"/>
     </elements>
 </model>

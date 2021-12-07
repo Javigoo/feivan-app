@@ -37,6 +37,7 @@ struct ProductColorFormView: View {
     @State var interior: String = ""
     @State var texturado: Bool = false
     @State var mate: Bool = false
+    @State var liso: Bool = false
     @State var anotacion: String = ""
 
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
@@ -45,43 +46,74 @@ struct ProductColorFormView: View {
         VStack {
             Form{
                 
-                Section(header: Text("Opciones")) {
+                Section(header: Text("Tipo de color")) {
                     Picker("Tipo de color", selection: $opcion) {
                         List(productVM.optionsFor(attribute: atributo), id: \.self) { item in Text(item) }
-                    }
+                    }.pickerStyle(.wheel)
                 }
                 
                 if opcion == "Ral" {
-                    Section(header: Text("Ral")) {
+                    Section(header: Text("Color")) {
                         TextField("Ral", text: $color)
                     }
                 }
                 if opcion == "Anonizados" {
-                    Section(header: Text("Anonizados")) {
-                        Picker(atributo, selection: $color) {
+                    Section(header: Text("Color")) {
+                        Picker("Anonizado", selection: $color) {
                             List(productVM.optionsFor(attribute: "Anonizados"), id: \.self) { item in Text(item) }
                         }
                     }
                 }
                 if opcion == "Madera" {
-                    Section(header: Text("Madera")) {
-                        Picker(atributo, selection: $color) {
+                    Section(header: Text("Color")) {
+                        Picker("Madera", selection: $color) {
                             List(productVM.optionsFor(attribute: "Madera"), id: \.self) { item in Text(item) }
                         }
                     }
                 }
                 if opcion == "Más utilizados" {
-                    Section(header: Text("Más utilizados")) {
-                        Picker(atributo, selection: $color) {
+                    Section(header: Text("Color")) {
+                        Picker("Opción", selection: $color) {
                             List(productVM.optionsFor(attribute: "Más utilizados"), id: \.self) { item in Text(item) }
                         }
                     }
                 }
                 
-                Toggle("Bicolor", isOn: $bicolor)
-                    .onChange(of: bicolor) { newValue in
-                        setBicolor()
+                Section(header: Text("Acabados")) {
+                    if opcion != "Madera" {
+                        if opcion != "Anonizados" {
+                            Toggle("Texturado", isOn: $texturado)
+                                .onChange(of: texturado){ _ in
+                                    if texturado {
+                                        mate = false
+                                        liso = false
+                                    }
+                                }
+                        }
+                        Toggle("Mate", isOn: $mate)
+                            .onChange(of: mate){ _ in
+                                if mate {
+                                    texturado = false
+                                    liso = false
+                                }
+                            }
+                    } else {
+                        Toggle("Liso", isOn: $liso)
+                            .onChange(of: liso){ _ in
+                                if liso {
+                                    mate = false
+                                    texturado = false
+                                }
+                            }
                     }
+                }
+                
+                Section(header: Text("Extras")) {
+                    Toggle("Bicolor", isOn: $bicolor)
+                        .onChange(of: bicolor) { _ in
+                            setBicolor()
+                        }
+                }
                 
                 if bicolor {
                     Section(header: Text("Color exterior")) {
@@ -92,11 +124,6 @@ struct ProductColorFormView: View {
                     }
                 }
                 
-                Section(header: Text("Acabados")) {
-                    Toggle("Texturado", isOn: $texturado)
-                    Toggle("Mate", isOn: $mate)
-                }
-                
                 Section(header: Text("Anotación")) {
                     TextField("Introduce una anotación", text: $anotacion)
                 }
@@ -104,7 +131,9 @@ struct ProductColorFormView: View {
         }
         .navigationTitle(atributo)
         .onAppear {
-            //productVM.getMaterial(aluminio: $aluminio)
+
+            print(productVM.getAttributeValue(attribute_data: productVM.color, select_atributte: "Acabado"))
+                  
             let resultado: [String] = productVM.color.components(separatedBy: "\n")
             
             for linea in resultado {
@@ -136,6 +165,10 @@ struct ProductColorFormView: View {
                         if acabado == "Mate" {
                             mate = true
                         }
+                        
+                        if acabado == "Liso" {
+                            liso = true
+                        }
                     }
                     
                 } else if linea.contains("(") && linea.contains(")") {
@@ -147,18 +180,18 @@ struct ProductColorFormView: View {
                 } else {
                     if color == "" {
                         color = linea
-                        for tipoDeColor in productVM.optionsFor(attribute: "Color") {
+                        externaLoop: for tipoDeColor in productVM.optionsFor(attribute: "Color") {
                             for tipo in productVM.optionsFor(attribute: tipoDeColor) {
                                 if tipo == color {
                                     opcion = tipoDeColor
+                                    break externaLoop
                                 }
                             }
                         }
                     }
                 }
             }
-        }
-        .toolbar {
+        }.toolbar {
             Button("Guardar") {
                 
                 var resultado: [String] = []
@@ -182,6 +215,10 @@ struct ProductColorFormView: View {
                 
                 if mate {
                     resultado.append("Acabado: Mate")
+                }
+                
+                if liso {
+                    resultado.append("Acabado: Liso")
                 }
                 
                 productVM.color = resultado.joined(separator: "\n")

@@ -35,23 +35,26 @@ struct ProductAperturaFormView: View {
     @State var mano: String = ""
     @State var corredera: String = ""
     @State var oscilobatiente: Bool = false
-    @State var piven: Bool = false
 
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
     var body: some View {
         VStack {
             Form{
-                Section(header: Text("Tipo de apertura")) {
-                    
-                    if productVM.showIf(equalTo: ["Practicables", "Puertas"]) {
+                if productVM.showIf(equalTo: ["Practicables", "Puertas"]) {
+                    Section(header: Text("Tipo de apertura")) {
                         Toggle("Oscilobatiente", isOn: $oscilobatiente)
+                            .onChange(of: oscilobatiente) { _ in
+                                if oscilobatiente {
+                                    vista = ""
+                                    abre = ""
+                                }
+                            }
                     }
-                    Toggle("Piven", isOn: $piven)
                 }
                 
                 if productVM.notShowIf(familias: ["Correderas", "Fijos"]) {
-                    if !piven {
+                    if !oscilobatiente {
                         Section(header: Text("Vista")) {
                             Picker("Vista", selection: $vista) {
                                 List(["Dentro", "Fuera"], id: \.self) { item in Text(item) }
@@ -65,13 +68,13 @@ struct ProductAperturaFormView: View {
                             }
                             .pickerStyle(.segmented)
                         }
-                    
-                        Section(header: Text("Mano")) {
-                            Picker("Mano", selection: $mano) {
-                                List(["Izquierda", "Derecha"], id: \.self) { item in Text(item) }
-                            }
-                            .pickerStyle(.segmented)
+                    }
+                
+                    Section(header: Text("Mano")) {
+                        Picker("Mano", selection: $mano) {
+                            List(["Izquierda", "Derecha"], id: \.self) { item in Text(item) }
                         }
+                        .pickerStyle(.segmented)
                     }
                 }
                 
@@ -97,19 +100,29 @@ struct ProductAperturaFormView: View {
         .toolbar {
             Button("Guardar") {
                 
-                productVM.apertura = "Vista: \(vista)\nAbre: \(abre)\nMano: \(mano)"
+                var resultado: [String] = []
                 
                 if oscilobatiente {
-                    productVM.apertura = "Oscilobatiente"
+                    resultado.append("Oscilobatiente")
                 }
                 
-                if piven {
-                    productVM.apertura = "Piven"
+                if vista != "" {
+                    resultado.append("Vista: \(vista)")
+                }
+                
+                if abre != "" {
+                    resultado.append("Abre: \(abre)")
+                }
+                
+                if mano != "" {
+                    resultado.append("Mano: \(mano)")
                 }
                 
                 if corredera != "" {
-                    productVM.apertura = corredera
+                    resultado.append(corredera)
                 }
+                
+                productVM.apertura = resultado.joined(separator: "\n")
                 
                 if productVM.otro != "" {
                     productVM.apertura = productVM.otro

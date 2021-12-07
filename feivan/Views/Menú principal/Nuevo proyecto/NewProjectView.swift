@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct NewProjectView: View {
     
     @StateObject var projectVM = ProjectViewModel()

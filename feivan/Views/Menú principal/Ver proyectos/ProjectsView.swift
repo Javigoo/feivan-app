@@ -10,38 +10,40 @@ import SwiftUI
 struct ProjectsView: View {
     @ObservedObject var projectVM: ProjectViewModel
     @StateObject var productVM = ProductViewModel()
-
+    @State var showAñadirProducto: Bool = false
     var body: some View {
 
         VStack {
+            NavigationLink(destination: ProductAddView(projectVM: projectVM), isActive: $showAñadirProducto) { EmptyView() }
             Form {
-                
-                if projectVM.haveClient() {
+                Section {
+                    if projectVM.haveClient() {
+                        NavigationLink(
+                            destination:
+                                ClientCreateView(clientVM: ClientViewModel(client: projectVM.getClient())).navigationTitle(Text("Cliente")),
+                            label: {
+                                Image(systemName: "person")
+                                Text("Cliente")
+                            }
+                        )
+                    }
+                    
                     NavigationLink(
                         destination:
-                            ClientCreateView(clientVM: ClientViewModel(client: projectVM.getClient())).navigationTitle(Text("Cliente")),
+                            ProjectCreateView(projectVM: projectVM).navigationTitle(Text("Dirección y extras")),
                         label: {
-                            Image(systemName: "person")
-                            Text("Cliente")
+                            Image(systemName: "gearshape")
+                            Text("Dirección y extras")
                         }
                     )
                 }
-                
-                NavigationLink(
-                    destination:
-                        ProjectCreateView(projectVM: projectVM).navigationTitle(Text("Dirección y extras")),
-                    label: {
-                        Image(systemName: "gearshape")
-                        Text("Dirección y extras")
-                    }
-                )
             
                 Section(header: Text("Productos")) {
                     List {
                         ForEach(projectVM.getProducts() , id: \.self) { producto in
                             NavigationLink(
                                 destination: {
-                                    ProductCreateView(productVM: ProductViewModel(product: producto)).navigationTitle(Text("Información producto"))
+                                    ProductCreateView(productVM: ProductViewModel(product: producto))
                                 }, label: {
                                     ProductPreviewView(productVM: ProductViewModel(product: producto))
                                 }
@@ -55,21 +57,15 @@ struct ProjectsView: View {
             }
         }
         .navigationTitle(Text("Proyecto"))
-        /*
         .toolbar {
             ToolbarItem(placement: .bottomBar) {
-                NavigationLink(
-                    destination:
-                        ProductAddView(projectVM: projectVM)
-                            .navigationTitle(Text("Información proyecto")),
-                    label: {
-                        Text("Añadir producto")
-                            .font(.body)
-                    }
-                )
+                Button(action: {
+                    showAñadirProducto = true
+                }, label: {
+                    Text("Añadir producto")
+                })
             }
         }
-         */
     }
     
     private func deleteProduct(offsets: IndexSet) {

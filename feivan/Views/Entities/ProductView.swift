@@ -33,24 +33,31 @@ struct ProductAddView: View {
             ProductFormView(productVM: productVM)
         }.toolbar {
             Button("Guardar") {
+                productVM.save() // Se crea el producto
+                
+                productVM.addProject(projectVM: projectVM)
                 productVM.save()
+                
                 projectVM.addProduct(productVM: productVM)
                 projectVM.save()
+                
                 presentationMode.wrappedValue.dismiss()
             }
         }
-        .navigationTitle(Text("Información proyecto"))
     }
 }
 
 struct ProductAddMoreView: View {
     @StateObject var productVM = ProductViewModel()
     @ObservedObject var originalProductVM: ProductViewModel
+    @State private var showingSheet = false
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     
     var body: some View {
         VStack {
             ProductFormView(productVM: productVM)
+        }.sheet(isPresented: $showingSheet) {
+            ProductDimensionesSheetView(productVM: productVM)
         }.toolbar {
             Button("Guardar") {
                 productVM.save()
@@ -58,6 +65,7 @@ struct ProductAddMoreView: View {
             }
         }.onAppear(perform: {
             productVM.setProductVMAddMore(productVM: originalProductVM)
+            showingSheet = true
         })
         .navigationTitle(Text("Información proyecto"))
     }
@@ -65,84 +73,86 @@ struct ProductAddMoreView: View {
 
 struct ProductFormView: View {
     
-    @State var showView: Bool = false
     @ObservedObject var productVM: ProductViewModel
+    @State var showView: Bool = false
+    @State var showAñadirMas: Bool = false
 
     var body: some View {
-        
-        ProductFamiliaView(showView: $showView, productVM: productVM)
+            
+        NavigationLink(destination: ProductAddMoreView(originalProductVM: productVM), isActive: $showAñadirMas) { EmptyView() }
+
+        if productVM.getFamilia() == "" {
+                Text("Selecciona un producto")
+        }
         
         ProductNombreView(showView: $showView, productVM: productVM)
         
         Form {
             
-            Group {
-                
-                ProductCurvasView(productVM: productVM)
-                
-                ProductMaterialView(productVM: productVM)
-                
-                ProductColorView(productVM: productVM)
-                
-                ProductTapajuntasView(productVM: productVM)
-                
-                ProductDimensionesView(productVM: productVM)
-
-                ProductAperturaView(productVM: productVM)
-
-                ProductCompactoView(productVM: productVM)
-                
-            }
-            
-            Group {
-                
-                ProductMarcoInferiorView(productVM: productVM)
-
-                ProductHuellaView(productVM: productVM)
-
-                ProductForroExteriorView(productVM: productVM)
-
-                ProductCristalView(productVM: productVM)
-                
-                ProductCerradurasView(productVM: productVM)
-
-                ProductManetasView(productVM: productVM)
-
-                ProductHerrajeView(productVM: productVM)
-
-                ProductPosicionView(productVM: productVM)
-                
-                ProductInstalacionView(productVM: productVM)
-
-                ProductMallorquinaView(productVM: productVM)
-
-            }
-            
-            Group {
-                
-                Section(header: Text("Extras")) {
+            Section(header: Text("Configuración")) {
+                Group {
                     
-                    Toggle(isOn: $productVM.remates_albanileria) {
-                        Text("Remates Albañilería")
-                    }
+                    ProductCurvasView(productVM: productVM)
                     
-                    Toggle(isOn: $productVM.medidas_no_buenas) {
-                        Text("Medidas no buenas")
-                    }
+                    ProductMaterialView(productVM: productVM)
                     
-                    Stepper("Copias:  \(productVM.copias)", value: $productVM.copias, in: 1...99)
+                    ProductColorView(productVM: productVM)
+                    
+                    ProductTapajuntasView(productVM: productVM)
+                    
+                    ProductDimensionesView(productVM: productVM)
+
+                    ProductAperturaView(productVM: productVM)
+
+                    ProductCompactoView(productVM: productVM)
+                    
                 }
                 
-                NavigationLink(
-                    destination:
-                        ProductAddMoreView(originalProductVM: productVM),
-                    label: {
+                Group {
+                    
+                    ProductMarcoInferiorView(productVM: productVM)
+
+                    ProductHuellaView(productVM: productVM)
+
+                    ProductForroExteriorView(productVM: productVM)
+
+                    ProductCristalView(productVM: productVM)
+                    
+                    ProductCerradurasView(productVM: productVM)
+
+                    ProductManetasView(productVM: productVM)
+
+                    ProductHerrajeView(productVM: productVM)
+
+                    ProductPosicionView(productVM: productVM)
+                    
+                    ProductInstalacionView(productVM: productVM)
+
+                    ProductMallorquinaView(productVM: productVM)
+
+                }
+            }
+            
+            Group {
+                    
+                Section {
+                    ProductFotoView(productVM: productVM)
+                    //fotoNav(productVM: productVM)
+
+                    Stepper("Unidades:  \(productVM.unidades)", value: $productVM.unidades, in: 1...99)
+                }
+                                
+                if productVM.proyecto != nil {
+                    Button(action: {
+                        showAñadirMas = true
+                    }, label: {
                         Text("Añadir más")
                             .font(.body)
-                    }
-                )
+                    })
+                }
             }
         }
+        .navigationTitle(Text(productVM.getFamilia()))
     }
 }
 
@@ -165,19 +175,16 @@ struct ProductPreviewView: View {
             }
             
             VStack(alignment: .leading){
-                if productVM.copias == 1 {
+                if productVM.unidades == 1 {
                     Text(productVM.getSingularFamilia(name: productVM.familia))
                         .font(.title3)
                         .lineLimit(1)
                 } else {
-                    Text(String(productVM.copias)+" "+productVM.getFamilia())
+                    Text(String(productVM.unidades)+" "+productVM.getFamilia())
                         .font(.title3)
                         .lineLimit(1)
                 }
                 HStack {
-                    Text(productVM.getMaterial(option: "opcion"))
-                        .font(.subheadline)
-                        .lineLimit(1)
                     Text(productVM.getDimensiones(option: "ancho x alto"))
                         .font(.subheadline)
                         .lineLimit(1)
@@ -312,28 +319,6 @@ struct ProductDetailView: View {
                     Text("Instalación")
                     Spacer()
                     Text(productVM.instalacion)
-                }
-                .font(.subheadline)
-                
-                HStack {
-                    Text("Remates albañilería")
-                    Spacer()
-                    if productVM.remates_albanileria {
-                        Text("Si")
-                    } else {
-                        Text("No")
-                    }
-                }
-                .font(.subheadline)
-                
-                HStack {
-                    Text("Medidas No Buenas")
-                    Spacer()
-                    if productVM.medidas_no_buenas {
-                        Text("Si")
-                    } else {
-                        Text("No")
-                    }
                 }
                 .font(.subheadline)
                 

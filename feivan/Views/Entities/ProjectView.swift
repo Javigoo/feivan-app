@@ -32,7 +32,7 @@ struct ProjectFormView: View {
         
         ProjectFormAddressView(projectVM: projectVM)
         
-        Section(header: Text("Extras"), footer: Text("Selecciona aquellos que se necesitan para llevar a cabo el proyecto")) {
+        Section(header: Text("Extras")) {
             Toggle(isOn: $projectVM.ascensor) {
                 Text("Ascensor")
             }
@@ -41,6 +41,13 @@ struct ProjectFormView: View {
             }
             Toggle(isOn: $projectVM.subir_fachada) {
                 Text("Subir fachada")
+            }
+            Toggle(isOn: $projectVM.remates_albanileria) {
+                Text("Remates Albañilería")
+            }
+            
+            Toggle(isOn: $projectVM.medidas_no_buenas) {
+                Text("Medidas no buenas")
             }
         }
     }
@@ -125,6 +132,28 @@ struct ProjectDetailView: View {
                 Spacer()
                 if projectVM.subir_fachada {
                     Text("Sí")
+                } else {
+                    Text("No")
+                }
+            }
+            .font(.subheadline)
+            
+            HStack {
+                Text("Remates albañilería")
+                Spacer()
+                if projectVM.remates_albanileria {
+                    Text("Si")
+                } else {
+                    Text("No")
+                }
+            }
+            .font(.subheadline)
+            
+            HStack {
+                Text("Medidas No Buenas")
+                Spacer()
+                if projectVM.medidas_no_buenas {
+                    Text("Si")
                 } else {
                     Text("No")
                 }

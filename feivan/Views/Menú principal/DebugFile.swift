@@ -172,6 +172,7 @@ struct DebugView: View {
         proyecto.ascensor = true
         proyecto.grua = false
         proyecto.subir_fachada = false
+        proyecto.remates_albanileria = true
         proyecto.direccion = "Pedro Heredia 22"
         proyecto.timestamp = Date()
         return proyecto
@@ -183,7 +184,6 @@ struct DebugView: View {
         producto.familia = "1-CORREDERAS"
         producto.nombre = "1-C2"
         producto.material = "PVC"
-        producto.remates_albanileria = true
         producto.color = "Blanco"
         producto.dimensiones = "600x300 mm"
         producto.apertura = "DDI"
@@ -209,7 +209,6 @@ struct DebugView: View {
         producto.familia = "2-PRACTICABLES"
         producto.nombre = "1-1"
         producto.material = "Aluminio"
-        producto.remates_albanileria = false
         producto.color = "Negro"
         producto.dimensiones = "1000 x 2000 mm"
         producto.apertura = "DDI"

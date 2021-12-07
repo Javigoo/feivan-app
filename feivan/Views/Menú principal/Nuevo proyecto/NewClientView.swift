@@ -26,6 +26,7 @@ struct NewClient: View {
                 clientVM.save()
                 
                 projectVM.addClient(clientVM: clientVM)
+                projectVM.save()
                 
                 isShowingNextView = true
             }

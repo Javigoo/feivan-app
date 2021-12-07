@@ -29,6 +29,17 @@ struct ProductHerrajeFormView: View {
     
     var atributo = "Herraje"
     @ObservedObject var productVM: ProductViewModel
+    
+    @State var mismo_color: Bool = false
+    @State var bisagras_seguridad: Bool = false
+    @State var bisagras_ocultas: Bool = false
+    @State var cierre_clip_unero: Bool = false
+    @State var muelle: Bool = false
+    @State var cerradura_electronica: Bool = false
+    @State var tirador_exterior: Bool = false
+    @State var tirador_exterior_interior: Bool = false
+    @State var pasadores_resaltados: Bool = false
+    
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
     @State var selections: [String] = []
@@ -37,18 +48,15 @@ struct ProductHerrajeFormView: View {
         VStack {
             Form{
                 Section(header: Text("Opciones")) {
-                    List {
-                        ForEach(productVM.optionsFor(attribute: atributo), id: \.self) { item in
-                            MultipleSelectionRow(title: item, isSelected: self.selections.contains(item)) {
-                                if self.selections.contains(item) {
-                                    self.selections.removeAll(where: { $0 == item })
-                                }
-                                else {
-                                    self.selections.append(item)
-                                }
-                            }
-                        }
-                    }
+                    Toggle("Mismo color", isOn: $mismo_color)
+                    Toggle("Bisagras seguridad", isOn: $bisagras_seguridad)
+                    Toggle("Bisagras ocultas", isOn: $bisagras_ocultas)
+                    Toggle("Cierre clip + uñero", isOn: $cierre_clip_unero)
+                    Toggle("Muelle", isOn: $muelle)
+                    Toggle("Cerradura electrónica", isOn: $cerradura_electronica)
+                    Toggle("Tirador exterior", isOn: $tirador_exterior)
+                    Toggle("Tirador exterior/interior", isOn: $tirador_exterior_interior)
+                    Toggle("Pasadores resaltados", isOn: $pasadores_resaltados)
                 }
                 
                 Section(header: Text("Otro")) {
@@ -64,8 +72,37 @@ struct ProductHerrajeFormView: View {
         .navigationTitle(atributo)
         .toolbar {
             Button("Guardar") {
+                var resultado: [String] = []
+
+                if mismo_color {
+                    resultado.append("Mismo color")
+                }
+                if bisagras_seguridad {
+                    resultado.append("Bisagras seguridad")
+                }
+                if bisagras_ocultas {
+                    resultado.append("Bisagras ocultas")
+                }
+                if cierre_clip_unero {
+                    resultado.append("Cierre clip + uñero")
+                }
+                if muelle {
+                    resultado.append("Muelle")
+                }
+                if cerradura_electronica {
+                    resultado.append("Cerradura electrónica")
+                }
+                if tirador_exterior {
+                    resultado.append("Tirador exterior")
+                }
+                if tirador_exterior_interior {
+                    resultado.append("Tirador exterior/interior")
+                }
+                if pasadores_resaltados {
+                    resultado.append("Pasadores resaltados")
+                }
                 
-                productVM.herraje = selections.joined(separator: "\n")
+                productVM.herraje = resultado.joined(separator: "\n")
                 
                 if productVM.otro != "" {
                     productVM.herraje = productVM.otro

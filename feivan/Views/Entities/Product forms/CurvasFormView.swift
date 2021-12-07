@@ -17,7 +17,7 @@ struct ProductCurvasView: View {
                 destination: ProductCurvasFormView(productVM: productVM),
                 label: {
                     HStack {
-                        Text("Curvas")
+                        Text("Curva")
                         Spacer()
                         Text(productVM.curvas)
                     }
@@ -31,47 +31,62 @@ struct ProductCurvasFormView: View {
     
     var atributo = "Curva"
     @ObservedObject var productVM: ProductViewModel
+    
+    @State var valor: String = ""
+    @State var otro: String = ""
+    @State var anotacion: String = ""
+
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
     var body: some View {
         VStack {
             Form{
-                
-                Section(header: Text("Opciones")) {
-                    Picker(atributo, selection: $productVM.curvas) {
-                        List(productVM.optionsFor(attribute: atributo), id: \.self) { item in Text(item) }
-                    }
+                Section(header: Text("Tipo")) {
+                    Picker("Tipo", selection: $valor) {
+                        List(productVM.optionsFor(attribute: atributo), id: \.self) { item in
+                            Text(item)
+                        }
+                    }.pickerStyle(.wheel)
                 }
                                 
                 Section(header: Text("Otro")) {
-                    TextField("Introduce otra opción", text: $productVM.otro)
+                    TextField("Introduce otra opción", text: $otro)
                 }
                 
                 Section(header: Text("Anotación")) {
-                    TextField("Introduce una anotación", text: $productVM.anotacion)
+                    TextField("Introduce una anotación", text: $anotacion)
                 }
             }
         }
         .navigationTitle(atributo)
-        .toolbar {
+        .onAppear{
+            if valor == "" {
+                valor = productVM.getAttributeValue(attribute_data: productVM.curvas, select_atributte: "Valor")
+            }
+        }.toolbar {
             Button("Guardar") {
-                if productVM.especifico != "" {
-                    productVM.curvas = productVM.especifico
-                    productVM.especifico = ""
+                var resultado: [String] = []
+                
+                if valor != "" {
+                    resultado.append(valor)
                 }
                 
-                if productVM.otro != "" {
-                    productVM.curvas = productVM.otro
-                    productVM.otro = ""
+                if anotacion != "" {
+                    resultado.append("(\(anotacion))")
                 }
                 
-                if productVM.anotacion != "" {
-                    productVM.curvas = productVM.curvas + " (\(productVM.anotacion))"
-                    productVM.anotacion = ""
-                }
+                productVM.curvas = resultado.joined(separator: "\n")
                 
+                if otro != "" {
+                    productVM.curvas = "\""+otro+"\""
+                    if anotacion != "" {
+                        productVM.curvas += "\n(\(anotacion))"
+                    }
+                }
+
                 productVM.save()
                 presentationMode.wrappedValue.dismiss()
+                
             }
         }
     }

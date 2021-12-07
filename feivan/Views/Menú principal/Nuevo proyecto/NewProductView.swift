@@ -19,8 +19,10 @@ struct NewProduct: View {
         }.toolbar {
             Button("Siguiente") {
                 productVM.save()
+                
                 projectVM.addProduct(productVM: productVM)
                 projectVM.save()
+                
                 isShowingNextView = true
             }
         }

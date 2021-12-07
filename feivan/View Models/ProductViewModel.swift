@@ -31,10 +31,8 @@ class ProductViewModel: ObservableObject {
     @Published var herraje: String = ""
     @Published var posicion: String = ""
     @Published var instalacion: String = ""
-    @Published var remates_albanileria: Bool = false
-    @Published var medidas_no_buenas: Bool = false
     @Published var persiana: String = ""
-    @Published var copias: Int16 = 1
+    @Published var unidades: Int16 = 1
     @Published var timestamp: Date = Date()
     
     @Published var proyecto: Proyecto?
@@ -291,10 +289,8 @@ class ProductViewModel: ObservableObject {
         herraje = product.herraje ?? herraje
         posicion = product.posicion ?? posicion
         instalacion = product.instalacion ?? instalacion
-        remates_albanileria = product.remates_albanileria
-        medidas_no_buenas = product.medidas_no_buenas
         persiana = product.persiana ?? persiana
-        copias = product.copias
+        unidades = product.unidades
         timestamp = product.timestamp ?? timestamp
         proyecto = product.proyecto ?? proyecto
          
@@ -332,10 +328,8 @@ class ProductViewModel: ObservableObject {
         product.herraje = herraje
         product.posicion = posicion
         product.instalacion = instalacion
-        product.remates_albanileria = remates_albanileria
-        product.medidas_no_buenas = medidas_no_buenas
         product.persiana = persiana
-        product.copias = copias
+        product.unidades = unidades
         product.timestamp = timestamp
         product.proyecto = proyecto
         
@@ -345,14 +339,26 @@ class ProductViewModel: ObservableObject {
     // Funciones públicas
     
     func setProductVMAddMore(productVM: ProductViewModel) {
-        if familia == "" { familia = productVM.familia }
-        if nombre == "" { nombre = productVM.nombre }
-        if tapajuntas == "" { tapajuntas = productVM.tapajuntas }
-        if color == "" { color = productVM.color }
-        if cristal == "" { cristal = productVM.cristal }
-        if instalacion == "" { instalacion = productVM.instalacion }
+        familia = productVM.familia
+        nombre = productVM.nombre
+        curvas = productVM.curvas
+        material = productVM.material
+        color = productVM.color
+        tapajuntas = productVM.tapajuntas
+        dimensiones = productVM.dimensiones
+        apertura = productVM.apertura
+        compacto = productVM.compacto
+        marco_inferior = productVM.marco_inferior
+        huella = productVM.huella
+        forro_exterior = productVM.forro_exterior
+        cristal = productVM.cristal
+        cerraduras = productVM.cerraduras
+        manetas = productVM.manetas
+        herraje = productVM.herraje
+        posicion = productVM.posicion
+        instalacion = productVM.instalacion
+        persiana = productVM.persiana
         proyecto = productVM.proyecto
-        print(proyecto!)
     }
     
     func addProject(projectVM: ProjectViewModel) {
@@ -408,11 +414,14 @@ class ProductViewModel: ObservableObject {
     private func getProduct(id: UUID) -> Producto? {
         let request: NSFetchRequest<Producto> = Producto.fetchRequest()
         let query = NSPredicate(format: "%K == %@", "id_producto", id as CVarArg)
-        // todo: limitar a una entidad
+        let sort = [NSSortDescriptor(key: "timestamp", ascending: true)]
+        
         request.predicate = query
+        request.sortDescriptors = sort
+        
         do {
             let foundEntities: [Producto] = try context.viewContext.fetch(request)
-            return foundEntities.first
+            return foundEntities.first  // todo: limitar a una entidad
         } catch {
             let fetchError = error as NSError
             debugPrint(fetchError)
@@ -480,7 +489,7 @@ class ProductViewModel: ObservableObject {
         if currentDimensiones.count >= 2 {
             let ancho = currentDimensiones[0].components(separatedBy: " ")[1]
             let alto = currentDimensiones[1].components(separatedBy: " ")[1]
-            return ancho+"x"+alto
+            return ancho+" x "+alto
         } else if currentDimensiones.count == 1 {
             return currentDimensiones[0].components(separatedBy: " ")[1]
         }
@@ -522,6 +531,40 @@ class ProductViewModel: ObservableObject {
             return nombre
         }
         return name
+    }
+    
+    func getAttributeValue(attribute_data: String, select_atributte: String) -> String {
+        let attribute_data: [String] = attribute_data.components(separatedBy: "\n")
+        for data in attribute_data {
+            if data.contains(":") {
+                let split_data: [String] = data.components(separatedBy: ":")
+                let attribute: String = split_data[0]
+                let value: String = split_data[1]
+                
+                if attribute == select_atributte {
+                    return value.trimmingCharacters(in: .whitespaces)
+                }
+                
+            }
+            if data.contains("\""){
+                if select_atributte == "Otro" {
+                    return data.replacingOccurrences(of: "\"", with: "")
+                }
+                return ""
+            }
+            if data.contains("(") && data.contains(")") {
+                if select_atributte == "Anotacion" {
+                    let first = data.dropFirst()
+                    let second = first.dropLast()
+                    return String(second)
+                }
+                return ""
+            }
+            if select_atributte == "Valor" {
+                return data
+            }
+        }
+        return ""
     }
 }
 

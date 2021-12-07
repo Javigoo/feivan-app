@@ -14,18 +14,18 @@ struct ProductNombreView: View {
     var body: some View {
     
         NavigationLink(
-            destination: ProductNombreFormView(productVM: productVM, showView: $showView),
+            destination: ProductFamiliaFormView(productVM: productVM, showView: $showView),
             label: {
                 if productVM.nombre == "" {
                     Image(systemName: "photo")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 150, height: 150)
+                        .frame(width: 200, height: 200)
                 } else {
                     Image(productVM.nombre)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 150, height: 150)
+                        .frame(width: 200, height: 200)
                 }
             }
         )
