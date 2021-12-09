@@ -23,7 +23,14 @@ struct HomeView: View {
                             .padding(30)
                     }
                 )
-                     
+                
+                /*
+                Image("Logo")
+                    .resizable()
+                    .scaledToFit()
+                    .padding(30)
+                */
+                
                 NavigationLink(
                     destination: {
                         ListProjectsView()
@@ -41,12 +48,12 @@ struct HomeView: View {
                             .textStyle(NavigationLinkStyle())
                     }
                 )
-            
+
                 Spacer()
             }
-
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .environment(\.rootPresentation, $rootPresenting)
+        
     }
 }

@@ -16,7 +16,7 @@ struct ProductDimensionesView: View {
             destination: ProductDimensionesFormView(productVM: productVM),
             label: {
                 HStack {
-                    Text("Dimensiones")
+                    Text("Medidas")
                     Spacer()
                     Text(productVM.dimensiones)
                 }
@@ -70,7 +70,7 @@ struct ProductDimensionesFormView: View {
                 }
             }
         }
-        .navigationTitle(atributo)
+        .navigationTitle("Medidas")
         .toolbar {
             Button("Guardar") {
                 
@@ -198,6 +198,6 @@ struct ProductDimensionesSheetView: View {
                 }
             }
         }
-        .navigationTitle(atributo)
+        .navigationTitle("Medidas")
     }
 }

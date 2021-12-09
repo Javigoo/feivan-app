@@ -11,9 +11,11 @@ struct ProjectsView: View {
     @ObservedObject var projectVM: ProjectViewModel
     @StateObject var productVM = ProductViewModel()
     @State var showAñadirProducto: Bool = false
+    @State var showGenerarPdf: Bool = false
     var body: some View {
 
         VStack {
+            NavigationLink(destination: PdfView(projectVM: projectVM), isActive: $showGenerarPdf) { EmptyView() }
             NavigationLink(destination: ProductAddView(projectVM: projectVM), isActive: $showAñadirProducto) { EmptyView() }
             Form {
                 Section {
@@ -58,6 +60,15 @@ struct ProjectsView: View {
         }
         .navigationTitle(Text("Proyecto"))
         .toolbar {
+            
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    showGenerarPdf = true
+                }, label: {
+                    Image(systemName: "doc")
+                })
+            }
+            
             ToolbarItem(placement: .bottomBar) {
                 Button(action: {
                     showAñadirProducto = true

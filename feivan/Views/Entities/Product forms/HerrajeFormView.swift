@@ -30,7 +30,6 @@ struct ProductHerrajeFormView: View {
     var atributo = "Herraje"
     @ObservedObject var productVM: ProductViewModel
     
-    @State var mismo_color: Bool = false
     @State var bisagras_seguridad: Bool = false
     @State var bisagras_ocultas: Bool = false
     @State var cierre_clip_unero: Bool = false
@@ -48,7 +47,6 @@ struct ProductHerrajeFormView: View {
         VStack {
             Form{
                 Section(header: Text("Opciones")) {
-                    Toggle("Mismo color", isOn: $mismo_color)
                     Toggle("Bisagras seguridad", isOn: $bisagras_seguridad)
                     Toggle("Bisagras ocultas", isOn: $bisagras_ocultas)
                     Toggle("Cierre clip + uñero", isOn: $cierre_clip_unero)
@@ -74,9 +72,6 @@ struct ProductHerrajeFormView: View {
             Button("Guardar") {
                 var resultado: [String] = []
 
-                if mismo_color {
-                    resultado.append("Mismo color")
-                }
                 if bisagras_seguridad {
                     resultado.append("Bisagras seguridad")
                 }

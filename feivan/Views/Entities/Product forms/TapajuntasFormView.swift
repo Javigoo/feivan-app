@@ -48,7 +48,8 @@ struct ProductTapajuntasFormView: View {
                         List(productVM.optionsFor(attribute: atributo), id: \.self) { item in
                             Text(item)
                         }
-                    }.onChange(of: productVM.tapajuntas) { newValue in
+                    }.pickerStyle(.wheel)
+                    .onChange(of: productVM.tapajuntas) { newValue in
                         setTapajuntasEspecificos()
                     }
             

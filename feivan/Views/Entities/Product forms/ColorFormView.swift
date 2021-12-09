@@ -30,7 +30,7 @@ struct ProductColorFormView: View {
     var atributo = "Color"
     @ObservedObject var productVM: ProductViewModel
     
-    @State var opcion: String = ""
+    @State var opcion: String = "Más utilizados"
     @State var color: String = ""
     @State var bicolor: Bool = false
     @State var exterior: String = ""
@@ -38,6 +38,7 @@ struct ProductColorFormView: View {
     @State var texturado: Bool = false
     @State var mate: Bool = false
     @State var liso: Bool = false
+    @State var herrajes: Bool = false
     @State var anotacion: String = ""
 
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
@@ -54,6 +55,21 @@ struct ProductColorFormView: View {
                 
                 if opcion == "Ral" {
                     Section(header: Text("Color")) {
+                        /*
+                        ForEach(productVM.getRalCodes(), id: \.self) { code in
+                            let red = productVM.getRalColor(code: code, color: "r")/255
+                            let green = productVM.getRalColor(code: code, color: "g")/255
+                            let blue = productVM.getRalColor(code: code, color: "b")/255
+
+                            HStack {
+                                Text(code + ": " + String(red) + String(green) + String(blue))
+                                Rectangle()
+                                    .fill(Color(red: red, green: green, blue: blue))
+                                    .frame(width: 20, height: 20)
+                            }
+                           
+                        }
+                        */
                         TextField("Ral", text: $color)
                     }
                 }
@@ -124,6 +140,10 @@ struct ProductColorFormView: View {
                     }
                 }
                 
+                Section(header: Text("Herrajes específicos")) {
+                    Toggle("Mismo color", isOn: $herrajes)
+                }
+                
                 Section(header: Text("Anotación")) {
                     TextField("Introduce una anotación", text: $anotacion)
                 }
@@ -131,9 +151,6 @@ struct ProductColorFormView: View {
         }
         .navigationTitle(atributo)
         .onAppear {
-
-            print(productVM.getAttributeValue(attribute_data: productVM.color, select_atributte: "Acabado"))
-                  
             let resultado: [String] = productVM.color.components(separatedBy: "\n")
             
             for linea in resultado {
@@ -169,6 +186,10 @@ struct ProductColorFormView: View {
                         if acabado == "Liso" {
                             liso = true
                         }
+                    }
+                    
+                    if atributo == "Herrajes" {
+                        herrajes = true
                     }
                     
                 } else if linea.contains("(") && linea.contains(")") {
@@ -219,6 +240,10 @@ struct ProductColorFormView: View {
                 
                 if liso {
                     resultado.append("Acabado: Liso")
+                }
+                
+                if herrajes {
+                    resultado.append("Herrajes: Mismo color")
                 }
                 
                 productVM.color = resultado.joined(separator: "\n")

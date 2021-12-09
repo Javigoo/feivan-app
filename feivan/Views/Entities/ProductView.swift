@@ -110,8 +110,6 @@ struct ProductFormView: View {
                 
                 Group {
                     
-                    ProductMarcoInferiorView(productVM: productVM)
-
                     ProductHuellaView(productVM: productVM)
 
                     ProductForroExteriorView(productVM: productVM)

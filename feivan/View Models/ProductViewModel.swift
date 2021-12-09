@@ -489,7 +489,7 @@ class ProductViewModel: ObservableObject {
         if currentDimensiones.count >= 2 {
             let ancho = currentDimensiones[0].components(separatedBy: " ")[1]
             let alto = currentDimensiones[1].components(separatedBy: " ")[1]
-            return ancho+" x "+alto
+            return ancho+" x "+alto+" mm"
         } else if currentDimensiones.count == 1 {
             return currentDimensiones[0].components(separatedBy: " ")[1]
         }
@@ -523,6 +523,33 @@ class ProductViewModel: ObservableObject {
         }
         return []
     }
+    
+    func getRalCodes() -> [String] {
+        var ral_codes: [String] = []
+        for elemento in ral().elementos {
+            ral_codes.append(elemento.code)
+        }
+        return ral_codes
+    }
+    
+    func getRalColor(code: String, color: String) -> Double {
+        for elemento in ral().elementos {
+            if code == elemento.code{
+                if color == "r"{
+                    return Double(elemento.color.rgb.r)
+                }
+                if color == "g"{
+                    return Double(elemento.color.rgb.g)
+                }
+                if color == "b"{
+                    return Double(elemento.color.rgb.b)
+                }
+            }
+        }
+        return 0.0
+    }
+    
+    
     
     func getSingularFamilia(name: String) -> String {
         if name != "" {

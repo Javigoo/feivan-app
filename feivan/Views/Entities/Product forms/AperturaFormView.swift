@@ -12,16 +12,18 @@ struct ProductAperturaView: View {
 
     var body: some View {
     
-        NavigationLink(
-            destination: ProductAperturaFormView(productVM: productVM),
-            label: {
-                HStack {
-                    Text("Apertura")
-                    Spacer()
-                    Text(productVM.apertura)
+        if productVM.notShowIf(familias: ["Fijos"]) {
+            NavigationLink(
+                destination: ProductAperturaFormView(productVM: productVM),
+                label: {
+                    HStack {
+                        Text("Apertura")
+                        Spacer()
+                        Text(productVM.apertura)
+                    }
                 }
-            }
-        )
+            )
+        }
     }
 }
 
@@ -35,6 +37,10 @@ struct ProductAperturaFormView: View {
     @State var mano: String = ""
     @State var corredera: String = ""
     @State var oscilobatiente: Bool = false
+    
+    // Marco inferior
+    @State var marco_inferior: String = ""
+    @State var canal_recogeAgua: Bool = false
 
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
@@ -86,6 +92,25 @@ struct ProductAperturaFormView: View {
                         .pickerStyle(.segmented)
                     }
                 }
+                
+                if productVM.notShowIf(familias: ["Fijos"]) {
+                    Section(header: Text("Marco inferior")) {
+                        Picker("Marco Inferior", selection: $marco_inferior) {
+                            if productVM.showIf(equalTo: ["Correderas"]) {
+                                List(["Abierto", "Cerrado", "Solera", "Empotrado"], id: \.self) { item in Text(item) }
+                            } else if productVM.showIf(equalTo: ["Practicables"]) {
+                                List(["Abierto", "Cerrado", "Solera"], id: \.self) { item in Text(item) }
+                            } else {
+                                List(["Abierto", "Cerrado"], id: \.self) { item in Text(item) }
+                            }
+                        }
+                        .pickerStyle(.segmented)
+                        
+                        if productVM.marco_inferior == "Empotrado" {
+                            Toggle("Canal recoge agua", isOn: $canal_recogeAgua)
+                        }
+                    }
+                }
                                             
                 Section(header: Text("Otro")) {
                     TextField("Introduce otra opción", text: $productVM.otro)
@@ -120,6 +145,16 @@ struct ProductAperturaFormView: View {
                 
                 if corredera != "" {
                     resultado.append(corredera)
+                }
+                
+                // Marco inferior
+                if marco_inferior != "" {
+                    resultado.append("\nMarco inferior:")
+                    if canal_recogeAgua {
+                        resultado.append(marco_inferior + " con canal recoge agua")
+                    } else {
+                        resultado.append(marco_inferior)
+                    }
                 }
                 
                 productVM.apertura = resultado.joined(separator: "\n")
