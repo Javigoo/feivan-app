@@ -144,8 +144,11 @@ struct ProductFormView: View {
                     Button(action: {
                         showAñadirMas = true
                     }, label: {
-                        Text("Añadir más")
-                            .font(.body)
+                        HStack {
+                            Image(systemName: "plus.circle")
+                            Text("Añadir más")
+                                .font(.body)
+                        }
                     })
                 }
             }

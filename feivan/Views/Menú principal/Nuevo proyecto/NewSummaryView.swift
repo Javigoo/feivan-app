@@ -15,7 +15,7 @@ struct NewProjectSummary: View {
     var body: some View {
 
         VStack {
-            ProjectsView(projectVM: projectVM)
+            ProjectView(projectVM: projectVM)
         }.toolbar {
             Button("Guardar") {
                 projectVM.save()

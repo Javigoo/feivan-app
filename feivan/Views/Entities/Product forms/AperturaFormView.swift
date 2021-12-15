@@ -149,11 +149,10 @@ struct ProductAperturaFormView: View {
                 
                 // Marco inferior
                 if marco_inferior != "" {
-                    resultado.append("\nMarco inferior:")
                     if canal_recogeAgua {
-                        resultado.append(marco_inferior + " con canal recoge agua")
+                        resultado.append("Marco inferior " + marco_inferior.lowercased() + " con canal recoge agua")
                     } else {
-                        resultado.append(marco_inferior)
+                        resultado.append("Marco inferior " + marco_inferior.lowercased())
                     }
                 }
                 

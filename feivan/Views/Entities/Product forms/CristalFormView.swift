@@ -61,12 +61,14 @@ struct ProductCristalFormView: View {
                         Picker("Cámaras", selection: $camaras) {
                             List(["4/?/4", "4/?/6", "6/?/6", "4/?/3+3", "6/?/3+3", "4/?/4+4", "6/?/4+4", "3+3/?/3+3", "4+4/?/4+4"], id: \.self) { item in Text(item) }
                         }
+                        .pickerStyle(.wheel)
                     }
                 } else if opcion == "Seguridad" {
                     Section(header: Text("Seguridad")) {
                         Picker("Seguridad", selection: $seguridad) {
                             List(["3+3", "4+4", "5+5", "6+6", "8+8"], id: \.self) { item in Text(item) }
                         }
+                        .pickerStyle(.wheel)
                     }
                 }
                 
@@ -79,7 +81,7 @@ struct ProductCristalFormView: View {
                 
                 Section(header: Text("Composición")) {
                     Toggle("Silence", isOn: $silence)
-                    Toggle("Acústico", isOn: $acustico)
+                    Toggle("Guardian sun", isOn: $acustico)
                     Toggle("Templado", isOn: $templado)
                 }
                 
@@ -117,7 +119,7 @@ struct ProductCristalFormView: View {
                         resultado.append("Silence")
                     }
                     if acustico {
-                        resultado.append("Acústico")
+                        resultado.append("Guardian sun")
                     }
                     if templado {
                         resultado.append("Templado")

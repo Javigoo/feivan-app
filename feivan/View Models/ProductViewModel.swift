@@ -32,6 +32,8 @@ class ProductViewModel: ObservableObject {
     @Published var posicion: String = ""
     @Published var instalacion: String = ""
     @Published var persiana: String = ""
+    @Published var remates_albanileria: Bool = false
+    @Published var medidas_no_buenas: Bool = false
     @Published var unidades: Int16 = 1
     @Published var timestamp: Date = Date()
     
@@ -154,7 +156,7 @@ class ProductViewModel: ObservableObject {
                 print("Error setting \(attribute), \"\(attribute)\" not found")
         }
     }
-        
+    */
     func get(attribute: String) -> String {
         switch attribute {
             case "Familia":
@@ -204,6 +206,7 @@ class ProductViewModel: ObservableObject {
         }
         return ""
     }
+    /*
     
     func set(attribute: String, value: String) {
         switch attribute {

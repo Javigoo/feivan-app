@@ -47,6 +47,7 @@ struct ProductPosicionFormView: View {
                     Picker(atributo, selection: $posicion) {
                         List(productVM.optionsFor(attribute: atributo), id: \.self) { item in Text(item) }
                     }
+                    .pickerStyle(.wheel)
                 }
                 
                 Section(header: Text("Otra zona")) {

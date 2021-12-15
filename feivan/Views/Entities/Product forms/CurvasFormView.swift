@@ -46,7 +46,8 @@ struct ProductCurvasFormView: View {
                         List(productVM.optionsFor(attribute: atributo), id: \.self) { item in
                             Text(item)
                         }
-                    }.pickerStyle(.wheel)
+                    }
+                    .pickerStyle(.wheel)
                 }
                                 
                 Section(header: Text("Otro")) {

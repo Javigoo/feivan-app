@@ -12,7 +12,7 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 30) {
-                
+                /*
                 NavigationLink(
                     destination: {
                         DebugView()
@@ -23,13 +23,13 @@ struct HomeView: View {
                             .padding(30)
                     }
                 )
+                */
                 
-                /*
                 Image("Logo")
                     .resizable()
                     .scaledToFit()
                     .padding(30)
-                */
+                
                 
                 NavigationLink(
                     destination: {

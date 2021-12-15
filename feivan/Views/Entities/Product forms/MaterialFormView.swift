@@ -60,6 +60,7 @@ struct ProductMaterialFormView: View {
                                     Text(item)
                                 }
                             }
+                            .pickerStyle(.wheel)
                         }
                     }
                     if productVM.showIf(equalTo: ["Practicables"]) {
@@ -69,6 +70,7 @@ struct ProductMaterialFormView: View {
                                     Text(item)
                                 }
                             }
+                            .pickerStyle(.wheel)
                         }
                     }
                 }

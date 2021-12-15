@@ -288,7 +288,7 @@
             "opciones": [
                 "Corredera + fijo",
                 "Coladurias",
-                "Corredera galandas",
+                "Corredera galandage",
                 "Correderas elevadoras",
                 "Corredera fijo+zocalo"
             ]
@@ -318,7 +318,7 @@
             ]
         },
         {
-            "nombre": "Corredera galandas",
+            "nombre": "Corredera galandage",
             "opciones": [
                 "Pcm1d",
                 "Pcm1de",

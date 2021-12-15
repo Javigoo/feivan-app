@@ -38,6 +38,7 @@ struct ProductManetasFormView: View {
                     Picker(atributo, selection: $productVM.manetas) {
                         List(productVM.optionsFor(attribute: atributo), id: \.self) { item in Text(item) }
                     }
+                    .pickerStyle(.wheel)
                 }
                 
                 Section(header: Text("Otro")) {

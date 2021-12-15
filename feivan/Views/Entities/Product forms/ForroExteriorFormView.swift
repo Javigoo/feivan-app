@@ -53,6 +53,7 @@ struct ProductForroExteriorFormView: View {
                     Picker("Ángulo", selection: $angulo) {
                         List(["30x30","40x20","40x40","60x40","80x40"], id: \.self) { item in Text(item) }
                     }
+                    .pickerStyle(.wheel)
                 }
                 
                 Toggle("Lama", isOn: $lama)

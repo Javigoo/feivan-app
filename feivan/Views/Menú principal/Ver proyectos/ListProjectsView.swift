@@ -20,7 +20,7 @@ struct ListProjectsView: View {
                     ForEach(projectVM.proyectos, id: \.self) { proyecto in
                         NavigationLink(
                             destination:
-                                ProjectsView(
+                                ProjectView(
                                     projectVM: ProjectViewModel(project: proyecto)
                                 ),
                             label: {

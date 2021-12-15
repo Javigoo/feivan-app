@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ProjectsView: View {
+struct ProjectView: View {
     @ObservedObject var projectVM: ProjectViewModel
     @StateObject var productVM = ProductViewModel()
     @State var showAñadirProducto: Bool = false
@@ -15,7 +15,7 @@ struct ProjectsView: View {
     var body: some View {
 
         VStack {
-            NavigationLink(destination: PdfView(projectVM: projectVM), isActive: $showGenerarPdf) { EmptyView() }
+            NavigationLink(destination: PdfView(projectData: projectVM), isActive: $showGenerarPdf) { EmptyView() }
             NavigationLink(destination: ProductAddView(projectVM: projectVM), isActive: $showAñadirProducto) { EmptyView() }
             Form {
                 Section {
@@ -85,4 +85,20 @@ struct ProjectsView: View {
         }
     }
 
+}
+
+struct ProjectsPreview: View {
+    @ObservedObject var projectVM: ProjectViewModel
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text(projectVM.direccion)
+                .font(.title)
+            Text(projectVM.getClientName())
+                .font(.subheadline)
+            Spacer()
+            Text(projectVM.textCountProducts())
+                .font(.body)
+        }
+    }
 }

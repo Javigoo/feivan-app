@@ -10,19 +10,14 @@
 		252577862732BC0700252690 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252577852732BC0700252690 /* Styles.swift */; };
 		252A89BA275AA8BD00BCA7AF /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252A89B9275AA8BD00BCA7AF /* Image.swift */; };
 		252A89BC275AA91200BCA7AF /* FotoFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252A89BB275AA91200BCA7AF /* FotoFormView.swift */; };
-		252DC7B127248635005F3489 /* ProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252DC7B027248635005F3489 /* ProductView.swift */; };
-		252DC7B32724AB94005F3489 /* Hierarchy.json in Resources */ = {isa = PBXBuildFile; fileRef = 252DC7B22724AB94005F3489 /* Hierarchy.json */; };
-		252EF4DE275FCF4D00DD73F5 /* Ral.json in Resources */ = {isa = PBXBuildFile; fileRef = 252EF4DD275FCF4D00DD73F5 /* Ral.json */; };
+		252DC7B127248635005F3489 /* ProductEntityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252DC7B027248635005F3489 /* ProductEntityView.swift */; };
 		254093352735A23A00AA07D5 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254093342735A23A00AA07D5 /* String.swift */; };
 		2544199727395B11005290C9 /* NewProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2544199627395B11005290C9 /* NewProjectView.swift */; };
-		254420752746AAEC00CFDDA4 /* ProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254420742746AAEC00CFDDA4 /* ProjectsView.swift */; };
-		254420772746AB8E00CFDDA4 /* ProjectsPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254420762746AB8E00CFDDA4 /* ProjectsPreview.swift */; };
+		254420752746AAEC00CFDDA4 /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254420742746AAEC00CFDDA4 /* ProjectView.swift */; };
 		254420792746C89200CFDDA4 /* CustomEnvironmentProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254420782746C89200CFDDA4 /* CustomEnvironmentProperties.swift */; };
-		25745B69275866460056474E /* PDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25745B68275866460056474E /* PDF.swift */; };
+		25745B69275866460056474E /* createPDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25745B68275866460056474E /* createPDF.swift */; };
 		257CC826271FE561009C65D1 /* FeivanApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257CC825271FE561009C65D1 /* FeivanApp.swift */; };
-		257CC828271FE561009C65D1 /* ClientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257CC827271FE561009C65D1 /* ClientView.swift */; };
-		257CC82A271FE564009C65D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 257CC829271FE564009C65D1 /* Assets.xcassets */; };
-		257CC82D271FE564009C65D1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 257CC82C271FE564009C65D1 /* Preview Assets.xcassets */; };
+		257CC828271FE561009C65D1 /* ClientEntityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257CC827271FE561009C65D1 /* ClientEntityView.swift */; };
 		257CC82F271FE564009C65D1 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257CC82E271FE564009C65D1 /* Persistence.swift */; };
 		257CC83C271FE937009C65D1 /* ClientViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257CC83B271FE937009C65D1 /* ClientViewModel.swift */; };
 		257CC83F272188CA009C65D1 /* Feivan.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 257CC83D272188CA009C65D1 /* Feivan.xcdatamodeld */; };
@@ -50,30 +45,33 @@
 		259AD0ED274E4CF200B697DD /* InstalacionFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0EC274E4CF200B697DD /* InstalacionFormView.swift */; };
 		259AD0EF274E4D1100B697DD /* MallorquinaFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0EE274E4D1100B697DD /* MallorquinaFormView.swift */; };
 		259BC28D272862BD00AE3305 /* Json.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259BC28C272862BD00AE3305 /* Json.swift */; };
-		25B790F62722D43000A2F6CD /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B790F52722D43000A2F6CD /* ProjectView.swift */; };
+		25B790F62722D43000A2F6CD /* ProjectEntityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B790F52722D43000A2F6CD /* ProjectEntityView.swift */; };
 		25DBF3452743CBDB001D5FE3 /* MultipleSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DBF3442743CBDB001D5FE3 /* MultipleSelection.swift */; };
 		25E8F23B27218D510009CEB7 /* ListProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E8F23A27218D510009CEB7 /* ListProjectsView.swift */; };
 		25E8F23D27218E120009CEB7 /* ProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E8F23C27218E120009CEB7 /* ProjectViewModel.swift */; };
 		25E8F23F272197590009CEB7 /* DebugFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E8F23E272197590009CEB7 /* DebugFile.swift */; };
 		25E908A02721AE9C008A490B /* ProductViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E9089F2721AE9C008A490B /* ProductViewModel.swift */; };
+		25ECB4D4276653040066F67C /* examplePDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ECB4D3276653040066F67C /* examplePDF.swift */; };
+		25F7D57D276777D60019BA05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 257CC829271FE564009C65D1 /* Assets.xcassets */; };
+		25F7D57E276777DA0019BA05 /* Hierarchy.json in Resources */ = {isa = PBXBuildFile; fileRef = 252DC7B22724AB94005F3489 /* Hierarchy.json */; };
+		25F7D57F276777DF0019BA05 /* Ral.json in Resources */ = {isa = PBXBuildFile; fileRef = 252EF4DD275FCF4D00DD73F5 /* Ral.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		252577852732BC0700252690 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
 		252A89B9275AA8BD00BCA7AF /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		252A89BB275AA91200BCA7AF /* FotoFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FotoFormView.swift; sourceTree = "<group>"; };
-		252DC7B027248635005F3489 /* ProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductView.swift; sourceTree = "<group>"; };
+		252DC7B027248635005F3489 /* ProductEntityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductEntityView.swift; sourceTree = "<group>"; };
 		252DC7B22724AB94005F3489 /* Hierarchy.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Hierarchy.json; sourceTree = "<group>"; };
 		252EF4DD275FCF4D00DD73F5 /* Ral.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Ral.json; sourceTree = "<group>"; };
 		254093342735A23A00AA07D5 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		2544199627395B11005290C9 /* NewProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProjectView.swift; sourceTree = "<group>"; };
-		254420742746AAEC00CFDDA4 /* ProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsView.swift; sourceTree = "<group>"; };
-		254420762746AB8E00CFDDA4 /* ProjectsPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsPreview.swift; sourceTree = "<group>"; };
+		254420742746AAEC00CFDDA4 /* ProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectView.swift; sourceTree = "<group>"; };
 		254420782746C89200CFDDA4 /* CustomEnvironmentProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEnvironmentProperties.swift; sourceTree = "<group>"; };
-		25745B68275866460056474E /* PDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDF.swift; sourceTree = "<group>"; };
+		25745B68275866460056474E /* createPDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = createPDF.swift; sourceTree = "<group>"; };
 		257CC822271FE561009C65D1 /* Feivan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Feivan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		257CC825271FE561009C65D1 /* FeivanApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeivanApp.swift; sourceTree = "<group>"; };
-		257CC827271FE561009C65D1 /* ClientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientView.swift; sourceTree = "<group>"; };
+		257CC827271FE561009C65D1 /* ClientEntityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientEntityView.swift; sourceTree = "<group>"; };
 		257CC829271FE564009C65D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		257CC82C271FE564009C65D1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		257CC82E271FE564009C65D1 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -103,12 +101,13 @@
 		259AD0EC274E4CF200B697DD /* InstalacionFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalacionFormView.swift; sourceTree = "<group>"; };
 		259AD0EE274E4D1100B697DD /* MallorquinaFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MallorquinaFormView.swift; sourceTree = "<group>"; };
 		259BC28C272862BD00AE3305 /* Json.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Json.swift; sourceTree = "<group>"; };
-		25B790F52722D43000A2F6CD /* ProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectView.swift; sourceTree = "<group>"; };
+		25B790F52722D43000A2F6CD /* ProjectEntityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectEntityView.swift; sourceTree = "<group>"; };
 		25DBF3442743CBDB001D5FE3 /* MultipleSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleSelection.swift; sourceTree = "<group>"; };
 		25E8F23A27218D510009CEB7 /* ListProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListProjectsView.swift; sourceTree = "<group>"; };
 		25E8F23C27218E120009CEB7 /* ProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewModel.swift; sourceTree = "<group>"; };
 		25E8F23E272197590009CEB7 /* DebugFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugFile.swift; sourceTree = "<group>"; };
 		25E9089F2721AE9C008A490B /* ProductViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductViewModel.swift; sourceTree = "<group>"; };
+		25ECB4D3276653040066F67C /* examplePDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = examplePDF.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				259AD0DC274E4A0E00B697DD /* MarcoInferiorFormView.swift */,
+				25ECB4D3276653040066F67C /* examplePDF.swift */,
 			);
 			path = Old;
 			sourceTree = "<group>";
@@ -142,7 +142,7 @@
 		2544206D2746A5BC00CFDDA4 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				25745B68275866460056474E /* PDF.swift */,
+				25745B68275866460056474E /* createPDF.swift */,
 				259BC28C272862BD00AE3305 /* Json.swift */,
 				25DBF3442743CBDB001D5FE3 /* MultipleSelection.swift */,
 				254093342735A23A00AA07D5 /* String.swift */,
@@ -165,8 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				25E8F23A27218D510009CEB7 /* ListProjectsView.swift */,
-				254420762746AB8E00CFDDA4 /* ProjectsPreview.swift */,
-				254420742746AAEC00CFDDA4 /* ProjectsView.swift */,
+				254420742746AAEC00CFDDA4 /* ProjectView.swift */,
 			);
 			path = "Ver proyectos";
 			sourceTree = "<group>";
@@ -273,9 +272,9 @@
 		2585FDD3273ACD360093136A /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				25B790F52722D43000A2F6CD /* ProjectView.swift */,
-				257CC827271FE561009C65D1 /* ClientView.swift */,
-				252DC7B027248635005F3489 /* ProductView.swift */,
+				25B790F52722D43000A2F6CD /* ProjectEntityView.swift */,
+				257CC827271FE561009C65D1 /* ClientEntityView.swift */,
+				252DC7B027248635005F3489 /* ProductEntityView.swift */,
 				259AD0C9274E476F00B697DD /* Product forms */,
 			);
 			path = Entities;
@@ -366,10 +365,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				257CC82D271FE564009C65D1 /* Preview Assets.xcassets in Resources */,
-				257CC82A271FE564009C65D1 /* Assets.xcassets in Resources */,
-				252DC7B32724AB94005F3489 /* Hierarchy.json in Resources */,
-				252EF4DE275FCF4D00DD73F5 /* Ral.json in Resources */,
+				25F7D57F276777DF0019BA05 /* Ral.json in Resources */,
+				25F7D57E276777DA0019BA05 /* Hierarchy.json in Resources */,
+				25F7D57D276777D60019BA05 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -384,8 +382,9 @@
 				259AD0E3274E4A6900B697DD /* CristalFormView.swift in Sources */,
 				259AD0D1274E48B600B697DD /* CurvasFormView.swift in Sources */,
 				252577862732BC0700252690 /* Styles.swift in Sources */,
-				25B790F62722D43000A2F6CD /* ProjectView.swift in Sources */,
-				25745B69275866460056474E /* PDF.swift in Sources */,
+				25B790F62722D43000A2F6CD /* ProjectEntityView.swift in Sources */,
+				25ECB4D4276653040066F67C /* examplePDF.swift in Sources */,
+				25745B69275866460056474E /* createPDF.swift in Sources */,
 				259AD0D5274E491B00B697DD /* TapajuntasFormView.swift in Sources */,
 				259AD0CF274E482800B697DD /* MaterialFormView.swift in Sources */,
 				259AD0E1274E4A4B00B697DD /* ForroExteriorFormView.swift in Sources */,
@@ -397,9 +396,9 @@
 				25DBF3452743CBDB001D5FE3 /* MultipleSelection.swift in Sources */,
 				259AD0C8274E466A00B697DD /* NewSummaryView.swift in Sources */,
 				259AD0C4274E45EC00B697DD /* NewClientView.swift in Sources */,
-				254420752746AAEC00CFDDA4 /* ProjectsView.swift in Sources */,
+				254420752746AAEC00CFDDA4 /* ProjectView.swift in Sources */,
 				259BC28D272862BD00AE3305 /* Json.swift in Sources */,
-				252DC7B127248635005F3489 /* ProductView.swift in Sources */,
+				252DC7B127248635005F3489 /* ProductEntityView.swift in Sources */,
 				259AD0EF274E4D1100B697DD /* MallorquinaFormView.swift in Sources */,
 				259AD0E9274E4CB900B697DD /* HerrajeFormView.swift in Sources */,
 				257CC84327218926009C65D1 /* HomeView.swift in Sources */,
@@ -410,7 +409,7 @@
 				259AD0D3274E490000B697DD /* ColorFormView.swift in Sources */,
 				25E8F23D27218E120009CEB7 /* ProjectViewModel.swift in Sources */,
 				259AD0E5274E4C4600B697DD /* CerradurasFormView.swift in Sources */,
-				257CC828271FE561009C65D1 /* ClientView.swift in Sources */,
+				257CC828271FE561009C65D1 /* ClientEntityView.swift in Sources */,
 				259AD0ED274E4CF200B697DD /* InstalacionFormView.swift in Sources */,
 				25E8F23B27218D510009CEB7 /* ListProjectsView.swift in Sources */,
 				259AD0DB274E49F400B697DD /* CompactoFormView.swift in Sources */,
@@ -422,7 +421,6 @@
 				254093352735A23A00AA07D5 /* String.swift in Sources */,
 				259AD0D9274E495800B697DD /* AperturaFormView.swift in Sources */,
 				259AD0DD274E4A0E00B697DD /* MarcoInferiorFormView.swift in Sources */,
-				254420772746AB8E00CFDDA4 /* ProjectsPreview.swift in Sources */,
 				257CC826271FE561009C65D1 /* FeivanApp.swift in Sources */,
 				25E8F23F272197590009CEB7 /* DebugFile.swift in Sources */,
 			);
@@ -553,6 +551,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Feivan/Preview Content\"";
@@ -560,7 +559,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Feivan/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) photo use";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Feivan photo use";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -572,9 +571,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.javigo.Feivan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -587,6 +587,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Feivan/Preview Content\"";
@@ -594,7 +595,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Feivan/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) photo use";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Feivan photo use";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -606,9 +607,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.javigo.Feivan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -12,7 +12,7 @@ struct ProductMallorquinaView: View {
 
     var body: some View {
     
-        if productVM.showIf(equalTo: ["Persiana"]) {
+        if productVM.showIf(equalTo: ["Persianas"]) {
             NavigationLink(
                 destination: ProductMallorquinaFormView(productVM: productVM),
                 label: {
@@ -43,6 +43,7 @@ struct ProductMallorquinaFormView: View {
                     Picker(atributo, selection: $productVM.persiana) {
                         List(productVM.optionsFor(attribute: atributo), id: \.self) { item in Text(item) }
                     }
+                    .pickerStyle(.wheel)
                 }
                 
                 Toggle("Tubo", isOn: $tubo)

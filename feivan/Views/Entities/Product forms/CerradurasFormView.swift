@@ -38,6 +38,7 @@ struct ProductCerradurasFormView: View {
                     Picker(atributo, selection: $productVM.cerraduras) {
                         List(productVM.optionsFor(attribute: atributo), id: \.self) { item in Text(item) }
                     }
+                    .pickerStyle(.wheel)
                 }
                 
                 Section(header: Text("Otro")) {
