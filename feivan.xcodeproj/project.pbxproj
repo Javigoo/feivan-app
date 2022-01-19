@@ -15,7 +15,7 @@
 		2544199727395B11005290C9 /* NewProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2544199627395B11005290C9 /* NewProjectView.swift */; };
 		254420752746AAEC00CFDDA4 /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254420742746AAEC00CFDDA4 /* ProjectView.swift */; };
 		254420792746C89200CFDDA4 /* CustomEnvironmentProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254420782746C89200CFDDA4 /* CustomEnvironmentProperties.swift */; };
-		25745B69275866460056474E /* createPDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25745B68275866460056474E /* createPDF.swift */; };
+		25745B69275866460056474E /* CreatePDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25745B68275866460056474E /* CreatePDF.swift */; };
 		257CC826271FE561009C65D1 /* FeivanApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257CC825271FE561009C65D1 /* FeivanApp.swift */; };
 		257CC828271FE561009C65D1 /* ClientEntityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257CC827271FE561009C65D1 /* ClientEntityView.swift */; };
 		257CC82F271FE564009C65D1 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257CC82E271FE564009C65D1 /* Persistence.swift */; };
@@ -46,6 +46,9 @@
 		259AD0EF274E4D1100B697DD /* MallorquinaFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0EE274E4D1100B697DD /* MallorquinaFormView.swift */; };
 		259BC28D272862BD00AE3305 /* Json.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259BC28C272862BD00AE3305 /* Json.swift */; };
 		25B790F62722D43000A2F6CD /* ProjectEntityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B790F52722D43000A2F6CD /* ProjectEntityView.swift */; };
+		25C6B6B2276B77B000253C7E /* HeaderPDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6B6B1276B77B000253C7E /* HeaderPDF.swift */; };
+		25C6B6B4276B789A00253C7E /* ProductPDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6B6B3276B789A00253C7E /* ProductPDF.swift */; };
+		25C6B6B6276B799400253C7E /* UtilsPDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6B6B5276B799400253C7E /* UtilsPDF.swift */; };
 		25DBF3452743CBDB001D5FE3 /* MultipleSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DBF3442743CBDB001D5FE3 /* MultipleSelection.swift */; };
 		25E8F23B27218D510009CEB7 /* ListProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E8F23A27218D510009CEB7 /* ListProjectsView.swift */; };
 		25E8F23D27218E120009CEB7 /* ProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E8F23C27218E120009CEB7 /* ProjectViewModel.swift */; };
@@ -68,7 +71,7 @@
 		2544199627395B11005290C9 /* NewProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProjectView.swift; sourceTree = "<group>"; };
 		254420742746AAEC00CFDDA4 /* ProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectView.swift; sourceTree = "<group>"; };
 		254420782746C89200CFDDA4 /* CustomEnvironmentProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEnvironmentProperties.swift; sourceTree = "<group>"; };
-		25745B68275866460056474E /* createPDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = createPDF.swift; sourceTree = "<group>"; };
+		25745B68275866460056474E /* CreatePDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePDF.swift; sourceTree = "<group>"; };
 		257CC822271FE561009C65D1 /* Feivan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Feivan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		257CC825271FE561009C65D1 /* FeivanApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeivanApp.swift; sourceTree = "<group>"; };
 		257CC827271FE561009C65D1 /* ClientEntityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientEntityView.swift; sourceTree = "<group>"; };
@@ -102,6 +105,9 @@
 		259AD0EE274E4D1100B697DD /* MallorquinaFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MallorquinaFormView.swift; sourceTree = "<group>"; };
 		259BC28C272862BD00AE3305 /* Json.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Json.swift; sourceTree = "<group>"; };
 		25B790F52722D43000A2F6CD /* ProjectEntityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectEntityView.swift; sourceTree = "<group>"; };
+		25C6B6B1276B77B000253C7E /* HeaderPDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderPDF.swift; sourceTree = "<group>"; };
+		25C6B6B3276B789A00253C7E /* ProductPDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductPDF.swift; sourceTree = "<group>"; };
+		25C6B6B5276B799400253C7E /* UtilsPDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsPDF.swift; sourceTree = "<group>"; };
 		25DBF3442743CBDB001D5FE3 /* MultipleSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleSelection.swift; sourceTree = "<group>"; };
 		25E8F23A27218D510009CEB7 /* ListProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListProjectsView.swift; sourceTree = "<group>"; };
 		25E8F23C27218E120009CEB7 /* ProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewModel.swift; sourceTree = "<group>"; };
@@ -142,7 +148,7 @@
 		2544206D2746A5BC00CFDDA4 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				25745B68275866460056474E /* createPDF.swift */,
+				25C6B6B0276B75E000253C7E /* PDF */,
 				259BC28C272862BD00AE3305 /* Json.swift */,
 				25DBF3442743CBDB001D5FE3 /* MultipleSelection.swift */,
 				254093342735A23A00AA07D5 /* String.swift */,
@@ -306,6 +312,17 @@
 			path = "Product forms";
 			sourceTree = "<group>";
 		};
+		25C6B6B0276B75E000253C7E /* PDF */ = {
+			isa = PBXGroup;
+			children = (
+				25745B68275866460056474E /* CreatePDF.swift */,
+				25C6B6B1276B77B000253C7E /* HeaderPDF.swift */,
+				25C6B6B3276B789A00253C7E /* ProductPDF.swift */,
+				25C6B6B5276B799400253C7E /* UtilsPDF.swift */,
+			);
+			path = PDF;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -334,7 +351,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1300;
-				LastUpgradeCheck = 1300;
+				LastUpgradeCheck = 1320;
 				TargetAttributes = {
 					257CC821271FE561009C65D1 = {
 						CreatedOnToolsVersion = 13.0;
@@ -384,7 +401,7 @@
 				252577862732BC0700252690 /* Styles.swift in Sources */,
 				25B790F62722D43000A2F6CD /* ProjectEntityView.swift in Sources */,
 				25ECB4D4276653040066F67C /* examplePDF.swift in Sources */,
-				25745B69275866460056474E /* createPDF.swift in Sources */,
+				25745B69275866460056474E /* CreatePDF.swift in Sources */,
 				259AD0D5274E491B00B697DD /* TapajuntasFormView.swift in Sources */,
 				259AD0CF274E482800B697DD /* MaterialFormView.swift in Sources */,
 				259AD0E1274E4A4B00B697DD /* ForroExteriorFormView.swift in Sources */,
@@ -394,12 +411,14 @@
 				257CC83C271FE937009C65D1 /* ClientViewModel.swift in Sources */,
 				259AD0CD274E480A00B697DD /* NombreFormView.swift in Sources */,
 				25DBF3452743CBDB001D5FE3 /* MultipleSelection.swift in Sources */,
+				25C6B6B2276B77B000253C7E /* HeaderPDF.swift in Sources */,
 				259AD0C8274E466A00B697DD /* NewSummaryView.swift in Sources */,
 				259AD0C4274E45EC00B697DD /* NewClientView.swift in Sources */,
 				254420752746AAEC00CFDDA4 /* ProjectView.swift in Sources */,
 				259BC28D272862BD00AE3305 /* Json.swift in Sources */,
 				252DC7B127248635005F3489 /* ProductEntityView.swift in Sources */,
 				259AD0EF274E4D1100B697DD /* MallorquinaFormView.swift in Sources */,
+				25C6B6B6276B799400253C7E /* UtilsPDF.swift in Sources */,
 				259AD0E9274E4CB900B697DD /* HerrajeFormView.swift in Sources */,
 				257CC84327218926009C65D1 /* HomeView.swift in Sources */,
 				252A89BC275AA91200BCA7AF /* FotoFormView.swift in Sources */,
@@ -412,6 +431,7 @@
 				257CC828271FE561009C65D1 /* ClientEntityView.swift in Sources */,
 				259AD0ED274E4CF200B697DD /* InstalacionFormView.swift in Sources */,
 				25E8F23B27218D510009CEB7 /* ListProjectsView.swift in Sources */,
+				25C6B6B4276B789A00253C7E /* ProductPDF.swift in Sources */,
 				259AD0DB274E49F400B697DD /* CompactoFormView.swift in Sources */,
 				2544199727395B11005290C9 /* NewProjectView.swift in Sources */,
 				254420792746C89200CFDDA4 /* CustomEnvironmentProperties.swift in Sources */,
@@ -433,6 +453,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -494,6 +515,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
