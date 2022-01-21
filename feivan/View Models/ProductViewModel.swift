@@ -196,11 +196,13 @@ class ProductViewModel: ObservableObject {
             case "Instalación":
                 return instalacion
             case "Remates albañilería":
-                return String(remates_albanileria)
+                return remates_albanileria ? "Sí" : "No"
             case "Medidas no buenas":
-                return String(medidas_no_buenas)
+                return medidas_no_buenas ? "Sí" : "No"
             case "Persiana":
                 return persiana
+            case "Unidades":
+                return String(unidades)
             default:
                 print("Error getting \(attribute), \"\(attribute)\" not found")
         }

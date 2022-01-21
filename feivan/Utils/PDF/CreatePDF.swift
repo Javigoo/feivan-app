@@ -24,12 +24,7 @@ func createPDF(projectData: ProjectViewModel) -> Data {
     let pageRect = CGRect(x: 0, y: 0, width: pageWidth, height: pageHeight)
     let renderer = UIGraphicsPDFRenderer(bounds: pageRect, format: format)
     
-    
-
-    
     let shared = PDFData(project: projectData)
-    
-    
     let data = renderer.pdfData { (context) in
     
         context.beginPage() // Crea una nueva página
@@ -76,31 +71,30 @@ func createPDF(projectData: ProjectViewModel) -> Data {
         let products = shared.project.getProducts()
         
         for (n, product) in products.enumerated() {
-            if products.count == 1 {
+            if products.count == 1 {    // Solo 1 producto en toda la página porque es el único
                 addProductAllPage(shared: shared, page: page_data, context: context.cgContext, product: product)
-            } else if n+1 == products.count {
-                addProductAllPage(shared: shared, page: page_with_margins, context: context.cgContext, product: product)
-            } else {
-                addProductAllPage(shared: shared, page: page_data, context: context.cgContext, product: product)
-                context.beginPage()
-            }
-        }
-        /*
-        for (n, product) in products.enumerated() {
-            if (n+1) % 2 != 0 { // Es impar?
-                if (n+1) == products.count { // Es el último?
-                    addProductAllPage(shared: shared, page: page_data, context: context.cgContext, product: product)
+            } else if n+1 == products.count {   // Último producto
+                if (n+1) % 2 != 0 {
+                    addProductAllPage(shared: shared, page: page_with_margins, context: context.cgContext, product: product)
                 } else {
-                    //addProductTopPage(shared: shared, product: product)
+                    addBottomProduct(shared: shared, page: page_with_margins, context: context.cgContext, product: product)
                 }
-            } else {
-                //addProductBottomPage(shared: shared, product: product)
-                if (n+1) == products.count {
-                    // newPage()
+            } else if n == 0 { // 2 productos por página con header porque es el primero
+                if (n+1) % 2 != 0 { // es impar
+                    addTopProduct(shared: shared, page: page_data, context: context.cgContext, product: product)
+                } else {
+                    addBottomProduct(shared: shared, page: page_data, context: context.cgContext, product: product)
+                    context.beginPage()
+                }
+            } else {    // 2 productos por página
+                if (n+1) % 2 != 0 { // es impar
+                    addTopProduct(shared: shared, page: page_with_margins, context: context.cgContext, product: product)
+                } else {
+                    addBottomProduct(shared: shared, page: page_with_margins, context: context.cgContext, product: product)
+                    context.beginPage()
                 }
             }
         }
-         */
     }
     
     return data

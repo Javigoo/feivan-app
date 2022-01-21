@@ -7,6 +7,69 @@
 
 import SwiftUI
 
+//let available_size = CGSize(width: page.width, height: page.height)
+//let used_space = attributes_text.boundingRect(with: available_size, options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
+
+func addBottomProduct(shared: PDFData, page: CGRect, context: CGContext, product: Producto) {
+    let product = ProductViewModel(product: product)
+    
+    let page_image = CGRect(
+        x: page.origin.x,
+        y: page.origin.y + (page.height / 2) + shared.half_padding,
+        width: (page.width / 3) - shared.half_padding,
+        height: (page.height / 2) - shared.half_padding
+    )
+
+    let page_foto = CGRect(
+        x: page_image.origin.x + page_image.width + shared.half_padding,
+        y: page.origin.y + (page.height / 2) + shared.half_padding,
+        width: (page.width / 3) - shared.half_padding,
+        height: (page.height / 2) - shared.half_padding
+    )
+    
+    let page_data = CGRect(
+        x: page_foto.origin.x + page_foto.width + shared.half_padding,
+        y: page.origin.y + (page.height / 2) + shared.half_padding,
+        width: (page.width / 3),
+        height: (page.height / 2) - shared.half_padding
+    )
+    
+    addProductImage(shared: shared, page: page_image, product: product)
+    addProductPhoto(shared: shared, page: page_foto, product: product)
+    addProductData(shared: shared, page: page_data, context: context, product: product)
+    
+}
+
+func addTopProduct(shared: PDFData, page: CGRect, context: CGContext, product: Producto) {
+    let product = ProductViewModel(product: product)
+    
+    let page_image = CGRect(
+        x: page.origin.x,
+        y: page.origin.y,
+        width: (page.width / 3) - shared.half_padding,
+        height: (page.height / 2) - shared.half_padding
+    )
+
+    let page_foto = CGRect(
+        x: page_image.origin.x + page_image.width + shared.half_padding,
+        y: page.origin.y,
+        width: (page.width / 3) - shared.half_padding,
+        height: (page.height / 2) - shared.half_padding
+    )
+    
+    let page_data = CGRect(
+        x: page_foto.origin.x + page_foto.width + shared.half_padding,
+        y: page.origin.y,
+        width: (page.width / 3),
+        height: (page.height / 2) - shared.half_padding
+    )
+    
+    addProductImage(shared: shared, page: page_image, product: product)
+    addProductPhoto(shared: shared, page: page_foto, product: product)
+    addProductData(shared: shared, page: page_data, context: context, product: product)
+    
+}
+
 func addProductAllPage(shared: PDFData, page: CGRect, context: CGContext, product: Producto) {
     let product = ProductViewModel(product: product)
     
@@ -107,30 +170,8 @@ func addProductPhoto(shared: PDFData, page: CGRect, product: ProductViewModel) {
 }
 
 func addProductData(shared: PDFData, page: CGRect, context: CGContext, product: ProductViewModel) {
-    /*
-     // Value
-     let textFont = getTextFont(string: text, font: shared.font_size, width: width, height: height)
-
-     let attributedText = NSAttributedString(
-                             string: text,
-                             attributes: [
-                                 NSAttributedString.Key.paragraphStyle: shared.paragraph_style,
-                                 NSAttributedString.Key.font: textFont
-                             ]
-                         )
-     
-     let textRect = CGRect(
-                         x: textTitleRect.minX + textTitleRect.width ,
-                         y: height,
-                         width: width,
-                         height: page.height
-                     )
-     
-     attributedText.draw(in: textRect)
-     */
-    // Titulo
-    let atributos = ["Curvas", "Material", "Color", "Tapajuntas", "Dimensiones", "Apertura", "Compacto", "Marco inferior", "Huella", "Forro exterior", "Cristal", "Cerraduras", "Manetas", "Herraje", "Posición", "Instalación", "Remates albañilería", "Medidas no buenas", "Persiana"]
     
+    let atributos = ["Unidades", "Curvas", "Material", "Color", "Tapajuntas", "Dimensiones", "Apertura", "Compacto", "Marco inferior", "Huella", "Forro exterior", "Cristal", "Cerraduras", "Manetas", "Herraje", "Posición", "Instalación", "Remates albañilería", "Medidas no buenas", "Persiana"]
     var resultado_atributos: String = ""
     for atributo_to_print in atributos {
         let lineas_atributo = product.get(attribute: atributo_to_print).split(separator: "\n").count
@@ -139,42 +180,74 @@ func addProductData(shared: PDFData, page: CGRect, context: CGContext, product: 
         }
     }
     
-    let fontSize = getTextFont(string: resultado_atributos, font: shared.font_size, width: page.width, height: page.height)
-
-    var textFont = UIFont.systemFont(ofSize: fontSize, weight: .bold)
-    var text_attributes = [
-        NSAttributedString.Key.paragraphStyle: shared.paragraph_style,
-        NSAttributedString.Key.font: textFont
-        ]
-    
-    var attributedText = NSAttributedString(string: resultado_atributos, attributes: text_attributes)
-    attributedText.draw(in: page)
-    
-    // Datos
-    textFont = UIFont.systemFont(ofSize: fontSize, weight: .regular)
-    let paragraphStyle = NSMutableParagraphStyle()
-    paragraphStyle.alignment = .right
-    paragraphStyle.lineBreakMode = .byWordWrapping
-    text_attributes = [
-        NSAttributedString.Key.paragraphStyle: paragraphStyle,
-        NSAttributedString.Key.font: textFont
-    ]
-    
-    resultado_atributos = ""
+    var resultado_valores = ""
     for atributo_to_print in atributos {
         let lineas = product.get(attribute: atributo_to_print).split(separator: "\n")
         let lineas_atributo = lineas.count
         if lineas_atributo != 0 {
             for value in lineas{
-                resultado_atributos += "\(value)\n"
+                resultado_valores += "\(value)\n"
             }
-            resultado_atributos += "\n"
+            resultado_valores += "\n"
         }
     }
+    
+    let attributes_page = CGRect(x: page.origin.x,
+                             y: page.origin.y,
+                             width: page.width * 0.4,
+                             height: page.height
+                        )
+    let values_page = CGRect(x: page.origin.x + attributes_page.width,
+                             y: page.origin.y,
+                             width: page.width - attributes_page.width,
+                             height: page.height
+                        )
+    
+    let attributes_font_size = getTextFont(string: resultado_atributos, font: shared.font_size, width: attributes_page.width, height: attributes_page.height)
+    let values_font_size = getTextFont(string: resultado_valores, font: shared.font_size, width: values_page.width, height: values_page.height)
+    let fontSize = min(attributes_font_size, values_font_size)
+    
+    //let attributes_max_lenght = get_max_lenght(text: resultado_atributos)
+    
+    var textFont = UIFont.systemFont(ofSize: fontSize, weight: .bold)
+    let text_attributes = [
+        NSAttributedString.Key.paragraphStyle: shared.paragraph_style,
+        NSAttributedString.Key.font: textFont
+        ]
+    
+    textFont = UIFont.systemFont(ofSize: fontSize, weight: .regular)
+    let paragraphStyle = NSMutableParagraphStyle()
+    paragraphStyle.alignment = .right
+    paragraphStyle.lineBreakMode = .byWordWrapping
+    let text_values = [
+        NSAttributedString.Key.paragraphStyle: paragraphStyle,
+        NSAttributedString.Key.font: textFont
+    ]
+    
+    
+    let attributes_text = NSAttributedString(string: resultado_atributos, attributes: text_attributes)
+    attributes_text.draw(in: attributes_page)
 
-    attributedText = NSAttributedString(string: resultado_atributos, attributes: text_attributes)
-    attributedText.draw(in: page)
+    //let paragraphSize = CGSize(width: page.width, height: page.height)
+    //let paragraphRect = attributes_text.boundingRect(with: paragraphSize, options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
+    //print("max width: ", page.width)
+    //print("needed width: ", paragraphRect.width)
+        
+    let values_text = NSAttributedString(string: resultado_valores, attributes: text_values)
+    values_text.draw(in: values_page)
 
+}
+
+func get_max_lenght(text: String) -> Int {
+    let lines = text.split(separator: "\n")
+    var max_lenght = 0
+    for line in lines {
+        if line.count > max_lenght {
+            print("new max lenght line: ", line, line.count)
+            max_lenght = line.count
+        }
+    }
+    return max_lenght
 }
 
 func addProductTopPage(shared: PDFData, product: Producto) {
