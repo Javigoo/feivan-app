@@ -10,6 +10,9 @@ import SwiftUI
 
 func createPDF(projectData: ProjectViewModel) -> Data {
     
+    //let black: UIImage = UIImage(named: "black")!
+    //black.draw(in: page_with_margins)
+    
     // Pdf metadata
     let pdfMetaData = [
         kCGPDFContextCreator: "FEIVAN",
@@ -35,8 +38,6 @@ func createPDF(projectData: ProjectViewModel) -> Data {
             width: pageWidth - (shared.padding * 2),
             height: pageHeight - (shared.padding * 2)
         )
-        //let black: UIImage = UIImage(named: "black")!
-        //black.draw(in: page_with_margins)
         
         let page_header = CGRect(
             x: page_with_margins.origin.x,
@@ -44,24 +45,16 @@ func createPDF(projectData: ProjectViewModel) -> Data {
             width: page_with_margins.width,
             height: page_with_margins.height * 0.1
         )
-        
-        let page_anotations = CGRect(
-            x: page_header.origin.x,
-            y: page_header.origin.y + page_header.height + shared.half_padding,
-            width: page_with_margins.width,
-            height: page_with_margins.height * 0.025
-        )
 
         let page_data = CGRect(
-            x: page_anotations.origin.x,
-            y: page_anotations.origin.y + page_anotations.height + shared.padding,
+            x: page_header.origin.x,
+            y: page_header.origin.y + page_header.height + shared.padding,
             width: page_with_margins.width,
-            height: page_with_margins.height - page_anotations.origin.y + page_anotations.height - shared.padding * 4
+            height: page_with_margins.height - page_header.height - shared.padding //+ page_header.height - shared.padding * 4
         )
-        
-        
-        addHeader(shared: shared, page: page_header)
 
+        addHeader(shared: shared, page: page_header)
+        
         /**
          Si solo hay un producto se dibuja en toda la página
          Si hay más de uno se dibujan los impares arriba y los pares abajo
@@ -69,29 +62,44 @@ func createPDF(projectData: ProjectViewModel) -> Data {
          Si el producto es par y no es el último se crea otra página
          **/
         let products = shared.project.getProducts()
-        
         for (n, product) in products.enumerated() {
-            if products.count == 1 {    // Solo 1 producto en toda la página porque es el único
-                addProductAllPage(shared: shared, page: page_data, context: context.cgContext, product: product)
-            } else if n+1 == products.count {   // Último producto
-                if (n+1) % 2 != 0 {
-                    addProductAllPage(shared: shared, page: page_with_margins, context: context.cgContext, product: product)
+            if (n+1) % 2 != 0 { // Es impar
+                if n <= 1 { // Primera pagina con header
+                    if n+1 == products.count { // Ultimo 
+                        print("toda la pagina con header")
+                        addProductAllPage(shared: shared, page: page_data, context: context.cgContext, product: product)
+                    } else {
+                        print("top con header")
+                        addTopProduct(shared: shared, page: page_data, context: context.cgContext, product: product)
+                    }
                 } else {
-                    addBottomProduct(shared: shared, page: page_with_margins, context: context.cgContext, product: product)
+                    if n+1 == products.count { // Ultimo
+                        print("toda la pagina")
+                        addProductAllPage(shared: shared, page: page_with_margins, context: context.cgContext, product: product)
+                    } else {
+                        print("top")
+                        addTopProduct(shared: shared, page: page_with_margins, context: context.cgContext, product: product)
+                    }
                 }
-            } else if n == 0 { // 2 productos por página con header porque es el primero
-                if (n+1) % 2 != 0 { // es impar
-                    addTopProduct(shared: shared, page: page_data, context: context.cgContext, product: product)
+            } else { // Es par
+                if n <= 1 { // Primera pagina
+                    if n+1 == products.count { // Ultimo
+                        print("bottom con header")
+                        addBottomProduct(shared: shared, page: page_data, context: context.cgContext, product: product)
+                    } else {
+                        print("bottom con header")
+                        addBottomProduct(shared: shared, page: page_data, context: context.cgContext, product: product)
+                        context.beginPage()
+                    }
                 } else {
-                    addBottomProduct(shared: shared, page: page_data, context: context.cgContext, product: product)
-                    context.beginPage()
-                }
-            } else {    // 2 productos por página
-                if (n+1) % 2 != 0 { // es impar
-                    addTopProduct(shared: shared, page: page_with_margins, context: context.cgContext, product: product)
-                } else {
-                    addBottomProduct(shared: shared, page: page_with_margins, context: context.cgContext, product: product)
-                    context.beginPage()
+                    if n+1 == products.count { // Ultimo
+                        print("bottom")
+                        addBottomProduct(shared: shared, page: page_with_margins, context: context.cgContext, product: product)
+                    } else {
+                        print("bottom")
+                        addBottomProduct(shared: shared, page: page_with_margins, context: context.cgContext, product: product)
+                        context.beginPage()
+                    }
                 }
             }
         }

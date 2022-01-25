@@ -19,7 +19,6 @@ func getDocumentsDirectory() -> NSString {
 }
 
 extension Data {
-
     /// Data into file
     ///
     /// - Parameters:

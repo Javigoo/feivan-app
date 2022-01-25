@@ -9,6 +9,9 @@ import SwiftUI
 
 //let available_size = CGSize(width: page.width, height: page.height)
 //let used_space = attributes_text.boundingRect(with: available_size, options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
+let black: UIImage = UIImage(named: "black")!
+let green: UIImage = UIImage(named: "green")!
+let purple: UIImage = UIImage(named: "purple")!
 
 func addBottomProduct(shared: PDFData, page: CGRect, context: CGContext, product: Producto) {
     let product = ProductViewModel(product: product)
@@ -33,6 +36,10 @@ func addBottomProduct(shared: PDFData, page: CGRect, context: CGContext, product
         width: (page.width / 3),
         height: (page.height / 2) - shared.half_padding
     )
+    
+//    black.draw(in: page_image)
+//    green.draw(in: page_foto)
+//    purple.draw(in: page_data)
     
     addProductImage(shared: shared, page: page_image, product: product)
     addProductPhoto(shared: shared, page: page_foto, product: product)
@@ -64,6 +71,10 @@ func addTopProduct(shared: PDFData, page: CGRect, context: CGContext, product: P
         height: (page.height / 2) - shared.half_padding
     )
     
+//    black.draw(in: page_image)
+//    green.draw(in: page_foto)
+//    purple.draw(in: page_data)
+    
     addProductImage(shared: shared, page: page_image, product: product)
     addProductPhoto(shared: shared, page: page_foto, product: product)
     addProductData(shared: shared, page: page_data, context: context, product: product)
@@ -93,6 +104,10 @@ func addProductAllPage(shared: PDFData, page: CGRect, context: CGContext, produc
         width: (page.width / 2) - shared.half_padding,
         height: page.height
     )
+    
+//    black.draw(in: page_image)
+//    green.draw(in: page_foto)
+//    purple.draw(in: page_data)
     
     addProductImage(shared: shared, page: page_image, product: product)
     addProductPhoto(shared: shared, page: page_foto, product: product)
