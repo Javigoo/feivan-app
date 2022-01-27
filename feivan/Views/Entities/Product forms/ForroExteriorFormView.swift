@@ -9,12 +9,13 @@ import SwiftUI
 
 struct ProductForroExteriorView: View {
     @ObservedObject var productVM: ProductViewModel
+    @State var tabSelection: Int = 9
 
     var body: some View {
     
         if productVM.notShowIf(familias: ["Persiana"]) {
             NavigationLink(
-                destination: ProductForroExteriorFormView(productVM: productVM),
+                destination: ProductConfigurationTabView(tabSelection: tabSelection, productVM: productVM),
                 label: {
                     HStack {
                         Text("Forro exterior")

@@ -9,11 +9,12 @@ import SwiftUI
 
 struct ProductCompactoView: View {
     @ObservedObject var productVM: ProductViewModel
+    @State var tabSelection: Int = 7
 
     var body: some View {
         if productVM.showIf(equalTo: ["Correderas", "Practicables"]) {
             NavigationLink(
-                destination: ProductCompactoFormView(productVM: productVM),
+                destination: ProductConfigurationTabView(tabSelection: tabSelection, productVM: productVM),
                 label: {
                     HStack {
                         Text("Compacto")

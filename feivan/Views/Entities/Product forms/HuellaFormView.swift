@@ -9,11 +9,12 @@ import SwiftUI
 
 struct ProductHuellaView: View {
     @ObservedObject var productVM: ProductViewModel
+    @State var tabSelection: Int = 8
 
     var body: some View {
     
         NavigationLink(
-            destination: ProductHuellaFormView(productVM: productVM),
+            destination: ProductConfigurationTabView(tabSelection: tabSelection, productVM: productVM),
             label: {
                 HStack {
                     Text("Huella")

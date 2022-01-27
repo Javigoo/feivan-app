@@ -9,12 +9,13 @@ import SwiftUI
 
 struct ProductCurvasView: View {
     @ObservedObject var productVM: ProductViewModel
+    @State var tabSelection: Int = 1
 
     var body: some View {
     
         if productVM.showIf(equalTo: ["Curvas"]) {
             NavigationLink(
-                destination: ProductCurvasFormView(productVM: productVM),
+                destination: ProductConfigurationTabView(tabSelection: tabSelection, productVM: productVM),
                 label: {
                     HStack {
                         Text("Curva")

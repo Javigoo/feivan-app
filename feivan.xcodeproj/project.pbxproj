@@ -291,8 +291,8 @@
 			children = (
 				259AD0CA274E47C900B697DD /* FamiliaFormView.swift */,
 				259AD0CC274E480A00B697DD /* NombreFormView.swift */,
-				259AD0CE274E482800B697DD /* MaterialFormView.swift */,
 				259AD0D0274E48B600B697DD /* CurvasFormView.swift */,
+				259AD0CE274E482800B697DD /* MaterialFormView.swift */,
 				259AD0D2274E490000B697DD /* ColorFormView.swift */,
 				259AD0D4274E491B00B697DD /* TapajuntasFormView.swift */,
 				259AD0D6274E493E00B697DD /* DimensionesFormView.swift */,

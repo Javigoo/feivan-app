@@ -9,11 +9,11 @@ import SwiftUI
 
 struct ProductCerradurasView: View {
     @ObservedObject var productVM: ProductViewModel
+    @State var tabSelection: Int = 11
 
-    var body: some View {
-    
+    var body: some View {    
         NavigationLink(
-            destination: ProductCerradurasFormView(productVM: productVM),
+            destination: ProductConfigurationTabView(tabSelection: tabSelection, productVM: productVM),
             label: {
                 HStack {
                     Text("Cerraduras")

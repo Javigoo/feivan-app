@@ -9,11 +9,11 @@ import SwiftUI
 
 struct ProductTapajuntasView: View {
     @ObservedObject var productVM: ProductViewModel
+    @State var tabSelection: Int = 4
 
     var body: some View {
-    
         NavigationLink(
-            destination: ProductTapajuntasFormView(productVM: productVM),
+            destination: ProductConfigurationTabView(tabSelection: tabSelection, productVM: productVM),
             label: {
                 HStack {
                     Text("Tapajuntas")

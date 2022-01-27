@@ -9,11 +9,11 @@ import SwiftUI
 
 struct ProductColorView: View {
     @ObservedObject var productVM: ProductViewModel
+    @State var tabSelection: Int = 3
 
     var body: some View {
-    
         NavigationLink(
-            destination: ProductColorFormView(productVM: productVM),
+            destination: ProductConfigurationTabView(tabSelection: tabSelection, productVM: productVM),
             label: {
                 HStack {
                     Text("Color")

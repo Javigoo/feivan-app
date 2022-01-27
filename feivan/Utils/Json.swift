@@ -20,7 +20,6 @@ struct Elemento: Codable {
 }
 
 func hierarchy() -> Hierarchy {
-    print("hierarchy")
     let url = Bundle.main.url(forResource: "Hierarchy", withExtension: "json")!
     let data = try! Data(contentsOf: url)
     let decoder = JSONDecoder()
