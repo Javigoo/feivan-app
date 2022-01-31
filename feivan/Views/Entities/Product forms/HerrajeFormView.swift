@@ -70,48 +70,54 @@ struct ProductHerrajeFormView: View {
         .navigationTitle(atributo)
         .toolbar {
             Button("Guardar") {
-                var resultado: [String] = []
-
-                if bisagras_seguridad {
-                    resultado.append("Bisagras seguridad")
-                }
-                if bisagras_ocultas {
-                    resultado.append("Bisagras ocultas")
-                }
-                if cierre_clip_unero {
-                    resultado.append("Cierre clip + uñero")
-                }
-                if muelle {
-                    resultado.append("Muelle")
-                }
-                if cerradura_electronica {
-                    resultado.append("Cerradura electrónica")
-                }
-                if tirador_exterior {
-                    resultado.append("Tirador exterior")
-                }
-                if tirador_exterior_interior {
-                    resultado.append("Tirador exterior/interior")
-                }
-                if pasadores_resaltados {
-                    resultado.append("Pasadores resaltados")
-                }
-                
-                productVM.herraje = resultado.joined(separator: "\n")
-                
-                if productVM.otro != "" {
-                    productVM.herraje = productVM.otro
-                    productVM.otro = ""
-                }
-                
-                if productVM.anotacion != "" {
-                    productVM.herraje = productVM.herraje + " (\(productVM.anotacion))"
-                    productVM.anotacion = ""
-                }
-                
-                productVM.save()
+                save()
                 presentationMode.wrappedValue.dismiss()
             }
+        }.onDisappear {
+            save()
         }
+    }
+    
+    func save() {
+        var resultado: [String] = []
+
+        if bisagras_seguridad {
+            resultado.append("Bisagras seguridad")
+        }
+        if bisagras_ocultas {
+            resultado.append("Bisagras ocultas")
+        }
+        if cierre_clip_unero {
+            resultado.append("Cierre clip + uñero")
+        }
+        if muelle {
+            resultado.append("Muelle")
+        }
+        if cerradura_electronica {
+            resultado.append("Cerradura electrónica")
+        }
+        if tirador_exterior {
+            resultado.append("Tirador exterior")
+        }
+        if tirador_exterior_interior {
+            resultado.append("Tirador exterior/interior")
+        }
+        if pasadores_resaltados {
+            resultado.append("Pasadores resaltados")
+        }
+        
+        productVM.herraje = resultado.joined(separator: "\n")
+        
+        if productVM.otro != "" {
+            productVM.herraje = productVM.otro
+            productVM.otro = ""
+        }
+        
+        if productVM.anotacion != "" {
+            productVM.herraje = productVM.herraje + " (\(productVM.anotacion))"
+            productVM.anotacion = ""
+        }
+        
+        productVM.save()
     }
 }

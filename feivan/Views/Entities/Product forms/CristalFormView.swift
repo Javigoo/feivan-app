@@ -98,50 +98,55 @@ struct ProductCristalFormView: View {
         .navigationTitle(atributo)
         .toolbar {
             Button("Guardar") {
-                
-                var resultado: [String] = []
-
-                if opcion == "Cámaras" {
-                    resultado.append("Cámaras: \(camaras)")
-                }
-                
-                if opcion == "Seguridad" {
-                    resultado.append("Seguridad: \(seguridad)")
-                }
-                
-                if tonalidad != "" {
-                    resultado.append("Tonalidad: \(tonalidad)")
-                }
-                
-                if silence || acustico || templado {
-                    resultado.append("Composición:")
-                    
-                    if silence {
-                        resultado.append("Silence")
-                    }
-                    if acustico {
-                        resultado.append("Guardian sun")
-                    }
-                    if templado {
-                        resultado.append("Templado")
-                    }
-                }
-                    
-                productVM.cristal = resultado.joined(separator: "\n")
-
-                if productVM.otro != "" {
-                    productVM.cristal = productVM.otro
-                    productVM.otro = ""
-                }
-                
-                if productVM.anotacion != "" {
-                    productVM.cristal = productVM.cristal + " (\(productVM.anotacion))"
-                    productVM.anotacion = ""
-                }
-                
-                productVM.save()
+                save()
                 presentationMode.wrappedValue.dismiss()
             }
+        }.onDisappear {
+            save()
         }
+    }
+    
+    func save() {
+        var resultado: [String] = []
+
+        if opcion == "Cámaras" {
+            resultado.append("Cámaras: \(camaras)")
+        }
+        
+        if opcion == "Seguridad" {
+            resultado.append("Seguridad: \(seguridad)")
+        }
+        
+        if tonalidad != "" {
+            resultado.append("Tonalidad: \(tonalidad)")
+        }
+        
+        if silence || acustico || templado {
+            resultado.append("Composición:")
+            
+            if silence {
+                resultado.append("Silence")
+            }
+            if acustico {
+                resultado.append("Guardian sun")
+            }
+            if templado {
+                resultado.append("Templado")
+            }
+        }
+            
+        productVM.cristal = resultado.joined(separator: "\n")
+
+        if productVM.otro != "" {
+            productVM.cristal = productVM.otro
+            productVM.otro = ""
+        }
+        
+        if productVM.anotacion != "" {
+            productVM.cristal = productVM.cristal + " (\(productVM.anotacion))"
+            productVM.anotacion = ""
+        }
+        
+        productVM.save()
     }
 }

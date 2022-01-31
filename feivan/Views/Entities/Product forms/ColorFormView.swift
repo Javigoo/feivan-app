@@ -31,6 +31,7 @@ struct ProductColorFormView: View {
     @ObservedObject var productVM: ProductViewModel
     
     @State var opcion: String = "Más utilizados"
+    @State var tono: String = ""
     @State var color: String = ""
     @State var bicolor: Bool = false
     @State var exterior: String = ""
@@ -40,6 +41,8 @@ struct ProductColorFormView: View {
     @State var liso: Bool = false
     @State var herrajes: Bool = false
     @State var anotacion: String = ""
+
+    @State var tonos_ral: [String] = ["Amarillos", "Naranjas", "Rojos", "Violetas", "Azules", "Verdes", "Grises", "Marrones", "Blancos y negros"]
 
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
@@ -54,25 +57,49 @@ struct ProductColorFormView: View {
                 }
                 
                 if opcion == "Ral" {
-                    Section(header: Text("Color")) {
-                        /*
-                        ForEach(productVM.getRalCodes(), id: \.self) { code in
-                            let red = productVM.getRalColor(code: code, color: "r")/255
-                            let green = productVM.getRalColor(code: code, color: "g")/255
-                            let blue = productVM.getRalColor(code: code, color: "b")/255
-
-                            HStack {
-                                Text(code + ": " + String(red) + String(green) + String(blue))
-                                Rectangle()
-                                    .fill(Color(red: red, green: green, blue: blue))
-                                    .frame(width: 20, height: 20)
-                            }
-                           
+                    Section(header: Text("Color ")) {
+                        
+                        Picker("Tonos", selection: $tono) {
+                            List(tonos_ral, id: \.self) { item in Text(item) }
                         }
-                        */
-                        TextField("Ral", text: $color)
+                        
+                        let tone_code = productVM.getToneCode(tone: tono)
+                        
+                        ForEach(productVM.getRalCodes(), id: \.self) { code in
+                            
+                            let ral_code = productVM.getRalCode(ral: code)
+                            if tone_code == ral_code {
+                            
+                                let red = productVM.getRalColor(code: code, color: "r")/255
+                                let green = productVM.getRalColor(code: code, color: "g")/255
+                                let blue = productVM.getRalColor(code: code, color: "b")/255
+                                ZStack {
+                                    HStack {
+                                        Text("\(code)")
+                                        Spacer()
+                                        Text("\(productVM.getRalName(code: code))")
+                                        Spacer()
+                                        Rectangle()
+                                            .fill(Color(red: red, green: green, blue: blue))
+                                            .frame(width: 50, height: 50)
+                                    }.onTapGesture(perform: {
+                                        color = "Ral \(code)"
+                                    })
+                                    
+                                    if color == "Ral \(code)" {
+                                        HStack {
+                                            Spacer()
+                                            Rectangle()
+                                                .stroke(Color.red, lineWidth: 5)
+                                                .frame(width: 50, height: 50)
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
+    
                 if opcion == "Anonizados" {
                     Section(header: Text("Color")) {
                         Picker("Anonizado", selection: $color) {
@@ -214,53 +241,58 @@ struct ProductColorFormView: View {
             }
         }.toolbar {
             Button("Guardar") {
-                
-                var resultado: [String] = []
-
-                if color != "" {
-                    resultado.append(color)
-                }
-                
-                if bicolor {
-                    if exterior != "" {
-                        resultado.append("Exterior: \(exterior)")
-                    }
-                    if interior != "" {
-                        resultado.append("Interior: \(interior)")
-                    }
-                }
-                
-                if texturado {
-                    resultado.append("Acabado: Texturado")
-                }
-                
-                if mate {
-                    resultado.append("Acabado: Mate")
-                }
-                
-                if liso {
-                    resultado.append("Acabado: Liso")
-                }
-                
-                if herrajes {
-                    resultado.append("Herrajes: Mismo color")
-                }
-                
-                productVM.color = resultado.joined(separator: "\n")
-                
-                if anotacion != "" {
-                    productVM.color += "\n(\(anotacion))"
-                }
-                
-                productVM.save()
+                save()
                 presentationMode.wrappedValue.dismiss()
             }
+        }.onDisappear {
+            save()
         }
     }
     
     func setBicolor() {
         exterior = color
         interior = color
+    }
+    
+    func save() {
+        var resultado: [String] = []
+
+        if color != "" {
+            resultado.append(color)
+        }
+        
+        if bicolor {
+            if exterior != "" {
+                resultado.append("Exterior: \(exterior)")
+            }
+            if interior != "" {
+                resultado.append("Interior: \(interior)")
+            }
+        }
+        
+        if texturado {
+            resultado.append("Acabado: Texturado")
+        }
+        
+        if mate {
+            resultado.append("Acabado: Mate")
+        }
+        
+        if liso {
+            resultado.append("Acabado: Liso")
+        }
+        
+        if herrajes {
+            resultado.append("Herrajes: Mismo color")
+        }
+        
+        productVM.color = resultado.joined(separator: "\n")
+        
+        if anotacion != "" {
+            productVM.color += "\n(\(anotacion))"
+        }
+        
+        productVM.save()
     }
     
 }

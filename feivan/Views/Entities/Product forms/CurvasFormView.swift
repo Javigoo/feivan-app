@@ -67,29 +67,34 @@ struct ProductCurvasFormView: View {
             }
         }.toolbar {
             Button("Guardar") {
-                var resultado: [String] = []
-                
-                if valor != "" {
-                    resultado.append(valor)
-                }
-                
-                if anotacion != "" {
-                    resultado.append("(\(anotacion))")
-                }
-                
-                productVM.curvas = resultado.joined(separator: "\n")
-                
-                if otro != "" {
-                    productVM.curvas = "\""+otro+"\""
-                    if anotacion != "" {
-                        productVM.curvas += "\n(\(anotacion))"
-                    }
-                }
-
-                productVM.save()
+                save()
                 presentationMode.wrappedValue.dismiss()
-                
+            }
+        }.onDisappear {
+            save()
+        }
+    }
+    
+    func save() {
+        var resultado: [String] = []
+        
+        if valor != "" {
+            resultado.append(valor)
+        }
+        
+        if anotacion != "" {
+            resultado.append("(\(anotacion))")
+        }
+        
+        productVM.curvas = resultado.joined(separator: "\n")
+        
+        if otro != "" {
+            productVM.curvas = "\""+otro+"\""
+            if anotacion != "" {
+                productVM.curvas += "\n(\(anotacion))"
             }
         }
+
+        productVM.save()
     }
 }

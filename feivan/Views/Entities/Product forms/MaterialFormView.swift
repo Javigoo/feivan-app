@@ -105,32 +105,40 @@ struct ProductMaterialFormView: View {
             */
         }.toolbar {
             Button("Guardar") {
-                var resultado: [String] = []
-                
-                if valor != "" {
-                    resultado.append(valor)
-                }
-                
-                if valor == "Aluminio" && serie != "" {
-                    resultado.append("Serie: \(serie)")
-                }
-                
-                if anotacion != "" {
-                    resultado.append("(\(anotacion))")
-                }
-                
-                productVM.material = resultado.joined(separator: "\n")
-                
-                if otro != "" {
-                    productVM.material = "\""+otro+"\""
-                    if anotacion != "" {
-                        productVM.material += "\n(\(anotacion))"
-                    }
-                }
-
-                productVM.save()
+                save()
                 presentationMode.wrappedValue.dismiss()
             }
+        }.onDisappear {
+            save()
         }
     }
+    
+    func save() {
+        var resultado: [String] = []
+        
+        if valor != "" {
+            resultado.append(valor)
+        }
+        
+        if valor == "Aluminio" && serie != "" {
+            resultado.append("Serie: \(serie)")
+        }
+        
+        if anotacion != "" {
+            resultado.append("(\(anotacion))")
+        }
+        
+        productVM.material = resultado.joined(separator: "\n")
+        
+        if otro != "" {
+            productVM.material = "\""+otro+"\""
+            if anotacion != "" {
+                productVM.material += "\n(\(anotacion))"
+            }
+        }
+
+        productVM.save()
+    }
 }
+
+

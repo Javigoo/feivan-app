@@ -76,31 +76,36 @@ struct ProductPosicionFormView: View {
         .navigationTitle(atributo)
         .toolbar {
             Button("Guardar") {
-                
-                var resultado: [String] = []
-                
-                if otraPosicion != "" {
-                    resultado.append(otraPosicion)
-                } else if posicion != "" {
-                    resultado.append(posicion)
-                }
-                
-                if ventana_o_puerta == "Ventana" {
-                    resultado.append("V\(ventana)")
-                }
-                if ventana_o_puerta == "Puerta" {
-                    resultado.append("P\(puerta)")
-                }
-                
-                productVM.posicion = resultado.joined(separator: "\n")
-                
-                if anotacion != "" {
-                    productVM.posicion += "\n(\(anotacion))"
-                }
-                
-                productVM.save()
+                save()
                 presentationMode.wrappedValue.dismiss()
             }
+        }.onDisappear {
+            save()
         }
+    }
+    
+    func save() {
+        var resultado: [String] = []
+        
+        if otraPosicion != "" {
+            resultado.append(otraPosicion)
+        } else if posicion != "" {
+            resultado.append(posicion)
+        }
+        
+        if ventana_o_puerta == "Ventana" {
+            resultado.append("V\(ventana)")
+        }
+        if ventana_o_puerta == "Puerta" {
+            resultado.append("P\(puerta)")
+        }
+        
+        productVM.posicion = resultado.joined(separator: "\n")
+        
+        if anotacion != "" {
+            productVM.posicion += "\n(\(anotacion))"
+        }
+        
+        productVM.save()
     }
 }

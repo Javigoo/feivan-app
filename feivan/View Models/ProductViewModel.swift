@@ -554,7 +554,48 @@ class ProductViewModel: ObservableObject {
         return 0.0
     }
     
+    func getRalName(code: String) -> String {
+        for elemento in ral().elementos {
+            if code == elemento.code{
+                return elemento.names.es
+            }
+        }
+        return "No name"
+    }
     
+    // Devuelve el código con el que empiezan los colores de eso tono
+    func getToneCode(tone: String) -> String {
+        // "Amarillos", "Naranjas", "Rojos", "Violetas", "Azules", "Verdes", "Grises", "Marrones", "Blancos y negros"
+        print("Tone code: ", tone)
+        switch tone {
+            case "Amarillos":
+                return "1"
+            case "Naranjas":
+                return "2"
+            case "Rojos":
+                return "3"
+            case "Violetas":
+                return "4"
+            case "Azules":
+                return "5"
+            case "Verdes":
+                return "6"
+            case "Grises":
+                return "7"
+            case "Marrones":
+                return "8"
+            case "Blancos y negros":
+                return "9"
+            default:
+                print("Ral tone not found")
+                return "0"
+        }
+    }
+    
+    func getRalCode(ral: String) -> String {
+        let index = ral.index(ral.startIndex, offsetBy: 0)
+        return String(ral[index])
+    }
     
     func getSingularFamilia(name: String) -> String {
         if name != "" {

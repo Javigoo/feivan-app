@@ -73,44 +73,49 @@ struct ProductDimensionesFormView: View {
         .navigationTitle("Medidas")
         .toolbar {
             Button("Guardar") {
-                
-                var resultado: [String] = []
-                
-                if ancho != "" {
-                    resultado.append("Ancho: \(ancho) mm")
-                }
-                
-                if alto != "" {
-                    resultado.append("Alto: \(alto) mm")
-                }
-                
-                if fijos {
-                    resultado.append("")
-                    if superior != "" {
-                        resultado.append("Fijo Sup.: \(superior) mm")
-                    }
-                    if inferior != "" {
-                        resultado.append("Fijo Inf.: \(inferior) mm")
-                    }
-                    if izquierdo != "" {
-                        resultado.append("Fijo Izq.: \(izquierdo) mm")
-                    }
-                    if derecho != "" {
-                        resultado.append("Fijo Der.: \(derecho) mm")
-                    }
-                }
-                
-                productVM.dimensiones = resultado.joined(separator: "\n")
-                
-                if productVM.anotacion != "" {
-                    productVM.dimensiones = productVM.dimensiones + " (\(productVM.anotacion))"
-                    productVM.anotacion = ""
-                }
-                
-                productVM.save()
+                save()
                 presentationMode.wrappedValue.dismiss()
             }
+        }.onDisappear {
+            save()
         }
+    }
+    
+    func save() {
+        var resultado: [String] = []
+        
+        if ancho != "" {
+            resultado.append("Ancho: \(ancho) mm")
+        }
+        
+        if alto != "" {
+            resultado.append("Alto: \(alto) mm")
+        }
+        
+        if fijos {
+            resultado.append("")
+            if superior != "" {
+                resultado.append("Fijo Sup.: \(superior) mm")
+            }
+            if inferior != "" {
+                resultado.append("Fijo Inf.: \(inferior) mm")
+            }
+            if izquierdo != "" {
+                resultado.append("Fijo Izq.: \(izquierdo) mm")
+            }
+            if derecho != "" {
+                resultado.append("Fijo Der.: \(derecho) mm")
+            }
+        }
+        
+        productVM.dimensiones = resultado.joined(separator: "\n")
+        
+        if productVM.anotacion != "" {
+            productVM.dimensiones = productVM.dimensiones + " (\(productVM.anotacion))"
+            productVM.anotacion = ""
+        }
+        
+        productVM.save()
     }
 }
 

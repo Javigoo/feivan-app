@@ -15,6 +15,7 @@
 		2544199727395B11005290C9 /* NewProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2544199627395B11005290C9 /* NewProjectView.swift */; };
 		254420752746AAEC00CFDDA4 /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254420742746AAEC00CFDDA4 /* ProjectView.swift */; };
 		254420792746C89200CFDDA4 /* CustomEnvironmentProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254420782746C89200CFDDA4 /* CustomEnvironmentProperties.swift */; };
+		25743CDF27A8300200AB4598 /* ColorSwatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25743CDE27A8300200AB4598 /* ColorSwatchView.swift */; };
 		25745B69275866460056474E /* CreatePDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25745B68275866460056474E /* CreatePDF.swift */; };
 		257CC826271FE561009C65D1 /* FeivanApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257CC825271FE561009C65D1 /* FeivanApp.swift */; };
 		257CC828271FE561009C65D1 /* ClientEntityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257CC827271FE561009C65D1 /* ClientEntityView.swift */; };
@@ -71,6 +72,7 @@
 		2544199627395B11005290C9 /* NewProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProjectView.swift; sourceTree = "<group>"; };
 		254420742746AAEC00CFDDA4 /* ProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectView.swift; sourceTree = "<group>"; };
 		254420782746C89200CFDDA4 /* CustomEnvironmentProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEnvironmentProperties.swift; sourceTree = "<group>"; };
+		25743CDE27A8300200AB4598 /* ColorSwatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSwatchView.swift; sourceTree = "<group>"; };
 		25745B68275866460056474E /* CreatePDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePDF.swift; sourceTree = "<group>"; };
 		257CC822271FE561009C65D1 /* Feivan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Feivan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		257CC825271FE561009C65D1 /* FeivanApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeivanApp.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 		2544206D2746A5BC00CFDDA4 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				25743CDD27A82FE100AB4598 /* Color */,
 				25C6B6B0276B75E000253C7E /* PDF */,
 				259BC28C272862BD00AE3305 /* Json.swift */,
 				25DBF3442743CBDB001D5FE3 /* MultipleSelection.swift */,
@@ -197,6 +200,14 @@
 			);
 			name = "Menú principal";
 			path = "Menú principal";
+			sourceTree = "<group>";
+		};
+		25743CDD27A82FE100AB4598 /* Color */ = {
+			isa = PBXGroup;
+			children = (
+				25743CDE27A8300200AB4598 /* ColorSwatchView.swift */,
+			);
+			path = Color;
 			sourceTree = "<group>";
 		};
 		25745B67275865F50056474E /* Assets */ = {
@@ -443,6 +454,7 @@
 				259AD0DD274E4A0E00B697DD /* MarcoInferiorFormView.swift in Sources */,
 				257CC826271FE561009C65D1 /* FeivanApp.swift in Sources */,
 				25E8F23F272197590009CEB7 /* DebugFile.swift in Sources */,
+				25743CDF27A8300200AB4598 /* ColorSwatchView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

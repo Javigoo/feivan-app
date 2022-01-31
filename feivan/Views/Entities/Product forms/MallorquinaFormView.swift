@@ -60,25 +60,30 @@ struct ProductMallorquinaFormView: View {
         .navigationTitle(atributo)
         .toolbar {
             Button("Guardar") {
-                
-                if tubo {
-                    productVM.persiana = productVM.persiana + " con tubo"
-                }
-                
-                if productVM.otro != "" {
-                    productVM.persiana = productVM.otro
-                    productVM.otro = ""
-                }
-                
-                if productVM.anotacion != "" {
-                    productVM.persiana = productVM.persiana + " (\(productVM.anotacion))"
-                    productVM.anotacion = ""
-                }
-                
-                productVM.save()
+                save()
                 presentationMode.wrappedValue.dismiss()
             }
+        }.onDisappear {
+            save()
         }
+    }
+    
+    func save() {
+        if tubo {
+            productVM.persiana = productVM.persiana + " con tubo"
+        }
+        
+        if productVM.otro != "" {
+            productVM.persiana = productVM.otro
+            productVM.otro = ""
+        }
+        
+        if productVM.anotacion != "" {
+            productVM.persiana = productVM.persiana + " (\(productVM.anotacion))"
+            productVM.anotacion = ""
+        }
+        
+        productVM.save()
     }
 }
 

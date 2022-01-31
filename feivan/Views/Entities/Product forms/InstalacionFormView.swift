@@ -53,20 +53,25 @@ struct ProductInstalacionFormView: View {
         .navigationTitle(atributo)
         .toolbar {
             Button("Guardar") {
-                
-                if productVM.otro != "" {
-                    productVM.instalacion = productVM.otro
-                    productVM.otro = ""
-                }
-                
-                if productVM.anotacion != "" {
-                    productVM.instalacion = productVM.instalacion + " (\(productVM.anotacion))"
-                    productVM.anotacion = ""
-                }
-                
-                productVM.save()
+                save()
                 presentationMode.wrappedValue.dismiss()
             }
+        }.onDisappear {
+            save()
         }
+    }
+    
+    func save() {
+        if productVM.otro != "" {
+            productVM.instalacion = productVM.otro
+            productVM.otro = ""
+        }
+        
+        if productVM.anotacion != "" {
+            productVM.instalacion = productVM.instalacion + " (\(productVM.anotacion))"
+            productVM.anotacion = ""
+        }
+        
+        productVM.save()
     }
 }

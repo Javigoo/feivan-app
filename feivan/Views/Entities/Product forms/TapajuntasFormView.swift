@@ -108,42 +108,11 @@ struct ProductTapajuntasFormView: View {
         .navigationTitle(atributo)
         .toolbar {
             Button("Guardar") {
-
-                var resultado: [String] = []
-
-                if especificos {
-                    if (superior != 0){
-                        resultado.append("Superior: \(String(format: "%.0f", superior)) mm")
-                    }
-                    if (inferior != 0){
-                        resultado.append("Inferior: \(String(format: "%.0f", inferior)) mm")
-                    }
-                    if (izquierdo != 0){
-                        resultado.append("Izquierdo: \(String(format: "%.0f", izquierdo)) mm")
-                    }
-                    if (derecho != 0){
-                        resultado.append("Derecho: \(String(format: "%.0f", derecho)) mm")
-                    }
-                    productVM.tapajuntas = resultado.joined(separator: "\n")
-                } else {
-                    if tapajuntas_inferior {
-                        productVM.tapajuntas = productVM.tapajuntas + "\nSin tapajuntas inferior"
-                    }
-                }
-                
-                if productVM.otro != "" {
-                    productVM.tapajuntas = productVM.otro
-                    productVM.otro = ""
-                }
-                
-                if productVM.anotacion != "" {
-                    productVM.tapajuntas = productVM.tapajuntas + " (\(productVM.anotacion))"
-                    productVM.anotacion = ""
-                }
-                
-                productVM.save()
+                save()
                 presentationMode.wrappedValue.dismiss()
             }
+        }.onDisappear {
+            save()
         }
     }
     
@@ -152,5 +121,41 @@ struct ProductTapajuntasFormView: View {
         inferior = Double(productVM.tapajuntas) ?? 0
         izquierdo = Double(productVM.tapajuntas) ?? 0
         derecho = Double(productVM.tapajuntas) ?? 0
+    }
+    
+    func save() {
+        var resultado: [String] = []
+
+        if especificos {
+            if (superior != 0){
+                resultado.append("Superior: \(String(format: "%.0f", superior)) mm")
+            }
+            if (inferior != 0){
+                resultado.append("Inferior: \(String(format: "%.0f", inferior)) mm")
+            }
+            if (izquierdo != 0){
+                resultado.append("Izquierdo: \(String(format: "%.0f", izquierdo)) mm")
+            }
+            if (derecho != 0){
+                resultado.append("Derecho: \(String(format: "%.0f", derecho)) mm")
+            }
+            productVM.tapajuntas = resultado.joined(separator: "\n")
+        } else {
+            if tapajuntas_inferior {
+                productVM.tapajuntas = productVM.tapajuntas + "\nSin tapajuntas inferior"
+            }
+        }
+        
+        if productVM.otro != "" {
+            productVM.tapajuntas = productVM.otro
+            productVM.otro = ""
+        }
+        
+        if productVM.anotacion != "" {
+            productVM.tapajuntas = productVM.tapajuntas + " (\(productVM.anotacion))"
+            productVM.anotacion = ""
+        }
+        
+        productVM.save()
     }
 }

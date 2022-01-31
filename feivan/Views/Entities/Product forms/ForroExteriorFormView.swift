@@ -71,36 +71,41 @@ struct ProductForroExteriorFormView: View {
         .navigationTitle(atributo)
         .toolbar {
             Button("Guardar") {
-                
-                var resultado: [String] = []
-                
-                if pletina != "" {
-                    resultado.append("Pletina: \(pletina)")
-                }
-                
-                if angulo != "" {
-                    resultado.append("Ángulo: \(angulo)")
-                }
-                
-                if lama {
-                    resultado.append("Con lama")
-                }
-                
-                productVM.forro_exterior = resultado.joined(separator: "\n")
-                
-                if productVM.otro != "" {
-                    productVM.forro_exterior = productVM.otro
-                    productVM.otro = ""
-                }
-                
-                if productVM.anotacion != "" {
-                    productVM.forro_exterior = productVM.forro_exterior + " (\(productVM.anotacion))"
-                    productVM.anotacion = ""
-                }
-                
-                productVM.save()
+                save()
                 presentationMode.wrappedValue.dismiss()
             }
+        }.onDisappear {
+            save()
         }
+    }
+    
+    func save() {
+        var resultado: [String] = []
+        
+        if pletina != "" {
+            resultado.append("Pletina: \(pletina)")
+        }
+        
+        if angulo != "" {
+            resultado.append("Ángulo: \(angulo)")
+        }
+        
+        if lama {
+            resultado.append("Con lama")
+        }
+        
+        productVM.forro_exterior = resultado.joined(separator: "\n")
+        
+        if productVM.otro != "" {
+            productVM.forro_exterior = productVM.otro
+            productVM.otro = ""
+        }
+        
+        if productVM.anotacion != "" {
+            productVM.forro_exterior = productVM.forro_exterior + " (\(productVM.anotacion))"
+            productVM.anotacion = ""
+        }
+        
+        productVM.save()
     }
 }

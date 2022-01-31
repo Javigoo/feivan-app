@@ -124,53 +124,58 @@ struct ProductAperturaFormView: View {
         .navigationTitle(atributo)
         .toolbar {
             Button("Guardar") {
-                
-                var resultado: [String] = []
-                
-                if oscilobatiente {
-                    resultado.append("Oscilobatiente")
-                }
-                
-                if vista != "" {
-                    resultado.append("Vista: \(vista)")
-                }
-                
-                if abre != "" {
-                    resultado.append("Abre: \(abre)")
-                }
-                
-                if mano != "" {
-                    resultado.append("Mano: \(mano)")
-                }
-                
-                if corredera != "" {
-                    resultado.append(corredera)
-                }
-                
-                // Marco inferior
-                if marco_inferior != "" {
-                    if canal_recogeAgua {
-                        resultado.append("Marco inferior " + marco_inferior.lowercased() + " con canal recoge agua")
-                    } else {
-                        resultado.append("Marco inferior " + marco_inferior.lowercased())
-                    }
-                }
-                
-                productVM.apertura = resultado.joined(separator: "\n")
-                
-                if productVM.otro != "" {
-                    productVM.apertura = productVM.otro
-                    productVM.otro = ""
-                }
-                
-                if productVM.anotacion != "" {
-                    productVM.apertura = productVM.apertura + "\n(\(productVM.anotacion))"
-                    productVM.anotacion = ""
-                }
-                
-                productVM.save()
+                save()
                 presentationMode.wrappedValue.dismiss()
             }
+        }.onDisappear {
+            save()
         }
+    }
+    
+    func save() {
+        var resultado: [String] = []
+        
+        if oscilobatiente {
+            resultado.append("Oscilobatiente")
+        }
+        
+        if vista != "" {
+            resultado.append("Vista: \(vista)")
+        }
+        
+        if abre != "" {
+            resultado.append("Abre: \(abre)")
+        }
+        
+        if mano != "" {
+            resultado.append("Mano: \(mano)")
+        }
+        
+        if corredera != "" {
+            resultado.append(corredera)
+        }
+        
+        // Marco inferior
+        if marco_inferior != "" {
+            if canal_recogeAgua {
+                resultado.append("Marco inferior " + marco_inferior.lowercased() + " con canal recoge agua")
+            } else {
+                resultado.append("Marco inferior " + marco_inferior.lowercased())
+            }
+        }
+        
+        productVM.apertura = resultado.joined(separator: "\n")
+        
+        if productVM.otro != "" {
+            productVM.apertura = productVM.otro
+            productVM.otro = ""
+        }
+        
+        if productVM.anotacion != "" {
+            productVM.apertura = productVM.apertura + "\n(\(productVM.anotacion))"
+            productVM.anotacion = ""
+        }
+        
+        productVM.save()
     }
 }

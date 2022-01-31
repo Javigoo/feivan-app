@@ -52,17 +52,22 @@ struct ProductHuellaFormView: View {
         .navigationTitle(atributo)
         .toolbar {
             Button("Guardar") {
-                
-                productVM.huella = huella + " mm"
-                
-                if productVM.anotacion != "" {
-                    productVM.huella = productVM.huella + " (\(productVM.anotacion))"
-                    productVM.anotacion = ""
-                }
-                
-                productVM.save()
+                save()
                 presentationMode.wrappedValue.dismiss()
             }
+        }.onDisappear {
+            save()
         }
+    }
+    
+    func save() {
+        productVM.huella = huella + " mm"
+        
+        if productVM.anotacion != "" {
+            productVM.huella = productVM.huella + " (\(productVM.anotacion))"
+            productVM.anotacion = ""
+        }
+        
+        productVM.save()
     }
 }

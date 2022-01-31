@@ -133,61 +133,67 @@ struct ProductCompactoFormView: View {
         .navigationTitle(atributo)
         .toolbar {
             Button("Guardar") {
-                
-                var resultado: [String] = []
-                
-                if compacto != "" {
-                    resultado.append(compacto)
-                }
-                
-                if huella != "" {
-                    resultado.append("Huella: \(huella) mm")
-                }
-                
-                if numeroPanos != 0 {
-                    resultado.append("Paños: \(numeroPanos)")
-                }
-                
-                if recogedor != "" {
-                    resultado.append("Recogedor: \(recogedor)")
-                }
-                
-                if motor {
-                    resultado.append("Con motor")
-                    if cable != "" {
-                        resultado.append("Cables motor: \(cable)")
-                    }
-                    if control != "" {
-                        resultado.append("Cables control: \(control)")
-                    }
-                }
-                
-                if colorLama != "" {
-                    resultado.append("Color lama: \(colorLama)")
-                }
-                
-                if colorExterior != "" {
-                    resultado.append("Color exterior: \(colorExterior)")
-                }
-                
-                if cajon18 {
-                    resultado.append("Con cajón de 18")
-                }
-                
-                if detallaObra != "" {
-                    resultado.append("Detalles de obra: \(detallaObra)")
-                }
-                
-                productVM.compacto = resultado.joined(separator: "\n")
-                
-                if productVM.anotacion != "" {
-                    productVM.compacto = productVM.compacto + "\n(\(productVM.anotacion))"
-                    productVM.anotacion = ""
-                }
-                
-                productVM.save()
+                save()
                 presentationMode.wrappedValue.dismiss()
             }
+        }.onDisappear {
+            save()
         }
     }
+    
+    func save() {
+        var resultado: [String] = []
+        
+        if compacto != "" {
+            resultado.append(compacto)
+        }
+        
+        if huella != "" {
+            resultado.append("Huella: \(huella) mm")
+        }
+        
+        if numeroPanos != 0 {
+            resultado.append("Paños: \(numeroPanos)")
+        }
+        
+        if recogedor != "" {
+            resultado.append("Recogedor: \(recogedor)")
+        }
+        
+        if motor {
+            resultado.append("Con motor")
+            if cable != "" {
+                resultado.append("Cables motor: \(cable)")
+            }
+            if control != "" {
+                resultado.append("Cables control: \(control)")
+            }
+        }
+        
+        if colorLama != "" {
+            resultado.append("Color lama: \(colorLama)")
+        }
+        
+        if colorExterior != "" {
+            resultado.append("Color exterior: \(colorExterior)")
+        }
+        
+        if cajon18 {
+            resultado.append("Con cajón de 18")
+        }
+        
+        if detallaObra != "" {
+            resultado.append("Detalles de obra: \(detallaObra)")
+        }
+        
+        productVM.compacto = resultado.joined(separator: "\n")
+        
+        if productVM.anotacion != "" {
+            productVM.compacto = productVM.compacto + "\n(\(productVM.anotacion))"
+            productVM.anotacion = ""
+        }
+        
+        productVM.save()
+    }
 }
+
