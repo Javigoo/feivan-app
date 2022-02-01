@@ -75,7 +75,10 @@ class ProjectViewModel: ObservableObject {
         } else {
             project = Proyecto(context: context.viewContext)
         }
+        print(direccion)
+        print(project.direccion ?? "no")
         setProject(project: project)
+        print(project.direccion ?? "no")
         context.save()
         getAllProjects()
     }

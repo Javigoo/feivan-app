@@ -12,11 +12,17 @@ struct ProjectView: View {
     @StateObject var productVM = ProductViewModel()
     @State var showAñadirProducto: Bool = false
     @State var showGenerarPdf: Bool = false
+    
+    @State var showAñadirMas: Bool = false
+    @State var productAñadirMas = ProductViewModel()
+
     var body: some View {
 
         VStack {
             NavigationLink(destination: PdfView(projectData: projectVM), isActive: $showGenerarPdf) { EmptyView() }
             NavigationLink(destination: ProductAddView(projectVM: projectVM), isActive: $showAñadirProducto) { EmptyView() }
+            NavigationLink(destination: ProductAddMoreView(originalProductVM: productAñadirMas), isActive: $showAñadirMas) { EmptyView() }
+
             Form {
                 Section {
                     if projectVM.haveClient() {
@@ -48,19 +54,27 @@ struct ProjectView: View {
                                     ProductCreateView(productVM: ProductViewModel(product: producto))
                                 }, label: {
                                     ProductPreviewView(productVM: ProductViewModel(product: producto))
+                                        
                                 }
-                            )
+                            ).contextMenu {
+                                Button(action: {
+                                    productAñadirMas = ProductViewModel(product: producto)
+                                    showAñadirMas = true
+                                }, label: {
+                                    Image(systemName: "plus.circle")
+                                    Text("Añadir más")
+                                })
+                            }
                         }
                         .onDelete(perform: deleteProduct)
+                        
                     }
                     .onAppear(perform: projectVM.getAllProjects)
-                
                 }
             }
         }
         .navigationTitle(Text("Proyecto"))
         .toolbar {
-            
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
                     showGenerarPdf = true

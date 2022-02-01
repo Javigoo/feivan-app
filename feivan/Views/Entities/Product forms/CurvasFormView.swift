@@ -10,9 +10,8 @@ import SwiftUI
 struct ProductCurvasView: View {
     @ObservedObject var productVM: ProductViewModel
     @State var tabSelection: Int = 1
-
-    var body: some View {
     
+    var body: some View {
         if productVM.showIf(equalTo: ["Curvas"]) {
             NavigationLink(
                 destination: ProductConfigurationTabView(tabSelection: tabSelection, productVM: productVM),
@@ -37,8 +36,6 @@ struct ProductCurvasFormView: View {
     @State var otro: String = ""
     @State var anotacion: String = ""
 
-    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
-
     var body: some View {
         VStack {
             Form{
@@ -62,13 +59,16 @@ struct ProductCurvasFormView: View {
         }
         .navigationTitle(atributo)
         .onAppear{
-            if valor == "" {
+            print(anotacion)
+            if valor.isEmpty {
                 valor = productVM.getAttributeValue(attribute_data: productVM.curvas, select_atributte: "Valor")
             }
-        }.toolbar {
-            Button("Guardar") {
-                save()
-                presentationMode.wrappedValue.dismiss()
+            if otro.isEmpty {
+                otro = productVM.getAttributeValue(attribute_data: productVM.curvas, select_atributte: "Otro")
+            }
+            if anotacion.isEmpty {
+                anotacion = productVM.getAttributeValue(attribute_data: productVM.curvas, select_atributte: "Anotacion")
+                print(anotacion)
             }
         }.onDisappear {
             save()
@@ -78,19 +78,19 @@ struct ProductCurvasFormView: View {
     func save() {
         var resultado: [String] = []
         
-        if valor != "" {
+        if !valor.isEmpty {
             resultado.append(valor)
         }
         
-        if anotacion != "" {
+        if !anotacion.isEmpty {
             resultado.append("(\(anotacion))")
         }
         
         productVM.curvas = resultado.joined(separator: "\n")
         
-        if otro != "" {
+        if !otro.isEmpty {
             productVM.curvas = "\""+otro+"\""
-            if anotacion != "" {
+            if !anotacion.isEmpty {
                 productVM.curvas += "\n(\(anotacion))"
             }
         }

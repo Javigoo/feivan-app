@@ -38,8 +38,6 @@ struct ProductPosicionFormView: View {
     @State var ventana: Int = 1
     @State var puerta: Int = 1
     
-    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
-
     var body: some View {
         VStack {
             Form{
@@ -74,12 +72,7 @@ struct ProductPosicionFormView: View {
             }
         }
         .navigationTitle(atributo)
-        .toolbar {
-            Button("Guardar") {
-                save()
-                presentationMode.wrappedValue.dismiss()
-            }
-        }.onDisappear {
+        .onDisappear {
             save()
         }
     }

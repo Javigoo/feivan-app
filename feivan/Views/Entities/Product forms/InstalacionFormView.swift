@@ -29,7 +29,6 @@ struct ProductInstalacionFormView: View {
     
     var atributo = "Instalación"
     @ObservedObject var productVM: ProductViewModel
-    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
     var body: some View {
         VStack {
@@ -51,12 +50,7 @@ struct ProductInstalacionFormView: View {
             }
         }
         .navigationTitle(atributo)
-        .toolbar {
-            Button("Guardar") {
-                save()
-                presentationMode.wrappedValue.dismiss()
-            }
-        }.onDisappear {
+        .onDisappear {
             save()
         }
     }

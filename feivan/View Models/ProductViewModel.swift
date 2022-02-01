@@ -566,7 +566,6 @@ class ProductViewModel: ObservableObject {
     // Devuelve el código con el que empiezan los colores de eso tono
     func getToneCode(tone: String) -> String {
         // "Amarillos", "Naranjas", "Rojos", "Violetas", "Azules", "Verdes", "Grises", "Marrones", "Blancos y negros"
-        print("Tone code: ", tone)
         switch tone {
             case "Amarillos":
                 return "1"

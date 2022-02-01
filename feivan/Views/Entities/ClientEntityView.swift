@@ -8,12 +8,6 @@
 import SwiftUI
 import CoreData
 
-struct ClientView: View {
-    var body: some View {
-        Text("ClientView")
-    }
-}
-
 struct ClientCreateView: View {
     @ObservedObject var clientVM: ClientViewModel
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
@@ -29,6 +23,9 @@ struct ClientCreateView: View {
                 presentationMode.wrappedValue.dismiss()
             }
         }
+//        .onDisappear {
+//            clientVM.save()
+//        }
     }
 }
 

@@ -43,12 +43,11 @@ struct ProductColorFormView: View {
     @State var anotacion: String = ""
 
     @State var tonos_ral: [String] = ["Amarillos", "Naranjas", "Rojos", "Violetas", "Azules", "Verdes", "Grises", "Marrones", "Blancos y negros"]
-
-    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
+    @State var ral_color: String = ""
 
     var body: some View {
         VStack {
-            Form{
+            Form {
                 
                 Section(header: Text("Tipo de color")) {
                     Picker("Tipo de color", selection: $opcion) {
@@ -58,45 +57,18 @@ struct ProductColorFormView: View {
                 
                 if opcion == "Ral" {
                     Section(header: Text("Color ")) {
-                        
-                        Picker("Tonos", selection: $tono) {
-                            List(tonos_ral, id: \.self) { item in Text(item) }
-                        }
-                        
-                        let tone_code = productVM.getToneCode(tone: tono)
-                        
-                        ForEach(productVM.getRalCodes(), id: \.self) { code in
-                            
-                            let ral_code = productVM.getRalCode(ral: code)
-                            if tone_code == ral_code {
-                            
-                                let red = productVM.getRalColor(code: code, color: "r")/255
-                                let green = productVM.getRalColor(code: code, color: "g")/255
-                                let blue = productVM.getRalColor(code: code, color: "b")/255
-                                ZStack {
-                                    HStack {
-                                        Text("\(code)")
-                                        Spacer()
-                                        Text("\(productVM.getRalName(code: code))")
-                                        Spacer()
-                                        Rectangle()
-                                            .fill(Color(red: red, green: green, blue: blue))
-                                            .frame(width: 50, height: 50)
-                                    }.onTapGesture(perform: {
-                                        color = "Ral \(code)"
-                                    })
-                                    
-                                    if color == "Ral \(code)" {
-                                        HStack {
-                                            Spacer()
-                                            Rectangle()
-                                                .stroke(Color.red, lineWidth: 5)
-                                                .frame(width: 50, height: 50)
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        TextField("Ral", text: $color)
+
+//                        NavigationLink(
+//                            destination: ProductColorRalView(productVM: productVM),
+//                            label: {
+//                                HStack {
+//                                    Text("Ral")
+//                                    Spacer()
+//                                    Text(color)
+//                                }
+//                            }
+//                        )
                     }
                 }
     
@@ -239,11 +211,6 @@ struct ProductColorFormView: View {
                     }
                 }
             }
-        }.toolbar {
-            Button("Guardar") {
-                save()
-                presentationMode.wrappedValue.dismiss()
-            }
         }.onDisappear {
             save()
         }
@@ -295,4 +262,153 @@ struct ProductColorFormView: View {
         productVM.save()
     }
     
+}
+
+struct ProductColorRalView: View {
+    @ObservedObject var productVM: ProductViewModel
+
+    @State var tono: String = ""
+    @State var tonos_ral: [String] = ["Amarillos", "Naranjas", "Rojos", "Violetas", "Azules", "Verdes", "Grises", "Marrones", "Blancos y negros"]
+    @State var color: String = ""
+
+    var body: some View {
+        VStack {
+            Form {
+                if !color.isEmpty {
+                    Section(header: Text("Color seleccionado")) {
+                        NavigationLink(destination: {
+                            ProductColorRalFullView(productVM: productVM)
+                        }, label: {
+                            VStack(alignment: .leading) {
+                                Text("Nombre color")
+                                    .font(.title)
+                                Text("Ral")
+                                    .font(.body)
+                                Rectangle()
+                                    .fill(Color.red)
+                                    .frame(width: nil, height: 50, alignment: .center)
+                            }
+                        })
+                    }
+                }
+                Section(header: Text("Colores")) {
+
+                    Picker("Tonos", selection: $tono) {
+                        List(tonos_ral, id: \.self) { item in Text(item) }
+                    }
+                    //.pickerStyle(.wheel)
+                    //.frame(width: nil, height: 100, alignment: .center)
+                
+                    let tone_code = productVM.getToneCode(tone: tono)
+                    
+                    let gridItem = [GridItem(.fixed(40))]
+                    LazyVGrid(columns: gridItem) {
+                        ForEach(productVM.getRalCodes(), id: \.self) { code in
+                            
+                            let ral_code = productVM.getRalCode(ral: code)
+                            
+                            if tone_code == ral_code || tono.isEmpty {
+                            
+                                let red = productVM.getRalColor(code: code, color: "r")/255
+                                let green = productVM.getRalColor(code: code, color: "g")/255
+                                let blue = productVM.getRalColor(code: code, color: "b")/255
+                                
+                                HStack {
+                                    Text("\(code)")
+                                    Spacer()
+                                    Text("\(productVM.getRalName(code: code))")
+                                    Spacer()
+                                    Rectangle()
+                                        .fill(Color(red: red, green: green, blue: blue))
+                                        .frame(width: 50, height: 50)
+                                }.onTapGesture(perform: {
+                                    color = "Ral \(code)"
+                                })
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .navigationTitle("Ral")
+        /*
+            Picker("Tonos", selection: $tono) {
+                List(tonos_ral, id: \.self) { item in Text(item) }
+            }
+            
+            let tone_code = productVM.getToneCode(tone: tono)
+            
+            // si no está seleccionado se ven todos
+            // si lo está solo se ve el seleccionado
+            if ral_color.isEmpty {
+                ForEach(productVM.getRalCodes(), id: \.self) { code in
+                    
+                    let ral_code = productVM.getRalCode(ral: code)
+                    if tone_code == ral_code {
+                    
+                        let red = productVM.getRalColor(code: code, color: "r")/255
+                        let green = productVM.getRalColor(code: code, color: "g")/255
+                        let blue = productVM.getRalColor(code: code, color: "b")/255
+                        
+                        HStack {
+                            Text("\(code)")
+                            Spacer()
+                            Text("\(productVM.getRalName(code: code))")
+                            Spacer()
+                            Rectangle()
+                                .fill(Color(red: red, green: green, blue: blue))
+                                .frame(width: 50, height: 50)
+                        }.onTapGesture(perform: {
+                            ral_color = "Ral \(code)"
+                        })
+                    }
+                }
+            } else {
+                let code = ral_color.components(separatedBy: " ")[1]
+                let red = productVM.getRalColor(code: code, color: "r")/255
+                let green = productVM.getRalColor(code: code, color: "g")/255
+                let blue = productVM.getRalColor(code: code, color: "b")/255
+                HStack {
+                    Text("\(code)")
+                    Spacer()
+                    Text("\(productVM.getRalName(code: code))")
+                    Spacer()
+                    Rectangle()
+                        .fill(Color(red: red, green: green, blue: blue))
+                        .frame(width: 50, height: 50)
+                }.onTapGesture(perform: {
+                    ral_color = ""
+                })
+            }
+         */
+    }
+}
+
+struct ProductColorRalFullView: View {
+    @ObservedObject var productVM: ProductViewModel
+    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
+
+    var body: some View {
+        if #available(iOS 15.0, *) {
+            VStack {
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(.red)
+            .onTapGesture {
+                presentationMode.wrappedValue.dismiss()
+            }
+            .navigationBarBackButtonHidden(true)
+
+        } else {
+            VStack {
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.red)
+            .onTapGesture {
+                presentationMode.wrappedValue.dismiss()
+            }
+            .navigationBarBackButtonHidden(true)
+
+        }
+    }
 }

@@ -28,7 +28,6 @@ struct ProductMaterialView: View {
 struct ProductMaterialFormView: View {
     
     @ObservedObject var productVM: ProductViewModel
-    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
     var atributo = "Material"
     @State var valor: String = ""
@@ -103,11 +102,6 @@ struct ProductMaterialFormView: View {
                 anotacion = productVM.getAttributeValue(attribute_data: productVM.material, select_atributte: "Anotacion")
             }
             */
-        }.toolbar {
-            Button("Guardar") {
-                save()
-                presentationMode.wrappedValue.dismiss()
-            }
         }.onDisappear {
             save()
         }

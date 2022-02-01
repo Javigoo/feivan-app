@@ -14,11 +14,8 @@ struct ProductCreateView: View {
     var body: some View {
         VStack {
             ProductFormView(productVM: productVM)
-        }.toolbar {
-            Button("Guardar") {
-                productVM.save()
-                presentationMode.wrappedValue.dismiss()
-            }
+        }.onDisappear {
+            productVM.save()
         }
     }
 }
@@ -26,23 +23,18 @@ struct ProductCreateView: View {
 struct ProductAddView: View {
     @StateObject var productVM = ProductViewModel()
     @ObservedObject var projectVM: ProjectViewModel
-    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     
     var body: some View {
         VStack {
             ProductFormView(productVM: productVM)
-        }.toolbar {
-            Button("Guardar") {
-                productVM.save() // Se crea el producto
+        }.onDisappear {
+            productVM.save() // Se crea el producto
                 
-                productVM.addProject(projectVM: projectVM)
-                productVM.save()
+            productVM.addProject(projectVM: projectVM)
+            productVM.save()
                 
-                projectVM.addProduct(productVM: productVM)
-                projectVM.save()
-                
-                presentationMode.wrappedValue.dismiss()
-            }
+            projectVM.addProduct(productVM: productVM)
+            projectVM.save()
         }
     }
 }
@@ -58,11 +50,8 @@ struct ProductAddMoreView: View {
             ProductFormView(productVM: productVM)
         }.sheet(isPresented: $showingSheet) {
             ProductDimensionesSheetView(productVM: productVM)
-        }.toolbar {
-            Button("Guardar") {
-                productVM.save()
-                presentationMode.wrappedValue.dismiss()
-            }
+        }.onDisappear {
+            productVM.save()
         }.onAppear(perform: {
             productVM.setProductVMAddMore(productVM: originalProductVM)
             showingSheet = true
@@ -79,7 +68,7 @@ struct ProductFormView: View {
 
     var body: some View {
             
-        NavigationLink(destination: ProductAddMoreView(originalProductVM: productVM), isActive: $showAñadirMas) { EmptyView() }
+//        NavigationLink(destination: ProductAddMoreView(originalProductVM: productVM), isActive: $showAñadirMas) { EmptyView() }
 
         if productVM.getFamilia() == "" {
                 Text("Selecciona un producto")
@@ -140,17 +129,17 @@ struct ProductFormView: View {
                     Stepper("Unidades:  \(productVM.unidades)", value: $productVM.unidades, in: 1...99)
                 }
                                 
-                if productVM.proyecto != nil {
-                    Button(action: {
-                        showAñadirMas = true
-                    }, label: {
-                        HStack {
-                            Image(systemName: "plus.circle")
-                            Text("Añadir más")
-                                .font(.body)
-                        }
-                    })
-                }
+//                if productVM.proyecto != nil {
+//                    Button(action: {
+//                        showAñadirMas = true
+//                    }, label: {
+//                        HStack {
+//                            Image(systemName: "plus.circle")
+//                            Text("Añadir más")
+//                                .font(.body)
+//                        }
+//                    })
+//                }
             }
         }
         .navigationTitle(Text(productVM.getFamilia()))

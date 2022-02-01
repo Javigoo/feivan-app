@@ -9,18 +9,15 @@ import SwiftUI
 
 struct ProjectCreateView: View {
     @ObservedObject var projectVM: ProjectViewModel
-    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
     var body: some View {
         VStack {
             Form {
                 ProjectFormView(projectVM: projectVM)
             }
-        }.toolbar {
-            Button("Guardar") {
-                projectVM.save()
-                presentationMode.wrappedValue.dismiss()
-            }
+        }
+        .onDisappear {
+            projectVM.save()
         }
     }
 }

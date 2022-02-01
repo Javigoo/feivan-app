@@ -39,8 +39,6 @@ struct ProductHerrajeFormView: View {
     @State var tirador_exterior_interior: Bool = false
     @State var pasadores_resaltados: Bool = false
     
-    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
-
     @State var selections: [String] = []
     
     var body: some View {
@@ -68,12 +66,7 @@ struct ProductHerrajeFormView: View {
             }
         }
         .navigationTitle(atributo)
-        .toolbar {
-            Button("Guardar") {
-                save()
-                presentationMode.wrappedValue.dismiss()
-            }
-        }.onDisappear {
+        .onDisappear {
             save()
         }
     }

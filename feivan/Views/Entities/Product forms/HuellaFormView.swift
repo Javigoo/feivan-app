@@ -33,8 +33,6 @@ struct ProductHuellaFormView: View {
     
     @State var huella: String = ""
      
-    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
-
     var body: some View {
         VStack {
             Form{
@@ -50,12 +48,7 @@ struct ProductHuellaFormView: View {
             }
         }
         .navigationTitle(atributo)
-        .toolbar {
-            Button("Guardar") {
-                save()
-                presentationMode.wrappedValue.dismiss()
-            }
-        }.onDisappear {
+        .onDisappear {
             save()
         }
     }

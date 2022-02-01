@@ -37,8 +37,6 @@ struct ProductTapajuntasFormView: View {
     @State var derecho: Double = 0
     @State var tapajuntas_inferior: Bool = false
 
-    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
-
     var body: some View {
         VStack {
             Form{
@@ -106,12 +104,7 @@ struct ProductTapajuntasFormView: View {
             }
         }
         .navigationTitle(atributo)
-        .toolbar {
-            Button("Guardar") {
-                save()
-                presentationMode.wrappedValue.dismiss()
-            }
-        }.onDisappear {
+        .onDisappear {
             save()
         }
     }
@@ -123,7 +116,7 @@ struct ProductTapajuntasFormView: View {
         derecho = Double(productVM.tapajuntas) ?? 0
     }
     
-    func save() {
+    func save(){
         var resultado: [String] = []
 
         if especificos {

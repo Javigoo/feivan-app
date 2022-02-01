@@ -42,8 +42,6 @@ struct ProductAperturaFormView: View {
     @State var marco_inferior: String = ""
     @State var canal_recogeAgua: Bool = false
 
-    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
-
     var body: some View {
         VStack {
             Form{
@@ -122,12 +120,7 @@ struct ProductAperturaFormView: View {
             }
         }
         .navigationTitle(atributo)
-        .toolbar {
-            Button("Guardar") {
-                save()
-                presentationMode.wrappedValue.dismiss()
-            }
-        }.onDisappear {
+        .onDisappear {
             save()
         }
     }

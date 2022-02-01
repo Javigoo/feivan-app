@@ -46,7 +46,10 @@ class ClientViewModel: ObservableObject {
         } else {
             client = Cliente(context: context.viewContext)
         }
+        print(nombre)
+        print(client.nombre ?? "no")
         setClient(client: client)
+        print(client.nombre ?? "no")
         context.save()
         getAllClients()
     }
