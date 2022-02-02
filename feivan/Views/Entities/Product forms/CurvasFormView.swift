@@ -33,6 +33,7 @@ struct ProductCurvasFormView: View {
     @ObservedObject var productVM: ProductViewModel
     
     @State var valor: String = ""
+    
     @State var otro: String = ""
     @State var anotacion: String = ""
 
@@ -47,28 +48,26 @@ struct ProductCurvasFormView: View {
                     }
                     .pickerStyle(.wheel)
                 }
-                                
-                Section(header: Text("Otro")) {
-                    TextField("Introduce otra opción", text: $otro)
-                }
                 
                 Section(header: Text("Anotación")) {
-                    TextField("Introduce una anotación", text: $anotacion)
+                    TextField("Añade una anotación", text: $anotacion)
+                }
+                
+                Section(header: Text("Otro")) {
+                    TextField("Introduce otra opción", text: $otro)
                 }
             }
         }
         .navigationTitle(atributo)
         .onAppear{
-            print(anotacion)
             if valor.isEmpty {
                 valor = productVM.getAttributeValue(attribute_data: productVM.curvas, select_atributte: "Valor")
             }
-            if otro.isEmpty {
-                otro = productVM.getAttributeValue(attribute_data: productVM.curvas, select_atributte: "Otro")
-            }
             if anotacion.isEmpty {
                 anotacion = productVM.getAttributeValue(attribute_data: productVM.curvas, select_atributte: "Anotacion")
-                print(anotacion)
+            }
+            if otro.isEmpty {
+                otro = productVM.getAttributeValue(attribute_data: productVM.curvas, select_atributte: "Otro")
             }
         }.onDisappear {
             save()
@@ -78,23 +77,21 @@ struct ProductCurvasFormView: View {
     func save() {
         var resultado: [String] = []
         
-        if !valor.isEmpty {
-            resultado.append(valor)
-        }
-        
-        if !anotacion.isEmpty {
-            resultado.append("(\(anotacion))")
-        }
-        
-        productVM.curvas = resultado.joined(separator: "\n")
-        
         if !otro.isEmpty {
             productVM.curvas = "\""+otro+"\""
-            if !anotacion.isEmpty {
-                productVM.curvas += "\n(\(anotacion))"
+        } else {
+            if !valor.isEmpty {
+                resultado.append(valor)
             }
+            
+            if !anotacion.isEmpty {
+                print("save: ", anotacion)
+                resultado.append("(\(anotacion))")
+            }
+            
+            productVM.curvas = resultado.joined(separator: "\n")
         }
-
+        
         productVM.save()
     }
 }

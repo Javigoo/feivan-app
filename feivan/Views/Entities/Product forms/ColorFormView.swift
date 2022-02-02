@@ -51,14 +51,16 @@ struct ProductColorFormView: View {
                 
                 Section(header: Text("Tipo de color")) {
                     Picker("Tipo de color", selection: $opcion) {
-                        List(productVM.optionsFor(attribute: atributo), id: \.self) { item in Text(item) }
-                    }.pickerStyle(.wheel)
+                        List(productVM.optionsFor(attribute: atributo), id: \.self) { item in
+                            Text(item)
+                        }
+                    }
+                    .pickerStyle(.wheel)
                 }
                 
                 if opcion == "Ral" {
                     Section(header: Text("Color ")) {
                         TextField("Ral", text: $color)
-
 //                        NavigationLink(
 //                            destination: ProductColorRalView(productVM: productVM),
 //                            label: {
@@ -75,21 +77,29 @@ struct ProductColorFormView: View {
                 if opcion == "Anonizados" {
                     Section(header: Text("Color")) {
                         Picker("Anonizado", selection: $color) {
-                            List(productVM.optionsFor(attribute: "Anonizados"), id: \.self) { item in Text(item) }
+                            List(productVM.optionsFor(attribute: "Anonizados"), id: \.self) { item in
+                                Text(item)
+                            }
                         }
                     }
                 }
+                
                 if opcion == "Madera" {
                     Section(header: Text("Color")) {
                         Picker("Madera", selection: $color) {
-                            List(productVM.optionsFor(attribute: "Madera"), id: \.self) { item in Text(item) }
+                            List(productVM.optionsFor(attribute: "Madera"), id: \.self) { item in
+                                Text(item)
+                            }
                         }
                     }
                 }
+                
                 if opcion == "Más utilizados" {
                     Section(header: Text("Color")) {
                         Picker("Opción", selection: $color) {
-                            List(productVM.optionsFor(attribute: "Más utilizados"), id: \.self) { item in Text(item) }
+                            List(productVM.optionsFor(attribute: "Más utilizados"), id: \.self) { item in
+                                Text(item)
+                            }
                         }
                     }
                 }

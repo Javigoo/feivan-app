@@ -32,11 +32,14 @@ struct ProductDimensionesFormView: View {
     
     @State var ancho: String = ""
     @State var alto: String = ""
+    
     @State var fijos: Bool = false
     @State var superior: String = ""
     @State var inferior: String = ""
     @State var izquierdo: String = ""
     @State var derecho: String = ""
+    
+    @State var anotacion: String = ""
     
     var body: some View {
         VStack {
@@ -64,11 +67,43 @@ struct ProductDimensionesFormView: View {
                 }
                 
                 Section(header: Text("Anotación")) {
-                    TextField("Añade una anotación", text: $productVM.anotacion)
+                    TextField("Añade una anotación", text: $anotacion)
                 }
             }
         }
         .navigationTitle("Medidas")
+        .onAppear {
+            if ancho.isEmpty {
+                ancho = productVM.getAttributeValue(attribute_data: productVM.dimensiones, select_atributte: "Ancho").components(separatedBy: " ")[0]
+            }
+            if alto.isEmpty {
+                alto = productVM.getAttributeValue(attribute_data: productVM.dimensiones, select_atributte: "Alto").components(separatedBy: " ")[0]
+            }
+            if superior.isEmpty {
+                superior = productVM.getAttributeValue(attribute_data: productVM.dimensiones, select_atributte: "Fijo Sup").components(separatedBy: " ")[0]
+                if !superior.isEmpty {
+                    fijos = true
+                }
+            }
+            if inferior.isEmpty {
+                inferior = productVM.getAttributeValue(attribute_data: productVM.dimensiones, select_atributte: "Fijo Inf").components(separatedBy: " ")[0]
+                if !inferior.isEmpty {
+                    fijos = true
+                }
+            }
+            if izquierdo.isEmpty {
+                izquierdo = productVM.getAttributeValue(attribute_data: productVM.dimensiones, select_atributte: "Fijo Izq").components(separatedBy: " ")[0]
+                if !izquierdo.isEmpty {
+                    fijos = true
+                }
+            }
+            if derecho.isEmpty {
+                derecho = productVM.getAttributeValue(attribute_data: productVM.dimensiones, select_atributte: "Fijo Der").components(separatedBy: " ")[0]
+                if !derecho.isEmpty {
+                    fijos = true
+                }
+            }
+        }
         .onDisappear {
             save()
         }
@@ -77,37 +112,35 @@ struct ProductDimensionesFormView: View {
     func save() {
         var resultado: [String] = []
         
-        if ancho != "" {
+        if !ancho.isEmpty {
             resultado.append("Ancho: \(ancho) mm")
         }
         
-        if alto != "" {
+        if !alto.isEmpty {
             resultado.append("Alto: \(alto) mm")
         }
         
         if fijos {
             resultado.append("")
             if superior != "" {
-                resultado.append("Fijo Sup.: \(superior) mm")
+                resultado.append("Fijo Sup: \(superior) mm")
             }
             if inferior != "" {
-                resultado.append("Fijo Inf.: \(inferior) mm")
+                resultado.append("Fijo Inf: \(inferior) mm")
             }
             if izquierdo != "" {
-                resultado.append("Fijo Izq.: \(izquierdo) mm")
+                resultado.append("Fijo Izq: \(izquierdo) mm")
             }
             if derecho != "" {
-                resultado.append("Fijo Der.: \(derecho) mm")
+                resultado.append("Fijo Der: \(derecho) mm")
             }
+        }
+        
+        if !anotacion.isEmpty {
+            resultado.append("(\(anotacion))")
         }
         
         productVM.dimensiones = resultado.joined(separator: "\n")
-        
-        if productVM.anotacion != "" {
-            productVM.dimensiones = productVM.dimensiones + " (\(productVM.anotacion))"
-            productVM.anotacion = ""
-        }
-        
         productVM.save()
     }
 }
@@ -119,57 +152,57 @@ struct ProductDimensionesSheetView: View {
     
     @State var ancho: String = ""
     @State var alto: String = ""
+    
     @State var fijos: Bool = false
     @State var superior: String = ""
     @State var inferior: String = ""
     @State var izquierdo: String = ""
     @State var derecho: String = ""
     
+    @State var anotacion: String = ""
+    
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
     var body: some View {
         VStack {
             Button("Guardar") {
-                
                 var resultado: [String] = []
                 
-                if ancho != "" {
+                if !ancho.isEmpty {
                     resultado.append("Ancho: \(ancho) mm")
                 }
                 
-                if alto != "" {
+                if !alto.isEmpty {
                     resultado.append("Alto: \(alto) mm")
                 }
                 
                 if fijos {
                     resultado.append("")
                     if superior != "" {
-                        resultado.append("Fijo Sup.: \(superior) mm")
+                        resultado.append("Fijo Sup: \(superior) mm")
                     }
                     if inferior != "" {
-                        resultado.append("Fijo Inf.: \(inferior) mm")
+                        resultado.append("Fijo Inf: \(inferior) mm")
                     }
                     if izquierdo != "" {
-                        resultado.append("Fijo Izq.: \(izquierdo) mm")
+                        resultado.append("Fijo Izq: \(izquierdo) mm")
                     }
                     if derecho != "" {
-                        resultado.append("Fijo Der.: \(derecho) mm")
+                        resultado.append("Fijo Der: \(derecho) mm")
                     }
+                }
+                
+                if !anotacion.isEmpty {
+                    resultado.append("(\(anotacion))")
                 }
                 
                 productVM.dimensiones = resultado.joined(separator: "\n")
-                
-                if productVM.anotacion != "" {
-                    productVM.dimensiones = productVM.dimensiones + " (\(productVM.anotacion))"
-                    productVM.anotacion = ""
-                }
-                
                 productVM.save()
                 presentationMode.wrappedValue.dismiss()
             }.padding()
 
             Form{
-
+                
                 Section(header: Text("Dimensiones"), footer: Text("Unidad de medida: mm")) {
                     HStack {
                         TextField("Ancho", text: $ancho)
@@ -192,7 +225,7 @@ struct ProductDimensionesSheetView: View {
                 }
                 
                 Section(header: Text("Anotación")) {
-                    TextField("Añade una anotación", text: $productVM.anotacion)
+                    TextField("Añade una anotación", text: $anotacion)
                 }
             }
         }

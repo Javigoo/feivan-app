@@ -38,9 +38,11 @@ struct ProductAperturaFormView: View {
     @State var corredera: String = ""
     @State var oscilobatiente: Bool = false
     
-    // Marco inferior
     @State var marco_inferior: String = ""
-    @State var canal_recogeAgua: Bool = false
+    @State var canal_recoge_agua: Bool = false
+    
+    @State var otro: String = ""
+    @State var anotacion: String = ""
 
     var body: some View {
         VStack {
@@ -104,22 +106,65 @@ struct ProductAperturaFormView: View {
                         }
                         .pickerStyle(.segmented)
                         
-                        if productVM.marco_inferior == "Empotrado" {
-                            Toggle("Canal recoge agua", isOn: $canal_recogeAgua)
+                        if marco_inferior == "Empotrado" {
+                            Toggle("Canal recoge agua", isOn: $canal_recoge_agua)
                         }
                     }
                 }
                                             
-                Section(header: Text("Otro")) {
-                    TextField("Introduce otra opción", text: $productVM.otro)
+                Section(header: Text("Anotación")) {
+                    TextField("Añade una anotación", text: $anotacion)
                 }
                 
-                Section(header: Text("Anotación")) {
-                    TextField("Introduce una anotación", text: $productVM.anotacion)
+                Section(header: Text("Otro")) {
+                    TextField("Introduce otra opción", text: $otro)
                 }
             }
         }
         .navigationTitle(atributo)
+        .onAppear {
+                    
+            if !oscilobatiente {
+                oscilobatiente = Bool(productVM.getAttributeValue(attribute_data: productVM.apertura, select_atributte: "Oscilobatiente")) ?? false
+            }
+            
+            if vista.isEmpty {
+                vista = productVM.getAttributeValue(attribute_data: productVM.apertura, select_atributte: "Vista")
+            }
+            
+            if abre.isEmpty {
+                abre = productVM.getAttributeValue(attribute_data: productVM.apertura, select_atributte: "Abre")
+            }
+            
+            if mano.isEmpty {
+                mano = productVM.getAttributeValue(attribute_data: productVM.apertura, select_atributte: "Mano")
+            }
+            
+            if corredera.isEmpty {
+                if !productVM.getAttributeValue(attribute_data: productVM.apertura, select_atributte: "Primera hoja izquierda").isEmpty {
+                    corredera = "Primera hoja izquierda"
+                }
+                if !productVM.getAttributeValue(attribute_data: productVM.apertura, select_atributte: "Primera hoja derecha").isEmpty {
+                    corredera = "Primera hoja derecha"
+                }
+            }
+            
+            if marco_inferior.isEmpty {
+                marco_inferior = productVM.getAttributeValue(attribute_data: productVM.apertura, select_atributte: "Marco inferior")
+            }
+            
+            if !canal_recoge_agua {
+                canal_recoge_agua = Bool(productVM.getAttributeValue(attribute_data: productVM.apertura, select_atributte: "Con canal recoge agua")) ?? false
+            }
+            
+            if anotacion.isEmpty {
+                anotacion = productVM.getAttributeValue(attribute_data: productVM.apertura, select_atributte: "Anotacion")
+            }
+            
+            if otro.isEmpty {
+                otro = productVM.getAttributeValue(attribute_data: productVM.apertura, select_atributte: "Otro")
+            }
+        }
         .onDisappear {
             save()
         }
@@ -128,45 +173,44 @@ struct ProductAperturaFormView: View {
     func save() {
         var resultado: [String] = []
         
-        if oscilobatiente {
-            resultado.append("Oscilobatiente")
-        }
-        
-        if vista != "" {
-            resultado.append("Vista: \(vista)")
-        }
-        
-        if abre != "" {
-            resultado.append("Abre: \(abre)")
-        }
-        
-        if mano != "" {
-            resultado.append("Mano: \(mano)")
-        }
-        
-        if corredera != "" {
-            resultado.append(corredera)
-        }
-        
-        // Marco inferior
-        if marco_inferior != "" {
-            if canal_recogeAgua {
-                resultado.append("Marco inferior " + marco_inferior.lowercased() + " con canal recoge agua")
-            } else {
-                resultado.append("Marco inferior " + marco_inferior.lowercased())
+        if !otro.isEmpty {
+            productVM.apertura = "\""+otro+"\""
+        } else {
+            if oscilobatiente {
+                resultado.append("Oscilobatiente")
             }
-        }
-        
-        productVM.apertura = resultado.joined(separator: "\n")
-        
-        if productVM.otro != "" {
-            productVM.apertura = productVM.otro
-            productVM.otro = ""
-        }
-        
-        if productVM.anotacion != "" {
-            productVM.apertura = productVM.apertura + "\n(\(productVM.anotacion))"
-            productVM.anotacion = ""
+            
+            if !vista.isEmpty {
+                resultado.append("Vista: \(vista)")
+            }
+            
+            if !abre.isEmpty {
+                resultado.append("Abre: \(abre)")
+            }
+            
+            if !mano.isEmpty {
+                resultado.append("Mano: \(mano)")
+            }
+            
+            if !corredera.isEmpty {
+                print(corredera)
+                resultado.append(corredera)
+            }
+            
+            // Marco inferior
+            if !marco_inferior.isEmpty {
+                resultado.append("Marco inferior: " + marco_inferior)
+            }
+            
+            if canal_recoge_agua {
+                resultado.append("Con canal recoge agua")
+            }
+            
+            if !anotacion.isEmpty {
+                resultado.append("(\(anotacion))")
+            }
+            
+            productVM.apertura = resultado.joined(separator: "\n")
         }
         
         productVM.save()

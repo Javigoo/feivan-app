@@ -30,27 +30,33 @@ struct ProductTapajuntasFormView: View {
     var atributo = "Tapajuntas"
     @ObservedObject var productVM: ProductViewModel
     
+    @State var valor: String = ""
+    @State var tapajuntas_inferior: Bool = false
+
     @State var especificos: Bool = false
+    
     @State var superior: Double = 0
     @State var inferior: Double = 0
     @State var izquierdo: Double = 0
     @State var derecho: Double = 0
-    @State var tapajuntas_inferior: Bool = false
+    
+    @State var otro: String = ""
+    @State var anotacion: String = ""
 
     var body: some View {
         VStack {
             Form{
                 
                 Section(header: Text("Opciones"), footer: Text("Unidad de medida: mm")) {
-                    Picker(atributo, selection: $productVM.tapajuntas) {
+                    Picker(atributo, selection: $valor) {
                         List(productVM.optionsFor(attribute: atributo), id: \.self) { item in
                             Text(item)
                         }
-                    }.pickerStyle(.wheel)
-                    .onChange(of: productVM.tapajuntas) { newValue in
+                    }
+                    .pickerStyle(.wheel)
+                    .onChange(of: valor) { _ in
                         setTapajuntasEspecificos()
                     }
-            
                 }
                 
                 Section(header: Text("Tapajuntas")) {
@@ -59,12 +65,12 @@ struct ProductTapajuntasFormView: View {
                             if tapajuntas_inferior {
                                 inferior = 0
                             } else {
-                                inferior = Double(productVM.tapajuntas) ?? 0
+                                inferior = Double(valor) ?? 0
                             }
                         }
                     
                     Toggle("Específicos", isOn: $especificos)
-                        .onAppear {
+                        .onChange(of: especificos) { _ in
                             setTapajuntasEspecificos()
                         }
                 
@@ -93,62 +99,117 @@ struct ProductTapajuntasFormView: View {
                         }
                     }
                 }
-
-                Section(header: Text("Otro")) {
-                    TextField("Introduce otra opción", text: $productVM.otro)
-                }
                 
                 Section(header: Text("Anotación")) {
-                    TextField("Introduce una anotación", text: $productVM.anotacion)
+                    TextField("Añade una anotación", text: $anotacion)
+                }
+                
+                Section(header: Text("Otro")) {
+                    TextField("Introduce otra opción", text: $otro)
                 }
             }
         }
         .navigationTitle(atributo)
+        .onAppear {
+            if valor.isEmpty {
+                valor = productVM.getAttributeValue(attribute_data: productVM.tapajuntas, select_atributte: "Valor").components(separatedBy: " ")[0]
+            }
+            
+            if !tapajuntas_inferior {
+                tapajuntas_inferior = Bool(productVM.getAttributeValue(attribute_data: productVM.tapajuntas, select_atributte: "Sin tapajuntas inferior")) ?? false
+            }
+            
+            if superior == 0 {
+                superior = Double(productVM.getAttributeValue(attribute_data: productVM.tapajuntas, select_atributte: "Superior").components(separatedBy: " ")[0]) ?? 0
+                if superior != 0 {
+                    especificos = true
+                }
+            }
+            
+            if inferior == 0 {
+                inferior = Double(productVM.getAttributeValue(attribute_data: productVM.tapajuntas, select_atributte: "Inferior").components(separatedBy: " ")[0]) ?? 0
+                if inferior != 0 {
+                    especificos = true
+                }
+            }
+            
+            if izquierdo == 0 {
+                izquierdo = Double(productVM.getAttributeValue(attribute_data: productVM.tapajuntas, select_atributte: "Izquierdo").components(separatedBy: " ")[0]) ?? 0
+                if izquierdo != 0 {
+                    especificos = true
+                }
+            }
+            
+            if derecho == 0 {
+                derecho = Double(productVM.getAttributeValue(attribute_data: productVM.tapajuntas, select_atributte: "Derecho").components(separatedBy: " ")[0]) ?? 0
+                if derecho != 0 {
+                    especificos = true
+                }
+            }
+                        
+            if anotacion.isEmpty {
+                anotacion = productVM.getAttributeValue(attribute_data: productVM.tapajuntas, select_atributte: "Anotacion")
+            }
+            
+            if otro.isEmpty {
+                otro = productVM.getAttributeValue(attribute_data: productVM.tapajuntas, select_atributte: "Otro")
+            }
+        }
         .onDisappear {
             save()
         }
     }
     
     func setTapajuntasEspecificos() {
-        superior = Double(productVM.tapajuntas) ?? 0
-        inferior = Double(productVM.tapajuntas) ?? 0
-        izquierdo = Double(productVM.tapajuntas) ?? 0
-        derecho = Double(productVM.tapajuntas) ?? 0
+        if superior == 0 {
+            superior = Double(valor) ?? 0
+        }
+        if inferior == 0 {
+            inferior = Double(valor) ?? 0
+        }
+        if izquierdo == 0 {
+            izquierdo = Double(valor) ?? 0
+        }
+        if derecho == 0 {
+            derecho = Double(valor) ?? 0
+        }
     }
     
     func save(){
         var resultado: [String] = []
-
-        if especificos {
-            if (superior != 0){
-                resultado.append("Superior: \(String(format: "%.0f", superior)) mm")
-            }
-            if (inferior != 0){
-                resultado.append("Inferior: \(String(format: "%.0f", inferior)) mm")
-            }
-            if (izquierdo != 0){
-                resultado.append("Izquierdo: \(String(format: "%.0f", izquierdo)) mm")
-            }
-            if (derecho != 0){
-                resultado.append("Derecho: \(String(format: "%.0f", derecho)) mm")
-            }
-            productVM.tapajuntas = resultado.joined(separator: "\n")
+        
+        if !otro.isEmpty {
+            productVM.tapajuntas = "\""+otro+"\""
         } else {
-            if tapajuntas_inferior {
-                productVM.tapajuntas = productVM.tapajuntas + "\nSin tapajuntas inferior"
+            if !valor.isEmpty {
+                resultado.append("\(valor) mm")
             }
+            if especificos {
+                if (superior != 0 && Double(valor) != superior){
+                    resultado.append("Superior: \(String(format: "%.0f", superior)) mm")
+                }
+                if (inferior != 0 && !tapajuntas_inferior && Double(valor) != inferior){
+                    resultado.append("Inferior: \(String(format: "%.0f", inferior)) mm")
+                }
+                if (izquierdo != 0 && Double(valor) != izquierdo){
+                    resultado.append("Izquierdo: \(String(format: "%.0f", izquierdo)) mm")
+                }
+                if (derecho != 0 && Double(valor) != derecho){
+                    resultado.append("Derecho: \(String(format: "%.0f", derecho)) mm")
+                }
+            }
+            
+            if tapajuntas_inferior {
+                resultado.append("Sin tapajuntas inferior")
+            }
+            
+            if !anotacion.isEmpty {
+                resultado.append("(\(anotacion))")
+            }
+            
+            productVM.tapajuntas = resultado.joined(separator: "\n")
         }
-        
-        if productVM.otro != "" {
-            productVM.tapajuntas = productVM.otro
-            productVM.otro = ""
-        }
-        
-        if productVM.anotacion != "" {
-            productVM.tapajuntas = productVM.tapajuntas + " (\(productVM.anotacion))"
-            productVM.anotacion = ""
-        }
-        
+
         productVM.save()
     }
 }

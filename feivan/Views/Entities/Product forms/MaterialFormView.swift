@@ -27,19 +27,14 @@ struct ProductMaterialView: View {
 
 struct ProductMaterialFormView: View {
     
+    var atributo = "Material"
     @ObservedObject var productVM: ProductViewModel
 
-    var atributo = "Material"
     @State var valor: String = ""
     @State var serie: String = ""
+    
     @State var otro: String = ""
     @State var anotacion: String = ""
-    
-    /*
-    init() {
-        _otro = State(initialValue: "")
-    }
-    */
     
     var body: some View {
         VStack {
@@ -74,34 +69,29 @@ struct ProductMaterialFormView: View {
                     }
                 }
                                 
-                Section(header: Text("Otro")) {
-                    TextField("Introduce otra opción", text: $otro)
+                Section(header: Text("Anotación")) {
+                    TextField("Añade una anotación", text: $anotacion)
                 }
                 
-                
-                Section(header: Text("Anotación")) {
-                    TextField("Introduce una anotación", text: $anotacion)
+                Section(header: Text("Otro")) {
+                    TextField("Introduce otra opción", text: $otro)
                 }
             }
         }
         .navigationTitle(atributo)
         .onAppear {
-            if valor == "" {
+            if valor.isEmpty {
                 valor = productVM.getAttributeValue(attribute_data: productVM.material, select_atributte: "Valor")
             }
-            if serie == "" {
+            if serie.isEmpty {
                 serie = productVM.getAttributeValue(attribute_data: productVM.material, select_atributte: "Serie")
             }
-            
-            // El textfield no se actualiza y no se ve
-            /*
-            if otro == "" {
-                otro = productVM.getAttributeValue(attribute_data: productVM.material, select_atributte: "Otro")
-            }
-            if anotacion == "" {
+            if anotacion.isEmpty {
                 anotacion = productVM.getAttributeValue(attribute_data: productVM.material, select_atributte: "Anotacion")
             }
-            */
+            if otro.isEmpty {
+                otro = productVM.getAttributeValue(attribute_data: productVM.material, select_atributte: "Otro")
+            }
         }.onDisappear {
             save()
         }
@@ -110,25 +100,22 @@ struct ProductMaterialFormView: View {
     func save() {
         var resultado: [String] = []
         
-        if valor != "" {
-            resultado.append(valor)
-        }
-        
-        if valor == "Aluminio" && serie != "" {
-            resultado.append("Serie: \(serie)")
-        }
-        
-        if anotacion != "" {
-            resultado.append("(\(anotacion))")
-        }
-        
-        productVM.material = resultado.joined(separator: "\n")
-        
-        if otro != "" {
+        if !otro.isEmpty {
             productVM.material = "\""+otro+"\""
-            if anotacion != "" {
-                productVM.material += "\n(\(anotacion))"
+        } else {
+            if !valor.isEmpty {
+                resultado.append(valor)
             }
+            
+            if valor == "Aluminio" && !serie.isEmpty {
+                resultado.append("Serie: \(serie)")
+            }
+            
+            if !anotacion.isEmpty {
+                resultado.append("(\(anotacion))")
+            }
+            
+            productVM.material = resultado.joined(separator: "\n")
         }
 
         productVM.save()

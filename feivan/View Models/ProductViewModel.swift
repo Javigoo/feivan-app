@@ -599,6 +599,9 @@ class ProductViewModel: ObservableObject {
     func getSingularFamilia(name: String) -> String {
         if name != "" {
             var nombre = getFamilia()
+            if nombre == "Persianas enrollables" {
+                return "Persiana enrollable"
+            }
             nombre.removeLast()
             return nombre
         }
@@ -634,6 +637,9 @@ class ProductViewModel: ObservableObject {
             }
             if select_atributte == "Valor" {
                 return data
+            }
+            if data.contains(select_atributte) {
+                return "true"
             }
         }
         return ""

@@ -127,6 +127,9 @@ struct ProductFormView: View {
                     //fotoNav(productVM: productVM)
 
                     Stepper("Unidades:  \(productVM.unidades)", value: $productVM.unidades, in: 1...99)
+                        .onChange(of: productVM.unidades) { _ in
+                            productVM.save()
+                        }
                 }
                                 
 //                if productVM.proyecto != nil {
