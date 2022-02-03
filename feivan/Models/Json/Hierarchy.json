@@ -230,15 +230,20 @@
                 "Premarco",
                 "Desmontando madera",
                 "Desmontando hierro",
-                "Desmontando aluminio"
+                "Desmontando aluminio",
+                "Sobre marco madera",
+                "Sobre marco hierro",
+                "Sobre marco aluminio",
+                "Desmontar ventanas atornilladas"
+
             ]
         },
         {
             "nombre": "Mallorquina",
             "opciones": [
                 "Lama móvil",
-                "Persiana planta baja apertura libro",
-                "Persiana planta baja hoja sobre hoja",
+                "Planta baja apertura libro",
+                "Planta baja hoja sobre hoja",
                 "Marco cerrado"
             ]
         },

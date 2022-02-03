@@ -43,6 +43,9 @@ struct ProductCristalFormView: View {
     @State var silence: Bool = false
     @State var acustico: Bool = false
     @State var templado: Bool = false
+    
+    @State var otro: String = ""
+    @State var anotacion: String = ""
 
     var body: some View {
         VStack {
@@ -84,16 +87,55 @@ struct ProductCristalFormView: View {
                     Toggle("Templado", isOn: $templado)
                 }
                 
-                Section(header: Text("Otro")) {
-                    TextField("Introduce otra opción", text: $productVM.otro)
+                Section(header: Text("Anotación")) {
+                    TextField("Añade una anotación", text: $anotacion)
                 }
                 
-                Section(header: Text("Anotación")) {
-                    TextField("Añade una anotación", text: $productVM.anotacion)
+                Section(header: Text("Otro")) {
+                    TextField("Introduce otra opción", text: $otro)
                 }
             }
         }
         .navigationTitle(atributo)
+        .onAppear {
+            if camaras.isEmpty {
+                camaras = productVM.getAttributeValue(attribute_data: productVM.cristal, select_atributte: "Cámaras")
+                if !camaras.isEmpty {
+                    opcion = "Cámaras"
+                }
+            }
+            
+            if seguridad.isEmpty {
+                seguridad = productVM.getAttributeValue(attribute_data: productVM.cristal, select_atributte: "Seguridad")
+                if !seguridad.isEmpty {
+                    opcion = "Seguridad"
+                }
+            }
+            
+            if tonalidad.isEmpty {
+                tonalidad = productVM.getAttributeValue(attribute_data: productVM.cristal, select_atributte: "Tonalidad")
+            }
+ 
+            if !silence {
+                silence = Bool(productVM.getAttributeValue(attribute_data: productVM.cristal, select_atributte: "Silence")) ?? false
+            }
+            
+            if !acustico {
+                acustico = Bool(productVM.getAttributeValue(attribute_data: productVM.cristal, select_atributte: "Guardian sun")) ?? false
+            }
+            
+            if !templado {
+                templado = Bool(productVM.getAttributeValue(attribute_data: productVM.cristal, select_atributte: "Templado")) ?? false
+            }
+            
+            if anotacion.isEmpty {
+                anotacion = productVM.getAttributeValue(attribute_data: productVM.cristal, select_atributte: "Anotacion")
+            }
+            
+            if otro.isEmpty {
+                otro = productVM.getAttributeValue(attribute_data: productVM.cristal, select_atributte: "Otro")
+            }
+        }
         .onDisappear {
             save()
         }
@@ -102,42 +144,40 @@ struct ProductCristalFormView: View {
     func save() {
         var resultado: [String] = []
 
-        if opcion == "Cámaras" {
-            resultado.append("Cámaras: \(camaras)")
-        }
-        
-        if opcion == "Seguridad" {
-            resultado.append("Seguridad: \(seguridad)")
-        }
-        
-        if tonalidad != "" {
-            resultado.append("Tonalidad: \(tonalidad)")
-        }
-        
-        if silence || acustico || templado {
-            resultado.append("Composición:")
+        if !otro.isEmpty {
+            productVM.cristal = "\""+otro+"\""
+        } else {
+            if opcion == "Cámaras" {
+                resultado.append("Cámaras: \(camaras)")
+            }
             
-            if silence {
-                resultado.append("Silence")
+            if opcion == "Seguridad" {
+                resultado.append("Seguridad: \(seguridad)")
             }
-            if acustico {
-                resultado.append("Guardian sun")
-            }
-            if templado {
-                resultado.append("Templado")
-            }
-        }
             
-        productVM.cristal = resultado.joined(separator: "\n")
-
-        if productVM.otro != "" {
-            productVM.cristal = productVM.otro
-            productVM.otro = ""
-        }
-        
-        if productVM.anotacion != "" {
-            productVM.cristal = productVM.cristal + " (\(productVM.anotacion))"
-            productVM.anotacion = ""
+            if !tonalidad.isEmpty {
+                resultado.append("Tonalidad: \(tonalidad)")
+            }
+            
+            if silence || acustico || templado {
+                resultado.append("Composición:")
+                
+                if silence {
+                    resultado.append("Silence")
+                }
+                if acustico {
+                    resultado.append("Guardian sun")
+                }
+                if templado {
+                    resultado.append("Templado")
+                }
+            }
+            
+            if !anotacion.isEmpty {
+                resultado.append("(\(anotacion))")
+            }
+                
+            productVM.cristal = resultado.joined(separator: "\n")
         }
         
         productVM.save()

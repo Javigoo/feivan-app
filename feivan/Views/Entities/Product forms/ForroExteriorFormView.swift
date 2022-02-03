@@ -36,6 +36,9 @@ struct ProductForroExteriorFormView: View {
     @State var angulo: String = ""
     @State var pletina: String = ""
     @State var lama: Bool = false
+    
+    @State var otro: String = ""
+    @State var anotacion: String = ""
 
     var body: some View {
         VStack {
@@ -57,17 +60,35 @@ struct ProductForroExteriorFormView: View {
                 
                 Toggle("Lama", isOn: $lama)
 
-                Section(header: Text("Otro")) {
-                    TextField("Introduce otra opción", text: $productVM.otro)
+                Section(header: Text("Anotación")) {
+                    TextField("Añade una anotación", text: $anotacion)
                 }
                 
-                Section(header: Text("Anotación")) {
-                    TextField("Añade una anotación", text: $productVM.anotacion)
+                Section(header: Text("Otro")) {
+                    TextField("Introduce otra opción", text: $otro)
                 }
             }
         }
         .navigationTitle(atributo)
-        .onDisappear {
+        .onAppear {
+            if pletina.isEmpty {
+                pletina = productVM.getAttributeValue(attribute_data: productVM.forro_exterior, select_atributte: "Pletina")
+            }
+            if angulo.isEmpty {
+                angulo = productVM.getAttributeValue(attribute_data: productVM.forro_exterior, select_atributte: "Ángulo")
+            }
+            if !lama {
+                lama = Bool(productVM.getAttributeValue(attribute_data: productVM.forro_exterior, select_atributte: "Con lama")) ?? false
+            }
+            
+            if anotacion.isEmpty {
+                anotacion = productVM.getAttributeValue(attribute_data: productVM.forro_exterior, select_atributte: "Anotacion")
+            }
+            
+            if otro.isEmpty {
+                otro = productVM.getAttributeValue(attribute_data: productVM.forro_exterior, select_atributte: "Otro")
+            }
+        }.onDisappear {
             save()
         }
     }
@@ -75,28 +96,26 @@ struct ProductForroExteriorFormView: View {
     func save() {
         var resultado: [String] = []
         
-        if pletina != "" {
-            resultado.append("Pletina: \(pletina)")
-        }
-        
-        if angulo != "" {
-            resultado.append("Ángulo: \(angulo)")
-        }
-        
-        if lama {
-            resultado.append("Con lama")
-        }
-        
-        productVM.forro_exterior = resultado.joined(separator: "\n")
-        
-        if productVM.otro != "" {
-            productVM.forro_exterior = productVM.otro
-            productVM.otro = ""
-        }
-        
-        if productVM.anotacion != "" {
-            productVM.forro_exterior = productVM.forro_exterior + " (\(productVM.anotacion))"
-            productVM.anotacion = ""
+        if !otro.isEmpty {
+            productVM.forro_exterior = "\""+otro+"\""
+        } else {
+            if !pletina.isEmpty {
+                resultado.append("Pletina: \(pletina)")
+            }
+            
+            if !angulo.isEmpty {
+                resultado.append("Ángulo: \(angulo)")
+            }
+            
+            if lama {
+                resultado.append("Con lama")
+            }
+            
+            if !anotacion.isEmpty {
+                resultado.append("(\(anotacion))")
+            }
+            
+            productVM.forro_exterior = resultado.joined(separator: "\n")
         }
         
         productVM.save()

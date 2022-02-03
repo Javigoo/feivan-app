@@ -30,42 +30,65 @@ struct ProductManetasFormView: View {
     var atributo = "Manetas"
     @ObservedObject var productVM: ProductViewModel
 
+    @State var valor: String = ""
+    @State var otro: String = ""
+    @State var anotacion: String = ""
+    
     var body: some View {
         VStack {
             Form{
                 Section(header: Text("Opciones")) {
-                    Picker(atributo, selection: $productVM.manetas) {
-                        List(productVM.optionsFor(attribute: atributo), id: \.self) { item in Text(item) }
+                    Picker(atributo, selection: $valor) {
+                        List(productVM.optionsFor(attribute: atributo), id: \.self) { item in
+                            Text(item)
+                        }
                     }
                     .pickerStyle(.wheel)
                 }
                 
-                Section(header: Text("Otro")) {
-                    TextField("Introduce otra opción", text: $productVM.otro)
+                Section(header: Text("Anotación")) {
+                    TextField("Añade una anotación", text: $anotacion)
                 }
                 
-                Section(header: Text("Anotación")) {
-                    TextField("Añade una anotación", text: $productVM.anotacion)
+                Section(header: Text("Otro")) {
+                    TextField("Introduce otra opción", text: $otro)
                 }
             }
         }
         .navigationTitle(atributo)
+        .onAppear {
+            if valor.isEmpty {
+                valor = productVM.getAttributeValue(attribute_data: productVM.manetas, select_atributte: "Valor")
+            }
+            if anotacion.isEmpty {
+                anotacion = productVM.getAttributeValue(attribute_data: productVM.manetas, select_atributte: "Anotacion")
+            }
+            if otro.isEmpty {
+                otro = productVM.getAttributeValue(attribute_data: productVM.manetas, select_atributte: "Otro")
+            }
+        }
         .onDisappear {
             save()
         }
     }
     
     func save() {
-        if productVM.otro != "" {
-            productVM.manetas = productVM.otro
-            productVM.otro = ""
-        }
+        var resultado: [String] = []
         
-        if productVM.anotacion != "" {
-            productVM.manetas = productVM.manetas + " (\(productVM.anotacion))"
-            productVM.anotacion = ""
+        if !otro.isEmpty {
+            productVM.manetas = "\""+otro+"\""
+        } else {
+            if !valor.isEmpty {
+                resultado.append(valor)
+            }
+            
+            if !anotacion.isEmpty {
+                resultado.append("(\(anotacion))")
+            }
+            
+            productVM.manetas = resultado.joined(separator: "\n")
         }
-        
+
         productVM.save()
     }
 }

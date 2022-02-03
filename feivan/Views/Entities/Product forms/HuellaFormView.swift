@@ -31,35 +31,49 @@ struct ProductHuellaFormView: View {
     var atributo = "Huella"
     @ObservedObject var productVM: ProductViewModel
     
-    @State var huella: String = ""
-     
+    @State var valor: String = ""
+    @State var anotacion: String = ""
+
     var body: some View {
         VStack {
             Form{
                 
                 Section(header: Text("Huella"), footer: Text("Unidad de medida: mm")) {
-                    TextField("Huella", text: $huella)
+                    TextField("Huella", text: $valor)
                         .keyboardType(.numberPad)
                 }
                 
                 Section(header: Text("Anotación")) {
-                    TextField("Introduce una anotación", text: $productVM.anotacion)
+                    TextField("Introduce una anotación", text: $anotacion)
                 }
             }
         }
         .navigationTitle(atributo)
+        .onAppear {
+            if valor.isEmpty {
+                valor = productVM.getAttributeValue(attribute_data: productVM.huella, select_atributte: "Valor").components(separatedBy: " ")[0]
+            }
+            if anotacion.isEmpty {
+                anotacion = productVM.getAttributeValue(attribute_data: productVM.huella, select_atributte: "Anotacion")
+            }
+        }
         .onDisappear {
             save()
         }
     }
     
     func save() {
-        productVM.huella = huella + " mm"
+        var resultado: [String] = []
         
-        if productVM.anotacion != "" {
-            productVM.huella = productVM.huella + " (\(productVM.anotacion))"
-            productVM.anotacion = ""
+        if !valor.isEmpty {
+            resultado.append("\(valor) mm")
         }
+        
+        if !anotacion.isEmpty {
+            resultado.append("(\(anotacion))")
+        }
+        
+        productVM.huella = resultado.joined(separator: "\n")
         
         productVM.save()
     }

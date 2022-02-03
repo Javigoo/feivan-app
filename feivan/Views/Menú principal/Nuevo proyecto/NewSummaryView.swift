@@ -12,17 +12,20 @@ struct NewProjectSummary: View {
 
     @EnvironmentObject var projectVM: ProjectViewModel
     
+    var homeButton: some View {
+        Button(action: {
+            rootPresentation.wrappedValue = false
+        }, label: {
+            Image(systemName: "house")
+        })
+    }
+    
     var body: some View {
 
         VStack {
             ProjectView(projectVM: projectVM)
-        }.toolbar {
-            Button("Guardar") {
-                projectVM.save()
-                
-                rootPresentation.wrappedValue = false
-            }
         }
-        .navigationTitle("Resumen del proyecto")
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: homeButton)
     }
 }

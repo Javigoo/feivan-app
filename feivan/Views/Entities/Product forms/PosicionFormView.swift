@@ -59,10 +59,10 @@ struct ProductPosicionFormView: View {
                     .pickerStyle(.segmented)
                     
                     if ventana_o_puerta == "Ventana" {
-                        Stepper("V\(ventana)", value: $ventana, in: 1...99)
+                        Stepper("V\(ventana)", value: $ventana, in: 0...99)
                     }
                     if ventana_o_puerta == "Puerta" {
-                        Stepper("P\(puerta)", value: $puerta, in: 1...99)
+                        Stepper("P\(puerta)", value: $puerta, in: 0...99)
                     }
                 }
                 
@@ -72,6 +72,30 @@ struct ProductPosicionFormView: View {
             }
         }
         .navigationTitle(atributo)
+        .onAppear {
+            if posicion.isEmpty {
+                posicion = productVM.getAttributeValue(attribute_data: productVM.posicion, select_atributte: "Valor")
+            }
+    
+            if otraPosicion.isEmpty {
+                otraPosicion = productVM.getAttributeValue(attribute_data: productVM.posicion, select_atributte: "Otro")
+            }
+            
+            
+            ventana = Int(productVM.getAttributeValue(attribute_data: productVM.posicion, select_atributte: "V")) ?? 0
+            if ventana != 0 {
+                ventana_o_puerta = "Ventana"
+            }
+            
+            puerta = Int(productVM.getAttributeValue(attribute_data: productVM.posicion, select_atributte: "P")) ?? 0
+            if puerta != 0 {
+                ventana_o_puerta = "Puerta"
+            }
+           
+            if anotacion.isEmpty {
+                anotacion = productVM.getAttributeValue(attribute_data: productVM.posicion, select_atributte: "Anotacion")
+            }
+        }
         .onDisappear {
             save()
         }
@@ -80,22 +104,22 @@ struct ProductPosicionFormView: View {
     func save() {
         var resultado: [String] = []
         
-        if otraPosicion != "" {
-            resultado.append(otraPosicion)
-        } else if posicion != "" {
+        if !otraPosicion.isEmpty {
+            resultado.append("\""+otraPosicion+"\"")
+        } else if !posicion.isEmpty {
             resultado.append(posicion)
         }
         
         if ventana_o_puerta == "Ventana" {
-            resultado.append("V\(ventana)")
+            resultado.append("V:\(ventana)")
         }
         if ventana_o_puerta == "Puerta" {
-            resultado.append("P\(puerta)")
+            resultado.append("P:\(puerta)")
         }
         
         productVM.posicion = resultado.joined(separator: "\n")
         
-        if anotacion != "" {
+        if !anotacion.isEmpty {
             productVM.posicion += "\n(\(anotacion))"
         }
         

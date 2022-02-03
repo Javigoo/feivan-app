@@ -33,49 +33,74 @@ struct ProductMallorquinaFormView: View {
     @ObservedObject var productVM: ProductViewModel
     
     @State var tubo: Bool = false
+    @State var valor: String = ""
+    @State var otro: String = ""
+    @State var anotacion: String = ""
     
     var body: some View {
         VStack {
             Form{
                 Section(header: Text("Opciones")) {
-                    Picker(atributo, selection: $productVM.persiana) {
-                        List(productVM.optionsFor(attribute: atributo), id: \.self) { item in Text(item) }
+                    Picker(atributo, selection: $valor) {
+                        List(productVM.optionsFor(attribute: atributo), id: \.self) { item in
+                            Text(item)
+                        }
                     }
                     .pickerStyle(.wheel)
                 }
                 
                 Toggle("Tubo", isOn: $tubo)
                 
-                Section(header: Text("Otro")) {
-                    TextField("Introduce otra opción", text: $productVM.otro)
+                Section(header: Text("Anotación")) {
+                    TextField("Añade una anotación", text: $anotacion)
                 }
                 
-                Section(header: Text("Anotación")) {
-                    TextField("Añade una anotación", text: $productVM.anotacion)
+                Section(header: Text("Otro")) {
+                    TextField("Introduce otra opción", text: $otro)
                 }
             }
         }
         .navigationTitle(atributo)
+        .onAppear {
+            if valor.isEmpty {
+                valor = productVM.getAttributeValue(attribute_data: productVM.persiana, select_atributte: "Valor")
+            }
+            if !tubo {
+                tubo = Bool(productVM.getAttributeValue(attribute_data: productVM.persiana, select_atributte: "Con tubo")) ?? false
+            }
+            if anotacion.isEmpty {
+                anotacion = productVM.getAttributeValue(attribute_data: productVM.persiana, select_atributte: "Anotacion")
+            }
+            if otro.isEmpty {
+                otro = productVM.getAttributeValue(attribute_data: productVM.persiana, select_atributte: "Otro")
+            }
+        }
         .onDisappear {
             save()
         }
     }
     
     func save() {
-        if tubo {
-            productVM.persiana = productVM.persiana + " con tubo"
-        }
+        var resultado: [String] = []
         
-        if productVM.otro != "" {
-            productVM.persiana = productVM.otro
-            productVM.otro = ""
+        if !otro.isEmpty {
+            productVM.persiana = "\""+otro+"\""
+        } else {
+            if !valor.isEmpty {
+                resultado.append(valor)
+            }
+            
+            if tubo {
+                resultado.append("Con tubo")
+            }
+            
+            if !anotacion.isEmpty {
+                resultado.append("(\(anotacion))")
+            }
+            
+            productVM.persiana = resultado.joined(separator: "\n")
         }
-        
-        if productVM.anotacion != "" {
-            productVM.persiana = productVM.persiana + " (\(productVM.anotacion))"
-            productVM.anotacion = ""
-        }
-        
+
         productVM.save()
     }
 }

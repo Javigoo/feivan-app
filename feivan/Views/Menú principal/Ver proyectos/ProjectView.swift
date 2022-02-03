@@ -72,17 +72,7 @@ struct ProjectView: View {
                     .onAppear(perform: projectVM.getAllProjects)
                 }
             }
-        }
-        .navigationTitle(Text("Proyecto"))
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    showGenerarPdf = true
-                }, label: {
-                    Image(systemName: "doc")
-                })
-            }
-            
+        }.toolbar {
             ToolbarItem(placement: .bottomBar) {
                 Button(action: {
                     showAñadirProducto = true
@@ -90,7 +80,16 @@ struct ProjectView: View {
                     Text("Añadir producto")
                 })
             }
-        }
+            
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    showGenerarPdf = true
+                }, label: {
+                    Image(systemName: "doc")
+                })
+            }
+        }.navigationTitle(Text("Proyecto"))
+        
     }
     
     private func deleteProduct(offsets: IndexSet) {
