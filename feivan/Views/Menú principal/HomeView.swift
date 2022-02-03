@@ -48,6 +48,15 @@ struct HomeView: View {
                             .textStyle(NavigationLinkStyle())
                     }
                 )
+                
+                NavigationLink(
+                    destination: {
+                        UbicationView()
+                    }, label: {
+                        Text("Ral")
+                            .textStyle(NavigationLinkStyle())
+                    }
+                )
 
                 Spacer()
             }

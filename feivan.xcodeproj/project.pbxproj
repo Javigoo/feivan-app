@@ -15,6 +15,7 @@
 		2544199727395B11005290C9 /* NewProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2544199627395B11005290C9 /* NewProjectView.swift */; };
 		254420752746AAEC00CFDDA4 /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254420742746AAEC00CFDDA4 /* ProjectView.swift */; };
 		254420792746C89200CFDDA4 /* CustomEnvironmentProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254420782746C89200CFDDA4 /* CustomEnvironmentProperties.swift */; };
+		255F375827AC7D1B00931412 /* UbicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255F375727AC7D1B00931412 /* UbicationView.swift */; };
 		25743CDF27A8300200AB4598 /* ColorSwatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25743CDE27A8300200AB4598 /* ColorSwatchView.swift */; };
 		25745B69275866460056474E /* CreatePDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25745B68275866460056474E /* CreatePDF.swift */; };
 		257CC826271FE561009C65D1 /* FeivanApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257CC825271FE561009C65D1 /* FeivanApp.swift */; };
@@ -72,6 +73,7 @@
 		2544199627395B11005290C9 /* NewProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProjectView.swift; sourceTree = "<group>"; };
 		254420742746AAEC00CFDDA4 /* ProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectView.swift; sourceTree = "<group>"; };
 		254420782746C89200CFDDA4 /* CustomEnvironmentProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEnvironmentProperties.swift; sourceTree = "<group>"; };
+		255F375727AC7D1B00931412 /* UbicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UbicationView.swift; sourceTree = "<group>"; };
 		25743CDE27A8300200AB4598 /* ColorSwatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSwatchView.swift; sourceTree = "<group>"; };
 		25745B68275866460056474E /* CreatePDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePDF.swift; sourceTree = "<group>"; };
 		257CC822271FE561009C65D1 /* Feivan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Feivan.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -195,6 +197,7 @@
 			children = (
 				25E8F23E272197590009CEB7 /* DebugFile.swift */,
 				257CC84227218926009C65D1 /* HomeView.swift */,
+				255F375727AC7D1B00931412 /* UbicationView.swift */,
 				254420702746A8CD00CFDDA4 /* Ver proyectos */,
 				254420712746A92000CFDDA4 /* Nuevo proyecto */,
 			);
@@ -425,6 +428,7 @@
 				25C6B6B2276B77B000253C7E /* HeaderPDF.swift in Sources */,
 				259AD0C8274E466A00B697DD /* NewSummaryView.swift in Sources */,
 				259AD0C4274E45EC00B697DD /* NewClientView.swift in Sources */,
+				255F375827AC7D1B00931412 /* UbicationView.swift in Sources */,
 				254420752746AAEC00CFDDA4 /* ProjectView.swift in Sources */,
 				259BC28D272862BD00AE3305 /* Json.swift in Sources */,
 				252DC7B127248635005F3489 /* ProductEntityView.swift in Sources */,
@@ -594,6 +598,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Feivan/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Feivan photo use";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -605,7 +610,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.javigo.Feivan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -630,6 +635,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Feivan/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Feivan photo use";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -641,7 +647,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.javigo.Feivan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

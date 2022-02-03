@@ -42,9 +42,6 @@ struct ProductColorFormView: View {
     @State var herrajes: Bool = false
     @State var anotacion: String = ""
 
-    @State var tonos_ral: [String] = ["Amarillos", "Naranjas", "Rojos", "Violetas", "Azules", "Verdes", "Grises", "Marrones", "Blancos y negros"]
-    @State var ral_color: String = ""
-
     var body: some View {
         VStack {
             Form {
@@ -62,7 +59,7 @@ struct ProductColorFormView: View {
                     Section(header: Text("Color ")) {
                         TextField("Ral", text: $color)
 //                        NavigationLink(
-//                            destination: ProductColorRalView(productVM: productVM),
+//                            destination: ProductColorRalView(productVM: productVM, color_seleccionado: $color),
 //                            label: {
 //                                HStack {
 //                                    Text("Ral")
@@ -166,6 +163,11 @@ struct ProductColorFormView: View {
                 if linea.contains(":") {
                     let atributo: String = linea.components(separatedBy: ":")[0]
                     let valor: String = linea.components(separatedBy: ":")[1]
+                    
+                    if atributo == "Ral" {
+                        opcion = "Ral"
+                        color = valor
+                    }
                     
                     if atributo == "Exterior" {
                         bicolor = true
@@ -276,126 +278,89 @@ struct ProductColorFormView: View {
 
 struct ProductColorRalView: View {
     @ObservedObject var productVM: ProductViewModel
+    @Binding var color_seleccionado: String
 
-    @State var tono: String = ""
-    @State var tonos_ral: [String] = ["Amarillos", "Naranjas", "Rojos", "Violetas", "Azules", "Verdes", "Grises", "Marrones", "Blancos y negros"]
-    @State var color: String = ""
+    @State var tono: String = "Todos"
+    @State var tonos_ral: [String] = ["Todos", "Amarillos", "Naranjas", "Rojos", "Violetas", "Azules", "Verdes", "Grises", "Marrones", "Blancos y negros"]
+    
+    @State var ral_color: String = ""
+    @State var name_color: String = ""
+    @State var rgb_color: Color = Color.white
 
     var body: some View {
         VStack {
             Form {
-                if !color.isEmpty {
+                if !name_color.isEmpty {
                     Section(header: Text("Color seleccionado")) {
                         NavigationLink(destination: {
-                            ProductColorRalFullView(productVM: productVM)
+                            ProductColorRalFullView(color: rgb_color)
                         }, label: {
-                            VStack(alignment: .leading) {
-                                Text("Nombre color")
-                                    .font(.title)
-                                Text("Ral")
-                                    .font(.body)
-                                Rectangle()
-                                    .fill(Color.red)
-                                    .frame(width: nil, height: 50, alignment: .center)
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text(name_color)
+                                        .font(.title)
+                                        .lineLimit(1)
+                                        .fixedSize()
+                                    Text(ral_color)
+                                        .font(.body)
+                                }
+                                Spacer()
+                                Circle()
+                                    .fill(rgb_color)
                             }
                         })
                     }
                 }
-                Section(header: Text("Colores")) {
+                
+                Section(header: Text("Tonos")) {
 
                     Picker("Tonos", selection: $tono) {
                         List(tonos_ral, id: \.self) { item in Text(item) }
                     }
-                    //.pickerStyle(.wheel)
-                    //.frame(width: nil, height: 100, alignment: .center)
+                    .pickerStyle(.wheel)
+                    .frame(width: nil, height: 100, alignment: .center)
+                }
+                
+                Section(header: Text("Colores")) {
                 
                     let tone_code = productVM.getToneCode(tone: tono)
-                    
-                    let gridItem = [GridItem(.fixed(40))]
-                    LazyVGrid(columns: gridItem) {
-                        ForEach(productVM.getRalCodes(), id: \.self) { code in
-                            
-                            let ral_code = productVM.getRalCode(ral: code)
-                            
-                            if tone_code == ral_code || tono.isEmpty {
-                            
-                                let red = productVM.getRalColor(code: code, color: "r")/255
-                                let green = productVM.getRalColor(code: code, color: "g")/255
-                                let blue = productVM.getRalColor(code: code, color: "b")/255
-                                
-                                HStack {
-                                    Text("\(code)")
-                                    Spacer()
-                                    Text("\(productVM.getRalName(code: code))")
-                                    Spacer()
-                                    Rectangle()
-                                        .fill(Color(red: red, green: green, blue: blue))
+                    let columns = [
+                            GridItem(.adaptive(minimum: 50))
+                        ]
+                    ScrollView {
+                        LazyVGrid(columns: columns, spacing: 20) {
+                            let colors = productVM.getRalColors()
+                            ForEach(colors, id: \.self) { color in
+                                let index = color.ral.index(color.ral.startIndex, offsetBy: 0)
+                                if tone_code == String(color.ral[index]) || tono == "Todos" {
+                                    let color_r_g_b = Color(red: color.r/255, green: color.g/255, blue: color.b/255)
+                                    Circle()
+                                        .fill(color_r_g_b)
                                         .frame(width: 50, height: 50)
-                                }.onTapGesture(perform: {
-                                    color = "Ral \(code)"
-                                })
+                                        .onTapGesture(perform: {
+                                            name_color = color.nombre
+                                            ral_color = color.ral
+                                            rgb_color = color_r_g_b
+                                            color_seleccionado = "Ral: \(ral_color)"
+                                        })
+                                }
                             }
-                        }
+                        }.padding()
                     }
+                    .frame(maxHeight: 300)
                 }
             }
         }
         .navigationTitle("Ral")
-        /*
-            Picker("Tonos", selection: $tono) {
-                List(tonos_ral, id: \.self) { item in Text(item) }
-            }
-            
-            let tone_code = productVM.getToneCode(tone: tono)
-            
-            // si no está seleccionado se ven todos
-            // si lo está solo se ve el seleccionado
-            if ral_color.isEmpty {
-                ForEach(productVM.getRalCodes(), id: \.self) { code in
-                    
-                    let ral_code = productVM.getRalCode(ral: code)
-                    if tone_code == ral_code {
-                    
-                        let red = productVM.getRalColor(code: code, color: "r")/255
-                        let green = productVM.getRalColor(code: code, color: "g")/255
-                        let blue = productVM.getRalColor(code: code, color: "b")/255
-                        
-                        HStack {
-                            Text("\(code)")
-                            Spacer()
-                            Text("\(productVM.getRalName(code: code))")
-                            Spacer()
-                            Rectangle()
-                                .fill(Color(red: red, green: green, blue: blue))
-                                .frame(width: 50, height: 50)
-                        }.onTapGesture(perform: {
-                            ral_color = "Ral \(code)"
-                        })
-                    }
-                }
-            } else {
-                let code = ral_color.components(separatedBy: " ")[1]
-                let red = productVM.getRalColor(code: code, color: "r")/255
-                let green = productVM.getRalColor(code: code, color: "g")/255
-                let blue = productVM.getRalColor(code: code, color: "b")/255
-                HStack {
-                    Text("\(code)")
-                    Spacer()
-                    Text("\(productVM.getRalName(code: code))")
-                    Spacer()
-                    Rectangle()
-                        .fill(Color(red: red, green: green, blue: blue))
-                        .frame(width: 50, height: 50)
-                }.onTapGesture(perform: {
-                    ral_color = ""
-                })
-            }
-         */
+        .onAppear {
+            let a = productVM.getAttributeValue(attribute_data: productVM.color , select_atributte: "Valor")
+            print("Raaaal: ", a)
+        }
     }
 }
 
 struct ProductColorRalFullView: View {
-    @ObservedObject var productVM: ProductViewModel
+    @State var color: Color
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
     var body: some View {
@@ -403,7 +368,7 @@ struct ProductColorRalFullView: View {
             VStack {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(.red)
+            .background(color)
             .onTapGesture {
                 presentationMode.wrappedValue.dismiss()
             }
@@ -413,7 +378,7 @@ struct ProductColorRalFullView: View {
             VStack {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.red)
+            .background(color)
             .onTapGesture {
                 presentationMode.wrappedValue.dismiss()
             }
@@ -421,4 +386,13 @@ struct ProductColorRalFullView: View {
 
         }
     }
+}
+
+
+struct RalColor: Hashable {
+    var nombre: String = ""
+    var ral: String = ""
+    var r: Double = 0.0
+    var g: Double = 0.0
+    var b: Double = 0.0
 }

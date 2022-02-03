@@ -529,6 +529,20 @@ class ProductViewModel: ObservableObject {
         return []
     }
     
+    func getRalColors() -> [RalColor] {
+        var colores: [RalColor] = []
+        for elemento in ral().elementos {
+            var color: RalColor = RalColor()
+            color.nombre = elemento.names.es
+            color.ral = elemento.code
+            color.r = Double(elemento.color.rgb.r)
+            color.g = Double(elemento.color.rgb.g)
+            color.b = Double(elemento.color.rgb.b)
+            colores.append(color)
+        }
+        return colores
+    }
+    
     func getRalCodes() -> [String] {
         var ral_codes: [String] = []
         for elemento in ral().elementos {
@@ -565,6 +579,7 @@ class ProductViewModel: ObservableObject {
     
     // Devuelve el código con el que empiezan los colores de eso tono
     func getToneCode(tone: String) -> String {
+        print(tone)
         // "Amarillos", "Naranjas", "Rojos", "Violetas", "Azules", "Verdes", "Grises", "Marrones", "Blancos y negros"
         switch tone {
             case "Amarillos":
