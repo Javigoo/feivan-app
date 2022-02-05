@@ -53,9 +53,34 @@ struct ProjectFormView: View {
 struct ProjectFormAddressView: View {
     @ObservedObject var projectVM: ProjectViewModel
 
+    @State var direccion: String = ""
+    @State var piso_puerta: String = ""
+
     var body: some View {
         Section(header: Text("Dirección")) {
-            TextField("Dirección del proyecto", text: $projectVM.direccion)
+            HStack {
+                TextField("Calle, número, código postal, ciudad", text: $direccion)
+                Button(action: {
+                    getAddress { (address) in
+                        direccion = address.getAddress()
+                    }
+                }, label: {
+                    Image(systemName: "location")
+                })
+            }
+            TextField("Piso y puerta", text: $piso_puerta)
+        }
+        .onAppear {
+            if direccion.isEmpty {
+                direccion = projectVM.direccion
+            }
+            if piso_puerta.isEmpty {
+                piso_puerta = projectVM.piso_puerta
+            }
+        }.onDisappear {
+            projectVM.direccion = direccion
+            projectVM.piso_puerta = piso_puerta
+            projectVM.save()
         }
     }
 }

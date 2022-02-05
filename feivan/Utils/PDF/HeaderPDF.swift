@@ -24,7 +24,14 @@ func addHeader(shared: PDFData, page: CGRect) {
     addCliente(shared: shared, page: page_header_data, text: client.nombre)
     addTelefono(shared: shared, page: page_header_data,text: client.telefono)
     
-    addDireccion(shared: shared, page: page_header_data, text: shared.project.direccion)
+    var direccion = ""
+    if !shared.project.piso_puerta.isEmpty && !shared.project.direccion.isEmpty {
+        direccion = "\(shared.project.piso_puerta), \(shared.project.direccion)"
+    } else if shared.project.piso_puerta.isEmpty && !shared.project.direccion.isEmpty {
+        direccion = shared.project.direccion
+    }
+    
+    addDireccion(shared: shared, page: page_header_data, text: direccion)
     
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "dd/MM/YY"

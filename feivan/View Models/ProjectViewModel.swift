@@ -12,6 +12,7 @@ class ProjectViewModel: ObservableObject {
 
     @Published var id_proyecto: UUID = UUID()
     @Published var direccion: String = ""
+    @Published var piso_puerta: String = ""
     @Published var ascensor: Bool = false
     @Published var grua: Bool = false
     @Published var subir_fachada: Bool = false
@@ -75,10 +76,7 @@ class ProjectViewModel: ObservableObject {
         } else {
             project = Proyecto(context: context.viewContext)
         }
-        print(direccion)
-        print(project.direccion ?? "no")
         setProject(project: project)
-        print(project.direccion ?? "no")
         context.save()
         getAllProjects()
     }
@@ -176,6 +174,7 @@ class ProjectViewModel: ObservableObject {
     private func setProjectVM(project: Proyecto) {
         id_proyecto = project.id_proyecto ?? id_proyecto
         direccion = project.direccion ?? direccion
+        piso_puerta = project.piso_puerta ?? piso_puerta
         ascensor = project.ascensor
         grua = project.grua
         subir_fachada = project.subir_fachada
@@ -190,6 +189,7 @@ class ProjectViewModel: ObservableObject {
     private func setProject(project: Proyecto) {
         project.id_proyecto = id_proyecto
         project.direccion = direccion
+        project.piso_puerta = piso_puerta
         project.ascensor = ascensor
         project.grua = grua
         project.subir_fachada = subir_fachada

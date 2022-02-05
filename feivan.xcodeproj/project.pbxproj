@@ -152,6 +152,7 @@
 		2544206D2746A5BC00CFDDA4 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				25A0018927AEB6970094F636 /* Location */,
 				25743CDD27A82FE100AB4598 /* Color */,
 				25C6B6B0276B75E000253C7E /* PDF */,
 				259BC28C272862BD00AE3305 /* Json.swift */,
@@ -197,7 +198,6 @@
 			children = (
 				25E8F23E272197590009CEB7 /* DebugFile.swift */,
 				257CC84227218926009C65D1 /* HomeView.swift */,
-				255F375727AC7D1B00931412 /* UbicationView.swift */,
 				254420702746A8CD00CFDDA4 /* Ver proyectos */,
 				254420712746A92000CFDDA4 /* Nuevo proyecto */,
 			);
@@ -324,6 +324,14 @@
 				252A89BB275AA91200BCA7AF /* FotoFormView.swift */,
 			);
 			path = "Product forms";
+			sourceTree = "<group>";
+		};
+		25A0018927AEB6970094F636 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				255F375727AC7D1B00931412 /* UbicationView.swift */,
+			);
+			path = Location;
 			sourceTree = "<group>";
 		};
 		25C6B6B0276B75E000253C7E /* PDF */ = {
@@ -598,7 +606,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Feivan/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Feivan photo use";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "App needs location";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "App needs location";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "App needs location";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -635,7 +645,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Feivan/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Feivan photo use";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "App needs location";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "App needs location";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "App needs location";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
