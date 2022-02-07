@@ -41,6 +41,10 @@ struct ClientFormView: View {
             TextField("Email", text: $clientVM.email)
                 .keyboardType(.emailAddress)
         }
+        
+        Toggle(isOn: $clientVM.leroy_merlin) {
+            Text("Leroy Merlin")
+        }
             
         TextField("Referencia", text: $clientVM.referencia)
             

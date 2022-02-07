@@ -58,16 +58,16 @@ struct ProductColorFormView: View {
                 if opcion == "Ral" {
                     Section(header: Text("Color ")) {
                         TextField("Ral", text: $color)
-//                        NavigationLink(
-//                            destination: ProductColorRalView(productVM: productVM, color_seleccionado: $color),
-//                            label: {
-//                                HStack {
-//                                    Text("Ral")
-//                                    Spacer()
-//                                    Text(color)
-//                                }
-//                            }
-//                        )
+                        NavigationLink(
+                            destination: ProductColorRalView(productVM: productVM, color_seleccionado: $color),
+                            label: {
+                                HStack {
+                                    Text("Carta Ral")
+                                    Spacer()
+                                    Text(color)
+                                }
+                            }
+                        )
                     }
                 }
     
@@ -166,7 +166,7 @@ struct ProductColorFormView: View {
                     
                     if atributo == "Ral" {
                         opcion = "Ral"
-                        color = valor
+                        color = linea
                     }
                     
                     if atributo == "Exterior" {
@@ -286,6 +286,8 @@ struct ProductColorRalView: View {
     @State var ral_color: String = ""
     @State var name_color: String = ""
     @State var rgb_color: Color = Color.white
+    
+    @State var colores: [RalColor] = []
 
     var body: some View {
         VStack {
@@ -329,8 +331,7 @@ struct ProductColorRalView: View {
                         ]
                     ScrollView {
                         LazyVGrid(columns: columns, spacing: 20) {
-                            let colors = productVM.getRalColors()
-                            ForEach(colors, id: \.self) { color in
+                            ForEach(colores, id: \.self) { color in
                                 let index = color.ral.index(color.ral.startIndex, offsetBy: 0)
                                 if tone_code == String(color.ral[index]) || tono == "Todos" {
                                     let color_r_g_b = Color(red: color.r/255, green: color.g/255, blue: color.b/255)
@@ -353,8 +354,14 @@ struct ProductColorRalView: View {
         }
         .navigationTitle("Ral")
         .onAppear {
-            let a = productVM.getAttributeValue(attribute_data: productVM.color , select_atributte: "Valor")
-            print("Raaaal: ", a)
+            colores = productVM.getRalColors()
+//            ral_color = productVM.getAttributeValue(attribute_data: productVM.color , select_atributte: "Valor")
+//            for current_color in colores {
+//                if current_color.ral == ral_color {
+//                    name_color = current_color.nombre
+//                    rgb_color = Color(red: current_color.r/255, green: current_color.g/255, blue: current_color.b/255)
+//                }
+//            }
         }
     }
 }

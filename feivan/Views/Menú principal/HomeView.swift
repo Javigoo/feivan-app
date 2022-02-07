@@ -48,7 +48,17 @@ struct HomeView: View {
                             .textStyle(NavigationLinkStyle())
                     }
                 )
+                
                 Spacer()
+                
+                NavigationLink(
+                    destination: {
+                        Draw()
+                    }, label: {
+                        Text("Dibujar")
+                            .textStyle(NavigationLinkStyle())
+                    }
+                )
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())

@@ -47,6 +47,7 @@
 		259AD0ED274E4CF200B697DD /* InstalacionFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0EC274E4CF200B697DD /* InstalacionFormView.swift */; };
 		259AD0EF274E4D1100B697DD /* MallorquinaFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0EE274E4D1100B697DD /* MallorquinaFormView.swift */; };
 		259BC28D272862BD00AE3305 /* Json.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259BC28C272862BD00AE3305 /* Json.swift */; };
+		25A0018C27AEF34F0094F636 /* DrawOnImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A0018B27AEF34F0094F636 /* DrawOnImageView.swift */; };
 		25B790F62722D43000A2F6CD /* ProjectEntityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B790F52722D43000A2F6CD /* ProjectEntityView.swift */; };
 		25C6B6B2276B77B000253C7E /* HeaderPDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6B6B1276B77B000253C7E /* HeaderPDF.swift */; };
 		25C6B6B4276B789A00253C7E /* ProductPDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6B6B3276B789A00253C7E /* ProductPDF.swift */; };
@@ -108,6 +109,7 @@
 		259AD0EC274E4CF200B697DD /* InstalacionFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalacionFormView.swift; sourceTree = "<group>"; };
 		259AD0EE274E4D1100B697DD /* MallorquinaFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MallorquinaFormView.swift; sourceTree = "<group>"; };
 		259BC28C272862BD00AE3305 /* Json.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Json.swift; sourceTree = "<group>"; };
+		25A0018B27AEF34F0094F636 /* DrawOnImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawOnImageView.swift; sourceTree = "<group>"; };
 		25B790F52722D43000A2F6CD /* ProjectEntityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectEntityView.swift; sourceTree = "<group>"; };
 		25C6B6B1276B77B000253C7E /* HeaderPDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderPDF.swift; sourceTree = "<group>"; };
 		25C6B6B3276B789A00253C7E /* ProductPDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductPDF.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 		2544206D2746A5BC00CFDDA4 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				25A0018A27AEF31E0094F636 /* Drawing */,
 				25A0018927AEB6970094F636 /* Location */,
 				25743CDD27A82FE100AB4598 /* Color */,
 				25C6B6B0276B75E000253C7E /* PDF */,
@@ -334,6 +337,14 @@
 			path = Location;
 			sourceTree = "<group>";
 		};
+		25A0018A27AEF31E0094F636 /* Drawing */ = {
+			isa = PBXGroup;
+			children = (
+				25A0018B27AEF34F0094F636 /* DrawOnImageView.swift */,
+			);
+			path = Drawing;
+			sourceTree = "<group>";
+		};
 		25C6B6B0276B75E000253C7E /* PDF */ = {
 			isa = PBXGroup;
 			children = (
@@ -429,6 +440,7 @@
 				259AD0E1274E4A4B00B697DD /* ForroExteriorFormView.swift in Sources */,
 				252A89BA275AA8BD00BCA7AF /* Image.swift in Sources */,
 				259AD0E7274E4C6700B697DD /* ManetasFormView.swift in Sources */,
+				25A0018C27AEF34F0094F636 /* DrawOnImageView.swift in Sources */,
 				257CC82F271FE564009C65D1 /* Persistence.swift in Sources */,
 				257CC83C271FE937009C65D1 /* ClientViewModel.swift in Sources */,
 				259AD0CD274E480A00B697DD /* NombreFormView.swift in Sources */,
@@ -620,7 +632,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.javigo.Feivan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -659,7 +671,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.javigo.Feivan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

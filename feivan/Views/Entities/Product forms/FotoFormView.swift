@@ -102,10 +102,8 @@ struct ProductFotoFormView: View {
             }
         }
         .navigationTitle("Foto")
-        .toolbar {
-            Button("Guardar") {
-                save()
-            }
+        .onDisappear {
+            save()
         }
         .onAppear(perform: {
             loadImage()
@@ -123,7 +121,6 @@ struct ProductFotoFormView: View {
             print("Error saving product photo")
         }
         productVM.save()
-        presentationMode.wrappedValue.dismiss()
     }
     
 }

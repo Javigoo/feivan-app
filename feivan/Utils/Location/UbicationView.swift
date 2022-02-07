@@ -30,7 +30,6 @@ struct Direccion {
         if !ciudad.isEmpty {
             resultado.append(ciudad)
         }
-        print(resultado)
         return resultado.joined(separator: ", ")
     }
 }
@@ -71,7 +70,7 @@ func getAddress(handler: @escaping (Direccion) -> Void) {
             direccion.codigo_postal = codigo_postal
         }
 
-        if let ciudad = placeMark.administrativeArea {
+        if let ciudad = placeMark.locality {
             direccion.ciudad = ciudad
         }
 

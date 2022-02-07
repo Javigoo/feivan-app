@@ -21,12 +21,19 @@ func addHeader(shared: PDFData, page: CGRect) {
     )
     
     
-    addCliente(shared: shared, page: page_header_data, text: client.nombre)
+    var client_text = ""
+    if client.leroy_merlin {
+        client_text = "\(client.nombre) (Leroy Merlin)"
+    } else {
+        client_text = client.nombre
+    }
+    addCliente(shared: shared, page: page_header_data, text: client_text)
+    
     addTelefono(shared: shared, page: page_header_data,text: client.telefono)
     
     var direccion = ""
     if !shared.project.piso_puerta.isEmpty && !shared.project.direccion.isEmpty {
-        direccion = "\(shared.project.piso_puerta), \(shared.project.direccion)"
+        direccion = "\(shared.project.piso_puerta) - \(shared.project.direccion)"
     } else if shared.project.piso_puerta.isEmpty && !shared.project.direccion.isEmpty {
         direccion = shared.project.direccion
     }

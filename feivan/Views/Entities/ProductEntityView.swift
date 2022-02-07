@@ -131,21 +131,16 @@ struct ProductFormView: View {
                             productVM.save()
                         }
                 }
-                                
-//                if productVM.proyecto != nil {
-//                    Button(action: {
-//                        showAñadirMas = true
-//                    }, label: {
-//                        HStack {
-//                            Image(systemName: "plus.circle")
-//                            Text("Añadir más")
-//                                .font(.body)
-//                        }
-//                    })
-//                }
             }
         }
         .navigationTitle(Text(productVM.getFamilia()))
+        .toolbar {
+            Button(action: {
+                print("Dibujar")
+            }, label: {
+                Image(systemName: "paintbrush.pointed")
+            })
+        }
     }
 }
 
