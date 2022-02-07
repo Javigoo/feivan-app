@@ -64,13 +64,18 @@ struct ProductFormView: View {
     
     @ObservedObject var productVM: ProductViewModel
     @State var showView: Bool = false
-    @State var showAñadirMas: Bool = false
+    @State var showCanvas: Bool = false
 
     var body: some View {
             
 //        NavigationLink(destination: ProductAddMoreView(originalProductVM: productVM), isActive: $showAñadirMas) { EmptyView() }
+//        NavigationLink(
+//            destination:
+//                Drawing(image_name: productVM.nombre)
+//            , isActive: $showCanvas)
+//        { EmptyView() }
 
-        if productVM.getFamilia() == "" {
+        if productVM.getFamilia().isEmpty {
                 Text("Selecciona un producto")
         }
         
@@ -134,13 +139,14 @@ struct ProductFormView: View {
             }
         }
         .navigationTitle(Text(productVM.getFamilia()))
-        .toolbar {
-            Button(action: {
-                print("Dibujar")
-            }, label: {
-                Image(systemName: "paintbrush.pointed")
-            })
-        }
+//        .toolbar {
+//            Button(action: {
+//                print("Dibujar")
+//                showCanvas = true
+//            }, label: {
+//                Image(systemName: "paintbrush.pointed")
+//            })
+//        }
     }
 }
 

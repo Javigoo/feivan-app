@@ -373,8 +373,10 @@ class ProductViewModel: ObservableObject {
     func save() {
         let product: Producto
         if exist() {
+            print("PRODUCTO: Producto guardado")
             product = getProduct()!
         } else {
+            print("PRODUCTO: Nuevo producto creado")
             product = Producto(context: context.viewContext)
         }
         setProduct(product: product)

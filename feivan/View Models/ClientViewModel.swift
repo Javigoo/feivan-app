@@ -43,14 +43,13 @@ class ClientViewModel: ObservableObject {
     func save() {
         let client: Cliente
         if exist() {
+            print("CLIENTE: Cliente guardado")
             client = getClient()!
         } else {
+            print("CLIENTE: Nuevo cliente guardado")
             client = Cliente(context: context.viewContext)
         }
-        print(nombre)
-        print(client.nombre ?? "no")
         setClient(client: client)
-        print(client.nombre ?? "no")
         context.save()
         getAllClients()
     }

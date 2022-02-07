@@ -8,22 +8,14 @@
 import SwiftUI
 
 struct HomeView: View {
+    
     @State private var rootPresenting: Bool = false
+    
     var body: some View {
+        
         NavigationView {
+            
             VStack(spacing: 30) {
-                /*
-                NavigationLink(
-                    destination: {
-                        DebugView()
-                    }, label: {
-                        Image("Logo")
-                            .resizable()
-                            .scaledToFit()
-                            .padding(30)
-                    }
-                )
-                */
                 
                 Image("Logo")
                     .resizable()
@@ -48,21 +40,21 @@ struct HomeView: View {
                             .textStyle(NavigationLinkStyle())
                     }
                 )
-                
-                Spacer()
-                
+                    
                 NavigationLink(
                     destination: {
-                        Draw()
+                        DebugView()
                     }, label: {
-                        Text("Dibujar")
+                        Text("Debug")
                             .textStyle(NavigationLinkStyle())
                     }
                 )
+                
+                Spacer()
+
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .environment(\.rootPresentation, $rootPresenting)
-        
     }
 }

@@ -49,18 +49,14 @@ class ProjectViewModel: ObservableObject {
     }
     
     func addProduct(productVM: ProductViewModel) {
-        print("Añadiento producto")
+        print("PROYECTO: Producto añadido")
         let product = productVM.getProduct()
-        print("Añadir producto: \(product!)")
         if productos == nil {
-            print("Primer producto")
             productos = [product!]
         } else {
-            print("Añadiendo a la lista de productos")
             let products = productos?.addingObjects(from: [product!])   // No añade los productos
             productos = products as NSSet?
         }
-        print(productos ?? "No hay productos")
     }
     
     func addClient(clientVM: ClientViewModel) {
@@ -72,8 +68,10 @@ class ProjectViewModel: ObservableObject {
     func save() {
         let project: Proyecto
         if exist() {
+            print("PROYECTO: Proyecto guardado")
             project = getProject()!
         } else {
+            print("PROYECTO: Nuevo proyecto guardado")
             project = Proyecto(context: context.viewContext)
         }
         setProject(project: project)
