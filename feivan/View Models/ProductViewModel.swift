@@ -40,12 +40,7 @@ class ProductViewModel: ObservableObject {
     @Published var proyecto: Proyecto?
 
     @Published var productos: [Producto] = []
-            
-    // Refact
-    @Published var otro = ""
-    @Published var especifico = ""
-    @Published var anotacion = ""
-    
+        
     // Constructores
 
     init() {
@@ -377,6 +372,7 @@ class ProductViewModel: ObservableObject {
             product = getProduct()!
         } else {
             print("PRODUCTO: Nuevo producto creado")
+            print(context)
             product = Producto(context: context.viewContext)
         }
         setProduct(product: product)

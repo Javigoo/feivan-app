@@ -8,9 +8,13 @@
 import SwiftUI
 
 struct NewProduct: View {
+    
     @EnvironmentObject var projectVM: ProjectViewModel
+    
     @StateObject var productVM = ProductViewModel()
+    
     @State private var isShowingNextView = false
+    
     var body: some View {
         NavigationLink(destination: NewProjectSummary().environmentObject(projectVM), isActive: $isShowingNextView) { EmptyView() }
 

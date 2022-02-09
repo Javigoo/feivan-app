@@ -9,10 +9,11 @@ import SwiftUI
 
 struct ProjectView: View {
     @ObservedObject var projectVM: ProjectViewModel
+    
     @State var productVM = ProductViewModel()
+    
     @State var showAñadirProducto: Bool = false
     @State var showGenerarPdf: Bool = false
-    
     @State var showAñadirMas: Bool = false
 
     var body: some View {
@@ -20,20 +21,17 @@ struct ProjectView: View {
         VStack {
             NavigationLink(destination: PdfView(projectData: projectVM), isActive: $showGenerarPdf) { EmptyView() }
             NavigationLink(destination: ProductAddView(projectVM: projectVM), isActive: $showAñadirProducto) { EmptyView() }
-            NavigationLink(destination: ProductAddMoreView(originalProductVM: productVM), isActive: $showAñadirMas) { EmptyView() }
-
+            NavigationLink(destination: ProductAddMoreView(projectVM: projectVM, originalProductVM: productVM), isActive: $showAñadirMas) { EmptyView() }
             Form {
                 Section {
-                    if projectVM.haveClient() {
-                        NavigationLink(
-                            destination:
-                                ClientCreateView(clientVM: ClientViewModel(client: projectVM.getClient())).navigationTitle(Text("Cliente")),
-                            label: {
-                                Image(systemName: "person")
-                                Text("Cliente")
-                            }
-                        )
-                    }
+                    NavigationLink(
+                        destination:
+                            ClientCreateView(clientVM: ClientViewModel(client: projectVM.getClient())).navigationTitle(Text("Cliente")),
+                        label: {
+                            Image(systemName: "person")
+                            Text("Cliente")
+                        }
+                    )
                     
                     NavigationLink(
                         destination:
@@ -47,7 +45,7 @@ struct ProjectView: View {
             
                 Section(header: Text("Productos")) {
                     List {
-                        ForEach(projectVM.getProducts() , id: \.self) { producto in
+                        ForEach(projectVM.getProducts(), id: \.self) { producto in
                             NavigationLink(
                                 destination: {
                                     ProductCreateView(productVM: ProductViewModel(product: producto))
@@ -70,7 +68,8 @@ struct ProjectView: View {
                     .onAppear(perform: projectVM.getAllProjects)
                 }
             }
-        }.toolbar {
+        }
+        .toolbar {
             ToolbarItem(placement: .bottomBar) {
                 Button(action: {
                     showAñadirProducto = true
@@ -86,7 +85,8 @@ struct ProjectView: View {
                     Image(systemName: "doc")
                 })
             }
-        }.navigationTitle(Text("Proyecto"))
+        }
+        .navigationTitle(Text("Proyecto"))
         
     }
     
@@ -94,6 +94,7 @@ struct ProjectView: View {
         withAnimation {
             productVM.delete(at: offsets, for: projectVM.getProducts())
         }
+        projectVM.getAllProjects()
     }
 
 }

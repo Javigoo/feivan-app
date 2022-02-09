@@ -14,6 +14,7 @@ struct NewClient: View {
     @StateObject var clientVM = ClientViewModel()
     
     @State private var isShowingNextView = false
+    
     var body: some View {
         NavigationLink(destination: NewProduct().environmentObject(projectVM), isActive: $isShowingNextView) { EmptyView() }
 

@@ -6,9 +6,9 @@
 //
 
 import SwiftUI
-import CoreData
 
 struct ListProjectsView: View {
+    
     @StateObject var projectVM = ProjectViewModel()
 
     var body: some View {

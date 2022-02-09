@@ -39,15 +39,6 @@ class ProjectViewModel: ObservableObject {
     // Funciones públicas
     
     // CRUD
-    
-    // Cambiar producto con ProductViewModel
-    func addProduct(product: Producto) {
-        if exist() {
-            let project = getProject()
-            project!.productos = [product]
-        }
-    }
-    
     func addProduct(productVM: ProductViewModel) {
         print("PROYECTO: Producto añadido")
         let product = productVM.getProduct()
@@ -60,6 +51,7 @@ class ProjectViewModel: ObservableObject {
     }
     
     func addClient(clientVM: ClientViewModel) {
+        print("PROYECTO: Cliente añadido")
         let client = clientVM.getClient()
         cliente = client
     }
@@ -71,8 +63,9 @@ class ProjectViewModel: ObservableObject {
             print("PROYECTO: Proyecto guardado")
             project = getProject()!
         } else {
-            print("PROYECTO: Nuevo proyecto guardado")
             project = Proyecto(context: context.viewContext)
+            print("PROYECTO: Nuevo proyecto guardado -", id_proyecto)
+            print(context)
         }
         setProject(project: project)
         context.save()
@@ -195,7 +188,8 @@ class ProjectViewModel: ObservableObject {
         project.medidas_no_buenas = medidas_no_buenas
         project.timestamp = timestamp
         project.cliente = cliente
-        project.productos = productos
+        project.productos = productos//context.viewContext.object(with: project.objectID)
+        
     }
     
     /** Devuelve el Proyecto que coincide con la id en la DB**/

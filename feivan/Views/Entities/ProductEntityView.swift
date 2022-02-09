@@ -21,18 +21,14 @@ struct ProductCreateView: View {
 }
 
 struct ProductAddView: View {
-    @StateObject var productVM = ProductViewModel()
     @ObservedObject var projectVM: ProjectViewModel
+    @StateObject var productVM = ProductViewModel()
     
     var body: some View {
         VStack {
             ProductFormView(productVM: productVM)
         }.onDisappear {
-            productVM.save() // Se crea el producto
-                
-            productVM.addProject(projectVM: projectVM)
             productVM.save()
-                
             projectVM.addProduct(productVM: productVM)
             projectVM.save()
         }
@@ -40,8 +36,10 @@ struct ProductAddView: View {
 }
 
 struct ProductAddMoreView: View {
-    @StateObject var productVM = ProductViewModel()
+    @ObservedObject var projectVM: ProjectViewModel
     @ObservedObject var originalProductVM: ProductViewModel
+
+    @StateObject var productVM = ProductViewModel()
     @State private var showingSheet = false
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     
@@ -52,6 +50,8 @@ struct ProductAddMoreView: View {
             ProductDimensionesSheetView(productVM: productVM)
         }.onDisappear {
             productVM.save()
+            projectVM.addProduct(productVM: productVM)
+            projectVM.save()
         }.onAppear(perform: {
             productVM.setProductVMAddMore(productVM: originalProductVM)
             showingSheet = true
@@ -129,7 +129,6 @@ struct ProductFormView: View {
                     
                 Section {
                     ProductFotoView(productVM: productVM)
-                    //fotoNav(productVM: productVM)
 
                     Stepper("Unidades:  \(productVM.unidades)", value: $productVM.unidades, in: 1...99)
                         .onChange(of: productVM.unidades) { _ in

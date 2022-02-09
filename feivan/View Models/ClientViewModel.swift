@@ -47,6 +47,7 @@ class ClientViewModel: ObservableObject {
             client = getClient()!
         } else {
             print("CLIENTE: Nuevo cliente guardado")
+            print(context)
             client = Cliente(context: context.viewContext)
         }
         setClient(client: client)

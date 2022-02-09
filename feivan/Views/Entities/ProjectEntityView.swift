@@ -40,7 +40,7 @@ struct ProjectFormView: View {
                 Text("Subir fachada")
             }
             Toggle(isOn: $projectVM.remates_albanileria) {
-                Text("Remates Albañilería")
+                Text("Remates albañilería")
             }
             
             Toggle(isOn: $projectVM.medidas_no_buenas) {
@@ -115,77 +115,6 @@ struct ProjectPreviewView: View {
     }
 }
 
-struct ProjectDetailView: View {
-    @ObservedObject var projectVM: ProjectViewModel
-    
-    var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Text("Dirección")
-                Spacer()
-                Text(projectVM.direccion)
-            }
-            .font(.subheadline)
-
-            HStack {
-                Text("Ascensor")
-                Spacer()
-                if projectVM.ascensor {
-                    Text("Sí")
-                } else {
-                    Text("No")
-                }
-            }
-            .font(.subheadline)
-
-            HStack {
-                Text("Grúa")
-                Spacer()
-                if projectVM.grua {
-                    Text("Sí")
-                } else {
-                    Text("No")
-                }
-            }
-            .font(.subheadline)
-
-            HStack {
-                Text("Subir fachada")
-                Spacer()
-                if projectVM.subir_fachada {
-                    Text("Sí")
-                } else {
-                    Text("No")
-                }
-            }
-            .font(.subheadline)
-            
-            HStack {
-                Text("Remates albañilería")
-                Spacer()
-                if projectVM.remates_albanileria {
-                    Text("Si")
-                } else {
-                    Text("No")
-                }
-            }
-            .font(.subheadline)
-            
-            HStack {
-                Text("Medidas No Buenas")
-                Spacer()
-                if projectVM.medidas_no_buenas {
-                    Text("Si")
-                } else {
-                    Text("No")
-                }
-            }
-            .font(.subheadline)
-
-        }
-    }
-}
-
 struct ProjectListView: View {
     //Se crea una instancia nueva de clientVM solo para leer los clientes
     @StateObject var projectVM = ProjectViewModel()
@@ -208,3 +137,75 @@ struct ProjectListView: View {
         }
     }
 }
+
+
+//struct ProjectDetailView: View {
+//    @ObservedObject var projectVM: ProjectViewModel
+//
+//    var body: some View {
+//        VStack(alignment: .leading) {
+//            HStack {
+//                Text("Dirección")
+//                Spacer()
+//                Text(projectVM.direccion)
+//            }
+//            .font(.subheadline)
+//
+//            HStack {
+//                Text("Ascensor")
+//                Spacer()
+//                if projectVM.ascensor {
+//                    Text("Sí")
+//                } else {
+//                    Text("No")
+//                }
+//            }
+//            .font(.subheadline)
+//
+//            HStack {
+//                Text("Grúa")
+//                Spacer()
+//                if projectVM.grua {
+//                    Text("Sí")
+//                } else {
+//                    Text("No")
+//                }
+//            }
+//            .font(.subheadline)
+//
+//            HStack {
+//                Text("Subir fachada")
+//                Spacer()
+//                if projectVM.subir_fachada {
+//                    Text("Sí")
+//                } else {
+//                    Text("No")
+//                }
+//            }
+//            .font(.subheadline)
+//
+//            HStack {
+//                Text("Remates albañilería")
+//                Spacer()
+//                if projectVM.remates_albanileria {
+//                    Text("Si")
+//                } else {
+//                    Text("No")
+//                }
+//            }
+//            .font(.subheadline)
+//
+//            HStack {
+//                Text("Medidas No Buenas")
+//                Spacer()
+//                if projectVM.medidas_no_buenas {
+//                    Text("Si")
+//                } else {
+//                    Text("No")
+//                }
+//            }
+//            .font(.subheadline)
+//
+//        }
+//    }
+//}

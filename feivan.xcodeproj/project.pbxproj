@@ -13,7 +13,7 @@
 		252DC7B127248635005F3489 /* ProductEntityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252DC7B027248635005F3489 /* ProductEntityView.swift */; };
 		254093352735A23A00AA07D5 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254093342735A23A00AA07D5 /* String.swift */; };
 		2544199727395B11005290C9 /* NewProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2544199627395B11005290C9 /* NewProjectView.swift */; };
-		254420752746AAEC00CFDDA4 /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254420742746AAEC00CFDDA4 /* ProjectView.swift */; };
+		254420752746AAEC00CFDDA4 /* ProjectDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254420742746AAEC00CFDDA4 /* ProjectDataView.swift */; };
 		254420792746C89200CFDDA4 /* CustomEnvironmentProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254420782746C89200CFDDA4 /* CustomEnvironmentProperties.swift */; };
 		255F375827AC7D1B00931412 /* UbicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255F375727AC7D1B00931412 /* UbicationView.swift */; };
 		25743CDF27A8300200AB4598 /* ColorSwatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25743CDE27A8300200AB4598 /* ColorSwatchView.swift */; };
@@ -36,7 +36,6 @@
 		259AD0D7274E493E00B697DD /* DimensionesFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0D6274E493E00B697DD /* DimensionesFormView.swift */; };
 		259AD0D9274E495800B697DD /* AperturaFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0D8274E495800B697DD /* AperturaFormView.swift */; };
 		259AD0DB274E49F400B697DD /* CompactoFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0DA274E49F400B697DD /* CompactoFormView.swift */; };
-		259AD0DD274E4A0E00B697DD /* MarcoInferiorFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0DC274E4A0E00B697DD /* MarcoInferiorFormView.swift */; };
 		259AD0DF274E4A2F00B697DD /* HuellaFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0DE274E4A2F00B697DD /* HuellaFormView.swift */; };
 		259AD0E1274E4A4B00B697DD /* ForroExteriorFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0E0274E4A4A00B697DD /* ForroExteriorFormView.swift */; };
 		259AD0E3274E4A6900B697DD /* CristalFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0E2274E4A6900B697DD /* CristalFormView.swift */; };
@@ -53,6 +52,8 @@
 		25C6B6B2276B77B000253C7E /* HeaderPDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6B6B1276B77B000253C7E /* HeaderPDF.swift */; };
 		25C6B6B4276B789A00253C7E /* ProductPDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6B6B3276B789A00253C7E /* ProductPDF.swift */; };
 		25C6B6B6276B799400253C7E /* UtilsPDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C6B6B5276B799400253C7E /* UtilsPDF.swift */; };
+		25D50FC827B2DDF900795C5F /* Clone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D50FC727B2DDF900795C5F /* Clone.swift */; };
+		25D50FCA27B3E32C00795C5F /* ProjectDataVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D50FC927B3E32C00795C5F /* ProjectDataVM.swift */; };
 		25DBF3452743CBDB001D5FE3 /* MultipleSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DBF3442743CBDB001D5FE3 /* MultipleSelection.swift */; };
 		25E8F23B27218D510009CEB7 /* ListProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E8F23A27218D510009CEB7 /* ListProjectsView.swift */; };
 		25E8F23D27218E120009CEB7 /* ProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E8F23C27218E120009CEB7 /* ProjectViewModel.swift */; };
@@ -73,7 +74,7 @@
 		252EF4DD275FCF4D00DD73F5 /* Ral.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Ral.json; sourceTree = "<group>"; };
 		254093342735A23A00AA07D5 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		2544199627395B11005290C9 /* NewProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProjectView.swift; sourceTree = "<group>"; };
-		254420742746AAEC00CFDDA4 /* ProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectView.swift; sourceTree = "<group>"; };
+		254420742746AAEC00CFDDA4 /* ProjectDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDataView.swift; sourceTree = "<group>"; };
 		254420782746C89200CFDDA4 /* CustomEnvironmentProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEnvironmentProperties.swift; sourceTree = "<group>"; };
 		255F375727AC7D1B00931412 /* UbicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UbicationView.swift; sourceTree = "<group>"; };
 		25743CDE27A8300200AB4598 /* ColorSwatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSwatchView.swift; sourceTree = "<group>"; };
@@ -99,7 +100,6 @@
 		259AD0D6274E493E00B697DD /* DimensionesFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimensionesFormView.swift; sourceTree = "<group>"; };
 		259AD0D8274E495800B697DD /* AperturaFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AperturaFormView.swift; sourceTree = "<group>"; };
 		259AD0DA274E49F400B697DD /* CompactoFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactoFormView.swift; sourceTree = "<group>"; };
-		259AD0DC274E4A0E00B697DD /* MarcoInferiorFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarcoInferiorFormView.swift; sourceTree = "<group>"; };
 		259AD0DE274E4A2F00B697DD /* HuellaFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuellaFormView.swift; sourceTree = "<group>"; };
 		259AD0E0274E4A4A00B697DD /* ForroExteriorFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForroExteriorFormView.swift; sourceTree = "<group>"; };
 		259AD0E2274E4A6900B697DD /* CristalFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CristalFormView.swift; sourceTree = "<group>"; };
@@ -116,6 +116,8 @@
 		25C6B6B1276B77B000253C7E /* HeaderPDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderPDF.swift; sourceTree = "<group>"; };
 		25C6B6B3276B789A00253C7E /* ProductPDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductPDF.swift; sourceTree = "<group>"; };
 		25C6B6B5276B799400253C7E /* UtilsPDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsPDF.swift; sourceTree = "<group>"; };
+		25D50FC727B2DDF900795C5F /* Clone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clone.swift; sourceTree = "<group>"; };
+		25D50FC927B3E32C00795C5F /* ProjectDataVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDataVM.swift; sourceTree = "<group>"; };
 		25DBF3442743CBDB001D5FE3 /* MultipleSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleSelection.swift; sourceTree = "<group>"; };
 		25E8F23A27218D510009CEB7 /* ListProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListProjectsView.swift; sourceTree = "<group>"; };
 		25E8F23C27218E120009CEB7 /* ProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewModel.swift; sourceTree = "<group>"; };
@@ -138,7 +140,6 @@
 		252EF4D7275FC5F400DD73F5 /* Old */ = {
 			isa = PBXGroup;
 			children = (
-				259AD0DC274E4A0E00B697DD /* MarcoInferiorFormView.swift */,
 				25ECB4D3276653040066F67C /* examplePDF.swift */,
 			);
 			path = Old;
@@ -175,6 +176,7 @@
 			children = (
 				257CC82E271FE564009C65D1 /* Persistence.swift */,
 				257CC83D272188CA009C65D1 /* Feivan.xcdatamodeld */,
+				25D50FC727B2DDF900795C5F /* Clone.swift */,
 			);
 			path = "Core Data";
 			sourceTree = "<group>";
@@ -183,7 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				25E8F23A27218D510009CEB7 /* ListProjectsView.swift */,
-				254420742746AAEC00CFDDA4 /* ProjectView.swift */,
+				254420742746AAEC00CFDDA4 /* ProjectDataView.swift */,
 			);
 			path = "Ver proyectos";
 			sourceTree = "<group>";
@@ -282,6 +284,7 @@
 				25E8F23C27218E120009CEB7 /* ProjectViewModel.swift */,
 				257CC83B271FE937009C65D1 /* ClientViewModel.swift */,
 				25E9089F2721AE9C008A490B /* ProductViewModel.swift */,
+				25D50FC927B3E32C00795C5F /* ProjectDataVM.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -454,17 +457,19 @@
 				25A0018C27AEF34F0094F636 /* DrawOnImageView.swift in Sources */,
 				257CC82F271FE564009C65D1 /* Persistence.swift in Sources */,
 				257CC83C271FE937009C65D1 /* ClientViewModel.swift in Sources */,
+				25D50FC827B2DDF900795C5F /* Clone.swift in Sources */,
 				259AD0CD274E480A00B697DD /* NombreFormView.swift in Sources */,
 				25DBF3452743CBDB001D5FE3 /* MultipleSelection.swift in Sources */,
 				25C6B6B2276B77B000253C7E /* HeaderPDF.swift in Sources */,
 				259AD0C8274E466A00B697DD /* NewSummaryView.swift in Sources */,
 				259AD0C4274E45EC00B697DD /* NewClientView.swift in Sources */,
 				255F375827AC7D1B00931412 /* UbicationView.swift in Sources */,
-				254420752746AAEC00CFDDA4 /* ProjectView.swift in Sources */,
+				254420752746AAEC00CFDDA4 /* ProjectDataView.swift in Sources */,
 				259BC28D272862BD00AE3305 /* Json.swift in Sources */,
 				252DC7B127248635005F3489 /* ProductEntityView.swift in Sources */,
 				259AD0EF274E4D1100B697DD /* MallorquinaFormView.swift in Sources */,
 				25C6B6B6276B799400253C7E /* UtilsPDF.swift in Sources */,
+				25D50FCA27B3E32C00795C5F /* ProjectDataVM.swift in Sources */,
 				259AD0E9274E4CB900B697DD /* HerrajeFormView.swift in Sources */,
 				257CC84327218926009C65D1 /* HomeView.swift in Sources */,
 				25AE2B1C27B1586E009CF424 /* SwiftUtilities.swift in Sources */,
@@ -487,7 +492,6 @@
 				259AD0C6274E460000B697DD /* NewProductView.swift in Sources */,
 				254093352735A23A00AA07D5 /* String.swift in Sources */,
 				259AD0D9274E495800B697DD /* AperturaFormView.swift in Sources */,
-				259AD0DD274E4A0E00B697DD /* MarcoInferiorFormView.swift in Sources */,
 				257CC826271FE561009C65D1 /* FeivanApp.swift in Sources */,
 				25E8F23F272197590009CEB7 /* DebugFile.swift in Sources */,
 				25743CDF27A8300200AB4598 /* ColorSwatchView.swift in Sources */,

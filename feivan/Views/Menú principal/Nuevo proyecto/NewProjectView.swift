@@ -13,6 +13,7 @@ struct NewProjectView: View {
     @StateObject var projectVM = ProjectViewModel()
 
     @State private var isShowingNextView = false
+    
     var body: some View {
         
         NavigationLink(destination: NewClient().environmentObject(projectVM), isActive: $isShowingNextView) { EmptyView() }
@@ -24,7 +25,6 @@ struct NewProjectView: View {
         }.toolbar {
             Button("Siguiente") {
                 projectVM.save()
-                
                 isShowingNextView = true
             }
             
