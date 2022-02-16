@@ -46,7 +46,7 @@ func createPDF(projectData: ProjectViewModel) -> Data {
             height: page_with_margins.height * 0.1
         )
 
-        let page_data = CGRect(
+        var page_data = CGRect(
             x: page_header.origin.x,
             y: page_header.origin.y + page_header.height + shared.padding,
             width: page_with_margins.width,
@@ -103,6 +103,136 @@ func createPDF(projectData: ProjectViewModel) -> Data {
                 }
             }
         }
+        
+        page_data = CGRect(
+            x: page_header.origin.x,
+            y: page_header.origin.y + page_header.height + shared.padding + 25,
+            width: page_with_margins.width,
+            height: page_with_margins.height - page_header.height - shared.padding - 25 //+ page_header.height - shared.padding * 4
+        )
+        
+        for product in products {
+            if let fotos_detalle = imagesFromCoreData(object: product.fotos_detalle) {
+                for foto in fotos_detalle {
+                    context.beginPage()
+                    draw_header_foto_detallada(product: product, page: page_header)
+                    draw_foto_detallada(foto: foto, page: page_data)
+                    
+                }
+            }
+        }
+    }
+    
+    
+    func draw_header_foto_detallada(product: Producto, page: CGRect){
+        //Texto
+        let attributedTitleText = NSAttributedString(
+                                string: "Fotos detalladas del producto ",
+                                attributes: [
+                                    NSAttributedString.Key.paragraphStyle: shared.paragraph_style,
+                                    NSAttributedString.Key.font: UIFont.systemFont(ofSize: shared.font_size, weight: .bold)
+                                ]
+                            )
+        
+        let paragraphSize = CGSize(width: page.width, height: page.height)
+        let paragraphRect = attributedTitleText.boundingRect(with: paragraphSize, options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
+        
+        let textTitleRect = CGRect(
+                            x: page.origin.x,
+                            y: page.origin.y,
+                            width: paragraphRect.width,
+                            height: paragraphRect.height
+                        )
+        
+        attributedTitleText.draw(in: textTitleRect)
+
+        // foto producto
+        var foto = UIImage(imageLiteralResourceName: product.nombre!)
+        
+        var aspectWidth = page.width / foto.size.width
+        var aspectHeight = page.height / foto.size.height
+        var aspectRatio = min(aspectWidth, aspectHeight)
+
+        var scaledWidth = foto.size.width * aspectRatio
+        var scaledHeight = foto.size.height * aspectRatio
+        
+        var origin_x: Double = page.origin.x
+        if page.width > scaledWidth  {
+            origin_x += (page.width - scaledWidth) / 2
+        }
+        
+        var origin_y: Double = page.origin.y
+        if page.height > scaledHeight  {
+            origin_y += (page.height - scaledHeight) / 2
+        }
+        
+        var textRect = CGRect(
+                            x: 20 + page.origin.x ,
+                            y: page.origin.y + 25,
+                            width: scaledWidth,
+                            height: scaledHeight
+                        )
+        
+        foto.draw(in: textRect)
+        
+        let ancho_primera_imagen = scaledWidth
+        
+        // diseño producto
+        foto = UIImage(data: product.foto!)!
+
+
+        aspectWidth = page.width / foto.size.width
+        aspectHeight = page.height / foto.size.height
+        aspectRatio = min(aspectWidth, aspectHeight)
+
+        scaledWidth = foto.size.width * aspectRatio
+        scaledHeight = foto.size.height * aspectRatio
+        
+        origin_x = page.origin.x
+        if page.width > scaledWidth  {
+            origin_x += (page.width - scaledWidth) / 2
+        }
+        
+        origin_y = page.origin.y
+        if page.height > scaledHeight  {
+            origin_y += (page.height - scaledHeight) / 2
+        }
+        
+        textRect = CGRect(
+                            x: page.origin.x + ancho_primera_imagen + 40,
+                            y: page.origin.y + 25,
+                            width: scaledWidth,
+                            height: scaledHeight
+                        )
+        
+        foto.draw(in: textRect)
+    }
+    
+    func draw_foto_detallada(foto: UIImage, page: CGRect){
+        let aspectWidth = page.width / foto.size.width
+        let aspectHeight = page.height / foto.size.height
+        let aspectRatio = min(aspectWidth, aspectHeight)
+
+        let scaledWidth = foto.size.width * aspectRatio
+        let scaledHeight = foto.size.height * aspectRatio
+        
+        var origin_x: Double = page.origin.x
+        if page.width > scaledWidth  {
+            origin_x += (page.width - scaledWidth) / 2
+        }
+        
+        var origin_y: Double = page.origin.y
+        if page.height > scaledHeight  {
+            origin_y += (page.height - scaledHeight) / 2
+        }
+        
+        let scaled_page = CGRect(x: origin_x,
+                                 y: origin_y,
+                                 width: scaledWidth,
+                                 height: scaledHeight
+                            )
+
+        foto.draw(in: scaled_page)
     }
     
     return data

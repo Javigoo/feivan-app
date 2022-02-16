@@ -95,19 +95,20 @@ extension String {
     }
 }
 
-func getTextFont(string: String, font: Double, width: Double, height: Double) -> Double {
+func getTextFont(string: String, font: Double, weight: UIFont.Weight = .regular, width: Double, height: Double) -> Double {
     var fontSize = font
     
-    var textSizeWidth = string.width(constrainedBy: height, with: UIFont.systemFont(ofSize: fontSize, weight: .regular))
+    var textSizeWidth = string.width(constrainedBy: height, with: UIFont.systemFont(ofSize: fontSize, weight: weight))
     while textSizeWidth > width {
-        fontSize -= 1
-        textSizeWidth = string.width(constrainedBy: height, with: UIFont.systemFont(ofSize: fontSize, weight: .regular))
+        fontSize -= 0.2
+        textSizeWidth = string.width(constrainedBy: height, with: UIFont.systemFont(ofSize: fontSize, weight: weight))
     }
     
-    var textSizeHeight = string.height(constrainedBy: width, with: UIFont.systemFont(ofSize: fontSize, weight: .regular))
+    var textSizeHeight = string.height(constrainedBy: width, with: UIFont.systemFont(ofSize: fontSize, weight: weight))
     while textSizeHeight > height {
-        fontSize -= 1
-        textSizeHeight = string.height(constrainedBy: width, with: UIFont.systemFont(ofSize: fontSize, weight: .regular))
+        fontSize -= 0.2
+        textSizeHeight = string.height(constrainedBy: width, with: UIFont.systemFont(ofSize: fontSize, weight: weight))
     }
+
     return fontSize
 }

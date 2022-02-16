@@ -52,8 +52,10 @@ struct ProductAddMedidasView: View {
             productVM.save()
             productVM.addProject(projectVM: projectVM)
         }.onAppear(perform: {
-            productVM.setProductVMAddMore(productVM: originalProductVM)
-            showingSheet = true
+            if productVM.dimensiones.isEmpty {
+                productVM.setProductVMAddMore(productVM: originalProductVM)
+                showingSheet = true
+            }
         })
         .navigationTitle(Text("Información proyecto"))
     }

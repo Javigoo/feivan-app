@@ -15,6 +15,7 @@ class ProductViewModel: ObservableObject {
 
     @Published var id_producto: UUID = UUID()
     @Published var foto: Data = Data()
+    @Published var fotos_detalle: Data = Data()
     @Published var familia: String = ""
     @Published var nombre: String = ""
     @Published var curvas: String = ""
@@ -273,6 +274,8 @@ class ProductViewModel: ObservableObject {
         
         id_producto = product.id_producto ?? id_producto
         foto = product.foto ?? foto
+        fotos_detalle = product.fotos_detalle ?? fotos_detalle
+
         familia = product.familia ?? familia
         nombre = product.nombre ?? nombre
         curvas = product.curvas ?? curvas
@@ -312,6 +315,8 @@ class ProductViewModel: ObservableObject {
         
         product.id_producto = id_producto
         product.foto = foto
+        product.fotos_detalle = fotos_detalle
+
         product.familia = familia
         product.nombre = nombre
         
@@ -402,6 +407,18 @@ class ProductViewModel: ObservableObject {
         context.save()
         getAllProducts()
         
+    }
+    
+    func deleteFoto(at offset: IndexSet) {
+        if let index = offset.first {
+            if var fotos_detalle = imagesFromCoreData(object: fotos_detalle) {
+                fotos_detalle.remove(at: index)
+                if let data_fotos_detalle = coreDataObjectFromImages(images: fotos_detalle) {
+                    self.fotos_detalle = data_fotos_detalle
+                    context.save()
+                }
+            }
+        }
     }
     
     func exist() -> Bool {

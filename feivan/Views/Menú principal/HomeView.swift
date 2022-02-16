@@ -41,14 +41,14 @@ struct HomeView: View {
                     }
                 )
                     
-                NavigationLink(
-                    destination: {
-                        DebugView()
-                    }, label: {
-                        Text("Debug")
-                            .textStyle(NavigationLinkStyle())
-                    }
-                )
+//                NavigationLink(
+//                    destination: {
+//                        DebugView()
+//                    }, label: {
+//                        Text("Debug")
+//                            .textStyle(NavigationLinkStyle())
+//                    }
+//                )
                 
                 Spacer()
 

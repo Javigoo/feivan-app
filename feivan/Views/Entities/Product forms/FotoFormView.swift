@@ -41,7 +41,14 @@ struct ProductFotoFormView: View {
     @State private var showCamera = false
     @State private var showPhotoLibrary = false
     @State private var showActionScheet = false
+    
+    @State private var inputImageFotoDetalle: UIImage?
+    @State private var showCameraFotoDetalle = false
+    @State private var showPhotoLibraryFotoDetalle = false
+    @State private var showActionScheetFotoDetalle = false
 
+
+    @State var fotos: [UIImage] = []
 
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
@@ -74,6 +81,34 @@ struct ProductFotoFormView: View {
                             }
                     }
                 }
+                
+                
+                Section(header: Text("Foto detalle")) {
+                    
+                    Button(action: {
+                        showActionScheetFotoDetalle.toggle()
+                    }, label: {
+                        HStack {
+                            Text("Añadir foto detalle")
+                            Image(systemName: "plus.circle")
+                        }
+                    })
+                    
+                    ForEach(imagesFromCoreData(object: productVM.fotos_detalle)!, id: \.self) { foto in
+                        Image(uiImage: foto)
+                            .resizable()
+                            .scaledToFit()
+                            .scaleEffect()
+                    }
+                    .onDelete(perform: deleteFoto)
+                }
+                
+            }
+            .sheet(isPresented: $showCameraFotoDetalle, onDismiss: saveFotoDetalle) {
+                ImagePicker(image: $inputImageFotoDetalle, sourceType: .camera)
+            }
+            .sheet(isPresented: $showPhotoLibraryFotoDetalle, onDismiss: saveFotoDetalle) {
+                ImagePicker(image: $inputImageFotoDetalle, sourceType: .photoLibrary)
             }
             .sheet(isPresented: $showCamera, onDismiss: save) {
                 ImagePicker(image: $inputImage, sourceType: .camera)
@@ -99,9 +134,28 @@ struct ProductFotoFormView: View {
                         ActionSheet.Button.cancel()
                     ]
                 )
+            }.actionSheet(isPresented: $showActionScheetFotoDetalle) { () -> ActionSheet in
+                ActionSheet(
+                    title: Text("Añadir foto detalle"),
+                    buttons: [
+                        ActionSheet.Button.default(
+                            Text("Abrir cámara"),
+                            action: {
+                                showCameraFotoDetalle.toggle()
+                            }
+                        ),
+                        ActionSheet.Button.default(
+                            Text("Seleccionar desde la galería"),
+                            action: {
+                                showPhotoLibraryFotoDetalle.toggle()
+                            }
+                        ),
+                        ActionSheet.Button.cancel()
+                    ]
+                )
             }
         }
-        .navigationTitle("Foto")
+        .navigationTitle("Fotos")
         .onDisappear {
             save()
         }
@@ -121,6 +175,25 @@ struct ProductFotoFormView: View {
             print("Error saving product photo")
         }
         productVM.save()
+    }
+    
+    func saveFotoDetalle() {
+        if var fotos_detalle = imagesFromCoreData(object: productVM.fotos_detalle) {
+            if let foto_detalle = inputImageFotoDetalle {
+                fotos_detalle.append(foto_detalle)
+                if let data_fotos_detalle = coreDataObjectFromImages(images: fotos_detalle) {
+                    productVM.fotos_detalle = data_fotos_detalle
+                    productVM.save()
+                    print("saving foto detalle")
+                }
+            }
+        }
+    }
+    
+    private func deleteFoto(offsets: IndexSet) {
+        withAnimation {
+            productVM.deleteFoto(at: offsets)
+        }
     }
     
 }
@@ -179,66 +252,3 @@ struct ProductNewFotoFormView: View {
     }
     
 }
-
-
-/*
-struct ProductNewFotoFormView: View {
-    
-    @ObservedObject var productVM: ProductViewModel
-    @State private var image: Image?
-    @State private var inputImage: UIImage?
-    @State private var shouldPresentImagePicker = false
-    @State private var shouldPresentActionScheet = true
-    @State private var shouldPresentCamera = false
-    
-    var body: some View {
-        HStack {
-            //Image(systemName: "camera")
-            Text("Foto")
-            Spacer()
-            if image != nil {
-                image!
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 20, height: 20)
-            } else {
-                Image(systemName: "photo")
-            }
-        }
-        .onChange(of: image, perform: { _ in
-            //productVM.foto = image
-        })
-        .onTapGesture) {
-            self.shouldPresentActionScheet = true
-        }
-        .sheet(isPresented: $shouldPresentImagePicker) {
-                SUImagePickerView(
-                    sourceType: self.shouldPresentCamera ? .camera : .photoLibrary,
-                    image: self.$image,
-                    isPresented: self.$shouldPresentImagePicker
-                )
-        }.actionSheet(isPresented: $shouldPresentActionScheet) { () -> ActionSheet in
-            ActionSheet(
-                title: Text("Adjuntar foto"),
-                buttons: [
-                    ActionSheet.Button.default(
-                        Text("Abrir cámara"),
-                        action: {
-                            self.shouldPresentImagePicker = true
-                            self.shouldPresentCamera = true
-                        }
-                    ),
-                    ActionSheet.Button.default(
-                        Text("Seleccionar desde la galería"),
-                        action: {
-                            self.shouldPresentImagePicker = true
-                            self.shouldPresentCamera = false
-                        }
-                    ),
-                    ActionSheet.Button.cancel()
-                ]
-            )
-        }
-    }
-}
-*/

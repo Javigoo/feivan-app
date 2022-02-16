@@ -22,6 +22,7 @@
         <attribute name="familia" optional="YES" attributeType="String"/>
         <attribute name="forro_exterior" optional="YES" attributeType="String"/>
         <attribute name="foto" optional="YES" attributeType="Binary"/>
+        <attribute name="fotos_detalle" optional="YES" attributeType="Binary"/>
         <attribute name="herraje" optional="YES" attributeType="String"/>
         <attribute name="huella" optional="YES" attributeType="String"/>
         <attribute name="id_producto" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
@@ -52,7 +53,7 @@
     </entity>
     <elements>
         <element name="Cliente" positionX="-1071.723449707031" positionY="-8.44244384765625" width="128" height="178"/>
-        <element name="Producto" positionX="-604.4053955078125" positionY="-90.64987182617188" width="128" height="389"/>
+        <element name="Producto" positionX="-604.4053955078125" positionY="-90.64987182617188" width="128" height="404"/>
         <element name="Proyecto" positionX="-889.3516845703125" positionY="-55.27922058105469" width="128" height="208"/>
     </elements>
 </model>

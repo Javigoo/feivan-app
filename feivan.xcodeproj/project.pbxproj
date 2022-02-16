@@ -59,6 +59,7 @@
 		25E8F23F272197590009CEB7 /* DebugFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E8F23E272197590009CEB7 /* DebugFile.swift */; };
 		25E908A02721AE9C008A490B /* ProductViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E9089F2721AE9C008A490B /* ProductViewModel.swift */; };
 		25ECB4D4276653040066F67C /* examplePDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ECB4D3276653040066F67C /* examplePDF.swift */; };
+		25F01DBC27BD46F0007EDE08 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F01DBB27BD46F0007EDE08 /* Images.swift */; };
 		25F7D57D276777D60019BA05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 257CC829271FE564009C65D1 /* Assets.xcassets */; };
 		25F7D57E276777DA0019BA05 /* Hierarchy.json in Resources */ = {isa = PBXBuildFile; fileRef = 252DC7B22724AB94005F3489 /* Hierarchy.json */; };
 		25F7D57F276777DF0019BA05 /* Ral.json in Resources */ = {isa = PBXBuildFile; fileRef = 252EF4DD275FCF4D00DD73F5 /* Ral.json */; };
@@ -122,6 +123,7 @@
 		25E8F23E272197590009CEB7 /* DebugFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugFile.swift; sourceTree = "<group>"; };
 		25E9089F2721AE9C008A490B /* ProductViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductViewModel.swift; sourceTree = "<group>"; };
 		25ECB4D3276653040066F67C /* examplePDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = examplePDF.swift; sourceTree = "<group>"; };
+		25F01DBB27BD46F0007EDE08 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +157,7 @@
 		2544206D2746A5BC00CFDDA4 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				25F01DBA27BD46D4007EDE08 /* Photo */,
 				25AE2B1A27B1584F009CF424 /* Swift */,
 				25A0018A27AEF31E0094F636 /* Drawing */,
 				25A0018927AEB6970094F636 /* Location */,
@@ -164,7 +167,6 @@
 				25DBF3442743CBDB001D5FE3 /* MultipleSelection.swift */,
 				254093342735A23A00AA07D5 /* String.swift */,
 				254420782746C89200CFDDA4 /* CustomEnvironmentProperties.swift */,
-				252A89B9275AA8BD00BCA7AF /* Image.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -367,6 +369,15 @@
 			path = PDF;
 			sourceTree = "<group>";
 		};
+		25F01DBA27BD46D4007EDE08 /* Photo */ = {
+			isa = PBXGroup;
+			children = (
+				252A89B9275AA8BD00BCA7AF /* Image.swift */,
+				25F01DBB27BD46F0007EDE08 /* Images.swift */,
+			);
+			path = Photo;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -465,6 +476,7 @@
 				259BC28D272862BD00AE3305 /* Json.swift in Sources */,
 				252DC7B127248635005F3489 /* ProductEntityView.swift in Sources */,
 				259AD0EF274E4D1100B697DD /* MallorquinaFormView.swift in Sources */,
+				25F01DBC27BD46F0007EDE08 /* Images.swift in Sources */,
 				25C6B6B6276B799400253C7E /* UtilsPDF.swift in Sources */,
 				259AD0E9274E4CB900B697DD /* HerrajeFormView.swift in Sources */,
 				257CC84327218926009C65D1 /* HomeView.swift in Sources */,

@@ -141,7 +141,7 @@ func addProductImage(shared: PDFData, page: CGRect, product: ProductViewModel) {
     }
     
     let scaled_page = CGRect(x: page.origin.x,
-                             y: page.origin.y,
+                             y: origin_y,
                              width: scaledWidth,
                              height: scaledHeight
                         )
@@ -175,7 +175,7 @@ func addProductPhoto(shared: PDFData, page: CGRect, product: ProductViewModel) {
     }
     
     let scaled_page = CGRect(x: page.origin.x,
-                             y: page.origin.y,
+                             y: origin_y,
                              width: scaledWidth,
                              height: scaledHeight
                         )
@@ -187,39 +187,60 @@ func addProductPhoto(shared: PDFData, page: CGRect, product: ProductViewModel) {
 func addProductData(shared: PDFData, page: CGRect, context: CGContext, product: ProductViewModel) {
     
     let atributos = ["Unidades", "Curvas", "Material", "Color", "Tapajuntas", "Dimensiones", "Apertura", "Compacto", "Marco inferior", "Huella", "Forro exterior", "Cristal", "Cerraduras", "Manetas", "Herraje", "Posición", "Instalación", "Remates albañilería", "Medidas no buenas", "Persiana"]
+    
     var resultado_atributos: String = ""
+    var resultado_valores: String = ""
+    var extras_producto: String = ""
+
     for atributo_to_print in atributos {
-        let lineas_atributo = product.get(attribute: atributo_to_print).split(separator: "\n").count
+        let valores_atributo = product.get(attribute: atributo_to_print)
+        
+        if atributo_to_print == "Unidades" && valores_atributo == "1" {
+            continue
+        }
+        
+        if atributo_to_print == "Medidas no buenas" && valores_atributo == "No" {
+            continue
+        }
+        
+        if atributo_to_print == "Remates albañilería" && valores_atributo == "No" {
+            continue
+        }
+            
+        let valores_atributos = product.get(attribute: atributo_to_print)
+        let lineas = valores_atributos.split(separator: "\n")
+        let lineas_atributo = lineas.count
+        
         if lineas_atributo != 0 {
             resultado_atributos += "\(atributo_to_print)" + String(repeating: "\n", count: lineas_atributo+1)
-        }
-    }
-    
-    var resultado_valores = ""
-    for atributo_to_print in atributos {
-        let lineas = product.get(attribute: atributo_to_print).split(separator: "\n")
-        let lineas_atributo = lineas.count
-        if lineas_atributo != 0 {
-            for value in lineas{
+            
+            for value in lineas {
                 resultado_valores += "\(value)\n"
             }
             resultado_valores += "\n"
         }
     }
     
+    let extra_space = CGFloat(10)
     let attributes_page = CGRect(x: page.origin.x,
                              y: page.origin.y,
                              width: page.width * 0.4,
-                             height: page.height
+                             height: page.height - extra_space
                         )
     let values_page = CGRect(x: page.origin.x + attributes_page.width,
                              y: page.origin.y,
                              width: page.width - attributes_page.width,
-                             height: page.height
+                             height: page.height - extra_space
                         )
     
-    let attributes_font_size = getTextFont(string: resultado_atributos, font: shared.font_size, width: attributes_page.width, height: attributes_page.height)
-    let values_font_size = getTextFont(string: resultado_valores, font: shared.font_size, width: values_page.width, height: values_page.height)
+    let all_page = CGRect(x: page.origin.x,
+                             y: page.origin.y + page.height - extra_space,
+                             width: page.width,
+                             height: extra_space
+                        )
+    
+    let attributes_font_size = getTextFont(string: resultado_atributos, font: shared.font_size, weight: .bold, width: attributes_page.width, height: attributes_page.height)
+    let values_font_size = getTextFont(string: resultado_valores, font: shared.font_size, weight: .regular, width: values_page.width, height: values_page.height)
     let fontSize = min(attributes_font_size, values_font_size)
     
     //let attributes_max_lenght = get_max_lenght(text: resultado_atributos)
@@ -239,17 +260,31 @@ func addProductData(shared: PDFData, page: CGRect, context: CGContext, product: 
         NSAttributedString.Key.font: textFont
     ]
     
+    if !product.fotos_detalle.isEmpty {
+        extras_producto.append("Este producto contiene fotos detalle adjuntas al final del documento")
+    }
+    
+    textFont = UIFont.systemFont(ofSize: getTextFont(string: extras_producto, font: shared.font_size, weight: .bold, width: all_page.width, height: all_page.height), weight: .bold)
+    let extras_style = NSMutableParagraphStyle()
+    extras_style.alignment = .center
+    extras_style.lineBreakMode = .byWordWrapping
+    let extras_text = [
+        NSAttributedString.Key.paragraphStyle: extras_style,
+        NSAttributedString.Key.font: textFont
+    ]
+    
     
     let attributes_text = NSAttributedString(string: resultado_atributos, attributes: text_attributes)
+    //purple.draw(in: attributes_page)
     attributes_text.draw(in: attributes_page)
-
-    //let paragraphSize = CGSize(width: page.width, height: page.height)
-    //let paragraphRect = attributes_text.boundingRect(with: paragraphSize, options: NSStringDrawingOptions.usesLineFragmentOrigin, context: nil)
-    //print("max width: ", page.width)
-    //print("needed width: ", paragraphRect.width)
         
     let values_text = NSAttributedString(string: resultado_valores, attributes: text_values)
+    //green.draw(in: values_page)
     values_text.draw(in: values_page)
+        
+    let anotaciones_text = NSAttributedString(string: extras_producto, attributes: extras_text)
+    //black.draw(in: all_page)
+    anotaciones_text.draw(in: all_page)
 
 }
 
