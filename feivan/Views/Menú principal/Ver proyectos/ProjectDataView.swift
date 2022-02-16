@@ -14,24 +14,38 @@ struct ProjectView: View {
     
     @State var showAñadirProducto: Bool = false
     @State var showGenerarPdf: Bool = false
-    @State var showAñadirMas: Bool = false
+    
+    @State var showAddMedidas: Bool = false
+    @State var showAddColorCristalTapajuntas: Bool = false
 
     var body: some View {
 
         VStack {
-            NavigationLink(destination: PdfView(projectData: projectVM), isActive: $showGenerarPdf) { EmptyView() }
-            NavigationLink(destination: ProductAddView(projectVM: projectVM), isActive: $showAñadirProducto) { EmptyView() }
-            NavigationLink(destination: ProductAddMoreView(projectVM: projectVM, originalProductVM: productVM), isActive: $showAñadirMas) { EmptyView() }
+            NavigationLink(destination: PdfView(projectData: projectVM), isActive: $showGenerarPdf) {
+                EmptyView()
+            }
+            NavigationLink(destination: ProductAddView(projectVM: projectVM), isActive: $showAñadirProducto) {
+                EmptyView()
+            }
+            NavigationLink(destination: ProductAddMedidasView(projectVM: projectVM, originalProductVM: productVM), isActive: $showAddMedidas) {
+                EmptyView()
+            }
+            NavigationLink(destination: ProductAddColorCristalTapajuntasView(projectVM: projectVM, originalProductVM: productVM), isActive: $showAddColorCristalTapajuntas) {
+                EmptyView()
+            }
+
             Form {
                 Section {
-                    NavigationLink(
-                        destination:
-                            ClientCreateView(clientVM: ClientViewModel(client: projectVM.getClient())).navigationTitle(Text("Cliente")),
-                        label: {
-                            Image(systemName: "person")
-                            Text("Cliente")
-                        }
-                    )
+                    if projectVM.haveClient() {
+                        NavigationLink(
+                            destination:
+                                ClientCreateView(clientVM: ClientViewModel(client: projectVM.getClient())).navigationTitle(Text("Cliente")),
+                            label: {
+                                Image(systemName: "person")
+                                Text("Cliente")
+                            }
+                        )
+                    }
                     
                     NavigationLink(
                         destination:
@@ -55,10 +69,18 @@ struct ProjectView: View {
                             ).contextMenu {
                                 Button(action: {
                                     productVM = ProductViewModel(product: producto)
-                                    showAñadirMas = true
+                                    showAddMedidas = true
                                 }, label: {
                                     Image(systemName: "plus.circle")
-                                    Text("Añadir más")
+                                    Text("Añadir otro con medidas diferentes")
+                                })
+                                
+                                Button(action: {
+                                    productVM = ProductViewModel(product: producto)
+                                    showAddColorCristalTapajuntas = true
+                                }, label: {
+                                    Image(systemName: "plus.circle")
+                                    Text("Añadir otro con el mismo color, cristal y tapajuntas")
                                 })
                             }
                         }

@@ -42,7 +42,7 @@ struct ProductCurvasFormView: View {
             Form{
                 Section(header: Text("Tipo")) {
                     Picker("Tipo", selection: $valor) {
-                        List(productVM.optionsFor(attribute: atributo), id: \.self) { item in
+                        List([""]+productVM.optionsFor(attribute: atributo), id: \.self) { item in
                             Text(item)
                         }
                     }

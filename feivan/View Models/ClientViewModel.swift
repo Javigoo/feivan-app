@@ -14,7 +14,7 @@ class ClientViewModel: ObservableObject {
     @Published var nombre: String = ""
     @Published var telefono: String = ""
     @Published var email: String = ""
-    @Published var leroy_merlin: Bool = false
+    @Published var tipo: String = ""
     @Published var referencia: String = ""
     @Published var comentario: String = ""
     @Published var timestamp: Date = Date()
@@ -102,7 +102,7 @@ class ClientViewModel: ObservableObject {
         telefono = client.telefono ?? telefono
         email = client.email ?? email
         referencia = client.referencia ?? referencia
-        leroy_merlin = client.leroy_merlin
+        tipo = client.tipo ?? tipo
         comentario = client.comentario ?? comentario
         timestamp = client.timestamp ?? timestamp
         proyectos = client.proyectos ?? proyectos
@@ -115,7 +115,7 @@ class ClientViewModel: ObservableObject {
         client.telefono = telefono
         client.email = email
         client.referencia = referencia
-        client.leroy_merlin = leroy_merlin
+        client.tipo = tipo
         client.comentario = comentario
         client.timestamp = timestamp
         client.proyectos = proyectos

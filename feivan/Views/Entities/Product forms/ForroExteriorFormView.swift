@@ -49,11 +49,14 @@ struct ProductForroExteriorFormView: View {
                         List(["40", "60"], id: \.self) { item in Text(item) }
                     }
                     .pickerStyle(.segmented)
+                    .onTapGesture(count: 2) {
+                        pletina = ""
+                    }
                 }
                 
                 Section(header: Text("Ángulo")) {
                     Picker("Ángulo", selection: $angulo) {
-                        List(["30x30","40x20","40x40","60x40","80x40"], id: \.self) { item in Text(item) }
+                        List(["", "30x30","40x20","40x40","60x40","80x40"], id: \.self) { item in Text(item) }
                     }
                     .pickerStyle(.wheel)
                 }

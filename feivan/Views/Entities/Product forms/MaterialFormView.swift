@@ -44,13 +44,16 @@ struct ProductMaterialFormView: View {
                         List(productVM.optionsFor(attribute: atributo), id: \.self) { item in Text(item) }
                     }
                     .pickerStyle(.segmented)
+                    .onTapGesture(count: 2) {
+                        valor = ""
+                    }
                 }
                 
                 if valor == "Aluminio" {
                     if productVM.showIf(equalTo: ["Correderas"]) {
                         Section(header: Text("Series")) {
                             Picker("Serie", selection: $serie) {
-                                List(productVM.optionsFor(attribute: "Material Aluminio Correderas"), id: \.self) { item in
+                                List([""]+productVM.optionsFor(attribute: "Material Aluminio Correderas"), id: \.self) { item in
                                     Text(item)
                                 }
                             }
@@ -60,7 +63,7 @@ struct ProductMaterialFormView: View {
                     if productVM.showIf(equalTo: ["Practicables"]) {
                         Section(header: Text("Series")) {
                             Picker("Serie", selection: $serie) {
-                                List(productVM.optionsFor(attribute: "Material Aluminio Ventanas"), id: \.self) { item in
+                                List([""]+productVM.optionsFor(attribute: "Material Aluminio Ventanas"), id: \.self) { item in
                                     Text(item)
                                 }
                             }

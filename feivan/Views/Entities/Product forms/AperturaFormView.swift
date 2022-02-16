@@ -59,13 +59,26 @@ struct ProductAperturaFormView: View {
                     }
                 }
                 
-                if productVM.notShowIf(familias: ["Correderas", "Fijos"]) {
+                Section(header: Text("Corredera")) {
+                    Picker("Corredera", selection: $corredera) {
+                        List(["Primera hoja izquierda", "Primera hoja derecha"], id: \.self) { item in Text(item) }
+                    }
+                    .pickerStyle(.segmented)
+                    .onTapGesture(count: 2) {
+                        corredera = ""
+                    }
+                }
+                
+                if productVM.notShowIf(familias: ["Correderas", "Fijos"]) && corredera.isEmpty {
                     if !oscilobatiente {
                         Section(header: Text("Vista")) {
                             Picker("Vista", selection: $vista) {
                                 List(["Dentro", "Fuera"], id: \.self) { item in Text(item) }
                             }
                             .pickerStyle(.segmented)
+                            .onTapGesture(count: 2) {
+                                vista = ""
+                            }
                         }
                     
                         Section(header: Text("Abre")) {
@@ -73,6 +86,9 @@ struct ProductAperturaFormView: View {
                                 List(["Interior", "Exterior"], id: \.self) { item in Text(item) }
                             }
                             .pickerStyle(.segmented)
+                            .onTapGesture(count: 2) {
+                                abre = ""
+                            }
                         }
                     }
                 
@@ -81,15 +97,9 @@ struct ProductAperturaFormView: View {
                             List(["Izquierda", "Derecha"], id: \.self) { item in Text(item) }
                         }
                         .pickerStyle(.segmented)
-                    }
-                }
-                
-                if productVM.showIf(equalTo: ["Correderas"]) {
-                    Section(header: Text("Corredera")) {
-                        Picker("Corredera", selection: $corredera) {
-                            List(["Primera hoja izquierda", "Primera hoja derecha"], id: \.self) { item in Text(item) }
+                        .onTapGesture(count: 2) {
+                            mano = ""
                         }
-                        .pickerStyle(.segmented)
                     }
                 }
                 
@@ -105,6 +115,9 @@ struct ProductAperturaFormView: View {
                             }
                         }
                         .pickerStyle(.segmented)
+                        .onTapGesture(count: 2) {
+                            marco_inferior = ""
+                        }
                         
                         if marco_inferior == "Empotrado" {
                             Toggle("Canal recoge agua", isOn: $canal_recoge_agua)

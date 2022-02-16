@@ -9,6 +9,8 @@ import CoreData
 import SwiftUI
 
 class ProductViewModel: ObservableObject {
+    @Environment(\.managedObjectContext) private var viewContext
+
     private let context = PersistenceController.shared
 
     @Published var id_producto: UUID = UUID()
@@ -312,6 +314,7 @@ class ProductViewModel: ObservableObject {
         product.foto = foto
         product.familia = familia
         product.nombre = nombre
+        
         product.curvas = curvas
         product.material = material
         product.color = color
@@ -330,6 +333,7 @@ class ProductViewModel: ObservableObject {
         product.instalacion = instalacion
         product.persiana = persiana
         product.unidades = unidades
+        
         product.timestamp = timestamp
         product.proyecto = proyecto
         
@@ -341,6 +345,8 @@ class ProductViewModel: ObservableObject {
     func setProductVMAddMore(productVM: ProductViewModel) {
         familia = productVM.familia
         nombre = productVM.nombre
+        proyecto = productVM.proyecto
+
         curvas = productVM.curvas
         material = productVM.material
         color = productVM.color
@@ -358,7 +364,16 @@ class ProductViewModel: ObservableObject {
         posicion = productVM.posicion
         instalacion = productVM.instalacion
         persiana = productVM.persiana
+    }
+    
+    func setProductVMAdd2(productVM: ProductViewModel) {
+        familia = productVM.familia
+        nombre = productVM.nombre
         proyecto = productVM.proyecto
+
+        color = productVM.color
+        tapajuntas = productVM.tapajuntas
+        cristal = productVM.cristal
     }
     
     func addProject(projectVM: ProjectViewModel) {
@@ -372,7 +387,6 @@ class ProductViewModel: ObservableObject {
             product = getProduct()!
         } else {
             print("PRODUCTO: Nuevo producto creado")
-            print(context)
             product = Producto(context: context.viewContext)
         }
         setProduct(product: product)
@@ -411,9 +425,7 @@ class ProductViewModel: ObservableObject {
     }
     
     // Funciones privadas
-    
-    
-    
+
     private func getProduct(id: UUID) -> Producto? {
         let request: NSFetchRequest<Producto> = Producto.fetchRequest()
         let query = NSPredicate(format: "%K == %@", "id_producto", id as CVarArg)

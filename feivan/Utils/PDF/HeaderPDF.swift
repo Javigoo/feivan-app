@@ -22,8 +22,8 @@ func addHeader(shared: PDFData, page: CGRect) {
     
     
     var client_text = ""
-    if client.leroy_merlin {
-        client_text = "\(client.nombre) (Leroy Merlin)"
+    if !client.tipo.isEmpty {
+        client_text = "\(client.nombre) (\(client.tipo))"
     } else {
         client_text = client.nombre
     }

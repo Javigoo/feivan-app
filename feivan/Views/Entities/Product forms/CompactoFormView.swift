@@ -54,6 +54,9 @@ struct ProductCompactoFormView: View {
                         List(productVM.optionsFor(attribute: atributo), id: \.self) { item in Text(item) }
                     }
                     .pickerStyle(.segmented)
+                    .onTapGesture(count: 2) {
+                        compacto = ""
+                    }
                 }
                 
                 
@@ -82,6 +85,9 @@ struct ProductCompactoFormView: View {
                             List(["Izquierda", "Derecha"], id: \.self) { item in Text(item) }
                         }
                         .pickerStyle(.segmented)
+                        .onTapGesture(count: 2) {
+                            control = ""
+                        }
                     }
                 }
                 
@@ -91,6 +97,9 @@ struct ProductCompactoFormView: View {
                             List(["Izquierdo", "Derecho"], id: \.self) { item in Text(item) }
                         }
                         .pickerStyle(.segmented)
+                        .onTapGesture(count: 2) {
+                            recogedor = ""
+                        }
                     }
                 }
                 
@@ -122,6 +131,9 @@ struct ProductCompactoFormView: View {
                         }
                     }
                     .pickerStyle(.segmented)
+                    .onTapGesture(count: 2) {
+                        detallaObra = ""
+                    }
                 }
                 
                 Section(header: Text("Anotación")) {

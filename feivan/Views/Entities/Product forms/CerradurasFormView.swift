@@ -39,7 +39,7 @@ struct ProductCerradurasFormView: View {
             Form{
                 Section(header: Text("Opciones")) {
                     Picker(atributo, selection: $valor) {
-                        List(productVM.optionsFor(attribute: atributo), id: \.self) { item in
+                        List([""]+productVM.optionsFor(attribute: atributo), id: \.self) { item in
                             Text(item)
                         }
                     }

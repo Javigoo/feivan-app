@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct NewProjectSummary: View {
-    @Environment(\.rootPresentation) var rootPresentation: Binding<Bool>
+    @ObservedObject var projectVM: ProjectViewModel
 
-    @EnvironmentObject var projectVM: ProjectViewModel
+    @Environment(\.rootPresentation) var rootPresentation: Binding<Bool>
     
     var homeButton: some View {
         Button(action: {
@@ -21,7 +21,6 @@ struct NewProjectSummary: View {
     }
     
     var body: some View {
-
         VStack {
             ProjectView(projectVM: projectVM)
         }

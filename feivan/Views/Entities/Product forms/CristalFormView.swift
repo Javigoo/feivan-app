@@ -56,19 +56,22 @@ struct ProductCristalFormView: View {
                         List(["Cámaras", "Seguridad"], id: \.self) { item in Text(item) }
                     }
                     .pickerStyle(.segmented)
+                    .onTapGesture(count: 2) {
+                        opcion = ""
+                    }
                 }
                 
                 if opcion == "Cámaras" {
                     Section(header: Text("Cámaras")) {
                         Picker("Cámaras", selection: $camaras) {
-                            List(["4/?/4", "4/?/6", "6/?/6", "4/?/3+3", "6/?/3+3", "4/?/4+4", "6/?/4+4", "3+3/?/3+3", "4+4/?/4+4"], id: \.self) { item in Text(item) }
+                            List(["", "4/?/4", "4/?/6", "6/?/6", "4/?/3+3", "6/?/3+3", "4/?/4+4", "6/?/4+4", "3+3/?/3+3", "4+4/?/4+4"], id: \.self) { item in Text(item) }
                         }
                         .pickerStyle(.wheel)
                     }
                 } else if opcion == "Seguridad" {
                     Section(header: Text("Seguridad")) {
                         Picker("Seguridad", selection: $seguridad) {
-                            List(["3+3", "4+4", "5+5", "6+6", "8+8"], id: \.self) { item in Text(item) }
+                            List(["", "3+3", "4+4", "5+5", "6+6", "8+8"], id: \.self) { item in Text(item) }
                         }
                         .pickerStyle(.wheel)
                     }
@@ -79,6 +82,9 @@ struct ProductCristalFormView: View {
                         List(["Mate", "Carglass"], id: \.self) { item in Text(item) }
                     }
                     .pickerStyle(.segmented)
+                    .onTapGesture(count: 2) {
+                        tonalidad = ""
+                    }
                 }
                 
                 Section(header: Text("Composición")) {

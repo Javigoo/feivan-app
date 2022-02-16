@@ -43,7 +43,7 @@ struct ProductPosicionFormView: View {
             Form{
                 Section(header: Text("Zonas")) {
                     Picker(atributo, selection: $posicion) {
-                        List(productVM.optionsFor(attribute: atributo), id: \.self) { item in Text(item) }
+                        List([""]+productVM.optionsFor(attribute: atributo), id: \.self) { item in Text(item) }
                     }
                     .pickerStyle(.wheel)
                 }
@@ -57,6 +57,9 @@ struct ProductPosicionFormView: View {
                         List(["Ventana", "Puerta"], id: \.self) { item in Text(item) }
                     }
                     .pickerStyle(.segmented)
+                    .onTapGesture(count: 2) {
+                        ventana_o_puerta = ""
+                    }
                     
                     if ventana_o_puerta == "Ventana" {
                         Stepper("V\(ventana)", value: $ventana, in: 0...99)

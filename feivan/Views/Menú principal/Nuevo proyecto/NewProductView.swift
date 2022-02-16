@@ -8,22 +8,21 @@
 import SwiftUI
 
 struct NewProduct: View {
-    
-    @EnvironmentObject var projectVM: ProjectViewModel
-    
+    @ObservedObject var projectVM: ProjectViewModel
+
     @StateObject var productVM = ProductViewModel()
     
     @State private var isShowingNextView = false
     
     var body: some View {
-        NavigationLink(destination: NewProjectSummary().environmentObject(projectVM), isActive: $isShowingNextView) { EmptyView() }
+        NavigationLink(destination: NewProjectSummary(projectVM: projectVM), isActive: $isShowingNextView) { EmptyView() }
 
         VStack {
             ProductFormView(productVM: productVM)
         }.toolbar {
             Button("Siguiente") {
-                productVM.save()
                 
+                productVM.save()
                 projectVM.addProduct(productVM: productVM)
                 projectVM.save()
                 

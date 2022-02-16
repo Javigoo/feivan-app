@@ -4,11 +4,11 @@
         <attribute name="comentario" optional="YES" attributeType="String"/>
         <attribute name="email" optional="YES" attributeType="String"/>
         <attribute name="id_cliente" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="leroy_merlin" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="nombre" optional="YES" attributeType="String"/>
         <attribute name="referencia" optional="YES" attributeType="String"/>
         <attribute name="telefono" optional="YES" attributeType="String"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="tipo" optional="YES" attributeType="String"/>
         <relationship name="proyectos" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Proyecto" inverseName="cliente" inverseEntity="Proyecto"/>
     </entity>
     <entity name="Producto" representedClassName="Producto" syncable="YES" codeGenerationType="class">
@@ -51,7 +51,7 @@
         <relationship name="productos" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Producto" inverseName="proyecto" inverseEntity="Producto"/>
     </entity>
     <elements>
-        <element name="Cliente" positionX="-1071.723449707031" positionY="-8.44244384765625" width="128" height="164"/>
+        <element name="Cliente" positionX="-1071.723449707031" positionY="-8.44244384765625" width="128" height="178"/>
         <element name="Producto" positionX="-604.4053955078125" positionY="-90.64987182617188" width="128" height="389"/>
         <element name="Proyecto" positionX="-889.3516845703125" positionY="-55.27922058105469" width="128" height="208"/>
     </elements>

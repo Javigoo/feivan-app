@@ -8,15 +8,14 @@
 import SwiftUI
 
 struct NewClient: View {
+    @ObservedObject var projectVM: ProjectViewModel
 
-    @EnvironmentObject var projectVM: ProjectViewModel
-    
     @StateObject var clientVM = ClientViewModel()
     
     @State private var isShowingNextView = false
     
     var body: some View {
-        NavigationLink(destination: NewProduct().environmentObject(projectVM), isActive: $isShowingNextView) { EmptyView() }
+        NavigationLink(destination: NewProduct(projectVM: projectVM), isActive: $isShowingNextView) { EmptyView() }
 
         VStack {
             Form {

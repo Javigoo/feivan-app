@@ -16,7 +16,7 @@ struct NewProjectView: View {
     
     var body: some View {
         
-        NavigationLink(destination: NewClient().environmentObject(projectVM), isActive: $isShowingNextView) { EmptyView() }
+        NavigationLink(destination: NewClient(projectVM: projectVM), isActive: $isShowingNextView) { EmptyView() }
 
         VStack {
             Form {
@@ -30,6 +30,5 @@ struct NewProjectView: View {
             
         }
         .navigationTitle(Text("Nuevo proyecto"))
-        .environmentObject(projectVM)
     }
 }

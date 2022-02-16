@@ -49,7 +49,7 @@ struct ProductTapajuntasFormView: View {
                 
                 Section(header: Text("Opciones"), footer: Text("Unidad de medida: mm")) {
                     Picker(atributo, selection: $valor) {
-                        List(productVM.optionsFor(attribute: atributo), id: \.self) { item in
+                        List([""]+productVM.optionsFor(attribute: atributo), id: \.self) { item in
                             Text(item)
                         }
                     }

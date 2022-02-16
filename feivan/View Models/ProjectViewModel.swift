@@ -8,6 +8,7 @@
 import CoreData
 
 class ProjectViewModel: ObservableObject {
+
     private let context = PersistenceController.shared
 
     @Published var id_proyecto: UUID = UUID()
@@ -29,10 +30,12 @@ class ProjectViewModel: ObservableObject {
     
     /** Actualiza la lista con los Proyectos (Entidades en Core Data) **/
     init() {
+        print("PROYECTO: Proyecto vacio creado")
     }
     
     /** Copia los datos de la entidad Proyecto pasada como parámetro a la clase ProjectViewModel y actualiza la lista de proyectos **/
     init(project: Proyecto) {
+        print("PROYECTO: Proyecto inicializado creado")
         setProjectVM(project: project)
     }
     
@@ -64,8 +67,7 @@ class ProjectViewModel: ObservableObject {
             project = getProject()!
         } else {
             project = Proyecto(context: context.viewContext)
-            print("PROYECTO: Nuevo proyecto guardado -", id_proyecto)
-            print(context)
+            print("PROYECTO: Nuevo proyecto guardado")
         }
         setProject(project: project)
         context.save()
@@ -74,6 +76,7 @@ class ProjectViewModel: ObservableObject {
     
     /** Elimina al Proyecto de la DB desde una lista de proyectos **/
     func delete(at offset: IndexSet, for proyectos: [Proyecto]) {
+        print("PROYECTO: Producto eliminado")
         if let first = proyectos.first, case context.viewContext = first.managedObjectContext {
             offset.map { proyectos[$0] }.forEach(context.viewContext.delete)
         }
@@ -85,6 +88,7 @@ class ProjectViewModel: ObservableObject {
     // Otras
     
     func exist() -> Bool {
+        print("PROYECTO - exist()")
         if getProject() == nil {
             return false
         }
@@ -92,11 +96,13 @@ class ProjectViewModel: ObservableObject {
     }
     
     func getProject() -> Proyecto? {
+        print("PROYECTO - getProject()")
         return getProject(id: id_proyecto)
     }
     
     /** Obtiene todos los Proyectos de la DB **/
     func getAllProjects() {
+        print("PROYECTO - getAllProjects()")
         let request = Proyecto.fetchRequest()
         do {
             proyectos = try context.viewContext.fetch(request)
@@ -106,6 +112,7 @@ class ProjectViewModel: ObservableObject {
     }
     
     func textCountProducts() -> String {
+        print("PROYECTO - textCountProducts()")
         let project = getProject()
         if project == nil {
             return String(0)
@@ -118,24 +125,27 @@ class ProjectViewModel: ObservableObject {
     }
     
     func getProducts() -> [Producto] {
-        let project = getProject()
-        if project == nil {
-            return []
-        }
+        print("PROYECTO - getProducts()")
         var productos: [Producto] = []
-        for producto in project!.productos! {
-            productos.append(producto as! Producto)
+
+        if let project = getProject() {
+            for producto in project.productos! {
+                productos.append(producto as! Producto)
+            }
         }
+        print("Count: ", productos.count)
         // Sort arrey from NSSet elements
         return productos.sorted(by: { $0.timestamp! > $1.timestamp! })
     }
     
     func getClient() -> Cliente {
+        print("PROYECTO - getClient()")
         let project = getProject()
         return project!.cliente!
     }
     
     func getClientName() -> String {
+        print("PROYECTO - getClientName()")
         if haveClient() {
             return getClient().nombre ?? ""
         }
@@ -143,6 +153,8 @@ class ProjectViewModel: ObservableObject {
     }
     
     func haveClient() -> Bool {
+        print("PROYECTO - haveClient()")
+
         let project = getProject()
 
         if project != nil {
@@ -163,6 +175,7 @@ class ProjectViewModel: ObservableObject {
  
     /** Copia los datos del Proyecto al ProjectViewModel **/
     private func setProjectVM(project: Proyecto) {
+        print("PROYECTO - setProjectVM()")
         id_proyecto = project.id_proyecto ?? id_proyecto
         direccion = project.direccion ?? direccion
         piso_puerta = project.piso_puerta ?? piso_puerta
@@ -178,6 +191,8 @@ class ProjectViewModel: ObservableObject {
     
     /** Copia los datos del ProjectViewModel al Proyecto **/
     private func setProject(project: Proyecto) {
+        print("PROYECTO - setProject()")
+
         project.id_proyecto = id_proyecto
         project.direccion = direccion
         project.piso_puerta = piso_puerta
@@ -188,12 +203,54 @@ class ProjectViewModel: ObservableObject {
         project.medidas_no_buenas = medidas_no_buenas
         project.timestamp = timestamp
         project.cliente = cliente
-        project.productos = productos//context.viewContext.object(with: project.objectID)
+ 
+        project.productos = productos
         
+//        var new_products: [Producto] = []
+//        if let productos = productos {
+//            let productos_otro_contexto = productos.allObjects as! [Producto]
+//            print("Num products: ", productos_otro_contexto.count)
+//            for producto_otro_contexto in productos_otro_contexto {
+//                let new_product = Producto(context: context.viewContext)
+//                new_product.id_producto = producto_otro_contexto.id_producto
+//                new_product.foto = producto_otro_contexto.foto
+//                new_product.familia = producto_otro_contexto.familia
+//                new_product.nombre = producto_otro_contexto.nombre
+//                new_product.curvas = producto_otro_contexto.curvas
+//                new_product.material = producto_otro_contexto.material
+//                new_product.color = producto_otro_contexto.color
+//                new_product.tapajuntas = producto_otro_contexto.tapajuntas
+//                new_product.dimensiones = producto_otro_contexto.dimensiones
+//                new_product.apertura = producto_otro_contexto.apertura
+//                new_product.compacto = producto_otro_contexto.compacto
+//                new_product.marco_inferior = producto_otro_contexto.marco_inferior
+//                new_product.huella = producto_otro_contexto.huella
+//                new_product.forro_exterior = producto_otro_contexto.forro_exterior
+//                new_product.cristal = producto_otro_contexto.cristal
+//                new_product.cerraduras = producto_otro_contexto.cerraduras
+//                new_product.manetas = producto_otro_contexto.manetas
+//                new_product.herraje = producto_otro_contexto.herraje
+//                new_product.posicion = producto_otro_contexto.posicion
+//                new_product.instalacion = producto_otro_contexto.instalacion
+//                new_product.persiana = producto_otro_contexto.persiana
+//                new_product.unidades = producto_otro_contexto.unidades
+//                new_product.timestamp = producto_otro_contexto.timestamp
+//                new_product.proyecto = producto_otro_contexto.proyecto
+//                new_products.append(new_product)
+//            }
+//            project.productos = NSSet(array: new_products)
+//        }
+        
+//        getProducts(project: project)
+                    
     }
+    
+
     
     /** Devuelve el Proyecto que coincide con la id en la DB**/
     private func getProject(id: UUID) -> Proyecto? {
+        print("PROYECTO - getProject(id)")
+
         let request: NSFetchRequest<Proyecto> = Proyecto.fetchRequest()
         let query = NSPredicate(format: "%K == %@", "id_proyecto", id as CVarArg)
         let sort = [NSSortDescriptor(key: "timestamp", ascending: true)]
@@ -215,6 +272,8 @@ class ProjectViewModel: ObservableObject {
     // Auxiliares
     
     private func countProducts(project: Proyecto) -> Int {
+        print("PROYECTO - countProducts()")
+
         var numProducts = 0
         if project.productos != nil {
             for _ in project.productos! {
@@ -223,4 +282,6 @@ class ProjectViewModel: ObservableObject {
         }
         return numProducts
     }
+    
+    
 }

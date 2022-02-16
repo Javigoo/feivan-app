@@ -28,18 +28,18 @@ struct ProductAddView: View {
         VStack {
             ProductFormView(productVM: productVM)
         }.onDisappear {
+            productVM.addProject(projectVM: projectVM)
             productVM.save()
-            projectVM.addProduct(productVM: productVM)
-            projectVM.save()
         }
     }
 }
 
-struct ProductAddMoreView: View {
+struct ProductAddMedidasView: View {
     @ObservedObject var projectVM: ProjectViewModel
-    @ObservedObject var originalProductVM: ProductViewModel
-
+    
     @StateObject var productVM = ProductViewModel()
+    @ObservedObject var originalProductVM: ProductViewModel
+    
     @State private var showingSheet = false
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     
@@ -50,12 +50,30 @@ struct ProductAddMoreView: View {
             ProductDimensionesSheetView(productVM: productVM)
         }.onDisappear {
             productVM.save()
-            projectVM.addProduct(productVM: productVM)
-            projectVM.save()
+            productVM.addProject(projectVM: projectVM)
         }.onAppear(perform: {
             productVM.setProductVMAddMore(productVM: originalProductVM)
             showingSheet = true
         })
+        .navigationTitle(Text("Información proyecto"))
+    }
+}
+
+struct ProductAddColorCristalTapajuntasView: View {
+    @ObservedObject var projectVM: ProjectViewModel
+    @ObservedObject var originalProductVM: ProductViewModel
+
+    @StateObject var productVM = ProductViewModel()
+    
+    var body: some View {
+        VStack {
+            ProductFormView(productVM: productVM)
+        }.onDisappear {
+            productVM.save()
+            productVM.addProject(projectVM: projectVM)
+        }.onAppear {
+            productVM.setProductVMAdd2(productVM: originalProductVM)
+        }
         .navigationTitle(Text("Información proyecto"))
     }
 }
