@@ -186,7 +186,7 @@ func addProductPhoto(shared: PDFData, page: CGRect, product: ProductViewModel) {
 
 func addProductData(shared: PDFData, page: CGRect, context: CGContext, product: ProductViewModel) {
     
-    let atributos = ["Unidades", "Curvas", "Material", "Color", "Tapajuntas", "Dimensiones", "Apertura", "Compacto", "Marco inferior", "Huella", "Forro exterior", "Cristal", "Cerraduras", "Manetas", "Herraje", "Posición", "Instalación", "Remates albañilería", "Medidas no buenas", "Persiana"]
+    let atributos = ["Unidades", "Curvas", "Material", "Color", "Tapajuntas", "Dimensiones", "Cristal", "Apertura", "Compacto", "Marco inferior", "Forro exterior", "Cerraduras", "Manetas", "Herraje", "Posición", "Instalación", "Persiana", "Huella", "Remates albañilería", "Medidas no buenas"]
     
     var resultado_atributos: String = ""
     var resultado_valores: String = ""
@@ -212,25 +212,54 @@ func addProductData(shared: PDFData, page: CGRect, context: CGContext, product: 
         let lineas_atributo = lineas.count
         
         if lineas_atributo != 0 {
-            resultado_atributos += "\(atributo_to_print)" + String(repeating: "\n", count: lineas_atributo+1)
             
+            var total_lineas = lineas_atributo
+            let size_count = 35
             for value in lineas {
-                resultado_valores += "\(value)\n"
+                if value.count > size_count {
+                    var value_copy = value
+                    while value_copy.count > size_count {
+                        let index = value_copy.index(value_copy.startIndex, offsetBy: size_count)
+                        let substring_to_print = value_copy.prefix(upTo: index)
+                        value_copy = value_copy.suffix(from: index)
+                        resultado_valores += "\(substring_to_print)\n"
+                        total_lineas += 1
+                    }
+                    resultado_valores += "\(value_copy)\n"
+                    total_lineas += 1
+                } else {
+                    resultado_valores += "\(value)\n"
+                }
             }
             resultado_valores += "\n"
+            
+            resultado_atributos += "\(atributo_to_print)" + String(repeating: "\n", count: total_lineas + 1)
+
         }
     }
     
     let extra_space = CGFloat(10)
+    
+    var observaciones_space = CGFloat(35)
+    if product.observaciones.isEmpty {
+        observaciones_space = CGFloat(0)
+    }
+    
     let attributes_page = CGRect(x: page.origin.x,
                              y: page.origin.y,
                              width: page.width * 0.4,
-                             height: page.height - extra_space
+                             height: page.height - extra_space - observaciones_space
                         )
     let values_page = CGRect(x: page.origin.x + attributes_page.width,
                              y: page.origin.y,
                              width: page.width - attributes_page.width,
-                             height: page.height - extra_space
+                             height: page.height - extra_space - observaciones_space
+                        )
+    
+    let observaciones_page = CGRect(x: page.origin.x,
+                                    y: page.origin.y + page.height - observaciones_space - extra_space - 5,
+                             width: page.width,
+                             height: observaciones_space - 5
                         )
     
     let all_page = CGRect(x: page.origin.x,
@@ -238,6 +267,7 @@ func addProductData(shared: PDFData, page: CGRect, context: CGContext, product: 
                              width: page.width,
                              height: extra_space
                         )
+    
     
     let attributes_font_size = getTextFont(string: resultado_atributos, font: shared.font_size, weight: .bold, width: attributes_page.width, height: attributes_page.height)
     let values_font_size = getTextFont(string: resultado_valores, font: shared.font_size, weight: .regular, width: values_page.width, height: values_page.height)
@@ -266,10 +296,20 @@ func addProductData(shared: PDFData, page: CGRect, context: CGContext, product: 
     
     textFont = UIFont.systemFont(ofSize: getTextFont(string: extras_producto, font: shared.font_size, weight: .bold, width: all_page.width, height: all_page.height), weight: .bold)
     let extras_style = NSMutableParagraphStyle()
-    extras_style.alignment = .center
     extras_style.lineBreakMode = .byWordWrapping
     let extras_text = [
         NSAttributedString.Key.paragraphStyle: extras_style,
+        NSAttributedString.Key.font: textFont
+    ]
+    
+    if !product.observaciones.isEmpty {
+        textFont = UIFont.systemFont(ofSize: getTextFont(string: "Este producto contiene fotos detalle adjuntas al final del documento", font: shared.font_size, weight: .bold, width: all_page.width, height: all_page.height), weight: .regular)
+    }
+    
+    let observaciones_style = NSMutableParagraphStyle()
+    observaciones_style.lineBreakMode = .byWordWrapping
+    let text_observaciones = [
+        NSAttributedString.Key.paragraphStyle: observaciones_style,
         NSAttributedString.Key.font: textFont
     ]
     
@@ -282,6 +322,12 @@ func addProductData(shared: PDFData, page: CGRect, context: CGContext, product: 
     //green.draw(in: values_page)
     values_text.draw(in: values_page)
         
+    if !product.observaciones.isEmpty {
+        let observaciones_text = NSAttributedString(string: product.observaciones, attributes: text_observaciones)
+        //black.draw(in: all_page)
+        observaciones_text.draw(in: observaciones_page)
+    }
+    
     let anotaciones_text = NSAttributedString(string: extras_producto, attributes: extras_text)
     //black.draw(in: all_page)
     anotaciones_text.draw(in: all_page)

@@ -38,6 +38,8 @@ class ProductViewModel: ObservableObject {
     @Published var remates_albanileria: Bool = false
     @Published var medidas_no_buenas: Bool = false
     @Published var unidades: Int16 = 1
+    @Published var observaciones: String = ""
+
     @Published var timestamp: Date = Date()
     
     @Published var proyecto: Proyecto?
@@ -296,6 +298,10 @@ class ProductViewModel: ObservableObject {
         instalacion = product.instalacion ?? instalacion
         persiana = product.persiana ?? persiana
         unidades = product.unidades
+        remates_albanileria = product.remates_albanileria
+        medidas_no_buenas = product.medidas_no_buenas
+        observaciones = product.observaciones ?? observaciones
+
         timestamp = product.timestamp ?? timestamp
         proyecto = product.proyecto ?? proyecto
          
@@ -338,6 +344,9 @@ class ProductViewModel: ObservableObject {
         product.instalacion = instalacion
         product.persiana = persiana
         product.unidades = unidades
+        product.remates_albanileria = remates_albanileria
+        product.medidas_no_buenas = medidas_no_buenas
+        product.observaciones = observaciones
         
         product.timestamp = timestamp
         product.proyecto = proyecto

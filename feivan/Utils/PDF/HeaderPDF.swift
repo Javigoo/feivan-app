@@ -61,10 +61,13 @@ func addHeader(shared: PDFData, page: CGRect) {
     if shared.project.remates_albanileria {
         extras.append("remates de albañilería")
     }
+    if shared.project.medidas_no_buenas {
+        extras.append("medidas no buenas")
+    }
     
     var intro = ""
     if extras.count != 0 {
-        intro = "Se necesita "
+        intro = "Extras: "
     }
     
     var extras_result = intro

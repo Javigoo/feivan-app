@@ -61,9 +61,12 @@ struct ProductFamiliaFormView: View {
         }
         .navigationTitle(Text("Familias"))
         .onAppear(perform: {
-            if showView{
+            if showView {
                 presentationMode.wrappedValue.dismiss()
             }
+        })
+        .onDisappear(perform: {
+            showView = false
         })
     }
 }

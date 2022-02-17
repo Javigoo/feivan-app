@@ -103,6 +103,9 @@ struct ProductDimensionesFormView: View {
                     fijos = true
                 }
             }
+            if anotacion.isEmpty {
+                anotacion = productVM.getAttributeValue(attribute_data: productVM.dimensiones, select_atributte: "Anotacion")
+            }
         }
         .onDisappear {
             save()

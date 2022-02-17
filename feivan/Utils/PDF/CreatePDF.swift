@@ -167,7 +167,7 @@ func createPDF(projectData: ProjectViewModel) -> Data {
         }
         
         var textRect = CGRect(
-                            x: 20 + page.origin.x ,
+                            x: 15 + page.origin.x ,
                             y: page.origin.y + 25,
                             width: scaledWidth,
                             height: scaledHeight

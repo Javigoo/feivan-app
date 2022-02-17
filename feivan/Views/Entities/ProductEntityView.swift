@@ -85,16 +85,18 @@ struct ProductFormView: View {
     @ObservedObject var productVM: ProductViewModel
     @State var showView: Bool = false
     @State var showCanvas: Bool = false
+    
+    @State var image: UIImage = UIImage()
 
     var body: some View {
             
-//        NavigationLink(destination: ProductAddMoreView(originalProductVM: productVM), isActive: $showAñadirMas) { EmptyView() }
-//        NavigationLink(
-//            destination:
-//                Drawing(image_name: productVM.nombre)
-//            , isActive: $showCanvas)
-//        { EmptyView() }
+//        NavigationLink(destination: DrawOnImageView(image: UIImage(imageLiteralResourceName: productVM.nombre), onSave: saveDrawing), isActive: $showCanvas) { EmptyView() }
 
+//        Image(uiImage: image)
+//            .resizable()
+//            .scaledToFit()
+//            .frame(width: 200, height: 200)
+        
         if productVM.getFamilia().isEmpty {
                 Text("Selecciona un producto")
         }
@@ -115,6 +117,8 @@ struct ProductFormView: View {
                     ProductTapajuntasView(productVM: productVM)
                     
                     ProductDimensionesView(productVM: productVM)
+                    
+                    ProductCristalView(productVM: productVM)
 
                     ProductAperturaView(productVM: productVM)
 
@@ -124,11 +128,7 @@ struct ProductFormView: View {
                 
                 Group {
                     
-                    ProductHuellaView(productVM: productVM)
-
                     ProductForroExteriorView(productVM: productVM)
-
-                    ProductCristalView(productVM: productVM)
                     
                     ProductCerradurasView(productVM: productVM)
 
@@ -141,17 +141,37 @@ struct ProductFormView: View {
                     ProductInstalacionView(productVM: productVM)
 
                     ProductMallorquinaView(productVM: productVM)
+                    
+                    ProductHuellaView(productVM: productVM)
+
+                    ProductFotoView(productVM: productVM)
 
                 }
             }
             
             Group {
                     
-                Section {
-                    ProductFotoView(productVM: productVM)
+                Section(header: Text("Extras")) {
+
+                    Toggle("Remates albañilería", isOn: $productVM.remates_albanileria)
+                        .onChange(of: productVM.remates_albanileria) { _ in
+                            productVM.save()
+                        }
+                    
+                    Toggle("Medidas no buenas", isOn: $productVM.medidas_no_buenas)
+                        .onChange(of: productVM.medidas_no_buenas) { _ in
+                            productVM.save()
+                        }
 
                     Stepper("Unidades:  \(productVM.unidades)", value: $productVM.unidades, in: 1...99)
                         .onChange(of: productVM.unidades) { _ in
+                            productVM.save()
+                        }
+                }
+                
+                Section(header: Text("Observaciones")) {
+                    TextEditor(text: $productVM.observaciones)
+                        .onChange(of: productVM.observaciones) { _ in
                             productVM.save()
                         }
                 }
@@ -166,6 +186,10 @@ struct ProductFormView: View {
 //                Image(systemName: "paintbrush.pointed")
 //            })
 //        }
+    }
+    
+    func saveDrawing(image: UIImage) {
+        self.image = image
     }
 }
 
@@ -189,6 +213,10 @@ struct ProductConfigurationTabView: View {
                     
                     ProductDimensionesFormView(productVM: productVM).tag(5)
                     
+                    if productVM.notShowIf(familias: ["Persiana"]) {
+                        ProductCristalFormView(productVM: productVM).tag(10)
+                    }
+                    
                     if productVM.notShowIf(familias: ["Fijos"]) {
                         ProductAperturaFormView(productVM: productVM).tag(6)
                     }
@@ -196,15 +224,9 @@ struct ProductConfigurationTabView: View {
                     if productVM.showIf(equalTo: ["Correderas", "Practicables"]) {
                         ProductCompactoFormView(productVM: productVM).tag(7)
                     }
-                    
-                    ProductHuellaFormView(productVM: productVM).tag(8)
-                    
+                                        
                     if productVM.notShowIf(familias: ["Persiana"]) {
                         ProductForroExteriorFormView(productVM: productVM).tag(9)
-                    }
-                    
-                    if productVM.notShowIf(familias: ["Persiana"]) {
-                        ProductCristalFormView(productVM: productVM).tag(10)
                     }
     
                 }
@@ -223,6 +245,9 @@ struct ProductConfigurationTabView: View {
                     if productVM.showIf(equalTo: ["Persianas"]) {
                         ProductMallorquinaFormView(productVM: productVM).tag(16)
                     }
+                    
+                    ProductHuellaFormView(productVM: productVM).tag(8)
+
                 }
 
             }

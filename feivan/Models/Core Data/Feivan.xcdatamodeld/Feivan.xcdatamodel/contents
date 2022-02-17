@@ -30,9 +30,12 @@
         <attribute name="manetas" optional="YES" attributeType="String"/>
         <attribute name="marco_inferior" optional="YES" attributeType="String"/>
         <attribute name="material" optional="YES" attributeType="String"/>
+        <attribute name="medidas_no_buenas" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="nombre" optional="YES" attributeType="String"/>
+        <attribute name="observaciones" optional="YES" attributeType="String"/>
         <attribute name="persiana" optional="YES" attributeType="String"/>
         <attribute name="posicion" optional="YES" attributeType="String"/>
+        <attribute name="remates_albanileria" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="tapajuntas" optional="YES" attributeType="String"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="unidades" optional="YES" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES"/>
@@ -53,7 +56,7 @@
     </entity>
     <elements>
         <element name="Cliente" positionX="-1071.723449707031" positionY="-8.44244384765625" width="128" height="178"/>
-        <element name="Producto" positionX="-604.4053955078125" positionY="-90.64987182617188" width="128" height="404"/>
+        <element name="Producto" positionX="-604.4053955078125" positionY="-90.64987182617188" width="128" height="449"/>
         <element name="Proyecto" positionX="-889.3516845703125" positionY="-55.27922058105469" width="128" height="208"/>
     </elements>
 </model>
