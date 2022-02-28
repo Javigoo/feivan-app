@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		252577862732BC0700252690 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252577852732BC0700252690 /* Styles.swift */; };
-		252A89BA275AA8BD00BCA7AF /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252A89B9275AA8BD00BCA7AF /* Image.swift */; };
+		252A89BA275AA8BD00BCA7AF /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252A89B9275AA8BD00BCA7AF /* ImagePicker.swift */; };
 		252A89BC275AA91200BCA7AF /* FotoFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252A89BB275AA91200BCA7AF /* FotoFormView.swift */; };
 		252DC7B127248635005F3489 /* ProductEntityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252DC7B027248635005F3489 /* ProductEntityView.swift */; };
 		254093352735A23A00AA07D5 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254093342735A23A00AA07D5 /* String.swift */; };
@@ -58,7 +58,7 @@
 		25E8F23F272197590009CEB7 /* DebugFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E8F23E272197590009CEB7 /* DebugFile.swift */; };
 		25E908A02721AE9C008A490B /* ProductViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E9089F2721AE9C008A490B /* ProductViewModel.swift */; };
 		25ECB4D4276653040066F67C /* examplePDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ECB4D3276653040066F67C /* examplePDF.swift */; };
-		25F01DBC27BD46F0007EDE08 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F01DBB27BD46F0007EDE08 /* Images.swift */; };
+		25F01DBC27BD46F0007EDE08 /* ImageUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F01DBB27BD46F0007EDE08 /* ImageUtilities.swift */; };
 		25F7D57D276777D60019BA05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 257CC829271FE564009C65D1 /* Assets.xcassets */; };
 		25F7D57E276777DA0019BA05 /* Hierarchy.json in Resources */ = {isa = PBXBuildFile; fileRef = 252DC7B22724AB94005F3489 /* Hierarchy.json */; };
 		25F7D57F276777DF0019BA05 /* Ral.json in Resources */ = {isa = PBXBuildFile; fileRef = 252EF4DD275FCF4D00DD73F5 /* Ral.json */; };
@@ -66,7 +66,7 @@
 
 /* Begin PBXFileReference section */
 		252577852732BC0700252690 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
-		252A89B9275AA8BD00BCA7AF /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		252A89B9275AA8BD00BCA7AF /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		252A89BB275AA91200BCA7AF /* FotoFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FotoFormView.swift; sourceTree = "<group>"; };
 		252DC7B027248635005F3489 /* ProductEntityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductEntityView.swift; sourceTree = "<group>"; };
 		252DC7B22724AB94005F3489 /* Hierarchy.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Hierarchy.json; sourceTree = "<group>"; };
@@ -121,7 +121,7 @@
 		25E8F23E272197590009CEB7 /* DebugFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugFile.swift; sourceTree = "<group>"; };
 		25E9089F2721AE9C008A490B /* ProductViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductViewModel.swift; sourceTree = "<group>"; };
 		25ECB4D3276653040066F67C /* examplePDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = examplePDF.swift; sourceTree = "<group>"; };
-		25F01DBB27BD46F0007EDE08 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
+		25F01DBB27BD46F0007EDE08 /* ImageUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -361,8 +361,8 @@
 		25F01DBA27BD46D4007EDE08 /* Photo */ = {
 			isa = PBXGroup;
 			children = (
-				252A89B9275AA8BD00BCA7AF /* Image.swift */,
-				25F01DBB27BD46F0007EDE08 /* Images.swift */,
+				252A89B9275AA8BD00BCA7AF /* ImagePicker.swift */,
+				25F01DBB27BD46F0007EDE08 /* ImageUtilities.swift */,
 			);
 			path = Photo;
 			sourceTree = "<group>";
@@ -449,7 +449,7 @@
 				259AD0D5274E491B00B697DD /* TapajuntasFormView.swift in Sources */,
 				259AD0CF274E482800B697DD /* MaterialFormView.swift in Sources */,
 				259AD0E1274E4A4B00B697DD /* ForroExteriorFormView.swift in Sources */,
-				252A89BA275AA8BD00BCA7AF /* Image.swift in Sources */,
+				252A89BA275AA8BD00BCA7AF /* ImagePicker.swift in Sources */,
 				259AD0E7274E4C6700B697DD /* ManetasFormView.swift in Sources */,
 				25A0018C27AEF34F0094F636 /* DrawOnImageView.swift in Sources */,
 				257CC82F271FE564009C65D1 /* Persistence.swift in Sources */,
@@ -465,7 +465,7 @@
 				259BC28D272862BD00AE3305 /* Json.swift in Sources */,
 				252DC7B127248635005F3489 /* ProductEntityView.swift in Sources */,
 				259AD0EF274E4D1100B697DD /* MallorquinaFormView.swift in Sources */,
-				25F01DBC27BD46F0007EDE08 /* Images.swift in Sources */,
+				25F01DBC27BD46F0007EDE08 /* ImageUtilities.swift in Sources */,
 				25C6B6B6276B799400253C7E /* UtilsPDF.swift in Sources */,
 				259AD0E9274E4CB900B697DD /* HerrajeFormView.swift in Sources */,
 				257CC84327218926009C65D1 /* HomeView.swift in Sources */,
@@ -608,6 +608,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -623,16 +624,16 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"Feivan/Preview Content\"";
 				DEVELOPMENT_TEAM = 4JPQJZ69WQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Feivan/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Feivan photo use";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "App needs location";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "App needs location";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "App needs location";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Feivan requiere acceso a la cámara para poder adjuntar fotografías de referencia del producto";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Feivan requiere la ubicación del usuario para conocer la dirección actual del proyecto";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Feivan requiere la ubicación del usuario para conocer la dirección actual del proyecto";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Feivan requiere la ubicación del usuario para conocer la dirección actual del proyecto";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -662,16 +663,16 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"Feivan/Preview Content\"";
 				DEVELOPMENT_TEAM = 4JPQJZ69WQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Feivan/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Feivan photo use";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "App needs location";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "App needs location";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "App needs location";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Feivan requiere acceso a la cámara para poder adjuntar fotografías de referencia del producto";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Feivan requiere la ubicación del usuario para conocer la dirección actual del proyecto";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Feivan requiere la ubicación del usuario para conocer la dirección actual del proyecto";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Feivan requiere la ubicación del usuario para conocer la dirección actual del proyecto";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

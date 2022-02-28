@@ -62,32 +62,53 @@ import PencilKit
 //}
 
 struct DrawOnImageView: View {
-
-    var image: UIImage
-
+    
+    @State var image: UIImage = UIImage()
     let onSave: (UIImage) -> Void
-
+    
+    @ObservedObject var productVM: ProductViewModel
     @State private var drawingOnImage: UIImage = UIImage()
     @State private var canvasView: PKCanvasView = PKCanvasView()
 
-    init(image: UIImage, onSave: @escaping (UIImage) -> Void) {
-        self.image = image
+    init(productVM: ProductViewModel, onSave: @escaping (UIImage) -> Void) {
+        self.productVM = productVM
+        
+        if !productVM.imagen_dibujada.isEmpty {
+            self.image = UIImage(data: productVM.imagen_dibujada)!
+        } else if !productVM.nombre.isEmpty {
+            self.image = UIImage(imageLiteralResourceName: productVM.nombre)
+        }
         self.onSave = onSave
+        initCanvas()
     }
 
     var body: some View {
         VStack {
-            Button(action: {
-                save()
-            }, label: {
-                Text("save")
-            })
-
+//            GeometryReader{proxy -> AnyView in
+//                let size = proxy.frame(in: .global).size
+//                return AnyView(
+//                    ZStack {
+//                        CanvasView(canvasView: $canvasView, onSaved: onChanged, image_front: image, rect: size)
+//                    }
+//                )
+//            }
+            
             Image(uiImage: self.image)
                 .resizable()
-                .aspectRatio(contentMode: .fit)
-                //.edgesIgnoringSafeArea(.all)
-                .overlay(CanvasView(canvasView: $canvasView, onSaved: onChanged, image_front: image), alignment: .bottomLeading)
+                .scaledToFit()
+                .overlay(CanvasView(canvasView: $canvasView, onSaved: onChanged), alignment: .top)
+                .padding(.bottom, 100)
+        }
+        .toolbar {
+            Button(action: {
+                self.image = UIImage(imageLiteralResourceName: productVM.nombre)
+                self.canvasView.drawing = PKDrawing()
+            }, label: {
+                Image(systemName: "trash")
+            })
+        }
+        .onDisappear {
+            save()
         }
     }
 
@@ -129,41 +150,41 @@ public extension UIImage {
 struct CanvasView {
     @Binding var canvasView: PKCanvasView
     let onSaved: () -> Void
-    let image_front: UIImage
+//    let image_front: UIImage
+//    let rect: CGSize
 
     @State var toolPicker = PKToolPicker()
 }
 
 extension CanvasView: UIViewRepresentable {
     func makeUIView(context: Context) -> PKCanvasView {
-        canvasView.tool = PKInkingTool(.pen, color: .gray, width: 10)
-        #if targetEnvironment(simulator)
+    
+        canvasView.tool = PKInkingTool(.pen, color: .gray, width: 5)
         canvasView.drawingPolicy = .anyInput
-        #endif
         canvasView.delegate = context.coordinator
         
-        print("makeView")
         // start
-        //let image_2 = UIImage(imageLiteralResourceName: "C2")
         
 //        let imageView = UIImageView(image: image_front)
 //        imageView.contentMode = .scaleAspectFit
 //        imageView.clipsToBounds = true
-//        imageView.frame = CGRect(x: 0, y: 0, width: 300, height: 300)
+//        imageView.frame = CGRect(x: 0, y: 0, width: rect.width, height: rect.height)
 //
 //        let subView = canvasView.subviews[0]
 //        subView.addSubview(imageView)
 //        subView.sendSubviewToBack(imageView)
+        
         // finish
         
         showToolPicker()
         return canvasView
     }
 
-    func updateUIView(_ uiView: PKCanvasView, context: Context) {}
+    func updateUIView(_ uiView: PKCanvasView, context: Context) {
+    }
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(canvasView: $canvasView, onSaved: onSaved)
+        return Coordinator(canvasView: $canvasView, onSaved: onSaved)
     }
 }
 

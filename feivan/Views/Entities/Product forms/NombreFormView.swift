@@ -16,8 +16,14 @@ struct ProductNombreView: View {
         NavigationLink(
             destination: ProductFamiliaFormView(productVM: productVM, showView: $showView),
             label: {
-                if productVM.nombre == "" {
+            
+                if productVM.nombre.isEmpty {
                     Image(systemName: "photo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 200, height: 200)
+                } else if !productVM.imagen_dibujada.isEmpty {
+                    data_to_image(data: productVM.imagen_dibujada)
                         .resizable()
                         .scaledToFit()
                         .frame(width: 200, height: 200)

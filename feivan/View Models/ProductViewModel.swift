@@ -16,6 +16,7 @@ class ProductViewModel: ObservableObject {
     @Published var id_producto: UUID = UUID()
     @Published var foto: Data = Data()
     @Published var fotos_detalle: Data = Data()
+    @Published var imagen_dibujada: Data = Data()
     @Published var familia: String = ""
     @Published var nombre: String = ""
     @Published var curvas: String = ""
@@ -277,6 +278,8 @@ class ProductViewModel: ObservableObject {
         id_producto = product.id_producto ?? id_producto
         foto = product.foto ?? foto
         fotos_detalle = product.fotos_detalle ?? fotos_detalle
+        imagen_dibujada = product.imagen_dibujada ?? imagen_dibujada
+
 
         familia = product.familia ?? familia
         nombre = product.nombre ?? nombre
@@ -322,6 +325,8 @@ class ProductViewModel: ObservableObject {
         product.id_producto = id_producto
         product.foto = foto
         product.fotos_detalle = fotos_detalle
+        product.imagen_dibujada = imagen_dibujada
+
 
         product.familia = familia
         product.nombre = nombre

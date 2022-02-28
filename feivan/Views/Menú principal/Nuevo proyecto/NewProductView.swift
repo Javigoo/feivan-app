@@ -15,6 +15,7 @@ struct NewProduct: View {
     @State private var isShowingNextView = false
     
     var body: some View {
+
         NavigationLink(destination: NewProjectSummary(projectVM: projectVM), isActive: $isShowingNextView) { EmptyView() }
 
         VStack {

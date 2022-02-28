@@ -82,6 +82,13 @@ struct ProjectView: View {
                                     Image(systemName: "plus.circle")
                                     Text("Añadir otro con el mismo color, cristal y tapajuntas")
                                 })
+                                
+//                                Button(action: {
+//                                    print("Crear composición")
+//                                }, label: {
+//                                    Image(systemName: "plus.circle")
+//                                    Text("Crear composición")
+//                                })
                             }
                         }
                         .onDelete(perform: deleteProduct)
@@ -126,10 +133,12 @@ struct ProjectsPreview: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(projectVM.direccion)
-                .font(.title)
             Text(projectVM.getClientName())
+                .font(.title)
+                .lineLimit(1)
+            Text(projectVM.direccion)
                 .font(.subheadline)
+                .lineLimit(1)
             Spacer()
             Text(projectVM.textCountProducts())
                 .font(.body)

@@ -54,7 +54,9 @@ struct ProductFotoFormView: View {
 
     func loadImage() {
         if !productVM.foto.isEmpty {
-             image = Image(uiImage: UIImage(data: productVM.foto)!)
+            // Data -> UUImage -> Image
+            image = data_to_image(data: productVM.foto)
+            //Image(uiImage: UIImage(data: productVM.foto)!)
         }
     }
 
@@ -168,7 +170,8 @@ struct ProductFotoFormView: View {
     }
     
     func save() {
-        let pickedImage = inputImage?.jpegData(compressionQuality: 0.5)
+        // UIImage -> Data
+        let pickedImage = uiimage_to_data(uiimage: inputImage)
         if pickedImage != nil {
             productVM.foto = pickedImage!
         } else {

@@ -14,7 +14,7 @@ func coreDataObjectFromImages(images: [UIImage]) -> Data? {
     let dataArray = NSMutableArray()
     
     for img in images {
-        if let data = img.jpegData(compressionQuality: 0.5) {
+        if let data = img.jpegData(compressionQuality: 1.0) {
             dataArray.add(data)
         }
     }
@@ -35,4 +35,14 @@ func imagesFromCoreData(object: Data?) -> [UIImage]? {
     }
     
     return retVal
+}
+
+// Data -> UUImage -> Image
+func data_to_image(data: Data) -> Image {
+    return Image(uiImage: UIImage(data: data)!)
+}
+
+// UIImage -> Data
+func uiimage_to_data(uiimage: UIImage?) -> Data? {
+    return uiimage?.jpegData(compressionQuality: 1.0)!    
 }

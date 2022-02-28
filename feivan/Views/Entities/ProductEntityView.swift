@@ -86,22 +86,36 @@ struct ProductFormView: View {
     @State var showView: Bool = false
     @State var showCanvas: Bool = false
     
-    @State var image: UIImage = UIImage()
+//    @State var image: UIImage = UIImage()
 
+//    init(productVM: ProductViewModel) {
+//        print("init")
+//        self.productVM = productVM
+//        print("familia: ", productVM.getFamilia())
+//        if productVM.getFamilia().isEmpty {
+//            print("if")
+//            _showView = State(initialValue: true)
+//            print("Valor show: ", showView)
+//        } else {
+//            _showView = State(initialValue: false)
+//            print("Valor show: ", showView)
+//        }
+//    }
+    
+//    init() {
+//        _showView = State(initialValue: true)
+//    }
+    
     var body: some View {
             
-//        NavigationLink(destination: DrawOnImageView(image: UIImage(imageLiteralResourceName: productVM.nombre), onSave: saveDrawing), isActive: $showCanvas) { EmptyView() }
-
-//        Image(uiImage: image)
-//            .resizable()
-//            .scaledToFit()
-//            .frame(width: 200, height: 200)
+        NavigationLink(destination: DrawOnImageView(productVM: productVM, onSave: saveDrawing), isActive: $showCanvas) { EmptyView() }
         
         if productVM.getFamilia().isEmpty {
                 Text("Selecciona un producto")
         }
         
         ProductNombreView(showView: $showView, productVM: productVM)
+
         
         Form {
             
@@ -178,18 +192,18 @@ struct ProductFormView: View {
             }
         }
         .navigationTitle(Text(productVM.getFamilia()))
-//        .toolbar {
-//            Button(action: {
-//                print("Dibujar")
-//                showCanvas = true
-//            }, label: {
-//                Image(systemName: "paintbrush.pointed")
-//            })
-//        }
+        .toolbar {
+            Button(action: {
+                showCanvas = true
+            }, label: {
+                Image(systemName: "paintbrush.pointed")
+            })
+        }
     }
     
     func saveDrawing(image: UIImage) {
-        self.image = image
+        productVM.imagen_dibujada = uiimage_to_data(uiimage: image)!
+        productVM.save()
     }
 }
 
@@ -261,16 +275,21 @@ struct ProductPreviewView: View {
     var body: some View {
         HStack {
             
-            if productVM.nombre == "" {
+            if productVM.nombre.isEmpty {
                 Image(systemName: "photo")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 80, height: 50)
+                    .frame(width: 80, height: 80)
+            } else if !productVM.imagen_dibujada.isEmpty {
+                data_to_image(data: productVM.imagen_dibujada)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 80, height: 80)
             } else {
                 Image(productVM.nombre)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 80, height: 50)
+                    .frame(width: 80, height: 80)
             }
             
             VStack(alignment: .leading){
@@ -507,6 +526,7 @@ struct ProductTreeFileView: View {
                 Button(
                     action: {
                         productVM.nombre = nombre
+                        productVM.imagen_dibujada = Data() // Se resetea el dibujo al cambiar el producto
                         productVM.save()
                         
                         // Volver atrás (dismiss o con isActive)

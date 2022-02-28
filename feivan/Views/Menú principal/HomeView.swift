@@ -22,16 +22,6 @@ struct HomeView: View {
                     .scaledToFit()
                     .padding(30)
                 
-                
-                NavigationLink(
-                    destination: {
-                        ListProjectsView()
-                    }, label: {
-                        Text("Ver proyectos")
-                            .textStyle(NavigationLinkStyle())
-                    }
-                )
-                
                 NavigationLink(
                     destination: NewProjectView(),
                     isActive: $rootPresenting,
@@ -41,6 +31,15 @@ struct HomeView: View {
                     }
                 )
                     
+                NavigationLink(
+                    destination: {
+                        ListProjectsView()
+                    }, label: {
+                        Text("Ver proyectos")
+                            .textStyle(NavigationLinkStyle())
+                    }
+                )
+                
 //                NavigationLink(
 //                    destination: {
 //                        DebugView()

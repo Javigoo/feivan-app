@@ -121,7 +121,12 @@ func addProductImage(shared: PDFData, page: CGRect, product: ProductViewModel) {
         return
     }
     
-    let image: UIImage = UIImage(imageLiteralResourceName: product.nombre)
+    let image: UIImage
+    if product.imagen_dibujada.isEmpty {
+        image = UIImage(imageLiteralResourceName: product.nombre)
+    } else {
+        image = UIImage(data: product.imagen_dibujada)!
+    }
    
     let aspectWidth = page.width / image.size.width
     let aspectHeight = page.height / image.size.height

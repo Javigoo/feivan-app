@@ -147,8 +147,13 @@ func createPDF(projectData: ProjectViewModel) -> Data {
         attributedTitleText.draw(in: textTitleRect)
 
         // foto producto
-        var foto = UIImage(imageLiteralResourceName: product.nombre!)
-        
+        var foto: UIImage
+        if product.imagen_dibujada!.isEmpty {
+            foto = UIImage(imageLiteralResourceName: product.nombre!)
+        } else {
+            foto = UIImage(data: product.imagen_dibujada!)!
+        }
+                
         var aspectWidth = page.width / foto.size.width
         var aspectHeight = page.height / foto.size.height
         var aspectRatio = min(aspectWidth, aspectHeight)
