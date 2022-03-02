@@ -9,8 +9,6 @@ import CoreData
 import SwiftUI
 
 class ProductViewModel: ObservableObject {
-    @Environment(\.managedObjectContext) private var viewContext
-
     private let context = PersistenceController.shared
 
     @Published var id_producto: UUID = UUID()
@@ -40,11 +38,9 @@ class ProductViewModel: ObservableObject {
     @Published var medidas_no_buenas: Bool = false
     @Published var unidades: Int16 = 1
     @Published var observaciones: String = ""
-
     @Published var timestamp: Date = Date()
     
     @Published var proyecto: Proyecto?
-
     @Published var productos: [Producto] = []
         
     // Constructores
@@ -56,108 +52,127 @@ class ProductViewModel: ObservableObject {
         setProductVM(product: product)
     }
     
-    // Getters y Setters
-    
-    /*
-    func get(attribute: String, product: Producto) -> String {
-        switch attribute {
-            case "Familia":
-                return product.familia ?? familia
-            case "Nombre":
-                return product.nombre ?? nombre
-            case "Curvas":
-                return product.curvas ?? curvas
-            case "Material":
-                return product.material ?? material
-            case "Color":
-                return product.color ?? color
-            case "Tapajuntas":
-                return product.tapajuntas ?? tapajuntas
-            case "Dimensiones":
-                return product.dimensiones ?? dimensiones
-            case "Apertura":
-                return product.apertura ?? apertura
-            case "Compacto":
-                return product.compacto ?? compacto
-            case "Marco inferior":
-                return product.marco_inferior ?? marco_inferior
-            case "Huella":
-                return product.huella ?? huella
-            case "Forro exterior":
-                return product.forro_exterior ?? forro_exterior
-            case "Cristal":
-                return product.cristal ?? cristal
-            case "Cerraduras":
-                return product.cerraduras ?? cerraduras
-            case "Manetas":
-                return product.manetas ?? manetas
-            case "Herraje":
-                return product.herraje ?? herraje
-            case "Posición":
-                return product.posicion ?? posicion
-            case "Instalación":
-                return product.instalacion ?? instalacion
-            case "Remates albañilería":
-                return String(product.remates_albanileria)
-            case "Medidas no buenas":
-                return String(product.medidas_no_buenas)
-            case "Persiana":
-                return product.persiana ?? persiana
-            default:
-                print("Error getting \(attribute), \"\(attribute)\" not found")
-        }
-        return ""
+    private func setProductVM(product: Producto) {
+        id_producto = product.id_producto ?? id_producto
+        foto = product.foto ?? foto
+        fotos_detalle = product.fotos_detalle ?? fotos_detalle
+        imagen_dibujada = product.imagen_dibujada ?? imagen_dibujada
+        familia = product.familia ?? familia
+        nombre = product.nombre ?? nombre
+        curvas = product.curvas ?? curvas
+        material = product.material ?? material
+        color = product.color ?? color
+        tapajuntas = product.tapajuntas ?? tapajuntas
+        dimensiones = product.dimensiones ?? dimensiones
+        apertura = product.apertura ?? apertura
+        compacto = product.compacto ?? compacto
+        marco_inferior = product.marco_inferior ?? marco_inferior
+        huella = product.huella ?? huella
+        forro_exterior = product.forro_exterior ?? forro_exterior
+        cristal = product.cristal ?? cristal
+        cerraduras = product.cerraduras ?? cerraduras
+        manetas = product.manetas ?? manetas
+        herraje = product.herraje ?? herraje
+        posicion = product.posicion ?? posicion
+        instalacion = product.instalacion ?? instalacion
+        persiana = product.persiana ?? persiana
+        unidades = product.unidades
+        remates_albanileria = product.remates_albanileria
+        medidas_no_buenas = product.medidas_no_buenas
+        observaciones = product.observaciones ?? observaciones
+        timestamp = product.timestamp ?? timestamp
+        proyecto = product.proyecto ?? proyecto
     }
     
-    func set(attribute: String, product: Producto) {
-        switch attribute {
-            case "Familia":
-                product.familia = familia
-            case "Nombre":
-                product.nombre = nombre
-            case "Curvas":
-                product.curvas = curvas
-            case "Material":
-                product.material = material
-            case "Color":
-                product.color = color
-            case "Tapajuntas":
-                product.tapajuntas = tapajuntas
-            case "Dimensiones":
-                product.dimensiones = dimensiones
-            case "Apertura":
-                product.apertura = apertura
-            case "Compacto":
-                product.compacto = compacto
-            case "Marco inferior":
-                product.marco_inferior = marco_inferior
-            case "Huella":
-                product.huella = huella
-            case "Forro exterior":
-                product.forro_exterior = forro_exterior
-            case "Cristal":
-                product.cristal = cristal
-            case "Cerraduras":
-                product.cerraduras = cerraduras
-            case "Manetas":
-                product.manetas = manetas
-            case "Herraje":
-                product.herraje = herraje
-            case "Posición":
-                product.posicion = posicion
-            case "Instalación":
-                product.instalacion = instalacion
-            case "Remates albañilería":
-                product.remates_albanileria = remates_albanileria
-            case "Medidas no buenas":
-                product.medidas_no_buenas = medidas_no_buenas
-            case "Persiana":
-                product.persiana = persiana
-            default:
-                print("Error setting \(attribute), \"\(attribute)\" not found")
+    private func setProduct(product: Producto) {
+        product.id_producto = id_producto
+        product.foto = foto
+        product.fotos_detalle = fotos_detalle
+        product.imagen_dibujada = imagen_dibujada
+        product.familia = familia
+        product.nombre = nombre
+        product.curvas = curvas
+        product.material = material
+        product.color = color
+        product.tapajuntas = tapajuntas
+        product.dimensiones = dimensiones
+        product.apertura = apertura
+        product.compacto = compacto
+        product.marco_inferior = marco_inferior
+        product.huella = huella
+        product.forro_exterior = forro_exterior
+        product.cristal = cristal
+        product.cerraduras = cerraduras
+        product.manetas = manetas
+        product.herraje = herraje
+        product.posicion = posicion
+        product.instalacion = instalacion
+        product.persiana = persiana
+        product.unidades = unidades
+        product.remates_albanileria = remates_albanileria
+        product.medidas_no_buenas = medidas_no_buenas
+        product.observaciones = observaciones
+        product.timestamp = timestamp
+        product.proyecto = proyecto
+    }
+
+    
+    // Funciones públicas
+    
+    func setProductVMAdd2(productVM: ProductViewModel) {
+        familia = productVM.familia
+        nombre = productVM.nombre
+        proyecto = productVM.proyecto
+        curvas = productVM.curvas
+        material = productVM.material
+        color = productVM.color
+        tapajuntas = productVM.tapajuntas
+        dimensiones = productVM.dimensiones
+        apertura = productVM.apertura
+        compacto = productVM.compacto
+        marco_inferior = productVM.marco_inferior
+        huella = productVM.huella
+        forro_exterior = productVM.forro_exterior
+        cristal = productVM.cristal
+        cerraduras = productVM.cerraduras
+        manetas = productVM.manetas
+        herraje = productVM.herraje
+        posicion = productVM.posicion
+        instalacion = productVM.instalacion
+        persiana = productVM.persiana
+    }
+    
+    func setProductVMAdd3(productVM: ProductViewModel) {
+        familia = productVM.familia
+        nombre = productVM.nombre
+        proyecto = productVM.proyecto
+        color = productVM.color
+        tapajuntas = productVM.tapajuntas
+        cristal = productVM.cristal
+    }
+    
+    func addProject(projectVM: ProjectViewModel) {
+        proyecto = projectVM.getProject()
+    }
+    
+    func save() {
+        DispatchQueue.main.async {
+            self.setProduct(product: self.getProduct())
+            self.context.save()
+            self.getAllProducts()
         }
     }
-    */
+    
+    func delete(at offset: IndexSet, for productos: [Producto]) {
+        if let first = productos.first, case context.viewContext = first.managedObjectContext {
+            offset.map { productos[$0] }.forEach(context.viewContext.delete)
+        }
+        
+        context.save()
+        getAllProducts()
+        
+    }
+    
     func get(attribute: String) -> String {
         switch attribute {
             case "Familia":
@@ -209,219 +224,6 @@ class ProductViewModel: ObservableObject {
         }
         return ""
     }
-    /*
-    
-    func set(attribute: String, value: String) {
-        switch attribute {
-            case "Foto":
-                familia = value
-            case "Familia":
-                familia = value
-            case "Nombre":
-                nombre = value
-            case "Curvas":
-                curvas = value
-            case "Material":
-                material = value
-            case "Color":
-                color = value
-            case "Tapajuntas":
-                tapajuntas = value
-            case "Dimensiones":
-                dimensiones = value
-            case "Apertura":
-                apertura = value
-            case "Compacto":
-                compacto = value
-            case "Marco inferior":
-                marco_inferior = value
-            case "Huella":
-                huella = value
-            case "Forro exterior":
-                forro_exterior = value
-            case "Cristal":
-                cristal = value
-            case "Cerraduras":
-                cerraduras = value
-            case "Manetas":
-                manetas = value
-            case "Herraje":
-                herraje = value
-            case "Posición":
-                posicion = value
-            case "Instalación":
-                instalacion = value
-            case "Remates albañilería":
-                remates_albanileria = Bool(value) ?? remates_albanileria
-            case "Medidas no buenas":
-                medidas_no_buenas = Bool(value) ?? medidas_no_buenas
-            case "Persiana":
-                persiana = value
-            default:
-                print("Error setting \(attribute), \"\(attribute)\" not found")
-        }
-    }
-    */
-    
-    private func setProductVM(product: Producto) {
-        /*
-        for attribute in optionsFor(attribute: "Atributos Producto") {
-            set(attribute: attribute, value: get(attribute: attribute, product: product))
-        }
-        
-        id_producto = product.id_producto ?? id_producto
-        foto = product.foto ?? foto
-        timestamp = product.timestamp ?? timestamp
-        proyecto = product.proyecto ?? proyecto
-        */
-        
-        id_producto = product.id_producto ?? id_producto
-        foto = product.foto ?? foto
-        fotos_detalle = product.fotos_detalle ?? fotos_detalle
-        imagen_dibujada = product.imagen_dibujada ?? imagen_dibujada
-
-
-        familia = product.familia ?? familia
-        nombre = product.nombre ?? nombre
-        curvas = product.curvas ?? curvas
-        material = product.material ?? material
-        color = product.color ?? color
-        tapajuntas = product.tapajuntas ?? tapajuntas
-        dimensiones = product.dimensiones ?? dimensiones
-        apertura = product.apertura ?? apertura
-        compacto = product.compacto ?? compacto
-        marco_inferior = product.marco_inferior ?? marco_inferior
-        huella = product.huella ?? huella
-        forro_exterior = product.forro_exterior ?? forro_exterior
-        cristal = product.cristal ?? cristal
-        cerraduras = product.cerraduras ?? cerraduras
-        manetas = product.manetas ?? manetas
-        herraje = product.herraje ?? herraje
-        posicion = product.posicion ?? posicion
-        instalacion = product.instalacion ?? instalacion
-        persiana = product.persiana ?? persiana
-        unidades = product.unidades
-        remates_albanileria = product.remates_albanileria
-        medidas_no_buenas = product.medidas_no_buenas
-        observaciones = product.observaciones ?? observaciones
-
-        timestamp = product.timestamp ?? timestamp
-        proyecto = product.proyecto ?? proyecto
-         
-    }
-    
-    private func setProduct(product: Producto) {
-        /*
-        for attribute in optionsFor(attribute: "Atributos Producto") {
-            set(attribute: attribute, product: product)
-        }
-        
-        product.id_producto = id_producto
-        product.foto = foto
-        product.timestamp = timestamp
-        product.proyecto = proyecto
-        */
-        
-        product.id_producto = id_producto
-        product.foto = foto
-        product.fotos_detalle = fotos_detalle
-        product.imagen_dibujada = imagen_dibujada
-
-
-        product.familia = familia
-        product.nombre = nombre
-        
-        product.curvas = curvas
-        product.material = material
-        product.color = color
-        product.tapajuntas = tapajuntas
-        product.dimensiones = dimensiones
-        product.apertura = apertura
-        product.compacto = compacto
-        product.marco_inferior = marco_inferior
-        product.huella = huella
-        product.forro_exterior = forro_exterior
-        product.cristal = cristal
-        product.cerraduras = cerraduras
-        product.manetas = manetas
-        product.herraje = herraje
-        product.posicion = posicion
-        product.instalacion = instalacion
-        product.persiana = persiana
-        product.unidades = unidades
-        product.remates_albanileria = remates_albanileria
-        product.medidas_no_buenas = medidas_no_buenas
-        product.observaciones = observaciones
-        
-        product.timestamp = timestamp
-        product.proyecto = proyecto
-        
-    }
-
-    
-    // Funciones públicas
-    
-    func setProductVMAddMore(productVM: ProductViewModel) {
-        familia = productVM.familia
-        nombre = productVM.nombre
-        proyecto = productVM.proyecto
-
-        curvas = productVM.curvas
-        material = productVM.material
-        color = productVM.color
-        tapajuntas = productVM.tapajuntas
-        dimensiones = productVM.dimensiones
-        apertura = productVM.apertura
-        compacto = productVM.compacto
-        marco_inferior = productVM.marco_inferior
-        huella = productVM.huella
-        forro_exterior = productVM.forro_exterior
-        cristal = productVM.cristal
-        cerraduras = productVM.cerraduras
-        manetas = productVM.manetas
-        herraje = productVM.herraje
-        posicion = productVM.posicion
-        instalacion = productVM.instalacion
-        persiana = productVM.persiana
-    }
-    
-    func setProductVMAdd2(productVM: ProductViewModel) {
-        familia = productVM.familia
-        nombre = productVM.nombre
-        proyecto = productVM.proyecto
-
-        color = productVM.color
-        tapajuntas = productVM.tapajuntas
-        cristal = productVM.cristal
-    }
-    
-    func addProject(projectVM: ProjectViewModel) {
-        proyecto = projectVM.getProject()
-    }
-    
-    func save() {
-        let product: Producto
-        if exist() {
-            print("PRODUCTO: Producto guardado")
-            product = getProduct()!
-        } else {
-            print("PRODUCTO: Nuevo producto creado")
-            product = Producto(context: context.viewContext)
-        }
-        setProduct(product: product)
-        context.save()
-        getAllProducts()
-    }
-    
-    func delete(at offset: IndexSet, for productos: [Producto]) {
-        if let first = productos.first, case context.viewContext = first.managedObjectContext {
-            offset.map { productos[$0] }.forEach(context.viewContext.delete)
-        }
-        
-        context.save()
-        getAllProducts()
-        
-    }
     
     func deleteFoto(at offset: IndexSet) {
         if let index = offset.first {
@@ -435,17 +237,6 @@ class ProductViewModel: ObservableObject {
         }
     }
     
-    func exist() -> Bool {
-        if getProduct() == nil {
-            return false
-        }
-        return true
-    }
-    
-    func getProduct() -> Producto? {
-        return getProduct(id: id_producto)
-    }
-    
     func getAllProducts() {
         let request = Producto.fetchRequest()
         do {
@@ -457,9 +248,9 @@ class ProductViewModel: ObservableObject {
     
     // Funciones privadas
 
-    private func getProduct(id: UUID) -> Producto? {
+    func getProduct() -> Producto {
         let request: NSFetchRequest<Producto> = Producto.fetchRequest()
-        let query = NSPredicate(format: "%K == %@", "id_producto", id as CVarArg)
+        let query = NSPredicate(format: "%K == %@", "id_producto", id_producto as CVarArg)
         let sort = [NSSortDescriptor(key: "timestamp", ascending: true)]
         
         request.predicate = query
@@ -467,13 +258,16 @@ class ProductViewModel: ObservableObject {
         
         do {
             let foundEntities: [Producto] = try context.viewContext.fetch(request)
-            return foundEntities.first  // todo: limitar a una entidad
+            if !foundEntities.isEmpty {
+                return foundEntities.first!
+            }
         } catch {
             let fetchError = error as NSError
             debugPrint(fetchError)
         }
 
-        return nil
+        return Producto(context: context.viewContext)
+
     }
     
     // Otras
@@ -481,6 +275,9 @@ class ProductViewModel: ObservableObject {
     /** Devuelve falso si la familia del producto es igual a alguna de las familias pasadas como parámetro, verdadero de lo contrario **/
     func notShowIf(familias: [String]) -> Bool {
         let familiaSeleccionada = getFamilia()
+        if familiaSeleccionada == "Personalizados" {
+            return false
+        }
         for familia in familias {
             if familiaSeleccionada == familia {
                 return false
@@ -492,6 +289,9 @@ class ProductViewModel: ObservableObject {
     /** Devuelve verdadero si la familia del producto es igual a alguna de las familias pasadas como parámetro, falso de lo contrario **/
     func showIf(equalTo: [String]) -> Bool {
         let familiaSeleccionada = getFamilia()
+        if familiaSeleccionada == "Personalizados" {
+            return true
+        }
         for familia in equalTo {
             if familiaSeleccionada == familia {
                 return true
@@ -616,6 +416,11 @@ class ProductViewModel: ObservableObject {
             }
         }
         return "No name"
+    }
+    
+    func saveDrawing(image: UIImage) {
+        imagen_dibujada = uiimage_to_data(uiimage: image)!
+        save()
     }
     
     // Devuelve el código con el que empiezan los colores de eso tono

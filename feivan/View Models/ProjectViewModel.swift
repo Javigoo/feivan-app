@@ -46,9 +46,9 @@ class ProjectViewModel: ObservableObject {
         print("PROYECTO: Producto añadido")
         let product = productVM.getProduct()
         if productos == nil {
-            productos = [product!]
+            productos = [product]
         } else {
-            let products = productos?.addingObjects(from: [product!])   // No añade los productos
+            let products = productos?.addingObjects(from: [product])   // No añade los productos
             productos = products as NSSet?
         }
     }
@@ -61,17 +61,19 @@ class ProjectViewModel: ObservableObject {
     
     /** Crea u obtiene el Proyecto a partir de la ID del ProjectViewModel, copia los datos del ProjectViewModel al Proyecto, lo guarda en la DB y actualiza la lista de proyectos **/
     func save() {
-        let project: Proyecto
-        if exist() {
-            print("PROYECTO: Proyecto guardado")
-            project = getProject()!
-        } else {
-            project = Proyecto(context: context.viewContext)
-            print("PROYECTO: Nuevo proyecto guardado")
+        DispatchQueue.main.async {
+            let project: Proyecto
+            if self.exist() {
+                print("PROYECTO: Proyecto guardado")
+                project = self.getProject()!
+            } else {
+                project = Proyecto(context: self.context.viewContext)
+                print("PROYECTO: Nuevo proyecto guardado")
+            }
+            self.setProject(project: project)
+            self.context.save()
+            self.getAllProjects()
         }
-        setProject(project: project)
-        context.save()
-        getAllProjects()
     }
     
     /** Elimina al Proyecto de la DB desde una lista de proyectos **/
@@ -102,13 +104,25 @@ class ProjectViewModel: ObservableObject {
     
     /** Obtiene todos los Proyectos de la DB **/
     func getAllProjects() {
-        print("PROYECTO - getAllProjects()")
-        let request = Proyecto.fetchRequest()
-        do {
-            proyectos = try context.viewContext.fetch(request)
-        } catch {
-            print("ERROR in ProjectViewModel at getAllProjects()\n")
+        DispatchQueue.global(qos: .background).async {
+            print("PROYECTO - getAllProjects()")
+            let request = Proyecto.fetchRequest()
+            do {
+                self.proyectos = try self.context.viewContext.fetch(request).sorted(by: { $0.timestamp! > $1.timestamp! })
+            } catch {
+                print("ERROR in ProjectViewModel at getAllProjects()\n")
+            }
         }
+        
+//        DispatchQueue.main.async {
+//            print("PROYECTO - getAllProjects()")
+//            let request = Proyecto.fetchRequest()
+//            do {
+//                self.proyectos = try self.context.viewContext.fetch(request).sorted(by: { $0.timestamp! > $1.timestamp! })
+//            } catch {
+//                print("ERROR in ProjectViewModel at getAllProjects()\n")
+//            }
+//        }
     }
     
     func textCountProducts() -> String {
@@ -203,45 +217,7 @@ class ProjectViewModel: ObservableObject {
         project.medidas_no_buenas = medidas_no_buenas
         project.timestamp = timestamp
         project.cliente = cliente
- 
         project.productos = productos
-        
-//        var new_products: [Producto] = []
-//        if let productos = productos {
-//            let productos_otro_contexto = productos.allObjects as! [Producto]
-//            print("Num products: ", productos_otro_contexto.count)
-//            for producto_otro_contexto in productos_otro_contexto {
-//                let new_product = Producto(context: context.viewContext)
-//                new_product.id_producto = producto_otro_contexto.id_producto
-//                new_product.foto = producto_otro_contexto.foto
-//                new_product.familia = producto_otro_contexto.familia
-//                new_product.nombre = producto_otro_contexto.nombre
-//                new_product.curvas = producto_otro_contexto.curvas
-//                new_product.material = producto_otro_contexto.material
-//                new_product.color = producto_otro_contexto.color
-//                new_product.tapajuntas = producto_otro_contexto.tapajuntas
-//                new_product.dimensiones = producto_otro_contexto.dimensiones
-//                new_product.apertura = producto_otro_contexto.apertura
-//                new_product.compacto = producto_otro_contexto.compacto
-//                new_product.marco_inferior = producto_otro_contexto.marco_inferior
-//                new_product.huella = producto_otro_contexto.huella
-//                new_product.forro_exterior = producto_otro_contexto.forro_exterior
-//                new_product.cristal = producto_otro_contexto.cristal
-//                new_product.cerraduras = producto_otro_contexto.cerraduras
-//                new_product.manetas = producto_otro_contexto.manetas
-//                new_product.herraje = producto_otro_contexto.herraje
-//                new_product.posicion = producto_otro_contexto.posicion
-//                new_product.instalacion = producto_otro_contexto.instalacion
-//                new_product.persiana = producto_otro_contexto.persiana
-//                new_product.unidades = producto_otro_contexto.unidades
-//                new_product.timestamp = producto_otro_contexto.timestamp
-//                new_product.proyecto = producto_otro_contexto.proyecto
-//                new_products.append(new_product)
-//            }
-//            project.productos = NSSet(array: new_products)
-//        }
-        
-//        getProducts(project: project)
                     
     }
     

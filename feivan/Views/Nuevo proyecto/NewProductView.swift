@@ -15,14 +15,12 @@ struct NewProduct: View {
     @State private var isShowingNextView = false
     
     var body: some View {
-
         NavigationLink(destination: NewProjectSummary(projectVM: projectVM), isActive: $isShowingNextView) { EmptyView() }
 
         VStack {
             ProductFormView(productVM: productVM)
         }.toolbar {
             Button("Siguiente") {
-                
                 productVM.save()
                 projectVM.addProduct(productVM: productVM)
                 projectVM.save()

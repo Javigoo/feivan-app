@@ -7,8 +7,7 @@
 
 import SwiftUI
 
-struct ListProjectsView: View {
-    
+struct ProjectDataListView: View {
     @StateObject var projectVM = ProjectViewModel()
 
     var body: some View {
@@ -20,11 +19,11 @@ struct ListProjectsView: View {
                     ForEach(projectVM.proyectos, id: \.self) { proyecto in
                         NavigationLink(
                             destination:
-                                ProjectView(
+                                ProjectDataView(
                                     projectVM: ProjectViewModel(project: proyecto)
                                 ),
                             label: {
-                                ProjectsPreview(
+                                ProjectDataPreviewView(
                                     projectVM: ProjectViewModel(project: proyecto)
                                 )
                             }

@@ -65,19 +65,19 @@ struct DrawOnImageView: View {
     
     @State var image: UIImage = UIImage()
     let onSave: (UIImage) -> Void
-    
+
     @ObservedObject var productVM: ProductViewModel
     @State private var drawingOnImage: UIImage = UIImage()
     @State private var canvasView: PKCanvasView = PKCanvasView()
 
     init(productVM: ProductViewModel, onSave: @escaping (UIImage) -> Void) {
         self.productVM = productVM
-        
         if !productVM.imagen_dibujada.isEmpty {
             self.image = UIImage(data: productVM.imagen_dibujada)!
         } else if !productVM.nombre.isEmpty {
             self.image = UIImage(imageLiteralResourceName: productVM.nombre)
         }
+            
         self.onSave = onSave
         initCanvas()
     }

@@ -22,7 +22,7 @@ struct NewProjectSummary: View {
     
     var body: some View {
         VStack {
-            ProjectView(projectVM: projectVM)
+            ProjectDataView(projectVM: projectVM)
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: homeButton)

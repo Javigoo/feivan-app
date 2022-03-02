@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ProjectView: View {
+struct ProjectDataView: View {
     @ObservedObject var projectVM: ProjectViewModel
     
     @State var productVM = ProductViewModel()
@@ -27,10 +27,10 @@ struct ProjectView: View {
             NavigationLink(destination: ProductAddView(projectVM: projectVM), isActive: $showAñadirProducto) {
                 EmptyView()
             }
-            NavigationLink(destination: ProductAddMedidasView(projectVM: projectVM, originalProductVM: productVM), isActive: $showAddMedidas) {
+            NavigationLink(destination: ProductAdd2View(projectVM: projectVM, originalProductVM: productVM), isActive: $showAddMedidas) {
                 EmptyView()
             }
-            NavigationLink(destination: ProductAddColorCristalTapajuntasView(projectVM: projectVM, originalProductVM: productVM), isActive: $showAddColorCristalTapajuntas) {
+            NavigationLink(destination: ProductAdd3View(projectVM: projectVM, originalProductVM: productVM), isActive: $showAddColorCristalTapajuntas) {
                 EmptyView()
             }
 
@@ -128,20 +128,3 @@ struct ProjectView: View {
 
 }
 
-struct ProjectsPreview: View {
-    @ObservedObject var projectVM: ProjectViewModel
-    
-    var body: some View {
-        VStack(alignment: .leading) {
-            Text(projectVM.getClientName())
-                .font(.title)
-                .lineLimit(1)
-            Text(projectVM.direccion)
-                .font(.subheadline)
-                .lineLimit(1)
-            Spacer()
-            Text(projectVM.textCountProducts())
-                .font(.body)
-        }
-    }
-}

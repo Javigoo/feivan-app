@@ -33,9 +33,9 @@ struct ProductCristalFormView: View {
     var atributo = "Cristal"
     @ObservedObject var productVM: ProductViewModel
     
-    @State var opcion: String = ""
+    @State var opcion: String = "Cámaras"
     
-    @State var camaras: String = ""
+    @State var camaras: String = "4/?/4"
     @State var seguridad: String = ""
     
     @State var tonalidad: String = ""

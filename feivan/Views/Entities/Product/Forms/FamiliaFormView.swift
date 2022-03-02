@@ -34,13 +34,12 @@ struct ProductFamiliaFormView: View {
     var atributo = "Familia"
     @ObservedObject var productVM: ProductViewModel
     @State private var isShowingNextView = false
-    
     @Binding var showView: Bool
+    
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
     var body: some View {
         ScrollView {
-            
             NavigationLink(destination: ProductNombreFormView(productVM: productVM, showView: $showView), isActive: $isShowingNextView) { EmptyView() }
             
             ForEach(productVM.optionsFor(attribute: "Familias"), id: \.self) { familia in
@@ -60,13 +59,29 @@ struct ProductFamiliaFormView: View {
             }
         }
         .navigationTitle(Text("Familias"))
-        .onAppear(perform: {
+        .onAppear {
             if showView {
                 presentationMode.wrappedValue.dismiss()
             }
-        })
-        .onDisappear(perform: {
+        }
+        .onDisappear {
             showView = false
-        })
+        }
+        .toolbar {
+            Button(
+                action: {
+                    productVM.familia = "Personalizados"
+                    productVM.nombre = "marco"
+                    productVM.save()
+                    presentationMode.wrappedValue.dismiss()
+                },
+                label: {
+                    HStack {
+                        Text("Crear producto")
+                        //Image(systemName: "plus.circle")
+                    }
+                }
+            )
+        }
     }
 }

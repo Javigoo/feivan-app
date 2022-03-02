@@ -30,25 +30,16 @@ struct HomeView: View {
                             .textStyle(NavigationLinkStyle())
                     }
                 )
-                    
+
                 NavigationLink(
                     destination: {
-                        ListProjectsView()
+                        ProjectDataListView()
                     }, label: {
                         Text("Ver proyectos")
                             .textStyle(NavigationLinkStyle())
                     }
                 )
-                
-//                NavigationLink(
-//                    destination: {
-//                        DebugView()
-//                    }, label: {
-//                        Text("Debug")
-//                            .textStyle(NavigationLinkStyle())
-//                    }
-//                )
-                
+            
                 Spacer()
 
             }

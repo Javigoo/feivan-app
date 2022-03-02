@@ -24,7 +24,6 @@ struct NewClient: View {
         }.toolbar {
             Button("Siguiente") {
                 clientVM.save()
-                
                 projectVM.addClient(clientVM: clientVM)
                 projectVM.save()
                 
