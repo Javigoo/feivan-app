@@ -9,11 +9,13 @@ import SwiftUI
 
 struct HomeView: View {
     
+    @State var showDebug: Bool = false
     @State private var rootPresenting: Bool = false
     
     var body: some View {
         
         NavigationView {
+            
             
             VStack(spacing: 30) {
                 
@@ -21,6 +23,10 @@ struct HomeView: View {
                     .resizable()
                     .scaledToFit()
                     .padding(30)
+                    .animation(.easeInOut)
+                    .onTapGesture(count: 3) {
+                        showDebug = true
+                    }
                 
                 NavigationLink(
                     destination: NewProjectView(),
@@ -40,9 +46,12 @@ struct HomeView: View {
                     }
                 )
             
+                NavigationLink(destination: Debug(), isActive: $showDebug) { EmptyView() }
+
                 Spacer()
 
             }
+
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .environment(\.rootPresentation, $rootPresenting)

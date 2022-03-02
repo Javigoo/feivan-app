@@ -14,9 +14,9 @@ struct ProjectDataView: View {
     
     @State var showAñadirProducto: Bool = false
     @State var showGenerarPdf: Bool = false
-    
     @State var showAddMedidas: Bool = false
     @State var showAddColorCristalTapajuntas: Bool = false
+    @State var showComposicion: Bool = false
 
     var body: some View {
 
@@ -31,6 +31,9 @@ struct ProjectDataView: View {
                 EmptyView()
             }
             NavigationLink(destination: ProductAdd3View(projectVM: projectVM, originalProductVM: productVM), isActive: $showAddColorCristalTapajuntas) {
+                EmptyView()
+            }
+            NavigationLink(destination: Composicion(projectVM: projectVM, sourceItems: projectVM.getProductsVM()), isActive: $showComposicion) {
                 EmptyView()
             }
 
@@ -59,16 +62,16 @@ struct ProjectDataView: View {
             
                 Section(header: Text("Productos")) {
                     List {
-                        ForEach(projectVM.getProducts(), id: \.self) { producto in
+                        ForEach(projectVM.getProductsVM(), id: \.self) { producto in
                             NavigationLink(
                                 destination: {
-                                    ProductCreateView(productVM: ProductViewModel(product: producto))
+                                    ProductCreateView(productVM: producto)
                                 }, label: {
-                                    ProductPreviewView(productVM: ProductViewModel(product: producto))
+                                    ProductPreviewView(productVM: producto)
                                 }
                             ).contextMenu {
                                 Button(action: {
-                                    productVM = ProductViewModel(product: producto)
+                                    productVM = producto
                                     showAddMedidas = true
                                 }, label: {
                                     Image(systemName: "plus.circle")
@@ -76,23 +79,15 @@ struct ProjectDataView: View {
                                 })
                                 
                                 Button(action: {
-                                    productVM = ProductViewModel(product: producto)
+                                    productVM = producto
                                     showAddColorCristalTapajuntas = true
                                 }, label: {
                                     Image(systemName: "plus.circle")
                                     Text("Añadir otro con el mismo color, cristal y tapajuntas")
                                 })
-                                
-//                                Button(action: {
-//                                    print("Crear composición")
-//                                }, label: {
-//                                    Image(systemName: "plus.circle")
-//                                    Text("Crear composición")
-//                                })
                             }
                         }
                         .onDelete(perform: deleteProduct)
-                        
                     }
                     .onAppear(perform: projectVM.getAllProjects)
                 }
@@ -108,10 +103,21 @@ struct ProjectDataView: View {
             }
             
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    showGenerarPdf = true
+                Menu(content: {
+                    Button(action: {
+                        showGenerarPdf = true
+                    }, label: {
+                        Text("Generar plantilla de medición")
+                        Image(systemName: "doc")
+                    })
+                    Button(action: {
+                        showComposicion = true
+                    }, label: {
+                        Text("Crear composición")
+                        Image(systemName: "squareshape.split.2x2")
+                    })
                 }, label: {
-                    Image(systemName: "doc")
+                    Image(systemName: "line.3.horizontal")
                 })
             }
         }

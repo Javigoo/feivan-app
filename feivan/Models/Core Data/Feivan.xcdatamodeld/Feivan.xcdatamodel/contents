@@ -16,6 +16,7 @@
         <attribute name="cerraduras" optional="YES" attributeType="String"/>
         <attribute name="color" optional="YES" attributeType="String"/>
         <attribute name="compacto" optional="YES" attributeType="String"/>
+        <attribute name="composicion" optional="YES" attributeType="String"/>
         <attribute name="cristal" optional="YES" attributeType="String"/>
         <attribute name="curvas" optional="YES" attributeType="String"/>
         <attribute name="dimensiones" optional="YES" attributeType="String"/>
@@ -57,7 +58,7 @@
     </entity>
     <elements>
         <element name="Cliente" positionX="-1071.723449707031" positionY="-8.44244384765625" width="128" height="178"/>
-        <element name="Producto" positionX="-604.4053955078125" positionY="-90.64987182617188" width="128" height="464"/>
+        <element name="Producto" positionX="-604.4053955078125" positionY="-90.64987182617188" width="128" height="479"/>
         <element name="Proyecto" positionX="-889.3516845703125" positionY="-55.27922058105469" width="128" height="208"/>
     </elements>
 </model>

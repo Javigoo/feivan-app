@@ -34,6 +34,7 @@ class ProductViewModel: ObservableObject {
     @Published var posicion: String = ""
     @Published var instalacion: String = ""
     @Published var persiana: String = ""
+    @Published var composicion: String = ""
     @Published var remates_albanileria: Bool = false
     @Published var medidas_no_buenas: Bool = false
     @Published var unidades: Int16 = 1
@@ -76,6 +77,7 @@ class ProductViewModel: ObservableObject {
         posicion = product.posicion ?? posicion
         instalacion = product.instalacion ?? instalacion
         persiana = product.persiana ?? persiana
+        composicion = product.composicion ?? composicion
         unidades = product.unidades
         remates_albanileria = product.remates_albanileria
         medidas_no_buenas = product.medidas_no_buenas
@@ -84,7 +86,7 @@ class ProductViewModel: ObservableObject {
         proyecto = product.proyecto ?? proyecto
     }
     
-    private func setProduct(product: Producto) {
+    func setProduct(product: Producto) {
         product.id_producto = id_producto
         product.foto = foto
         product.fotos_detalle = fotos_detalle
@@ -108,6 +110,7 @@ class ProductViewModel: ObservableObject {
         product.posicion = posicion
         product.instalacion = instalacion
         product.persiana = persiana
+        product.composicion = composicion
         product.unidades = unidades
         product.remates_albanileria = remates_albanileria
         product.medidas_no_buenas = medidas_no_buenas
@@ -140,6 +143,8 @@ class ProductViewModel: ObservableObject {
         posicion = productVM.posicion
         instalacion = productVM.instalacion
         persiana = productVM.persiana
+        remates_albanileria = productVM.remates_albanileria
+        medidas_no_buenas = productVM.medidas_no_buenas
     }
     
     func setProductVMAdd3(productVM: ProductViewModel) {
@@ -507,3 +512,16 @@ class ProductViewModel: ObservableObject {
     }
 }
 
+extension ProductViewModel: Identifiable, Hashable {
+    var identifier: String {
+        return id_producto.uuidString
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        return hasher.combine(identifier)
+    }
+    
+    public static func == (lhs: ProductViewModel, rhs: ProductViewModel) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
+}

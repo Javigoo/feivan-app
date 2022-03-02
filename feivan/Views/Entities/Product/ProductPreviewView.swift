@@ -45,6 +45,15 @@ struct ProductPreviewView: View {
                         .lineLimit(1)
                 }
             }
+            
+            Spacer()
+            
+            if !productVM.composicion.isEmpty {
+                Image(productVM.composicion.components(separatedBy: ",")[0])
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 80, height: 80)
+            }
         }
     }
 }

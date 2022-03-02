@@ -152,6 +152,15 @@ class ProjectViewModel: ObservableObject {
         return productos.sorted(by: { $0.timestamp! > $1.timestamp! })
     }
     
+    func getProductsVM() -> [ProductViewModel] {
+        var productsVM: [ProductViewModel] = []
+        for product in getProducts() {
+            let productVM: ProductViewModel = ProductViewModel(product: product)
+            productsVM.append(productVM)
+        }
+        return productsVM
+    }
+    
     func getClient() -> Cliente {
         print("PROYECTO - getClient()")
         let project = getProject()

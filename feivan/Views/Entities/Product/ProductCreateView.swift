@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ProductCreateView: View {
     @ObservedObject var productVM: ProductViewModel
-    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     
     var body: some View {
         VStack {
