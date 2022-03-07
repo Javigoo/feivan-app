@@ -26,7 +26,6 @@ struct NewProjectView: View {
                 projectVM.save()
                 isShowingNextView = true
             }
-            
         }
         .navigationTitle(Text("Nuevo proyecto"))
     }

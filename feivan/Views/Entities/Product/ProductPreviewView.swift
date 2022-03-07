@@ -49,10 +49,20 @@ struct ProductPreviewView: View {
             Spacer()
             
             if !productVM.composicion.isEmpty {
-                Image(productVM.composicion.components(separatedBy: ",")[0])
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 80, height: 80)
+                ZStack {
+                    
+                    Image(productVM.composicion.components(separatedBy: ",")[1])
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 80, height: 80)
+                    Image(systemName: "\(productVM.composicion.components(separatedBy: ",")[2]).circle")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 20, height: 20)
+                }
+                .onAppear(perform: {
+                    print(productVM.composicion.components(separatedBy: ","))
+                })
             }
         }
     }

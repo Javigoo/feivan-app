@@ -16,15 +16,15 @@ struct ProjectDataListView: View {
                 Text("No hay proyectos")
             } else {
                 List {
-                    ForEach(projectVM.proyectos, id: \.self) { proyecto in
+                    ForEach(projectVM.getProjectsVM(), id: \.self) { proyecto in
                         NavigationLink(
                             destination:
                                 ProjectDataView(
-                                    projectVM: ProjectViewModel(project: proyecto)
+                                    projectVM: proyecto
                                 ),
                             label: {
                                 ProjectDataPreviewView(
-                                    projectVM: ProjectViewModel(project: proyecto)
+                                    projectVM: proyecto
                                 )
                             }
                         )

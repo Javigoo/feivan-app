@@ -26,6 +26,30 @@ class ProjectViewModel: ObservableObject {
 
     @Published var proyectos: [Proyecto] = []
         
+    func isEmpty() -> Bool {
+        if !direccion.isEmpty { return false }
+        if !piso_puerta.isEmpty { return false }
+        if ascensor { return false }
+        if grua { return false }
+        if subir_fachada { return false }
+        if remates_albanileria { return false }
+        if medidas_no_buenas { return false }
+
+        if let cliente = cliente {
+            if !cliente.nombre!.isEmpty { return false }
+            if !cliente.telefono!.isEmpty { return false }
+            if !cliente.email!.isEmpty { return false }
+            if !cliente.tipo!.isEmpty { return false }
+            if !cliente.referencia!.isEmpty { return false }
+            if !cliente.comentario!.isEmpty { return false }  
+        }
+        
+        if let productos = productos {
+            if productos.count > 0 { return false }
+        }
+        
+        return true
+    }
     // Constructores
     
     /** Actualiza la lista con los Proyectos (Entidades en Core Data) **/
@@ -125,6 +149,22 @@ class ProjectViewModel: ObservableObject {
 //        }
     }
     
+    func getProjectsVM() -> [ProjectViewModel] {
+        var projectsVM: [ProjectViewModel] = []
+        for project in proyectos {
+            let projectVM: ProjectViewModel = ProjectViewModel(project: project)
+            if !projectVM.isEmpty() {
+                projectsVM.append(projectVM)
+            } else {
+                //eliminar proyecto si está vacio
+                context.viewContext.delete(project)
+                context.save()
+            }
+            
+        }
+        return projectsVM
+    }
+    
     func textCountProducts() -> String {
         print("PROYECTO - textCountProducts()")
         let project = getProject()
@@ -147,7 +187,6 @@ class ProjectViewModel: ObservableObject {
                 productos.append(producto as! Producto)
             }
         }
-        print("Count: ", productos.count)
         // Sort arrey from NSSet elements
         return productos.sorted(by: { $0.timestamp! > $1.timestamp! })
     }
@@ -269,4 +308,19 @@ class ProjectViewModel: ObservableObject {
     }
     
     
+}
+
+
+extension ProjectViewModel: Identifiable, Hashable {
+    var identifier: String {
+        return id_proyecto.uuidString
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        return hasher.combine(identifier)
+    }
+    
+    public static func == (lhs: ProjectViewModel, rhs: ProjectViewModel) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
 }

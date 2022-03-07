@@ -41,7 +41,9 @@ struct ProductMaterialFormView: View {
             Form {
                 Section(header: Text("Opciones")) {
                     Picker("Opciones", selection: $valor) {
-                        List(productVM.optionsFor(attribute: atributo), id: \.self) { item in Text(item) }
+                        List(productVM.optionsFor(attribute: atributo), id: \.self) { item in
+                            Text(item)
+                        }
                     }
                     .pickerStyle(.segmented)
                     .onTapGesture(count: 2) {

@@ -145,6 +145,7 @@ class ProductViewModel: ObservableObject {
         persiana = productVM.persiana
         remates_albanileria = productVM.remates_albanileria
         medidas_no_buenas = productVM.medidas_no_buenas
+        imagen_dibujada = productVM.imagen_dibujada
     }
     
     func setProductVMAdd3(productVM: ProductViewModel) {
@@ -154,6 +155,7 @@ class ProductViewModel: ObservableObject {
         color = productVM.color
         tapajuntas = productVM.tapajuntas
         cristal = productVM.cristal
+        imagen_dibujada = productVM.imagen_dibujada
     }
     
     func addProject(projectVM: ProjectViewModel) {

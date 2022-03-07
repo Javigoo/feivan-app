@@ -34,7 +34,7 @@
 		2553DA3127CEA9500055A103 /* ProjectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2553DA3027CEA9500055A103 /* ProjectListView.swift */; };
 		255F375827AC7D1B00931412 /* UbicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255F375727AC7D1B00931412 /* UbicationView.swift */; };
 		2569B45B27CF8C0900538629 /* Composicion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2569B45A27CF8C0900538629 /* Composicion.swift */; };
-		2569B45D27CFC5DE00538629 /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2569B45C27CFC5DE00538629 /* Debug.swift */; };
+		2569B45D27CFC5DE00538629 /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2569B45C27CFC5DE00538629 /* DebugView.swift */; };
 		25745B69275866460056474E /* CreatePDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25745B68275866460056474E /* CreatePDF.swift */; };
 		257CC826271FE561009C65D1 /* FeivanApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257CC825271FE561009C65D1 /* FeivanApp.swift */; };
 		257CC82F271FE564009C65D1 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257CC82E271FE564009C65D1 /* Persistence.swift */; };
@@ -107,7 +107,7 @@
 		2553DA3027CEA9500055A103 /* ProjectListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListView.swift; sourceTree = "<group>"; };
 		255F375727AC7D1B00931412 /* UbicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UbicationView.swift; sourceTree = "<group>"; };
 		2569B45A27CF8C0900538629 /* Composicion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Composicion.swift; sourceTree = "<group>"; };
-		2569B45C27CFC5DE00538629 /* Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
+		2569B45C27CFC5DE00538629 /* DebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugView.swift; sourceTree = "<group>"; };
 		25745B68275866460056474E /* CreatePDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePDF.swift; sourceTree = "<group>"; };
 		257CC822271FE561009C65D1 /* Feivan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Feivan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		257CC825271FE561009C65D1 /* FeivanApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeivanApp.swift; sourceTree = "<group>"; };
@@ -312,7 +312,7 @@
 			children = (
 				257CC825271FE561009C65D1 /* FeivanApp.swift */,
 				257CC84227218926009C65D1 /* HomeView.swift */,
-				2569B45C27CFC5DE00538629 /* Debug.swift */,
+				2569B45C27CFC5DE00538629 /* DebugView.swift */,
 				2553DA0E27CEA2A00055A103 /* Project Data */,
 				2585FDD3273ACD360093136A /* Entities */,
 				254420712746A92000CFDDA4 /* Nuevo proyecto */,
@@ -499,7 +499,7 @@
 				252577862732BC0700252690 /* Styles.swift in Sources */,
 				2553DA1D27CEA79B0055A103 /* ProductConfigurationTabView.swift in Sources */,
 				25745B69275866460056474E /* CreatePDF.swift in Sources */,
-				2569B45D27CFC5DE00538629 /* Debug.swift in Sources */,
+				2569B45D27CFC5DE00538629 /* DebugView.swift in Sources */,
 				2553DA2F27CEA93D0055A103 /* ProjectPreviewView.swift in Sources */,
 				2553DA1F27CEA7B90055A103 /* ProductPreviewView.swift in Sources */,
 				259AD0D5274E491B00B697DD /* TapajuntasFormView.swift in Sources */,

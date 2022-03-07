@@ -46,7 +46,7 @@ struct HomeView: View {
                     }
                 )
             
-                NavigationLink(destination: Debug(), isActive: $showDebug) { EmptyView() }
+                NavigationLink(destination: DebugView(), isActive: $showDebug) { EmptyView() }
 
                 Spacer()
 
