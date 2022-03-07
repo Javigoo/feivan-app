@@ -132,7 +132,7 @@ class ProjectViewModel: ObservableObject {
             print("PROYECTO - getAllProjects()")
             let request = Proyecto.fetchRequest()
             do {
-                self.proyectos = try self.context.viewContext.fetch(request).sorted(by: { $0.timestamp! > $1.timestamp! })
+                self.proyectos = try self.context.viewContext.fetch(request).sorted(by: { $0.timestamp ?? Date() > $1.timestamp ?? Date() })
             } catch {
                 print("ERROR in ProjectViewModel at getAllProjects()\n")
             }
@@ -188,7 +188,7 @@ class ProjectViewModel: ObservableObject {
             }
         }
         // Sort arrey from NSSet elements
-        return productos.sorted(by: { $0.timestamp! > $1.timestamp! })
+        return productos.sorted(by: { $0.timestamp ?? Date() > $1.timestamp ?? Date() })
     }
     
     func getProductsVM() -> [ProductViewModel] {

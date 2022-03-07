@@ -18,6 +18,9 @@ struct ProjectDataView: View {
     @State var showAddColorCristalTapajuntas: Bool = false
     @State var showComposicion: Bool = false
 
+    @State private var confirmDelete: Bool = false
+    @State private var offsets: IndexSet?
+    
     var body: some View {
 
         VStack {
@@ -86,6 +89,19 @@ struct ProjectDataView: View {
                                     Text("Añadir otro con el mismo color, cristal y tapajuntas")
                                 })
                             }
+                            .alert(isPresented: $confirmDelete, content: {
+                                withAnimation {
+                                    Alert(title: Text("Confirma la eliminación"),
+                                        message: Text("¿Estás seguro de que quieres eliminarlo?"),
+                                        primaryButton: .destructive(Text("Eliminar")) {
+                                            withAnimation {
+                                                productVM.delete(at: offsets!, for: projectVM.getProducts())
+                                            }
+                                            projectVM.getAllProjects()
+                                        }, secondaryButton: .cancel(Text("Cancelar"))
+                                    )
+                                }
+                            })
                         }
                         .onDelete(perform: deleteProduct)
                     }
@@ -127,9 +143,9 @@ struct ProjectDataView: View {
     
     private func deleteProduct(offsets: IndexSet) {
         withAnimation {
-            productVM.delete(at: offsets, for: projectVM.getProducts())
+            self.offsets = offsets
+            self.confirmDelete = true
         }
-        projectVM.getAllProjects()
     }
 
 }

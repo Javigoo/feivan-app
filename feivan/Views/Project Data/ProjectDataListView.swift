@@ -10,6 +10,9 @@ import SwiftUI
 struct ProjectDataListView: View {
     @StateObject var projectVM = ProjectViewModel()
 
+    @State private var confirmDelete: Bool = false
+    @State private var offsets: IndexSet?
+    
     var body: some View {
         VStack{
             if projectVM.proyectos.count == 0 {
@@ -27,7 +30,18 @@ struct ProjectDataListView: View {
                                     projectVM: proyecto
                                 )
                             }
-                        )
+                        ).alert(isPresented: $confirmDelete, content: {
+                            withAnimation {
+                                Alert(title: Text("Confirma la eliminación"),
+                                    message: Text("¿Estás seguro de que quieres eliminarlo?"),
+                                    primaryButton: .destructive(Text("Eliminar")) {
+                                        withAnimation {
+                                            projectVM.delete(at: offsets!, for: projectVM.proyectos)
+                                        }
+                                    }, secondaryButton: .cancel(Text("Cancelar"))
+                                )
+                            }
+                        })
                     }
                     .onDelete(perform: deleteProject)
                 }
@@ -39,7 +53,8 @@ struct ProjectDataListView: View {
     
     private func deleteProject(offsets: IndexSet) {
         withAnimation {
-            projectVM.delete(at: offsets, for: projectVM.proyectos)
+            self.offsets = offsets
+            self.confirmDelete = true
         }
     }
 }
