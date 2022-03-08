@@ -72,6 +72,7 @@ struct ProductFamiliaFormView: View {
                 action: {
                     productVM.familia = "Personalizados"
                     productVM.nombre = "marco"
+                    productVM.imagen_dibujada = Data()
                     productVM.save()
                     presentationMode.wrappedValue.dismiss()
                 },

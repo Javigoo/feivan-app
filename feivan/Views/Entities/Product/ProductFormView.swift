@@ -39,12 +39,16 @@ struct ProductFormView: View {
                     ProductInstalacionView(productVM: productVM)
                     ProductMallorquinaView(productVM: productVM)
                     ProductHuellaView(productVM: productVM)
-                    ProductFotoView(productVM: productVM)
                 }
             }
             
             Group {
                 Section(header: Text("Extras")) {
+                    
+                    ProductFotoView(productVM: productVM)
+                    
+                    FotosDetalleView(productVM: productVM)
+                    
                     Toggle("Remates albañilería", isOn: $productVM.remates_albanileria)
                         .onChange(of: productVM.remates_albanileria) { _ in
                             productVM.save()
@@ -72,6 +76,11 @@ struct ProductFormView: View {
         .navigationTitle(Text(productVM.getSingularFamilia(name: productVM.familia)))
         .toolbar {
             Button(action: {
+                if productVM.nombre.isEmpty {
+                    productVM.familia = "Personalizados"
+                    productVM.nombre = "marco"
+                    productVM.imagen_dibujada = Data()
+                }
                 showCanvas = true
             }, label: {
                 Image(systemName: "paintbrush.pointed")

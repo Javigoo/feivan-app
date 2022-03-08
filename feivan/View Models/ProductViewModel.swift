@@ -34,13 +34,13 @@ class ProductViewModel: ObservableObject {
     @Published var posicion: String = ""
     @Published var instalacion: String = ""
     @Published var persiana: String = ""
-    @Published var composicion: String = ""
     @Published var remates_albanileria: Bool = false
     @Published var medidas_no_buenas: Bool = false
     @Published var unidades: Int16 = 1
     @Published var observaciones: String = ""
     @Published var timestamp: Date = Date()
     
+    @Published var composicion: Composicion?
     @Published var proyecto: Proyecto?
     @Published var productos: [Producto] = []
         
@@ -77,12 +77,12 @@ class ProductViewModel: ObservableObject {
         posicion = product.posicion ?? posicion
         instalacion = product.instalacion ?? instalacion
         persiana = product.persiana ?? persiana
-        composicion = product.composicion ?? composicion
         unidades = product.unidades
         remates_albanileria = product.remates_albanileria
         medidas_no_buenas = product.medidas_no_buenas
         observaciones = product.observaciones ?? observaciones
         timestamp = product.timestamp ?? timestamp
+        composicion = product.composicion ?? composicion
         proyecto = product.proyecto ?? proyecto
     }
     
@@ -110,12 +110,12 @@ class ProductViewModel: ObservableObject {
         product.posicion = posicion
         product.instalacion = instalacion
         product.persiana = persiana
-        product.composicion = composicion
         product.unidades = unidades
         product.remates_albanileria = remates_albanileria
         product.medidas_no_buenas = medidas_no_buenas
         product.observaciones = observaciones
         product.timestamp = timestamp
+        product.composicion = composicion
         product.proyecto = proyecto
     }
 
@@ -159,7 +159,11 @@ class ProductViewModel: ObservableObject {
     }
     
     func addProject(projectVM: ProjectViewModel) {
-        proyecto = projectVM.getProject()
+        self.proyecto = projectVM.getProject()
+    }
+    
+    func addComposicion(composicion: Composicion) {
+        self.composicion = composicion
     }
     
     func save() {
@@ -177,7 +181,6 @@ class ProductViewModel: ObservableObject {
         
         context.save()
         getAllProducts()
-        
     }
     
     func get(attribute: String) -> String {

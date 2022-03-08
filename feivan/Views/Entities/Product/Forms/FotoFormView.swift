@@ -41,14 +41,6 @@ struct ProductFotoFormView: View {
     @State private var showCamera = false
     @State private var showPhotoLibrary = false
     @State private var showActionScheet = false
-    
-    @State private var inputImageFotoDetalle: UIImage?
-    @State private var showCameraFotoDetalle = false
-    @State private var showPhotoLibraryFotoDetalle = false
-    @State private var showActionScheetFotoDetalle = false
-
-
-    @State var fotos: [UIImage] = []
 
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
 
@@ -81,54 +73,28 @@ struct ProductFotoFormView: View {
                             .onTapGesture {
                                 showActionScheet.toggle()
                             }
+                        
                     }
                 }
-                
-                
-                Section(header: Text("Foto detalle")) {
-                    
-                    Button(action: {
-                        showActionScheetFotoDetalle.toggle()
-                    }, label: {
-                        HStack {
-                            Text("Añadir foto detalle")
-                            Image(systemName: "plus.circle")
-                        }
-                    })
-                    
-                    ForEach(imagesFromCoreData(object: productVM.fotos_detalle)!, id: \.self) { foto in
-                        Image(uiImage: foto)
-                            .resizable()
-                            .scaledToFit()
-                            .scaleEffect()
-                    }
-                    .onDelete(perform: deleteFoto)
-                }
-                
-            }
-            .sheet(isPresented: $showCameraFotoDetalle, onDismiss: saveFotoDetalle) {
-                ImagePicker(image: $inputImageFotoDetalle, sourceType: .camera)
-            }
-            .sheet(isPresented: $showPhotoLibraryFotoDetalle, onDismiss: saveFotoDetalle) {
-                ImagePicker(image: $inputImageFotoDetalle, sourceType: .photoLibrary)
             }
             .sheet(isPresented: $showCamera, onDismiss: save) {
                 ImagePicker(image: $inputImage, sourceType: .camera)
             }
             .sheet(isPresented: $showPhotoLibrary, onDismiss: save) {
                 ImagePicker(image: $inputImage, sourceType: .photoLibrary)
-            }.actionSheet(isPresented: $showActionScheet) { () -> ActionSheet in
+            }
+            .actionSheet(isPresented: $showActionScheet) { () -> ActionSheet in
                 ActionSheet(
                     title: Text("Añadir foto"),
                     buttons: [
                         ActionSheet.Button.default(
-                            Text("Abrir cámara"),
+                            Text("Cámara"),
                             action: {
                                 showCamera.toggle()
                             }
                         ),
                         ActionSheet.Button.default(
-                            Text("Seleccionar desde la galería"),
+                            Text("Galería"),
                             action: {
                                 showPhotoLibrary.toggle()
                             }
@@ -136,25 +102,14 @@ struct ProductFotoFormView: View {
                         ActionSheet.Button.cancel()
                     ]
                 )
-            }.actionSheet(isPresented: $showActionScheetFotoDetalle) { () -> ActionSheet in
-                ActionSheet(
-                    title: Text("Añadir foto detalle"),
-                    buttons: [
-                        ActionSheet.Button.default(
-                            Text("Abrir cámara"),
-                            action: {
-                                showCameraFotoDetalle.toggle()
-                            }
-                        ),
-                        ActionSheet.Button.default(
-                            Text("Seleccionar desde la galería"),
-                            action: {
-                                showPhotoLibraryFotoDetalle.toggle()
-                            }
-                        ),
-                        ActionSheet.Button.cancel()
-                    ]
-                )
+            }
+            .toolbar {
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                    productVM.foto = Data()
+                }, label: {
+                    Image(systemName: "trash")
+                })
             }
         }
         .navigationTitle("Fotos")
@@ -180,19 +135,6 @@ struct ProductFotoFormView: View {
         productVM.save()
     }
     
-    func saveFotoDetalle() {
-        if var fotos_detalle = imagesFromCoreData(object: productVM.fotos_detalle) {
-            if let foto_detalle = inputImageFotoDetalle {
-                fotos_detalle.append(foto_detalle)
-                if let data_fotos_detalle = coreDataObjectFromImages(images: fotos_detalle) {
-                    productVM.fotos_detalle = data_fotos_detalle
-                    productVM.save()
-                    print("saving foto detalle")
-                }
-            }
-        }
-    }
-    
     private func deleteFoto(offsets: IndexSet) {
         withAnimation {
             productVM.deleteFoto(at: offsets)
@@ -207,8 +149,6 @@ struct ProductNewFotoFormView: View {
     
     @State private var inputImage: UIImage?
     @State private var showCamera = false
-    @State private var showPhotoLibrary = false
-    @State private var showActionScheet = false
 
     var body: some View {
         HStack {
@@ -216,31 +156,9 @@ struct ProductNewFotoFormView: View {
             Spacer()
             Image(systemName: "photo")
         }.onTapGesture {
-            showActionScheet.toggle()
+            showCamera.toggle()
         }.sheet(isPresented: $showCamera, onDismiss: save) {
             ImagePicker(image: $inputImage, sourceType: .camera)
-        }
-        .sheet(isPresented: $showPhotoLibrary, onDismiss: save) {
-            ImagePicker(image: $inputImage, sourceType: .photoLibrary)
-        }.actionSheet(isPresented: $showActionScheet) { () -> ActionSheet in
-            ActionSheet(
-                title: Text("Añadir foto"),
-                buttons: [
-                    ActionSheet.Button.default(
-                        Text("Abrir cámara"),
-                        action: {
-                            showCamera.toggle()
-                        }
-                    ),
-                    ActionSheet.Button.default(
-                        Text("Seleccionar desde la galería"),
-                        action: {
-                            showPhotoLibrary.toggle()
-                        }
-                    ),
-                    ActionSheet.Button.cancel()
-                ]
-            )
         }
     }
     

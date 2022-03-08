@@ -128,7 +128,17 @@ class ProjectViewModel: ObservableObject {
     
     /** Obtiene todos los Proyectos de la DB **/
     func getAllProjects() {
-        DispatchQueue.global(qos: .background).async {
+//        DispatchQueue.global(qos: .background).async {
+//            print("PROYECTO - getAllProjects()")
+//            let request = Proyecto.fetchRequest()
+//            do {
+//                self.proyectos = try self.context.viewContext.fetch(request).sorted(by: { $0.timestamp ?? Date() > $1.timestamp ?? Date() })
+//            } catch {
+//                print("ERROR in ProjectViewModel at getAllProjects()\n")
+//            }
+//        }
+        
+        DispatchQueue.main.async {
             print("PROYECTO - getAllProjects()")
             let request = Proyecto.fetchRequest()
             do {
@@ -137,16 +147,6 @@ class ProjectViewModel: ObservableObject {
                 print("ERROR in ProjectViewModel at getAllProjects()\n")
             }
         }
-        
-//        DispatchQueue.main.async {
-//            print("PROYECTO - getAllProjects()")
-//            let request = Proyecto.fetchRequest()
-//            do {
-//                self.proyectos = try self.context.viewContext.fetch(request).sorted(by: { $0.timestamp! > $1.timestamp! })
-//            } catch {
-//                print("ERROR in ProjectViewModel at getAllProjects()\n")
-//            }
-//        }
     }
     
     func getProjectsVM() -> [ProjectViewModel] {

@@ -36,7 +36,7 @@ struct ProjectDataView: View {
             NavigationLink(destination: ProductAdd3View(projectVM: projectVM, originalProductVM: productVM), isActive: $showAddColorCristalTapajuntas) {
                 EmptyView()
             }
-            NavigationLink(destination: Composicion(projectVM: projectVM, sourceItems: projectVM.getProductsVM()), isActive: $showComposicion) {
+            NavigationLink(destination: ComposicionFormView(projectVM: projectVM, sourceItems: projectVM.getProductsVM()), isActive: $showComposicion) {
                 EmptyView()
             }
 

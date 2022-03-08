@@ -11,12 +11,18 @@
         <attribute name="tipo" optional="YES" attributeType="String"/>
         <relationship name="proyectos" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Proyecto" inverseName="cliente" inverseEntity="Proyecto"/>
     </entity>
+    <entity name="Composicion" representedClassName="Composicion" syncable="YES" codeGenerationType="class">
+        <attribute name="id_composicion" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="num_productos" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="tipo" optional="YES" attributeType="String"/>
+        <relationship name="productos" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Producto" inverseName="composicion" inverseEntity="Producto"/>
+    </entity>
     <entity name="Producto" representedClassName="Producto" syncable="YES" codeGenerationType="class">
         <attribute name="apertura" optional="YES" attributeType="String"/>
         <attribute name="cerraduras" optional="YES" attributeType="String"/>
         <attribute name="color" optional="YES" attributeType="String"/>
         <attribute name="compacto" optional="YES" attributeType="String"/>
-        <attribute name="composicion" optional="YES" attributeType="String"/>
         <attribute name="cristal" optional="YES" attributeType="String"/>
         <attribute name="curvas" optional="YES" attributeType="String"/>
         <attribute name="dimensiones" optional="YES" attributeType="String"/>
@@ -41,6 +47,7 @@
         <attribute name="tapajuntas" optional="YES" attributeType="String"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="unidades" optional="YES" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES"/>
+        <relationship name="composicion" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Composicion" inverseName="productos" inverseEntity="Composicion"/>
         <relationship name="proyecto" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Proyecto" inverseName="productos" inverseEntity="Proyecto"/>
     </entity>
     <entity name="Proyecto" representedClassName="Proyecto" syncable="YES" codeGenerationType="class">
@@ -57,8 +64,9 @@
         <relationship name="productos" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Producto" inverseName="proyecto" inverseEntity="Producto"/>
     </entity>
     <elements>
-        <element name="Cliente" positionX="-1071.723449707031" positionY="-8.44244384765625" width="128" height="178"/>
-        <element name="Producto" positionX="-604.4053955078125" positionY="-90.64987182617188" width="128" height="479"/>
-        <element name="Proyecto" positionX="-889.3516845703125" positionY="-55.27922058105469" width="128" height="208"/>
+        <element name="Cliente" positionX="-1108.723449707031" positionY="-55.44244384765625" width="128" height="178"/>
+        <element name="Producto" positionX="-604.4053955078125" positionY="-90.64987182617188" width="128" height="493"/>
+        <element name="Proyecto" positionX="-889.3516845703125" positionY="-55.27922058105469" width="128" height="194"/>
+        <element name="Composicion" positionX="-600" positionY="486" width="128" height="103"/>
     </elements>
 </model>
