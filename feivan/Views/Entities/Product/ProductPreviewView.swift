@@ -11,7 +11,6 @@ struct ProductPreviewView: View {
     @ObservedObject var productVM: ProductViewModel
     var body: some View {
         HStack {
-            
             if productVM.nombre.isEmpty {
                 Image(systemName: "photo")
                     .resizable()
@@ -47,22 +46,17 @@ struct ProductPreviewView: View {
             }
             
             Spacer()
-            
-//            if !productVM.composicion.isEmpty {
-//                ZStack {
-//                    
-//                    Image(productVM.composicion.components(separatedBy: ",")[1])
+//            
+//            if productVM.composicion != nil {
+//                VStack {
+//                    Image(systemName: "\(productVM.getNumComposition()).circle")
+//                        .resizable()
+//                        .frame(width: 15, height: 15)
+//                    Image(productVM.composicion!.tipo ?? "")
 //                        .resizable()
 //                        .scaledToFit()
-//                        .frame(width: 80, height: 80)
-//                    Image(systemName: "\(productVM.composicion.components(separatedBy: ",")[2]).circle")
-//                        .resizable()
-//                        .scaledToFit()
-//                        .frame(width: 20, height: 20)
+//                        .frame(width: 65, height: 65)
 //                }
-//                .onAppear(perform: {
-//                    print(productVM.composicion.components(separatedBy: ","))
-//                })
 //            }
         }
     }

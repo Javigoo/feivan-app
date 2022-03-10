@@ -44,6 +44,19 @@ class ProductViewModel: ObservableObject {
     @Published var proyecto: Proyecto?
     @Published var productos: [Producto] = []
         
+    
+    func getNumComposition() -> String {
+        let product: Producto = getProduct()
+        if let productos = composicion?.productos {
+            for (n, producto) in productos.enumerated() {
+                if product == (producto as! Producto) {
+                    return String(n+1)
+                }
+            }
+        }
+        return ""
+    }
+    
     // Constructores
 
     init() {
@@ -160,10 +173,6 @@ class ProductViewModel: ObservableObject {
     
     func addProject(projectVM: ProjectViewModel) {
         self.proyecto = projectVM.getProject()
-    }
-    
-    func addComposicion(composicion: Composicion) {
-        self.composicion = composicion
     }
     
     func save() {

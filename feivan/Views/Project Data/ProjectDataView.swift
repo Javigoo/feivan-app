@@ -36,7 +36,7 @@ struct ProjectDataView: View {
             NavigationLink(destination: ProductAdd3View(projectVM: projectVM, originalProductVM: productVM), isActive: $showAddColorCristalTapajuntas) {
                 EmptyView()
             }
-            NavigationLink(destination: ComposicionFormView(projectVM: projectVM, sourceItems: projectVM.getProductsVM()), isActive: $showComposicion) {
+            NavigationLink(destination: ComposicionesView(projectVM: projectVM), isActive: $showComposicion) {
                 EmptyView()
             }
 
@@ -123,13 +123,13 @@ struct ProjectDataView: View {
                     Button(action: {
                         showGenerarPdf = true
                     }, label: {
-                        Text("Generar plantilla de medición")
+                        Text("Plantilla de medición")
                         Image(systemName: "doc")
                     })
                     Button(action: {
                         showComposicion = true
                     }, label: {
-                        Text("Crear composición")
+                        Text("Composiciones")
                         Image(systemName: "squareshape.split.2x2")
                     })
                 }, label: {
