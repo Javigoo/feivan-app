@@ -28,55 +28,6 @@ class ProjectViewModel: ObservableObject {
         
     
     // TODO: Move to ComposicionVM
-
-    func getComposiciones() -> [Composicion] {
-        let request = Composicion.fetchRequest()
-        let project: Proyecto? = getProject()
-
-        var composiciones: [Composicion] = []
-        var ret_composiciones: [Composicion] = []
-        
-        do {
-            composiciones = try context.viewContext.fetch(request)
-        } catch {
-            print("ERROR in ProductViewModel at getComposiciones()\n")
-        }
-        
-        for composicion in composiciones {
-            if composicion.proyecto?.id_proyecto == project?.id_proyecto {
-                ret_composiciones.append(composicion)
-            }
-        }
-            
-        return ret_composiciones
-    }
-    
-    func addComposicion(tipo: String, productosVM: [ProductViewModel]) {
-        if !tipo.isEmpty && !productosVM.isEmpty {
-
-            let composicion = Composicion(context: context.viewContext)
-            composicion.id_composicion = UUID()
-            composicion.timestamp = Date()
-            composicion.proyecto = getProject()
-            composicion.tipo = tipo
-            
-            var productos: [Producto] = composicion.productos?.allObjects as? [Producto] ?? []
-            for producto in productosVM {
-                let productEntity: Producto = producto.getProduct()
-                productos.append(productEntity)
-            }
-            composicion.productos = NSSet(array: productos)            
-            
-            context.save()
-        }
-    }
-    
-    func delete(at offset: IndexSet, for composiciones: [Composicion]) {
-        if let first = composiciones.first, case context.viewContext = first.managedObjectContext {
-            offset.map { composiciones[$0] }.forEach(context.viewContext.delete)
-        }
-        context.save()
-    }
     
     func isEmpty() -> Bool {
         if !direccion.isEmpty { return false }

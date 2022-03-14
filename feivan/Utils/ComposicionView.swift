@@ -9,43 +9,19 @@ import SwiftUI
 
 struct ComposicionesView: View {
     @ObservedObject var projectVM: ProjectViewModel
+    @StateObject var composicionVM: ComposicionViewModel = ComposicionViewModel()
     
     var body: some View {
         VStack {
-            if !projectVM.getComposiciones().isEmpty {
+            if composicionVM.composiciones.count != 0 {
                 Form {
-                    Section(header: Text("Composiciones")) {
-                        ForEach(projectVM.getComposiciones()) { compo in
-                            let composicion: Composicion = compo
-                            let tipo: String = composicion.tipo ?? ""
-                            let productos: [Producto] = composicion.productos?.allObjects as? [Producto] ?? []
-                            
+                    Section(header: Text("Lista de composiciones")) {
+                        ForEach(composicionVM.composiciones) { composicion in
                             NavigationLink(
                                 destination: {
-                                    ComposicionFormView(projectVM: projectVM, sourceItems: projectVM.getProductsVM())
+                                    ComposicionFormView(projectVM: projectVM, composicionVM: ComposicionViewModel(composicion: composicion))
                                 }, label: {
-                                    VStack(alignment: .center) {
-                                        Image(tipo)
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(height: 100)
-
-                                        HStack {
-                                            Spacer()
-                                            ForEach(Array(zip(productos.indices, productos)), id: \.0) { index, producto in
-                                                VStack {
-                                                    Image(systemName: "\(index+1).circle")
-                                                        .resizable()
-                                                        .frame(width: 10, height: 10)
-                                                    Image(producto.nombre ?? "")
-                                                        .resizable()
-                                                        .scaledToFit()
-                                                        .frame(width: 80, height: 80)
-                                                }
-                                            }
-                                            Spacer()
-                                        }
-                                    }
+                                    ComposicionPreview(composicionVM: ComposicionViewModel(composicion: composicion))
                                 }
                             )
                         }
@@ -60,26 +36,19 @@ struct ComposicionesView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink(
                     destination: {
-                        ComposicionFormView(projectVM: projectVM, sourceItems: projectVM.getProductsVM())
+                        ComposicionFormView(projectVM: projectVM, composicionVM: composicionVM)
                     }, label: {
                         Text("Añadir composición")
                     }
                 )
-//                Button(action: {
-//                    showGenerarPdf = true
-//                }, label: {
-//                    Text("Plantilla de medición")
-//                    Image(systemName: "doc")
-//                })
             }
         }
         .navigationTitle(Text("Composiciones"))
-        
     }
     
     private func deleteComposicion(offsets: IndexSet) {
         withAnimation {
-            projectVM.delete(at: offsets, for: projectVM.getComposiciones())
+            composicionVM.delete(at: offsets, for: composicionVM.composiciones)
         }
     }
 }
@@ -88,11 +57,18 @@ struct ComposicionFormView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var projectVM: ProjectViewModel
-    @State var sourceItems: [ProductViewModel]
-    
-    @State var selectedItems: [ProductViewModel] = []
+    @ObservedObject var composicionVM: ComposicionViewModel
+
     @State var tipo_composicion: String = ""
-    var composiciones =  ["composicion-1", "composicion-2", "composicion-3", "composicion-4", "composicion-5", "composicion-6", "composicion-7", "composicion-8", "composicion-9", "composicion-10", "composicion-11", "composicion-12"]
+    @State var selectedItems: [ProductViewModel] = []
+    var composiciones =  ["composicion-1", "composicion-2", "composicion-3", "composicion-4", "composicion-5", "composicion-6",
+                          "composicion-7", "composicion-8", "composicion-9", "composicion-10", "composicion-11", "composicion-12"]
+    
+    init(projectVM: ProjectViewModel, composicionVM: ComposicionViewModel) {
+        self.projectVM = projectVM
+        self.composicionVM = composicionVM
+        self.selectedItems = composicionVM.getProducts()
+    }
     
     var body: some View {
         VStack {
@@ -126,19 +102,31 @@ struct ComposicionFormView: View {
                     
                 }
                 Section(header: Text("Productos en la composición")) {
-                    ComposicionSelectProducts(sourceItems: sourceItems, selectedItems: $selectedItems, maxProducts: getMaxNumProducts(tipo_composicion: tipo_composicion))
+                    ComposicionSelectProducts(
+                        sourceItems: projectVM.getProductsVM(),
+                        selectedItems: $selectedItems,
+                        maxProducts: getMaxNumProducts(tipo_composicion: tipo_composicion)
+                    )
                 }
             }
         }
         .navigationTitle(Text("Añadir composición"))
+        .onAppear {
+            if !composicionVM.tipo.isEmpty {
+                tipo_composicion = composicionVM.tipo
+            }
+            if !(composicionVM.productos?.count == 0) {
+                selectedItems = composicionVM.getProducts()
+            }
+        }
         .onDisappear(perform: {
-            projectVM.addComposicion(tipo: tipo_composicion, productosVM: selectedItems)
+            composicionVM.addComposicion(projectVM: projectVM, tipo: tipo_composicion, productosVM: selectedItems)
         })
     }
     
     private func deleteComposicion(offsets: IndexSet) {
         withAnimation {
-            projectVM.delete(at: offsets, for: projectVM.getComposiciones())
+            composicionVM.delete(at: offsets, for: composicionVM.getComposicionesOfProject(projectVM: projectVM))
 //            if let index = offsets.first {
 //            }
         }
@@ -171,7 +159,7 @@ struct ComposicionSelectProducts: View {
     var body: some View {
             List {
                 ForEach(sourceItems) { producto in
-                    if producto.composicion == nil { // No se ven los productos que pertenecen a una composicion
+                    //if producto.composicion == nil { // No se ven los productos que pertenecen a una composicion
                         if selectedItems.count < maxProducts || selectedItems.contains(producto) {
                             Button(action: {
                                 withAnimation {
@@ -195,7 +183,7 @@ struct ComposicionSelectProducts: View {
                                 }
                             }).foregroundColor(.primary)
                         }
-                    }
+                    //}
                 }
             }
         
@@ -207,5 +195,41 @@ struct ComposicionSelectProducts: View {
             return ""
         }
         return String(num + 1)+".circle"
+    }
+}
+
+struct ComposicionPreview: View {
+    @ObservedObject var composicionVM: ComposicionViewModel
+    
+    var productos: [Producto] = []
+    
+    init(composicionVM: ComposicionViewModel) {
+        self.composicionVM = composicionVM
+        self.productos = composicionVM.productos?.allObjects as? [Producto] ?? []
+    }
+    
+    var body: some View {
+        VStack(alignment: .center) {
+            Image(composicionVM.tipo)
+                .resizable()
+                .scaledToFit()
+                .frame(height: 100)
+
+            HStack {
+                Spacer()
+                ForEach(Array(zip(productos.indices, productos)), id: \.0) { index, producto in
+                    VStack {
+                        Image(systemName: "\(index+1).circle")
+                            .resizable()
+                            .frame(width: 10, height: 10)
+                        Image(producto.nombre ?? "")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 80, height: 80)
+                    }
+                }
+                Spacer()
+            }
+        }
     }
 }

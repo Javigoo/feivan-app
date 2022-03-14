@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2519E70827DF780900426F4B /* ComposicionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2519E70727DF780900426F4B /* ComposicionViewModel.swift */; };
 		252577862732BC0700252690 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252577852732BC0700252690 /* Styles.swift */; };
 		252A89BA275AA8BD00BCA7AF /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252A89B9275AA8BD00BCA7AF /* ImagePicker.swift */; };
 		252A89BC275AA91200BCA7AF /* FotoFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252A89BB275AA91200BCA7AF /* FotoFormView.swift */; };
@@ -79,6 +80,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2519E70727DF780900426F4B /* ComposicionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposicionViewModel.swift; sourceTree = "<group>"; };
 		252577852732BC0700252690 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
 		252A89B9275AA8BD00BCA7AF /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		252A89BB275AA91200BCA7AF /* FotoFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FotoFormView.swift; sourceTree = "<group>"; };
@@ -328,6 +330,7 @@
 				25E8F23C27218E120009CEB7 /* ProjectViewModel.swift */,
 				257CC83B271FE937009C65D1 /* ClientViewModel.swift */,
 				25E9089F2721AE9C008A490B /* ProductViewModel.swift */,
+				2519E70727DF780900426F4B /* ComposicionViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -535,6 +538,7 @@
 				257CC84327218926009C65D1 /* HomeView.swift in Sources */,
 				2553DA2D27CEA9200055A103 /* ProjectFormView.swift in Sources */,
 				25AE2B1C27B1586E009CF424 /* SwiftUtilities.swift in Sources */,
+				2519E70827DF780900426F4B /* ComposicionViewModel.swift in Sources */,
 				252A89BC275AA91200BCA7AF /* FotoFormView.swift in Sources */,
 				259AD0EB274E4CD900B697DD /* PosicionFormView.swift in Sources */,
 				25E908A02721AE9C008A490B /* ProductViewModel.swift in Sources */,

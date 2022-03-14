@@ -15,6 +15,7 @@ struct DebugView: View {
     @StateObject var projectVM = ProjectViewModel()
     @StateObject var clientVM = ClientViewModel()
     @StateObject var productVM = ProductViewModel()
+    @StateObject var composicionVM = ComposicionViewModel()
 
     @State private var isShowingBackView = false
     
@@ -33,6 +34,10 @@ struct DebugView: View {
                     Text("Número de productos: \(productVM.productos.count)")
                         .onAppear(perform: {
                             productVM.getAllProducts()
+                        })
+                    Text("Número de composiciones: \(composicionVM.composiciones.count)")
+                        .onAppear(perform: {
+                            composicionVM.getAllComposiciones()
                         })
                 }
                 

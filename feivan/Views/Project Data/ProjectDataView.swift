@@ -126,12 +126,12 @@ struct ProjectDataView: View {
                         Text("Plantilla de medición")
                         Image(systemName: "doc")
                     })
-                    Button(action: {
-                        showComposicion = true
-                    }, label: {
-                        Text("Composiciones")
-                        Image(systemName: "squareshape.split.2x2")
-                    })
+//                    Button(action: {
+//                        showComposicion = true
+//                    }, label: {
+//                        Text("Composiciones")
+//                        Image(systemName: "squareshape.split.2x2")
+//                    })
                 }, label: {
                     Image(systemName: "line.3.horizontal")
                 })
