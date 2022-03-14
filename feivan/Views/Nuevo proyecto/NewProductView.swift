@@ -18,7 +18,11 @@ struct NewProduct: View {
         NavigationLink(destination: NewProjectSummary(projectVM: projectVM), isActive: $isShowingNextView) { EmptyView() }
 
         VStack {
-            ProductFormView(productVM: productVM)
+            if productVM.nombre.isEmpty {
+                ProductFamiliaFormAutoView(productVM: productVM)
+            } else {
+                ProductFormView(productVM: productVM)
+            }
         }.toolbar {
             Button("Siguiente") {
                 productVM.save()

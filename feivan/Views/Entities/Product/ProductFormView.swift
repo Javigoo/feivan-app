@@ -11,12 +11,10 @@ struct ProductFormView: View {
     @ObservedObject var productVM: ProductViewModel
     @State var showView: Bool = false
     @State var showCanvas: Bool = false
-    @State var showFamilia: Bool = false
     
     var body: some View {
         NavigationLink(destination: DrawOnImageView(productVM: productVM, onSave: productVM.saveDrawing), isActive: $showCanvas) { EmptyView() }
-        //NavigationLink(destination: ProductFamiliaFormView(productVM: productVM, showView: $showView), isActive: $showFamilia) { EmptyView() }
-        
+
         ProductNombreView(showView: $showView, productVM: productVM)
         Form {
             Section(header: Text("Configuración")) {

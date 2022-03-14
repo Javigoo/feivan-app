@@ -86,3 +86,52 @@ struct ProductFamiliaFormView: View {
         }
     }
 }
+
+struct ProductFamiliaFormAutoView: View {
+    var atributo = "Familia"
+    @ObservedObject var productVM: ProductViewModel
+    @State private var isShowingNextView = false
+    @State var showView: Bool = false
+    
+    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
+
+    var body: some View {
+        ScrollView {
+            NavigationLink(destination: ProductNombreFormView(productVM: productVM, showView: $showView), isActive: $isShowingNextView) { EmptyView() }
+            
+            ForEach(productVM.optionsFor(attribute: "Familias"), id: \.self) { familia in
+                Button(
+                    action: {
+                        productVM.familia = familia
+                        productVM.save()
+                        isShowingNextView = true
+                    },
+                    label: {
+                        Text(familia)
+                            .textStyle(NavigationLinkStyle())
+                            .padding()
+                            .padding(.bottom, -25)
+                    }
+                )
+            }
+        }
+        .navigationTitle(Text("Familias"))
+        .toolbar {
+            Button(
+                action: {
+                    productVM.familia = "Personalizados"
+                    productVM.nombre = "marco"
+                    productVM.imagen_dibujada = Data()
+                    productVM.save()
+                    presentationMode.wrappedValue.dismiss()
+                },
+                label: {
+                    HStack {
+                        Text("Crear producto")
+                        //Image(systemName: "plus.circle")
+                    }
+                }
+            )
+        }
+    }
+}
