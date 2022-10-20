@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2516DE8828DB2D2200321138 /* Feivan.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2516DE8628DB2D2200321138 /* Feivan.xcdatamodeld */; };
 		2519E70827DF780900426F4B /* ComposicionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2519E70727DF780900426F4B /* ComposicionViewModel.swift */; };
 		252577862732BC0700252690 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252577852732BC0700252690 /* Styles.swift */; };
 		252A89BA275AA8BD00BCA7AF /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252A89B9275AA8BD00BCA7AF /* ImagePicker.swift */; };
@@ -41,7 +42,6 @@
 		257CC826271FE561009C65D1 /* FeivanApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257CC825271FE561009C65D1 /* FeivanApp.swift */; };
 		257CC82F271FE564009C65D1 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257CC82E271FE564009C65D1 /* Persistence.swift */; };
 		257CC83C271FE937009C65D1 /* ClientViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257CC83B271FE937009C65D1 /* ClientViewModel.swift */; };
-		257CC83F272188CA009C65D1 /* Feivan.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 257CC83D272188CA009C65D1 /* Feivan.xcdatamodeld */; };
 		257CC84327218926009C65D1 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257CC84227218926009C65D1 /* HomeView.swift */; };
 		259AD0C4274E45EC00B697DD /* NewClientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0C3274E45EC00B697DD /* NewClientView.swift */; };
 		259AD0C6274E460000B697DD /* NewProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AD0C5274E460000B697DD /* NewProductView.swift */; };
@@ -80,6 +80,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2516DE8728DB2D2200321138 /* Feivan.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Feivan.xcdatamodel; sourceTree = "<group>"; };
 		2519E70727DF780900426F4B /* ComposicionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposicionViewModel.swift; sourceTree = "<group>"; };
 		252577852732BC0700252690 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
 		252A89B9275AA8BD00BCA7AF /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -119,7 +120,6 @@
 		257CC82C271FE564009C65D1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		257CC82E271FE564009C65D1 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		257CC83B271FE937009C65D1 /* ClientViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientViewModel.swift; sourceTree = "<group>"; };
-		257CC83E272188CA009C65D1 /* Feivan.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Feivan.xcdatamodel; sourceTree = "<group>"; };
 		257CC84227218926009C65D1 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		259AD0C3274E45EC00B697DD /* NewClientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewClientView.swift; sourceTree = "<group>"; };
 		259AD0C5274E460000B697DD /* NewProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProductView.swift; sourceTree = "<group>"; };
@@ -191,8 +191,8 @@
 		2544206E2746A5F100CFDDA4 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
+				2516DE8628DB2D2200321138 /* Feivan.xcdatamodeld */,
 				257CC82E271FE564009C65D1 /* Persistence.swift */,
-				257CC83D272188CA009C65D1 /* Feivan.xcdatamodeld */,
 			);
 			path = "Core Data";
 			sourceTree = "<group>";
@@ -499,7 +499,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				257CC83F272188CA009C65D1 /* Feivan.xcdatamodeld in Sources */,
 				259AD0E3274E4A6900B697DD /* CristalFormView.swift in Sources */,
 				259AD0D1274E48B600B697DD /* CurvasFormView.swift in Sources */,
 				252577862732BC0700252690 /* Styles.swift in Sources */,
@@ -522,6 +521,7 @@
 				2561E91127D67356003B1B2A /* FotosDetalleView.swift in Sources */,
 				2553DA3127CEA9500055A103 /* ProjectListView.swift in Sources */,
 				25C6B6B2276B77B000253C7E /* HeaderPDF.swift in Sources */,
+				2516DE8828DB2D2200321138 /* Feivan.xcdatamodeld in Sources */,
 				2553DA2927CEA8C60055A103 /* ClientListView.swift in Sources */,
 				259AD0C8274E466A00B697DD /* NewSummaryView.swift in Sources */,
 				259AD0C4274E45EC00B697DD /* NewClientView.swift in Sources */,
@@ -624,7 +624,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -680,7 +680,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -793,13 +793,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		257CC83D272188CA009C65D1 /* Feivan.xcdatamodeld */ = {
+		2516DE8628DB2D2200321138 /* Feivan.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				257CC83E272188CA009C65D1 /* Feivan.xcdatamodel */,
+				2516DE8728DB2D2200321138 /* Feivan.xcdatamodel */,
 			);
-			currentVersion = 257CC83E272188CA009C65D1 /* Feivan.xcdatamodel */;
-			path = Feivan.xcdatamodeld;
+			currentVersion = 2516DE8728DB2D2200321138 /* Feivan.xcdatamodel */;
+			name = Feivan.xcdatamodeld;
+			path = "../../../../../../../../Downloads/feivan-app-main/feivan/Models/Core Data/Feivan.xcdatamodeld";
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

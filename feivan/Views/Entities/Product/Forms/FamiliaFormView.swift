@@ -79,7 +79,6 @@ struct ProductFamiliaFormView: View {
                 label: {
                     HStack {
                         Text("Crear producto")
-                        //Image(systemName: "plus.circle")
                     }
                 }
             )
